@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <base href="">
+        <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <!--script src="vendor/modernizr.js"></script-->
+    </head>
+    <body class="blog">
+        <nav class="off-canvas">
+            <ul class="main-nav">
+                <li>
+                    <a href="./">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-home" />
+                        </svg>Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/about/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-about" />
+                        </svg>About
+                    </a>
+                </li>
+                <li>
+                    <a href="/work/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-work" />
+                        </svg>Work
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-blog" />
+                        </svg>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-contact" />
+                        </svg>Contact
+                    </a>
+                </li>
+            </ul>
+            <footer class="connect">
+                <p class="social">Connect with me</p>
+                <ul class="social">
+                    <li>
+                        <a href="https://www.facebook.com/vkbansal.me" class="facebook">
+                          <svg class="icon">
+                                <use xlink:href="#navicon-facebook" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/_vkbansal" class="twitter">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-twitter" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/104240046366721765666" rel="publisher" class="google-plus">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-gplus" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/vkbansal" class="github">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-github" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.behance.net/vkbansal" class="behance">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-behance" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://in.linkedin.com/in/vkb0310" class="linkedin">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-linkedin" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </footer>
+        </nav>
+        <div id="canvas-container" class="canvas-container"></div>
+        <div class="fixed-toggle hide" id="fixed-toggle">
+                <button class="toggle-offcanvas" id="fixed-toggle-button">
+                    <span class="lines"></span>
+                </button>
+        </div>
+        <div class="site-canvas" id="site-canvas">
+            <header class="site-header">
+                <div class="container">
+                    <button class="toggle-offcanvas" id="toggle-offcanvas">
+                        <span class="lines"></span>
+                    </button>
+                    <span class="info"></span>
+                    <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
+                </div>
+            </header>
+            <div id="site-content" class="site-content">
+                
+<div class="container">
+    <div class="row">
+        <div class="blog-title">
+            <h1></h1>
+            <small class="post-meta">By <a href=""></a> </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="blog-sidebar-left">
+            <ul class="share">
+                <li>Share this:</li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=">Facebook</a></li>
+                <li><a href="https://twitter.com/intent/tweet?url=&text=&via=_vkbansal">Twitter</a></li>
+                <li><a href="https://plus.google.com/share?url=">Google+</a></li>
+            </ul>
+            <ul class="share">
+                <li>Follow me:</li>
+                <li><a href="http://feeds.feedburner.com/vkbansal">RSS</a></li>
+                <li><a href="https://github.com/vkbansal">Github</a></li>
+                <li><a href="https://www.facebook.com/vkbansal.me">Facebook</a></li>
+                <li><a href="https://twitter/_vkbansal">Twitter</a></li>
+            </ul>
+        </div>
+        <div class="blog-content">
+            <p>I've started working with reactjs and <a href="http://vkbansal.me/blog/using-react-with-backbone">using it with backbone</a>. I was really enjoying working with it, until, I hit a road block with <code>setState</code> method. The <a href="http://facebook.github.io/react/docs/component-api.html#setstate">documentation</a> (at the time of writing v0.12.2) stated the following:</p>
+<blockquote>
+<p>Merges nextState with the current state. This is the primary method you use to trigger UI updates from event handlers and server request callbacks. In addition, you can supply an optional callback function that is executed once <code>setState</code> is completed and the component is re-rendered.</p>
+</blockquote>
+<h2>The problem</h2>
+<p>The line <code>Merges nextState with the current state</code> lead me in thinking that it will merge the <code>nextState</code> completely or recursively. Lets see that as an example:</p>
+<pre><code class="language-jsx">var SomeComponent = React.createClass({
+    getInitialState: function(){
+        return {
+            user: {
+                name: &quot;John Doe&quot;,
+                email: &quot;johndoe@example.com&quot;
+            },
+            foo : &quot;bar&quot;
+        }
+    },
+    callJane: function(){
+        this.setState({user: {name: &quot;Jane Doe&quot;}});
+    },
+    render: function(){
+        return (
+            &lt;div&gt;
+                &lt;p&gt;{this.state.user.name}&lt;/p&gt;
+                &lt;p&gt;{this.state.user.email}&lt;/p&gt;
+                &lt;p&gt;foo is {this.state.foo}&lt;/p&gt;
+                &lt;button onClick={this.callJane}&gt;Call Jane&lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+React.render(&lt;SomeComponent /&gt;, document.getElementsByTagName('body')[0]);
+</code></pre>
+<p>When I click <code>Call Jane</code>, I expected just the name to be updated. But as you can see below, the email also vanished.</p>
+<p><img src="/images/2015/react-non-recursive-merge.gif" alt="Non-recursive Merge in ReactJS"></p>
+<p>Upon inspection, I found out that the <code>setState</code> merges states only upto single level. So the following <code>InitialState</code></p>
+<pre><code class="language-javascript">{
+    user: {
+        name: &quot;John Doe&quot;,
+        email: &quot;johndoe@example.com&quot;
+    },
+    foo : &quot;bar&quot;
+}
+</code></pre>
+<p>was expected to be</p>
+<pre><code class="language-javascript">{
+    user: {
+        name: &quot;Jane Doe&quot;,
+        email: &quot;johndoe@example.com&quot;
+    },
+    foo : &quot;bar&quot;
+}
+</code></pre>
+<p>But It turned out to be:</p>
+<pre><code class="language-javascript">{
+    user: {
+        name: &quot;Jane Doe&quot;
+    },
+    foo : &quot;bar&quot;
+}
+</code></pre>
+<h2>The solution</h2>
+<p>I looked into utility libraries like underscore, lodash, etc.. Lodash has a <code>merge</code> method and jQuery has <code>$.extend</code> method that merge objects recursively. So I put together a quick mixin for recursive set state.</p>
+<pre><code class="language-javascript">//Using jQuery.extend
+var setStateRecursiveMixin = {
+    setStateRecursive: function(nextState) {
+        var prevState = this.state;
+        this.setState($.extend(true, {}, prevState, nextState));
+    }
+};
+
+//Using Lodash.merge
+var setStateRecursiveMixin = {
+    setStateRecursive: function(nextState) {
+        var prevState = this.state;
+        this.setState(_.merge(prevState, nextState));
+    }
+};
+</code></pre>
+<p>It can be used as follows</p>
+<pre><code class="language-jsx">var SomeComponent = React.createClass({
+    mixins: [setStateRecursiveMixin],
+    getInitialState: function(){
+        return {
+            user: {
+                name: &quot;John Doe&quot;,
+                email: &quot;johndoe@example.com&quot;
+            },
+            foo : &quot;bar&quot;
+        }
+    },
+    callJane: function(){
+        this.setStateRecursive({user: {name: &quot;Jane Doe&quot;}});
+    },
+    render: function(){
+        return (
+            &lt;div&gt;
+                &lt;p&gt;{this.state.user.name}&lt;/p&gt;
+                &lt;p&gt;{this.state.user.email}&lt;/p&gt;
+                &lt;p&gt;foo is {this.state.foo}&lt;/p&gt;
+                &lt;button onClick={this.callJane}&gt;Call Jane&lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+});
+
+React.render(&lt;SomeComponent /&gt;, document.getElementsByTagName('body')[0]);
+</code></pre>
+<p>See the mixin in action below:</p>
+<p><img src="/images/2015/react-recursive-merge.gif" alt="Recursive Merge in ReactJS"></p>
+
+        </div>
+        <div class="blog-sidebar-right">
+            <ul class="recent-posts">
+                <li>Recent posts:</li>
+                
+            </ul>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>
+    
+    <!--script type="text/javascript">
+        var disqus_shortname = 'vkbansal',
+            disqus_identifier = '',
+            disqus_title = '';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script-->
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+            </div>
+            
+            <footer class="container center footer" id="hire-me">
+                <h2 class="heading">Want to work with me?</h2>
+                <p>If you like what you've seen and want to hire me, Just hit the link below.</p>
+                <p><a href="/project-planner/" class="button">Plan a Project </a></p>
+            </footer>
+            
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+        <script type="text/javascript" src="js/plugins.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        
+        
+        
+        
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-54521168-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        
+        
+    </body>
+</html>

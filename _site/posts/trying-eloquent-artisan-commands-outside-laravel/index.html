@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <base href="">
+        <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/styles.css">
+        
+        <!--script src="vendor/modernizr.js"></script-->
+    </head>
+    <body class="blog">
+        <nav class="off-canvas">
+            <ul class="main-nav">
+                <li>
+                    <a href="./">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-home" />
+                        </svg>Home
+                    </a>
+                </li>
+                <li>
+                    <a href="/about/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-about" />
+                        </svg>About
+                    </a>
+                </li>
+                <li>
+                    <a href="/work/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-work" />
+                        </svg>Work
+                    </a>
+                </li>
+                <li>
+                    <a href="/blog/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-blog" />
+                        </svg>Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact/">
+                        <svg class="icon">
+                            <use xlink:href="#navicon-contact" />
+                        </svg>Contact
+                    </a>
+                </li>
+            </ul>
+            <footer class="connect">
+                <p class="social">Connect with me</p>
+                <ul class="social">
+                    <li>
+                        <a href="https://www.facebook.com/vkbansal.me" class="facebook">
+                          <svg class="icon">
+                                <use xlink:href="#navicon-facebook" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://twitter.com/_vkbansal" class="twitter">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-twitter" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/104240046366721765666" rel="publisher" class="google-plus">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-gplus" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/vkbansal" class="github">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-github" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.behance.net/vkbansal" class="behance">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-behance" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://in.linkedin.com/in/vkb0310" class="linkedin">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-linkedin" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </footer>
+        </nav>
+        <div id="canvas-container" class="canvas-container"></div>
+        <div class="fixed-toggle hide" id="fixed-toggle">
+                <button class="toggle-offcanvas" id="fixed-toggle-button">
+                    <span class="lines"></span>
+                </button>
+        </div>
+        <div class="site-canvas" id="site-canvas">
+            <header class="site-header">
+                <div class="container">
+                    <button class="toggle-offcanvas" id="toggle-offcanvas">
+                        <span class="lines"></span>
+                    </button>
+                    <span class="info"></span>
+                    <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
+                </div>
+            </header>
+            <div id="site-content" class="site-content">
+                
+<div class="container">
+    <div class="row">
+        <div class="blog-title">
+            <h1></h1>
+            <small class="post-meta">By <a href=""></a> </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="blog-sidebar-left">
+            <ul class="share">
+                <li>Share this:</li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=">Facebook</a></li>
+                <li><a href="https://twitter.com/intent/tweet?url=&text=&via=_vkbansal">Twitter</a></li>
+                <li><a href="https://plus.google.com/share?url=">Google+</a></li>
+            </ul>
+            <ul class="share">
+                <li>Follow me:</li>
+                <li><a href="http://feeds.feedburner.com/vkbansal">RSS</a></li>
+                <li><a href="https://github.com/vkbansal">Github</a></li>
+                <li><a href="https://www.facebook.com/vkbansal.me">Facebook</a></li>
+                <li><a href="https://twitter/_vkbansal">Twitter</a></li>
+            </ul>
+        </div>
+        <div class="blog-content">
+            <p>In my last blog post, we had a look at <a href="/blog/using-eloquent-outside-laravel">using Eloquent outside laravel</a>. One of the great things about Eloquent is Migrations. It's like a version control for your database schema. Laravel comes with this useful command line tool called <code>artisan</code>, which makes it easy to make and run migrations. Since I was using Eloquent outside laravel, I had this (crazy) idea of trying to use the migration <code>artisan</code> commands along with it (i.e outside laravel).</p>
+<h2>Setup</h2>
+<p>Eloquent suggests installing <code>illuminate\console</code> and <code>illuminate\filesystem</code> to run the migration commands. So I update my <code>composer.json</code> accordingly and installed the requierd packages.</p>
+<p>I made a file called <code>artsy</code> and put the following content in it:</p>
+<pre><code class="language-php">&lt;?php
+require_once &quot;vendor/autoload.php&quot;;
+use Symfony\Component\Console\Application;
+
+$app = new Application(&quot;Artsy, little brother of Artisan&quot;, &quot;1.0&quot;);
+
+$app-&gt;run();
+</code></pre>
+<h2>Including commands</h2>
+<p>My first aim was to add  <code>migrate:install</code> and <code>make:migrate</code> commands which would insert required migration tables to the database and run migrations respectively. After going through the database component's code, I realized that the components have a crazy dependency on each other and required a lot of boostrapping (which is obviously handled by Laravel internally). To ease this task a bit, I decided to use <code>Pimple</code>.</p>
+<p>After a bit struggle, I finally figured out the dependencies and also that I'll need to mock <code>Illuminate\Foundation\Composer</code> for <code>make:migrate</code> command. So I also included <code>Mockery</code>. And after all this my <code>artsy</code> file looked like this:</p>
+<pre><code class="language-php">&lt;?php
+require_once &quot;vendor/autoload.php&quot;;
+
+use Symfony\Component\Console\Application;
+use Illuminate\Database\Console\Migrations;
+use Pimple\Container;
+
+$container = new Container();
+
+$container['migration-table'] = 'migration';
+
+$container['db-config'] = [
+    'driver'    =&gt; 'pgsql',
+    'host'      =&gt; 'localhost',
+    'database'  =&gt; 'dummy',
+    'username'  =&gt; 'postgres',
+    'password'  =&gt; 'postgres',
+    'charset'   =&gt; 'utf8',
+    'prefix'    =&gt; '',
+    'schema'   =&gt; 'public'
+];
+
+$container['filesytem'] = function ($c) {
+    return new \Illuminate\Filesystem\Filesystem;
+};
+
+$container['composer'] = function ($c) {
+    $composer = Mockery::mock('Illuminate\Foundation\Composer');
+    $composer-&gt;shouldReceive('dumpAutoloads');
+    return $composer;
+};
+
+$container['connection'] = function ($c) {
+    $manager = new \Illuminate\Database\Capsule\Manager();
+    $manager-&gt;addConnection($c['db-config']);
+    $manager-&gt;setAsGlobal();
+    $manager-&gt;bootEloquent();
+    return $manager-&gt;getConnection('default');
+};
+
+$container['resolver'] = function ($c) {
+    $r = new \Illuminate\Database\ConnectionResolver(['default' =&gt; $c['connection']]);
+    $r-&gt;setDefaultConnection('default');
+    return $r;
+};
+
+$container['migration-repo'] = function ($c) {
+    return new \Illuminate\Database\Migrations\DatabaseMigrationRepository($c['resolver'], $c['migration-table']);
+};
+
+$container['migration-creator'] = function ($c) {
+    return new \Illuminate\Database\Migrations\MigrationCreator($c['filesytem']);
+};
+
+$container['migrator'] = function ($c) {
+    return new Illuminate\Database\Migrations\Migrator($c['migration-repo'], $c['resolver'], $c['filesytem']);
+};
+
+$container['install-command'] = function ($c) {
+    $command = new Migrations\InstallCommand($c['migration-repo']);
+    return $command;
+};
+
+$container['migrate-make-command'] = function ($c) {
+    $command = new Migrations\MigrateMakeCommand($c['migration-creator'], $c['composer']);
+    return $command;
+};
+
+$app = new Application(&quot;Foo&quot;, &quot;1.0&quot;);
+$app-&gt;add($container['install-command']);
+$app-&gt;add($container['migrate-make-command']);
+
+</code></pre>
+<p>Now running on running <code>php artsy</code>, showed me:</p>
+<pre><code class="language-bash">Artsy, little brother of Artisan 1.0
+
+Usage:
+ [options] command [arguments]
+
+Options:
+ --help (-h)           Display this help message
+ --quiet (-q)          Do not output any message
+ --verbose (-v|vv|vvv) Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+ --version (-V)        Display this application version
+ --ansi                Force ANSI output
+ --no-ansi             Disable ANSI output
+ --no-interaction (-n) Do not ask any interactive question
+
+Available commands:
+ help              Displays help for a command
+ list              Lists commands
+make
+ make:migration    Create a new migration file
+migrate
+ migrate:install   Create the migration repository
+</code></pre>
+<p>Everything looked good till now. But upon running <code>php artsy migrate:install</code>, I got the following error.</p>
+<pre><code class="language-bash">PHP Fatal error:  Call to a member function call() on null in E:\demo\vendor\illuminate\console\Command.php on line 115
+PHP Stack trace:
+PHP 1. {main}() E:\demo\artsy:0
+PHP 2. Symfony\Component\Console\Application-&gt;run() E:\demo\artsy:48
+PHP 3. Symfony\Component\Console\Application-&gt;doRun() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:126
+PHP 4. Symfony\Component\Console\Application-&gt;doRunCommand() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:195
+PHP 5. Illuminate\Console\Command-&gt;run() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:874
+PHP 6. Symfony\Component\Console\Command\Command-&gt;run() E:\demo\vendor\illuminate\console\Command.php:101
+PHP 7. Illuminate\Console\Command-&gt;execute() E:\demo\vendor\symfony\console\Symfony\Component\Console\Command\Command.php:253
+</code></pre>
+<p>Upon inspecting <code>Command.php</code> in <code>illuminate\console</code> package, I found that the follwing line (L115) was the culprit.</p>
+<pre><code class="language-php">return $this-&gt;laravel-&gt;call([$this, $method]);
+</code></pre>
+<p>As you can see, a whole instance of <code>laravel</code> is required even for running a simple console command!!!!</p>
+<p>I tried mocking it too but the command did not do anything as expected and I could not think of a way to do it (with my limited knowledge of PHP) without implementing the whole <code>Illuminate\Contracts\Foundation\Application</code> interface with 20+ methods.</p>
+<h2>Conclusion</h2>
+<p>Laravel components are not as flexible or should I say loosely couple as that of Symfony's. I wish they had been, but I'm no Taylor Otwell.</p>
+<p>This was me just trying out some crazy idea and trying to learn stuff. If any one of you know a better solution, I would really like to discuss it. You can leave a comment below or tweet me <a href="https://twitter.com/_vkbansal">@_vkbansal</a></p>
+
+        </div>
+        <div class="blog-sidebar-right">
+            <ul class="recent-posts">
+                <li>Recent posts:</li>
+                
+            </ul>
+        </div>
+    </div>
+    <div id="disqus_thread"></div>
+    
+    <!--script type="text/javascript">
+        var disqus_shortname = 'vkbansal',
+            disqus_identifier = '',
+            disqus_title = '';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script-->
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+            </div>
+            
+            <footer class="container center footer" id="hire-me">
+                <h2 class="heading">Want to work with me?</h2>
+                <p>If you like what you've seen and want to hire me, Just hit the link below.</p>
+                <p><a href="/project-planner/" class="button">Plan a Project </a></p>
+            </footer>
+            
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
+        <script type="text/javascript" src="js/plugins.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        
+        
+        
+        
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-54521168-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        
+        
+    </body>
+</html>
