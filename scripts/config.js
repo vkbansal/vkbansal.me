@@ -1,7 +1,7 @@
 "use strict";
 
 let userConfig = require("../config"),
-    _ = require("lodash");
+    merge = require("lodash/object/merge");
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -9,9 +9,9 @@ let defaultConfig = {
     location: {
         source: "src",
         destination: "public",
-        layouts: "src/_layouts",
-        posts: "src/_posts"
-        pages: "src"
+        layouts: "_layouts",
+        posts: "_posts",
+        pages: "."
     },
     site: {
         title: "",
@@ -23,9 +23,15 @@ let defaultConfig = {
     posts: {
         permalink: "posts/:year/:month/:day/:title",
         limit: 10,
-        pagination_dir: "posts/page:num",
-        default_layout: "default.html",
+        index: "blog",
+        pagination_dir: "blog/:num",
+        layout: "default.html",
+        pretty: false,
         feed: false
+    },
+    pages: {
+        permalink: ":title",
+        default_layout: "default.html",
     },
     format: {
         date: "YYYY-MM-DD",
@@ -34,10 +40,11 @@ let defaultConfig = {
     server: {
         host: "localhost",
         port: "4000"
-    }
+    },
+    data: {}
 };
 
-let config = _.merge(defaultConfig, userConfig);
+let config = merge(defaultConfig, userConfig);
 
 if(!isProduction) {
     config.site.baseUrl = `${config.server.host}:${config.server.port}`

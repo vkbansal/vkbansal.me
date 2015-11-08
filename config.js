@@ -2,12 +2,12 @@
 // use relative paths
 // names starting with _ will be ignored (for pages/posts)
 let config = {
-    // location: {
-    //     source: "src",
-    //     destination: "public",
-    //     layouts: "src/_layouts",
-    //     posts: "src/_posts"
-    // },
+    location: {
+        // source: "src",
+        // destination: "public",
+        // layouts: "_layouts",
+        // posts: "_posts"
+    },
     site: {
         title: "V.K.Bansal",
         subtitle: "",
@@ -17,9 +17,11 @@ let config = {
     },
     posts: {
         permalink: "/posts/:title",
-        limit: 10,
+        pretty: true,
+        layout: "article.html",
         pagination_dir: "",
-        default_layout: "default.html"
+        limit: 10,
+        feed: false
     },
     format: {
         date: "YYYY-MM-DD",

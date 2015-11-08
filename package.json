@@ -2,7 +2,8 @@
   "private": true,
   "dependencies": {
     "lodash": "^3.10.1",
-    "normalize.css": "^3.0.3"
+    "normalize.css": "^3.0.3",
+    "through2": "^2.0.0"
   },
   "devDependencies": {
     "front-matter": "^2.0.0",

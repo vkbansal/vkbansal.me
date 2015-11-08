@@ -7,13 +7,9 @@
         <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/styles.css">
-        
-        <!--script src="vendor/modernizr.js"></script-->
     </head>
     <body class="blog">
         <nav class="off-canvas">
@@ -144,21 +140,93 @@
             </ul>
         </div>
         <div class="blog-content">
-            <p>Hello readers, as you can guess from the title, this is my first blog post and this one of my new year resoultions for 2015. I've put together a list of goals, that I've set for myself and hopefully publishing this to keep myself on track. So here we go...</p>
-<p>###Learn AngularJS
-I know! It's the &quot;cool kid on the block&quot; that everyone should know. But I didn't get a chance to do so. Sure, I've fiddled around with it, but not to an extent where I can call myself &quot;Angular developer&quot;. Even at work, we use <em>backbone.js</em>. So, this year, I've decided to give it a go and try to learn the ins and outs of it. I've also read about Angular 2.0, which will be a major shift from Angular 1.x.. But what the heck, I love learning new stuff and this shall not stop me.</p>
-<p>###Create a useful, popular open source project
-This may sound stereotypical, but I really want to build an open source project which can be useful not only for me but to others too. I feel, I'm already on this path with my php port of <a href="http://prismjs.com">prism.js</a>,  which I named <a href="https://github.com/vkbansal/prism.php">prism.php</a> (obviously). Once it's stable enough, I'll intergrate it in this very site and you can see it in action. If you are interested, you can grab a peek at it <a href="http://vkbansal.github.io/prism.php/">here</a>.</p>
-<p>###Learn NodeJS
-It's not that I haven't started learning NodeJS. I've created a couple of gulp plugins as a learning process but I'm still far away to call myself a &quot;Node Developer&quot;.</p>
-<blockquote class="twitter-tweet" lang="en"><p>Front-end devs: If you start putting Node.js on your CV because you installed Bower or Grunt, I swear to god, someone’s gonna get hurt.</p>&mdash; I Am Devloper (@iamdevloper) <a href="https://twitter.com/iamdevloper/status/514797811716861953">September 24, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p>###Keep writing
-I've been postponing writing a blog since long. But, now I shall try to write at least a couple of blogs per month.</p>
-<p>###Excercise
-This is a never ending struggle but I really want to do this. It would be the most difficult task for me and I must complete it.</p>
-<p>###And You?
-These were my goals. What are yours? Let me know in the comments below or at twitter <a href="https://twitter.com/_vkbansal">@_vkbansal</a></p>
+            &lt;p&gt;&lt;a href=&quot;http://backbonejs.org/&quot;&gt;Backbone&lt;/a&gt; is a very popular and minimal MVC framework for javascript by &lt;a href=&quot;https://github.com/jashkenas&quot;&gt;Jeremy Ashkenas&lt;/a&gt;. It gives a web application a nice structure and helps in seperation of concerns with &lt;em&gt;Models, Collections and Views&lt;/em&gt;. But Backbone Views are very minimal and requires a lot of code to setup. This is where &lt;a href=&quot;http://facebook.github.io/react/&quot;&gt;React&lt;/a&gt; steps in. It&#39;s a javascript library for building user interfaces by Facebook and people use React as the V in MVC as their website states. While researching for ways to use them together I came across many different solutions but none of them were satisfactory for me until I came across an answer by &lt;a href=&quot;https://twitter.com/dan_abramov&quot;&gt;Dan Abramov&lt;/a&gt; on &lt;a href=&quot;http://stackoverflow.com/questions/21709905/can-i-avoid-forceupdate-when-using-react-with-backbone/21709906#21709906&quot;&gt;stackoverflow&lt;/a&gt;. I found it very helpful and wanted to share this.&lt;/p&gt;
+&lt;p&gt;###The Mixin
+Dan made a simple mixin which uses  neither &lt;code&gt;setProps&lt;/code&gt; nor &lt;code&gt;forceUpdate&lt;/code&gt; which is what I was exactly looking for.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;var BackboneStateMixin = {
+    getInitialState: function () {
+        return this.getBackboneState(this.props);
+    },
+
+    componentDidMount: function () {
+        if (!_.isFunction(this.getBackboneState)) {
+            throw new Error(&#39;You must provide getBackboneState(props).&#39;);
+        }
+
+        this._bindBackboneEvents(this.props);
+    },
+
+    componentWillReceiveProps: function (newProps) {
+        this._unbindBackboneEvents();
+        this._bindBackboneEvents(newProps);
+    },
+
+    componentWillUnmount: function () {
+        this._unbindBackboneEvents();
+    },
+
+    _updateBackboneState: function () {
+        var state = this.getBackboneState(this.props);
+        this.setState(state);
+    },
+
+    _bindBackboneEvents: function (props) {
+        if (!_.isFunction(this.watchBackboneProps)) {
+            return;
+        }
+
+        if (this._backboneListener) {
+            throw new Error(&#39;Listener already exists.&#39;);
+        }
+
+        if (!props) {
+            throw new Error(&#39;Passed props are empty&#39;);
+        }
+
+        var listener = _.extend({}, Backbone.Events),
+            listenTo = _.partial(listener.listenTo.bind(listener), _, _, this._updateBackboneState);
+
+        this.watchBackboneProps(props, listenTo);
+        this._backboneListener = listener;
+    },
+
+    _unbindBackboneEvents: function () {
+        if (!_.isFunction(this.watchBackboneProps)) {
+            return;
+        }
+
+        if (!this._backboneListener) {
+            throw new Error(&#39;Listener does not exist.&#39;);
+        }
+
+        this._backboneListener.stopListening();
+        delete this._backboneListener;
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The idea behind this mixin is that &lt;em&gt;Backbone Models\Collections&lt;/em&gt; are set as &lt;code&gt;props&lt;/code&gt; and their &lt;code&gt;toJSON&lt;/code&gt;  value is automatically put by mixin into &lt;code&gt;state&lt;/code&gt;. One needs to override &lt;code&gt;getBackboneState(props)&lt;/code&gt; for this to work, and optionally &lt;code&gt;watchBackboneProps&lt;/code&gt; to tell the mixin when to call &lt;code&gt;setState&lt;/code&gt; with fresh values.&lt;/p&gt;
+&lt;p&gt;###Usage Example
+The above mixin can be used with any &lt;em&gt;React components&lt;/em&gt; as follows without having to worry about stale values in &lt;em&gt;Backbone Model\Collection&lt;/em&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;var MyComponent = React.createClass({
+    mixins: [BackboneStateMixin],
+    getBackboneState: function(props) {
+        return {
+            model: props.model.toJSON(),
+            collection: props.collection.toJSON()
+        }
+    },
+    watchBackboneProps: function(props, listenTo) {
+        listenTo(props.model, &#39;change:someValue&#39;);
+        listenTo(props.collection, &#39;change reset add remove&#39;);
+    },
+    render: function() {
+        //Use JSON values from this.state.model 
+        //or this.state.collection
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;###Conclusion
+I found this very helpful and hope you too can benefit from it.&lt;/p&gt;
 
         </div>
         <div class="blog-sidebar-right">
@@ -198,19 +266,6 @@ These were my goals. What are yours? Let me know in the comments below or at twi
         <script type="text/javascript" src="js/plugins.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         
-        
-        
-        
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-54521168-1', 'auto');
-            ga('send', 'pageview');
-        </script>
         
         
     </body>

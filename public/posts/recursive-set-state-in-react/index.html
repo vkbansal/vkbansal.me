@@ -7,13 +7,9 @@
         <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/styles.css">
-        
-        <!--script src="vendor/modernizr.js"></script-->
     </head>
     <body class="blog">
         <nav class="off-canvas">
@@ -144,70 +140,70 @@
             </ul>
         </div>
         <div class="blog-content">
-            <p>I've started working with reactjs and <a href="http://vkbansal.me/blog/using-react-with-backbone">using it with backbone</a>. I was really enjoying working with it, until, I hit a road block with <code>setState</code> method. The <a href="http://facebook.github.io/react/docs/component-api.html#setstate">documentation</a> (at the time of writing v0.12.2) stated the following:</p>
-<blockquote>
-<p>Merges nextState with the current state. This is the primary method you use to trigger UI updates from event handlers and server request callbacks. In addition, you can supply an optional callback function that is executed once <code>setState</code> is completed and the component is re-rendered.</p>
-</blockquote>
-<h2>The problem</h2>
-<p>The line <code>Merges nextState with the current state</code> lead me in thinking that it will merge the <code>nextState</code> completely or recursively. Lets see that as an example:</p>
-<pre><code class="language-jsx">var SomeComponent = React.createClass({
+            &lt;p&gt;I&#39;ve started working with reactjs and &lt;a href=&quot;http://vkbansal.me/blog/using-react-with-backbone&quot;&gt;using it with backbone&lt;/a&gt;. I was really enjoying working with it, until, I hit a road block with &lt;code&gt;setState&lt;/code&gt; method. The &lt;a href=&quot;http://facebook.github.io/react/docs/component-api.html#setstate&quot;&gt;documentation&lt;/a&gt; (at the time of writing v0.12.2) stated the following:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Merges nextState with the current state. This is the primary method you use to trigger UI updates from event handlers and server request callbacks. In addition, you can supply an optional callback function that is executed once &lt;code&gt;setState&lt;/code&gt; is completed and the component is re-rendered.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;The problem&lt;/h2&gt;
+&lt;p&gt;The line &lt;code&gt;Merges nextState with the current state&lt;/code&gt; lead me in thinking that it will merge the &lt;code&gt;nextState&lt;/code&gt; completely or recursively. Lets see that as an example:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-jsx&quot;&gt;var SomeComponent = React.createClass({
     getInitialState: function(){
         return {
             user: {
-                name: &quot;John Doe&quot;,
-                email: &quot;johndoe@example.com&quot;
+                name: &amp;quot;John Doe&amp;quot;,
+                email: &amp;quot;johndoe@example.com&amp;quot;
             },
-            foo : &quot;bar&quot;
+            foo : &amp;quot;bar&amp;quot;
         }
     },
     callJane: function(){
-        this.setState({user: {name: &quot;Jane Doe&quot;}});
+        this.setState({user: {name: &amp;quot;Jane Doe&amp;quot;}});
     },
     render: function(){
         return (
-            &lt;div&gt;
-                &lt;p&gt;{this.state.user.name}&lt;/p&gt;
-                &lt;p&gt;{this.state.user.email}&lt;/p&gt;
-                &lt;p&gt;foo is {this.state.foo}&lt;/p&gt;
-                &lt;button onClick={this.callJane}&gt;Call Jane&lt;/button&gt;
-            &lt;/div&gt;
+            &amp;lt;div&amp;gt;
+                &amp;lt;p&amp;gt;{this.state.user.name}&amp;lt;/p&amp;gt;
+                &amp;lt;p&amp;gt;{this.state.user.email}&amp;lt;/p&amp;gt;
+                &amp;lt;p&amp;gt;foo is {this.state.foo}&amp;lt;/p&amp;gt;
+                &amp;lt;button onClick={this.callJane}&amp;gt;Call Jane&amp;lt;/button&amp;gt;
+            &amp;lt;/div&amp;gt;
         );
     }
 });
 
-React.render(&lt;SomeComponent /&gt;, document.getElementsByTagName('body')[0]);
-</code></pre>
-<p>When I click <code>Call Jane</code>, I expected just the name to be updated. But as you can see below, the email also vanished.</p>
-<p><img src="/images/2015/react-non-recursive-merge.gif" alt="Non-recursive Merge in ReactJS"></p>
-<p>Upon inspection, I found out that the <code>setState</code> merges states only upto single level. So the following <code>InitialState</code></p>
-<pre><code class="language-javascript">{
+React.render(&amp;lt;SomeComponent /&amp;gt;, document.getElementsByTagName(&#39;body&#39;)[0]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When I click &lt;code&gt;Call Jane&lt;/code&gt;, I expected just the name to be updated. But as you can see below, the email also vanished.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2015/react-non-recursive-merge.gif&quot; alt=&quot;Non-recursive Merge in ReactJS&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Upon inspection, I found out that the &lt;code&gt;setState&lt;/code&gt; merges states only upto single level. So the following &lt;code&gt;InitialState&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
     user: {
-        name: &quot;John Doe&quot;,
-        email: &quot;johndoe@example.com&quot;
+        name: &amp;quot;John Doe&amp;quot;,
+        email: &amp;quot;johndoe@example.com&amp;quot;
     },
-    foo : &quot;bar&quot;
+    foo : &amp;quot;bar&amp;quot;
 }
-</code></pre>
-<p>was expected to be</p>
-<pre><code class="language-javascript">{
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;was expected to be&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
     user: {
-        name: &quot;Jane Doe&quot;,
-        email: &quot;johndoe@example.com&quot;
+        name: &amp;quot;Jane Doe&amp;quot;,
+        email: &amp;quot;johndoe@example.com&amp;quot;
     },
-    foo : &quot;bar&quot;
+    foo : &amp;quot;bar&amp;quot;
 }
-</code></pre>
-<p>But It turned out to be:</p>
-<pre><code class="language-javascript">{
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But It turned out to be:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;{
     user: {
-        name: &quot;Jane Doe&quot;
+        name: &amp;quot;Jane Doe&amp;quot;
     },
-    foo : &quot;bar&quot;
+    foo : &amp;quot;bar&amp;quot;
 }
-</code></pre>
-<h2>The solution</h2>
-<p>I looked into utility libraries like underscore, lodash, etc.. Lodash has a <code>merge</code> method and jQuery has <code>$.extend</code> method that merge objects recursively. So I put together a quick mixin for recursive set state.</p>
-<pre><code class="language-javascript">//Using jQuery.extend
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;The solution&lt;/h2&gt;
+&lt;p&gt;I looked into utility libraries like underscore, lodash, etc.. Lodash has a &lt;code&gt;merge&lt;/code&gt; method and jQuery has &lt;code&gt;$.extend&lt;/code&gt; method that merge objects recursively. So I put together a quick mixin for recursive set state.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;//Using jQuery.extend
 var setStateRecursiveMixin = {
     setStateRecursive: function(nextState) {
         var prevState = this.state;
@@ -222,38 +218,38 @@ var setStateRecursiveMixin = {
         this.setState(_.merge(prevState, nextState));
     }
 };
-</code></pre>
-<p>It can be used as follows</p>
-<pre><code class="language-jsx">var SomeComponent = React.createClass({
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It can be used as follows&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-jsx&quot;&gt;var SomeComponent = React.createClass({
     mixins: [setStateRecursiveMixin],
     getInitialState: function(){
         return {
             user: {
-                name: &quot;John Doe&quot;,
-                email: &quot;johndoe@example.com&quot;
+                name: &amp;quot;John Doe&amp;quot;,
+                email: &amp;quot;johndoe@example.com&amp;quot;
             },
-            foo : &quot;bar&quot;
+            foo : &amp;quot;bar&amp;quot;
         }
     },
     callJane: function(){
-        this.setStateRecursive({user: {name: &quot;Jane Doe&quot;}});
+        this.setStateRecursive({user: {name: &amp;quot;Jane Doe&amp;quot;}});
     },
     render: function(){
         return (
-            &lt;div&gt;
-                &lt;p&gt;{this.state.user.name}&lt;/p&gt;
-                &lt;p&gt;{this.state.user.email}&lt;/p&gt;
-                &lt;p&gt;foo is {this.state.foo}&lt;/p&gt;
-                &lt;button onClick={this.callJane}&gt;Call Jane&lt;/button&gt;
-            &lt;/div&gt;
+            &amp;lt;div&amp;gt;
+                &amp;lt;p&amp;gt;{this.state.user.name}&amp;lt;/p&amp;gt;
+                &amp;lt;p&amp;gt;{this.state.user.email}&amp;lt;/p&amp;gt;
+                &amp;lt;p&amp;gt;foo is {this.state.foo}&amp;lt;/p&amp;gt;
+                &amp;lt;button onClick={this.callJane}&amp;gt;Call Jane&amp;lt;/button&amp;gt;
+            &amp;lt;/div&amp;gt;
         );
     }
 });
 
-React.render(&lt;SomeComponent /&gt;, document.getElementsByTagName('body')[0]);
-</code></pre>
-<p>See the mixin in action below:</p>
-<p><img src="/images/2015/react-recursive-merge.gif" alt="Recursive Merge in ReactJS"></p>
+React.render(&amp;lt;SomeComponent /&amp;gt;, document.getElementsByTagName(&#39;body&#39;)[0]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;See the mixin in action below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2015/react-recursive-merge.gif&quot; alt=&quot;Recursive Merge in ReactJS&quot;&gt;&lt;/p&gt;
 
         </div>
         <div class="blog-sidebar-right">
@@ -293,19 +289,6 @@ React.render(&lt;SomeComponent /&gt;, document.getElementsByTagName('body')[0]);
         <script type="text/javascript" src="js/plugins.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         
-        
-        
-        
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-54521168-1', 'auto');
-            ga('send', 'pageview');
-        </script>
         
         
     </body>

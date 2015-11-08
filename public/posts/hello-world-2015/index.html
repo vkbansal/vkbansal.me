@@ -7,13 +7,9 @@
         <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/styles.css">
-        
-        <!--script src="vendor/modernizr.js"></script-->
     </head>
     <body class="blog">
         <nav class="off-canvas">
@@ -144,71 +140,21 @@
             </ul>
         </div>
         <div class="blog-content">
-            <p>I was looking for an ORM to use in a project and that lead to a lot of research. I finalized my list to <code>Doctrine</code>, <code>Propel</code> and <code>Eloquent</code>. I did not like <code>Doctrine</code>'s way of using annotations. I tried <code>Propel</code> (specifically the upcoming version 2) and really liked it but it wasn't stable enough to be used in production. Then I looked into <code>Eloquent</code> of the
-<a href="http://laravel.com">Laravel</a> fame and it instantly blew my mind.</p>
-<p>Initially Eloquent was tightly coupled into the framework but as the public demand grew, a package called <code>Capsule</code> was created by the (in)famous <a href="https://twitter.com/philsturgeon">Phil Sturgeon</a>. Later it was merged into the offical repository. Today we will be learning how to use it outside Laravel.</p>
-<h2>Installation</h2>
-<p>We will be using composer to install it.</p>
-<pre><code class="language-bash">composer require illuminate\database
-</code></pre>
-<p>Now creating a connection is as simple as shown below. Eloquent supports a wide variety of databases. You cav have a look at them in the <a href="http://laravel.com/docs/database">official docs</a>.</p>
-<pre><code class="language-php">//index.php
-&lt;?php
-require &quot;vendor/autoload.php&quot;;
-
-use Illuminate\Database\Capsule\Manager as Capsule;
-
-/**
- * Configure the database and boot Eloquent
- */
-$capsule = new Capsule;
-$capsule-&gt;addConnection([
-    'driver'    =&gt; 'mysql',
-    'host'      =&gt; 'host',
-    'database'  =&gt; 'database',
-    'username'  =&gt; 'username',
-    'password'  =&gt; 'password',
-    'charset'   =&gt; 'utf8',
-    'collation' =&gt; 'utf8_general_ci',
-    'prefix'    =&gt; 'prefix_'
-]);
-$capsule-&gt;setAsGlobal();
-$capsule-&gt;bootEloquent();
-// set timezone for timestamps etc
-date_default_timezone_set('UTC');
-</code></pre>
-<p>And we are good to go!</p>
-<h2>Building Schema</h2>
-<p>A schema can be built or dropped using code similar to shown below.</p>
-<pre><code class="language-php">&lt;?php
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Database\Schema\Blueprint;
-
-//Creating schema
-Capsule::schema()-&gt;create('users', function (Blueprint $table) {
-    $table-&gt;increments('id');
-    $table-&gt;string('username');
-    $table-&gt;string('first_name')-&gt;nullable();
-    $table-&gt;string('last_name')-&gt;nullable();
-    $table-&gt;string('email');
-    $table-&gt;string('password');
-    $table-&gt;timestamps();
-});
-
-//Droping Schema
-Capsule::schema()-&gt;dropIfExists('users');
-</code></pre>
-<h2>Making a model</h2>
-<p>Making a model is as simple as extending <code>Illuminate\Database\Eloquent\Model</code></p>
-<pre><code class="language-php">&lt;?php
-//User Model
-use Illuminate\Database\Eloquent\Model as Eloquent
-class User extends Eloquent {
-    //
-}
-</code></pre>
-<h2>Wrap Up</h2>
-<p>This was a quick look at using <code>Eloquent</code> ORM outside Laravel. Hope you find it useful too.</p>
+            &lt;p&gt;Hello readers, as you can guess from the title, this is my first blog post and this one of my new year resoultions for 2015. I&#39;ve put together a list of goals, that I&#39;ve set for myself and hopefully publishing this to keep myself on track. So here we go...&lt;/p&gt;
+&lt;p&gt;###Learn AngularJS
+I know! It&#39;s the &amp;quot;cool kid on the block&amp;quot; that everyone should know. But I didn&#39;t get a chance to do so. Sure, I&#39;ve fiddled around with it, but not to an extent where I can call myself &amp;quot;Angular developer&amp;quot;. Even at work, we use &lt;em&gt;backbone.js&lt;/em&gt;. So, this year, I&#39;ve decided to give it a go and try to learn the ins and outs of it. I&#39;ve also read about Angular 2.0, which will be a major shift from Angular 1.x.. But what the heck, I love learning new stuff and this shall not stop me.&lt;/p&gt;
+&lt;p&gt;###Create a useful, popular open source project
+This may sound stereotypical, but I really want to build an open source project which can be useful not only for me but to others too. I feel, I&#39;m already on this path with my php port of &lt;a href=&quot;http://prismjs.com&quot;&gt;prism.js&lt;/a&gt;,  which I named &lt;a href=&quot;https://github.com/vkbansal/prism.php&quot;&gt;prism.php&lt;/a&gt; (obviously). Once it&#39;s stable enough, I&#39;ll intergrate it in this very site and you can see it in action. If you are interested, you can grab a peek at it &lt;a href=&quot;http://vkbansal.github.io/prism.php/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;###Learn NodeJS
+It&#39;s not that I haven&#39;t started learning NodeJS. I&#39;ve created a couple of gulp plugins as a learning process but I&#39;m still far away to call myself a &amp;quot;Node Developer&amp;quot;.&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; lang=&quot;en&quot;&gt;&lt;p&gt;Front-end devs: If you start putting Node.js on your CV because you installed Bower or Grunt, I swear to god, someone’s gonna get hurt.&lt;/p&gt;&amp;mdash; I Am Devloper (@iamdevloper) &lt;a href=&quot;https://twitter.com/iamdevloper/status/514797811716861953&quot;&gt;September 24, 2014&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;p&gt;###Keep writing
+I&#39;ve been postponing writing a blog since long. But, now I shall try to write at least a couple of blogs per month.&lt;/p&gt;
+&lt;p&gt;###Excercise
+This is a never ending struggle but I really want to do this. It would be the most difficult task for me and I must complete it.&lt;/p&gt;
+&lt;p&gt;###And You?
+These were my goals. What are yours? Let me know in the comments below or at twitter &lt;a href=&quot;https://twitter.com/_vkbansal&quot;&gt;@_vkbansal&lt;/a&gt;&lt;/p&gt;
 
         </div>
         <div class="blog-sidebar-right">
@@ -248,19 +194,6 @@ class User extends Eloquent {
         <script type="text/javascript" src="js/plugins.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         
-        
-        
-        
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-54521168-1', 'auto');
-            ga('send', 'pageview');
-        </script>
         
         
     </body>

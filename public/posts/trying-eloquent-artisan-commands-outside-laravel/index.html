@@ -7,13 +7,9 @@
         <title> | Blog | Vivek Kumar Bansal, frontend developer and designer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/fonts.css">
         <link rel="stylesheet" href="css/styles.css">
-        
-        <!--script src="vendor/modernizr.js"></script-->
     </head>
     <body class="blog">
         <nav class="off-canvas">
@@ -144,23 +140,23 @@
             </ul>
         </div>
         <div class="blog-content">
-            <p>In my last blog post, we had a look at <a href="/blog/using-eloquent-outside-laravel">using Eloquent outside laravel</a>. One of the great things about Eloquent is Migrations. It's like a version control for your database schema. Laravel comes with this useful command line tool called <code>artisan</code>, which makes it easy to make and run migrations. Since I was using Eloquent outside laravel, I had this (crazy) idea of trying to use the migration <code>artisan</code> commands along with it (i.e outside laravel).</p>
-<h2>Setup</h2>
-<p>Eloquent suggests installing <code>illuminate\console</code> and <code>illuminate\filesystem</code> to run the migration commands. So I update my <code>composer.json</code> accordingly and installed the requierd packages.</p>
-<p>I made a file called <code>artsy</code> and put the following content in it:</p>
-<pre><code class="language-php">&lt;?php
-require_once &quot;vendor/autoload.php&quot;;
+            &lt;p&gt;In my last blog post, we had a look at &lt;a href=&quot;/blog/using-eloquent-outside-laravel&quot;&gt;using Eloquent outside laravel&lt;/a&gt;. One of the great things about Eloquent is Migrations. It&#39;s like a version control for your database schema. Laravel comes with this useful command line tool called &lt;code&gt;artisan&lt;/code&gt;, which makes it easy to make and run migrations. Since I was using Eloquent outside laravel, I had this (crazy) idea of trying to use the migration &lt;code&gt;artisan&lt;/code&gt; commands along with it (i.e outside laravel).&lt;/p&gt;
+&lt;h2&gt;Setup&lt;/h2&gt;
+&lt;p&gt;Eloquent suggests installing &lt;code&gt;illuminate\console&lt;/code&gt; and &lt;code&gt;illuminate\filesystem&lt;/code&gt; to run the migration commands. So I update my &lt;code&gt;composer.json&lt;/code&gt; accordingly and installed the requierd packages.&lt;/p&gt;
+&lt;p&gt;I made a file called &lt;code&gt;artsy&lt;/code&gt; and put the following content in it:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;&amp;lt;?php
+require_once &amp;quot;vendor/autoload.php&amp;quot;;
 use Symfony\Component\Console\Application;
 
-$app = new Application(&quot;Artsy, little brother of Artisan&quot;, &quot;1.0&quot;);
+$app = new Application(&amp;quot;Artsy, little brother of Artisan&amp;quot;, &amp;quot;1.0&amp;quot;);
 
-$app-&gt;run();
-</code></pre>
-<h2>Including commands</h2>
-<p>My first aim was to add  <code>migrate:install</code> and <code>make:migrate</code> commands which would insert required migration tables to the database and run migrations respectively. After going through the database component's code, I realized that the components have a crazy dependency on each other and required a lot of boostrapping (which is obviously handled by Laravel internally). To ease this task a bit, I decided to use <code>Pimple</code>.</p>
-<p>After a bit struggle, I finally figured out the dependencies and also that I'll need to mock <code>Illuminate\Foundation\Composer</code> for <code>make:migrate</code> command. So I also included <code>Mockery</code>. And after all this my <code>artsy</code> file looked like this:</p>
-<pre><code class="language-php">&lt;?php
-require_once &quot;vendor/autoload.php&quot;;
+$app-&amp;gt;run();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Including commands&lt;/h2&gt;
+&lt;p&gt;My first aim was to add  &lt;code&gt;migrate:install&lt;/code&gt; and &lt;code&gt;make:migrate&lt;/code&gt; commands which would insert required migration tables to the database and run migrations respectively. After going through the database component&#39;s code, I realized that the components have a crazy dependency on each other and required a lot of boostrapping (which is obviously handled by Laravel internally). To ease this task a bit, I decided to use &lt;code&gt;Pimple&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After a bit struggle, I finally figured out the dependencies and also that I&#39;ll need to mock &lt;code&gt;Illuminate\Foundation\Composer&lt;/code&gt; for &lt;code&gt;make:migrate&lt;/code&gt; command. So I also included &lt;code&gt;Mockery&lt;/code&gt;. And after all this my &lt;code&gt;artsy&lt;/code&gt; file looked like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;&amp;lt;?php
+require_once &amp;quot;vendor/autoload.php&amp;quot;;
 
 use Symfony\Component\Console\Application;
 use Illuminate\Database\Console\Migrations;
@@ -168,72 +164,72 @@ use Pimple\Container;
 
 $container = new Container();
 
-$container['migration-table'] = 'migration';
+$container[&#39;migration-table&#39;] = &#39;migration&#39;;
 
-$container['db-config'] = [
-    'driver'    =&gt; 'pgsql',
-    'host'      =&gt; 'localhost',
-    'database'  =&gt; 'dummy',
-    'username'  =&gt; 'postgres',
-    'password'  =&gt; 'postgres',
-    'charset'   =&gt; 'utf8',
-    'prefix'    =&gt; '',
-    'schema'   =&gt; 'public'
+$container[&#39;db-config&#39;] = [
+    &#39;driver&#39;    =&amp;gt; &#39;pgsql&#39;,
+    &#39;host&#39;      =&amp;gt; &#39;localhost&#39;,
+    &#39;database&#39;  =&amp;gt; &#39;dummy&#39;,
+    &#39;username&#39;  =&amp;gt; &#39;postgres&#39;,
+    &#39;password&#39;  =&amp;gt; &#39;postgres&#39;,
+    &#39;charset&#39;   =&amp;gt; &#39;utf8&#39;,
+    &#39;prefix&#39;    =&amp;gt; &#39;&#39;,
+    &#39;schema&#39;   =&amp;gt; &#39;public&#39;
 ];
 
-$container['filesytem'] = function ($c) {
+$container[&#39;filesytem&#39;] = function ($c) {
     return new \Illuminate\Filesystem\Filesystem;
 };
 
-$container['composer'] = function ($c) {
-    $composer = Mockery::mock('Illuminate\Foundation\Composer');
-    $composer-&gt;shouldReceive('dumpAutoloads');
+$container[&#39;composer&#39;] = function ($c) {
+    $composer = Mockery::mock(&#39;Illuminate\Foundation\Composer&#39;);
+    $composer-&amp;gt;shouldReceive(&#39;dumpAutoloads&#39;);
     return $composer;
 };
 
-$container['connection'] = function ($c) {
+$container[&#39;connection&#39;] = function ($c) {
     $manager = new \Illuminate\Database\Capsule\Manager();
-    $manager-&gt;addConnection($c['db-config']);
-    $manager-&gt;setAsGlobal();
-    $manager-&gt;bootEloquent();
-    return $manager-&gt;getConnection('default');
+    $manager-&amp;gt;addConnection($c[&#39;db-config&#39;]);
+    $manager-&amp;gt;setAsGlobal();
+    $manager-&amp;gt;bootEloquent();
+    return $manager-&amp;gt;getConnection(&#39;default&#39;);
 };
 
-$container['resolver'] = function ($c) {
-    $r = new \Illuminate\Database\ConnectionResolver(['default' =&gt; $c['connection']]);
-    $r-&gt;setDefaultConnection('default');
+$container[&#39;resolver&#39;] = function ($c) {
+    $r = new \Illuminate\Database\ConnectionResolver([&#39;default&#39; =&amp;gt; $c[&#39;connection&#39;]]);
+    $r-&amp;gt;setDefaultConnection(&#39;default&#39;);
     return $r;
 };
 
-$container['migration-repo'] = function ($c) {
-    return new \Illuminate\Database\Migrations\DatabaseMigrationRepository($c['resolver'], $c['migration-table']);
+$container[&#39;migration-repo&#39;] = function ($c) {
+    return new \Illuminate\Database\Migrations\DatabaseMigrationRepository($c[&#39;resolver&#39;], $c[&#39;migration-table&#39;]);
 };
 
-$container['migration-creator'] = function ($c) {
-    return new \Illuminate\Database\Migrations\MigrationCreator($c['filesytem']);
+$container[&#39;migration-creator&#39;] = function ($c) {
+    return new \Illuminate\Database\Migrations\MigrationCreator($c[&#39;filesytem&#39;]);
 };
 
-$container['migrator'] = function ($c) {
-    return new Illuminate\Database\Migrations\Migrator($c['migration-repo'], $c['resolver'], $c['filesytem']);
+$container[&#39;migrator&#39;] = function ($c) {
+    return new Illuminate\Database\Migrations\Migrator($c[&#39;migration-repo&#39;], $c[&#39;resolver&#39;], $c[&#39;filesytem&#39;]);
 };
 
-$container['install-command'] = function ($c) {
-    $command = new Migrations\InstallCommand($c['migration-repo']);
+$container[&#39;install-command&#39;] = function ($c) {
+    $command = new Migrations\InstallCommand($c[&#39;migration-repo&#39;]);
     return $command;
 };
 
-$container['migrate-make-command'] = function ($c) {
-    $command = new Migrations\MigrateMakeCommand($c['migration-creator'], $c['composer']);
+$container[&#39;migrate-make-command&#39;] = function ($c) {
+    $command = new Migrations\MigrateMakeCommand($c[&#39;migration-creator&#39;], $c[&#39;composer&#39;]);
     return $command;
 };
 
-$app = new Application(&quot;Foo&quot;, &quot;1.0&quot;);
-$app-&gt;add($container['install-command']);
-$app-&gt;add($container['migrate-make-command']);
+$app = new Application(&amp;quot;Foo&amp;quot;, &amp;quot;1.0&amp;quot;);
+$app-&amp;gt;add($container[&#39;install-command&#39;]);
+$app-&amp;gt;add($container[&#39;migrate-make-command&#39;]);
 
-</code></pre>
-<p>Now running on running <code>php artsy</code>, showed me:</p>
-<pre><code class="language-bash">Artsy, little brother of Artisan 1.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now running on running &lt;code&gt;php artsy&lt;/code&gt;, showed me:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;Artsy, little brother of Artisan 1.0
 
 Usage:
  [options] command [arguments]
@@ -254,26 +250,26 @@ make
  make:migration    Create a new migration file
 migrate
  migrate:install   Create the migration repository
-</code></pre>
-<p>Everything looked good till now. But upon running <code>php artsy migrate:install</code>, I got the following error.</p>
-<pre><code class="language-bash">PHP Fatal error:  Call to a member function call() on null in E:\demo\vendor\illuminate\console\Command.php on line 115
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Everything looked good till now. But upon running &lt;code&gt;php artsy migrate:install&lt;/code&gt;, I got the following error.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;PHP Fatal error:  Call to a member function call() on null in E:\demo\vendor\illuminate\console\Command.php on line 115
 PHP Stack trace:
 PHP 1. {main}() E:\demo\artsy:0
-PHP 2. Symfony\Component\Console\Application-&gt;run() E:\demo\artsy:48
-PHP 3. Symfony\Component\Console\Application-&gt;doRun() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:126
-PHP 4. Symfony\Component\Console\Application-&gt;doRunCommand() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:195
-PHP 5. Illuminate\Console\Command-&gt;run() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:874
-PHP 6. Symfony\Component\Console\Command\Command-&gt;run() E:\demo\vendor\illuminate\console\Command.php:101
-PHP 7. Illuminate\Console\Command-&gt;execute() E:\demo\vendor\symfony\console\Symfony\Component\Console\Command\Command.php:253
-</code></pre>
-<p>Upon inspecting <code>Command.php</code> in <code>illuminate\console</code> package, I found that the follwing line (L115) was the culprit.</p>
-<pre><code class="language-php">return $this-&gt;laravel-&gt;call([$this, $method]);
-</code></pre>
-<p>As you can see, a whole instance of <code>laravel</code> is required even for running a simple console command!!!!</p>
-<p>I tried mocking it too but the command did not do anything as expected and I could not think of a way to do it (with my limited knowledge of PHP) without implementing the whole <code>Illuminate\Contracts\Foundation\Application</code> interface with 20+ methods.</p>
-<h2>Conclusion</h2>
-<p>Laravel components are not as flexible or should I say loosely couple as that of Symfony's. I wish they had been, but I'm no Taylor Otwell.</p>
-<p>This was me just trying out some crazy idea and trying to learn stuff. If any one of you know a better solution, I would really like to discuss it. You can leave a comment below or tweet me <a href="https://twitter.com/_vkbansal">@_vkbansal</a></p>
+PHP 2. Symfony\Component\Console\Application-&amp;gt;run() E:\demo\artsy:48
+PHP 3. Symfony\Component\Console\Application-&amp;gt;doRun() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:126
+PHP 4. Symfony\Component\Console\Application-&amp;gt;doRunCommand() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:195
+PHP 5. Illuminate\Console\Command-&amp;gt;run() E:\demo\vendor\symfony\console\Symfony\Component\Console\Application.php:874
+PHP 6. Symfony\Component\Console\Command\Command-&amp;gt;run() E:\demo\vendor\illuminate\console\Command.php:101
+PHP 7. Illuminate\Console\Command-&amp;gt;execute() E:\demo\vendor\symfony\console\Symfony\Component\Console\Command\Command.php:253
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Upon inspecting &lt;code&gt;Command.php&lt;/code&gt; in &lt;code&gt;illuminate\console&lt;/code&gt; package, I found that the follwing line (L115) was the culprit.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-php&quot;&gt;return $this-&amp;gt;laravel-&amp;gt;call([$this, $method]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see, a whole instance of &lt;code&gt;laravel&lt;/code&gt; is required even for running a simple console command!!!!&lt;/p&gt;
+&lt;p&gt;I tried mocking it too but the command did not do anything as expected and I could not think of a way to do it (with my limited knowledge of PHP) without implementing the whole &lt;code&gt;Illuminate\Contracts\Foundation\Application&lt;/code&gt; interface with 20+ methods.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Laravel components are not as flexible or should I say loosely couple as that of Symfony&#39;s. I wish they had been, but I&#39;m no Taylor Otwell.&lt;/p&gt;
+&lt;p&gt;This was me just trying out some crazy idea and trying to learn stuff. If any one of you know a better solution, I would really like to discuss it. You can leave a comment below or tweet me &lt;a href=&quot;https://twitter.com/_vkbansal&quot;&gt;@_vkbansal&lt;/a&gt;&lt;/p&gt;
 
         </div>
         <div class="blog-sidebar-right">
@@ -313,19 +309,6 @@ PHP 7. Illuminate\Console\Command-&gt;execute() E:\demo\vendor\symfony\console\S
         <script type="text/javascript" src="js/plugins.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         
-        
-        
-        
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-54521168-1', 'auto');
-            ga('send', 'pageview');
-        </script>
         
         
     </body>
