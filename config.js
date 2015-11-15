@@ -12,18 +12,24 @@ let config = {
         title: "V.K.Bansal",
         subtitle: "",
         description: "",
-        author: "",
-        baseUrl: "http://vkbansal.me/"
+        author: {
+            name: "Vivek Kumar Bansal",
+            email: "contact@vkbansal.me"
+        },
+        base_url: "http://vkbansal.me/",
+        pretty_url: true
     },
     posts: {
         permalink: "/blog/:title",
-        pretty: true,
         layout: "article.html",
         index: "/blog",
         pagination_dir: "/blog/page/:num",
         pagination_layout: "blog.html",
         limit: 3,
         feed: false
+    },
+    pages: {
+        layout: "page.html"
     },
     server: {
         host: "localhost",

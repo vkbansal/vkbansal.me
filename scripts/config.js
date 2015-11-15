@@ -10,15 +10,15 @@ let defaultConfig = {
         source: "src",
         destination: "public",
         layouts: "_layouts",
-        posts: "_posts",
-        pages: "."
+        posts: "_posts"
     },
     site: {
         title: "",
         subtitle: "",
         description: "",
         author: "",
-        baseUrl: ""
+        base_url: "",
+        pretty_url: false
     },
     posts: {
         permalink: "posts/:year/:month/:day/:title",
@@ -28,7 +28,6 @@ let defaultConfig = {
         index_layout: "",
         pagination_dir: "blog/page/:num",
         pagination_layout: "",
-        pretty: false,
         feed: false
     },
     pages: {
@@ -41,15 +40,12 @@ let defaultConfig = {
     },
     server: {
         host: "localhost",
-        port: "4000"
+        port: "4000",
+        protocol: "http"
     },
     data: {}
 };
 
 let config = merge(defaultConfig, userConfig);
-
-if(!isProduction) {
-    config.site.baseUrl = `${config.server.host}:${config.server.port}`
-}
 
 module.exports = config;
