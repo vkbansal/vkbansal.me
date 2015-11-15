@@ -9,38 +9,15 @@ let through = require("through2"),
         html: true
     }),
     _ = require("lodash"),
-    moment = require("moment");
-
-/**
- * Parse given file path
- * @param  {String} filepath Path to the file
- * @return {Object}          Parsed path object
- */
-function parsePath(filepath) {
-    let extname = path.extname(filepath);
-
-    return {
-        dirname: path.dirname(filepath),
-        basename: path.basename(filepath, extname),
-        extname
-    };
-}
-
-/**
- * Creates New File
- * @param  {String} path    Path of the file
- * @param  {String} content Content for the file
- * @return {Object}         File Object
- */
-function createNewFile(path, content) {
-    return new gutil.File({path, contents: new Buffer(content)});
-}
+    moment = require("moment"),
+    utils = require("./utils");
 
 module.exports = function(options) {
     let {
             location: _location,
             posts: _posts,
-            site: _site
+            site: _site,
+            data
         } = options,
         posts = [];
 
@@ -65,7 +42,7 @@ module.exports = function(options) {
 
 
         let { attributes, body } = fm(file.contents.toString("utf-8")),
-            parsedPath = parsePath(file.relative),
+            parsedPath = utils.parsePath(file.relative),
             [year, month, day, ...title] = parsedPath.basename.split("-"),
             date = moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
 
@@ -84,7 +61,9 @@ module.exports = function(options) {
         let contents = nj.render(
             path.join(_location.layouts, attributes.layout || _posts.layout),
             {
-                content: md.render(body)
+                content: md.render(body),
+                site: _site,
+                data
             }
         );
 
@@ -103,7 +82,7 @@ module.exports = function(options) {
         );
 
         this.push(
-            createNewFile(
+            utils.createNewFile(
                 path.join(...ajaxPath.split("/")),
                 md.render(body)
             )
@@ -130,7 +109,7 @@ module.exports = function(options) {
 
         //Blog Index Page
         this.push(
-            createNewFile(
+            utils.createNewFile(
                 path.join(...indexPath.split("/")),
                 nj.render(LAYOUT, {
                     posts: indexPage,
@@ -150,7 +129,7 @@ module.exports = function(options) {
 
         // Recent Posts JSON
         this.push(
-            createNewFile(
+            utils.createNewFile(
                 path.join(_posts.index, "recent.json"),
                 JSON.stringify(recent, null, 2)
             )
@@ -160,7 +139,7 @@ module.exports = function(options) {
         pages.forEach((page, i) => {
             let num = i + 2;
             this.push(
-                createNewFile(
+                utils.createNewFile(
                     path.join(...getPageNumLink(num).split("/")),
                     nj.render(LAYOUT, {
                         posts: page,
