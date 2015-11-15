@@ -28,9 +28,6 @@ let config = {
         limit: 3,
         feed: false
     },
-    pages: {
-        layout: "page.html"
-    },
     server: {
         host: "localhost",
         port: "4000"

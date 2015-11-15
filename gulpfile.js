@@ -30,5 +30,6 @@ gulp.task("posts", function() {
 
 gulp.task("pages", function() {
     return gulp.src(`${config.location.source}/**/*.html`)
-        .pipe(pages());
+        .pipe(pages(config))
+        .pipe(gulp.dest(config.location.destination));
 });

@@ -1,4 +1,4 @@
-{% extends "layouts/page.twig" %}
+{% extends "_layouts/page.html" %}
 {% block title %}Contact | {% endblock %}
 {% block body_class %}contact{% endblock %}
 {% set template = 'contact' %}
@@ -7,14 +7,14 @@
     <section class="banner">
         <h1>Ready to work together?</h1>
         <p>
-            <a href="{{ urlFor('project-planner') }}" class="button">Start a Project</a>
+            <a href="#" class="button">Start a Project</a>
         </p>
     </section>
     <section id="contact-me" class="contact__section">
         <div class="contact__form">
         <h3>Get in touch</h3>
         <p>Have any queries or just want to say, hello? Fill the form below and I'll get back to you as soon as possible.</p>
-            <form method="POST" id="contact" action="{{ urlFor('contact') }}">
+            <form method="POST" id="contact" action="#">
                 <div class="contact--group">
                     <p>
                         <label for="name" class="required">Full name</label>
@@ -57,6 +57,6 @@
             </ul>
         </div>
     </section>
-    {% include 'partials/ajax-form-status.twig'  %}
+    {# include 'partials/ajax-form-status.twig'  #}
 </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "layouts/page.twig" %}
+{% extends "_layouts/page.html" %}
 {% block title %}Project Planner | {% endblock %}
 {% block body_class %}project-planner{% endblock %}
 {% set template = 'project-planner' %}
@@ -10,7 +10,7 @@
     </section>
     <section id="planner" class="planner__section">
         <div class="drag-handle"></div>
-        <form method="POST" action="{{ urlFor('project-planner') }}" id="project-planner">
+        <form method="POST" action="#" id="project-planner">
             <div class="planner__group">
                 <p>
                     <label for="name" class="required">Name</label>
@@ -96,6 +96,6 @@
             </p>
         </form>
     </section>
-    {% include 'partials/ajax-form-status.twig'  %}
+    {# include 'partials/ajax-form-status.twig' #}
 </div>
 {% endblock %}
