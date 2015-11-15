@@ -1,0 +1,62 @@
+{% extends "layouts/page.twig" %}
+{% block title %}Contact | {% endblock %}
+{% block body_class %}contact{% endblock %}
+{% set template = 'contact' %}
+{% block content %}
+<div class="container">
+    <section class="banner">
+        <h1>Ready to work together?</h1>
+        <p>
+            <a href="{{ urlFor('project-planner') }}" class="button">Start a Project</a>
+        </p>
+    </section>
+    <section id="contact-me" class="contact__section">
+        <div class="contact__form">
+        <h3>Get in touch</h3>
+        <p>Have any queries or just want to say, hello? Fill the form below and I'll get back to you as soon as possible.</p>
+            <form method="POST" id="contact" action="{{ urlFor('contact') }}">
+                <div class="contact--group">
+                    <p>
+                        <label for="name" class="required">Full name</label>
+                        <span><input type="text" name="name" id="name" placeholder="John Doe"></span>
+                    </p>
+                    <p>
+                        <label for="email" class="required">E-mail</label>
+                        <span><input type="email" name="email" id="email" placeholder="johndoe@example.com"></span>
+                    </p>
+                </div>
+                <div class="contact--group">
+                    <p class="label">
+                        <label for="subject" class="required">Subject</label>
+                        <span><input type="text" name="subject" id="subject" placeholder="Need a website"></span>
+                    </p>
+                    <p class="label">
+                        <label for="phone">Phone</label>
+                        <span><input type="tel" name="phone" id="phone" placeholder=""></span>
+                    </p>
+                </div>
+                <p class="message">
+                    <label for="message" class="required">Message</label>
+                    <span><textarea name="message" id="message" placeholder="Lorem Ipsum...."></textarea></span>
+                </p>
+                <p class="honeypot">
+                    <label for="honeypot" class="honeypot" id="honeypot">Do not fill this field</label>
+                    <input type="text" name="honeypot" value="" class="honeypot" placeholder="Leave Blank">
+                </p>
+                <p class="submit center">
+                    <input type="submit" name="submit" value="submit" id="submit" class="button">
+                </p>
+            </form>
+        </div>
+        <div class="contact__info">
+            <h3>Contact Information</h3>
+            <p>If you don't want to fill out a form, feel free to send me an email or a tweet.</p>
+            <ul>
+                <li class="email"><a href="mailto:contact@vkbansal.me">contact@vkbansal.me</a></li><br>
+                <li class="twitter"><a href="https://twitter.com/intent/tweet?screen_name=_vkbansal" onclick="window.open(this.href, 'Tweet to Vivek','left=20,top=20,width=500,height=500,toolbar=1,resizablr=0'); return false;">@_vkbansal</a></li>
+            </ul>
+        </div>
+    </section>
+    {% include 'partials/ajax-form-status.twig'  %}
+</div>
+{% endblock %}
