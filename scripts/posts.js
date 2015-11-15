@@ -39,7 +39,8 @@ function createNewFile(path, content) {
 module.exports = function(options) {
     let {
             location: _location,
-            posts: _posts
+            posts: _posts,
+            site: _site
         } = options,
         posts = [];
 
@@ -77,8 +78,8 @@ module.exports = function(options) {
                         .replace(":month", month)
                         .replace(":day", day)
                         .replace(":title", _.kebabCase(title)),
-            filePath = `${permalink}${_posts.pretty ? "/index" : "" }.html`,
-            ajaxPath = `${permalink}${_posts.pretty ? "/" : "-" }ajax.html`;
+            filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
+            ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.html`;
 
         let contents = nj.render(
             path.join(_location.layouts, attributes.layout || _posts.layout),
@@ -114,17 +115,17 @@ module.exports = function(options) {
     // flush function for through2
     function flush(done) {
         let pages = _.chunk(posts.reverse(), _posts.limit),
-            indexPath = `${_posts.index}${_posts.pretty ? "/index" : "" }.html`,
+            indexPath = `${_posts.index}${_site.pretty_url ? "/index" : "" }.html`,
             indexPage = pages.shift();
 
         const LAYOUT = path.join(_location.layouts, _posts.index_layout || _posts.pagination_layout);
 
         function getPageNumLink(num) {
-            return `${_posts.pagination_dir.replace(":num", num)}${_posts.pretty ? "/index" : "" }.html`
+            return `${_posts.pagination_dir.replace(":num", num)}${_site.pretty_url ? "/index" : "" }.html`
         }
 
         function getIndexLink() {
-            return _posts.pretty ? indexPath.replace(/index\.html$/, "") : indexPath;
+            return _site.pretty_url ? indexPath.replace(/index\.html$/, "") : indexPath;
         }
 
         //Blog Index Page
