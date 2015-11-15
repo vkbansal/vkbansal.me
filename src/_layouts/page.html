@@ -7,12 +7,23 @@
         <title>{% block title %}{% endblock %}Vivek Kumar Bansal, frontend developer and designer</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Roboto+Slab' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/styles.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/assets/styles.css">
     </head>
     <body class="{% block body_class %}{% endblock %}">
-        <nav class="off-canvas">
+        <nav class="main-nav">
+            <a href="#" class="nav-btn" id="nav-btn">
+                <span class="nav-btn-icon"></span>
+            </a>
+          <ul class="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/work/">Work</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </nav>
+        {#<nav class="off-canvas">
             <ul class="main-nav">
                 <li>
                     <a href="./">
@@ -97,19 +108,11 @@
                     </li>
                 </ul>
             </footer>
-        </nav>
+        </nav> #}
         <div id="canvas-container" class="canvas-container"></div>
-        <div class="fixed-toggle hide" id="fixed-toggle">
-                <button class="toggle-offcanvas" id="fixed-toggle-button">
-                    <span class="lines"></span>
-                </button>
-        </div>
         <div class="site-canvas" id="site-canvas">
             <header class="site-header">
                 <div class="container">
-                    <button class="toggle-offcanvas" id="toggle-offcanvas">
-                        <span class="lines"></span>
-                    </button>
                     <span class="info"></span>
                     <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
                 </div>
@@ -125,10 +128,10 @@
             </footer>
             {% endif %}
         </div>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-        <script type="text/javascript" src="js/plugins.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script> -->
+        <!-- <script type="text/javascript" src="js/plugins.min.js"></script> -->
+        <script type="text/javascript" src="/assets/main.js"></script>
         {% block js %}
         {% endblock %}
         {% if env == 'production' %}

@@ -8,7 +8,7 @@
         <h2>A frontend web <span id="intro-type">developer<span></h2>
         <p><a class="button" href="#">View portfolio</a><span class="hidden-xs"> or </span><a class="button" href="#">Get in touch</a></p>
         <figure>
-            {# include 'svg/wall.svg' #}
+            {% include '_includes/wall.svg' %}
         </figure>
     </div>
 </div>
@@ -100,21 +100,4 @@
         </div>
     </section>
 </div>
-{% endblock %}
-{% block js %}
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#intro-type').typed({
-                strings: [
-                    "developer",
-                    "designer"
-                ],
-                typeSpeed: 50,
-                backSpeed: 30,
-                backDelay: 3000,
-                loop: true,
-                showCursor: false,
-            });
-        });
-    </script>
 {% endblock %}

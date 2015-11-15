@@ -3,12 +3,14 @@
 let gulp = require("gulp"),
     path = require("path"),
     config = require("./scripts/config"),
-    sass = require("gulp-sass"),
+    less = require("gulp-less"),
     minifyCss = require("gulp-minify-css"),
     rename = require("gulp-rename"),
     posts = require("./scripts/posts"),
     pages = require("./scripts/pages"),
-    livereload = require("gulp-livereload");
+    livereload = require("gulp-livereload"),
+    babel = require("gulp-babel"),
+    uglify = require("gulp-uglify");
 
 const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
       PAGES_PATH = `${config.location.source}/**/*.html`;
@@ -16,14 +18,22 @@ const POSTS_PATH = path.resolve(config.location.source, config.location.posts) +
 gulp.task("default", ["css", "posts", "pages"]);
 
 gulp.task("css", function() {
-    return gulp.src("./src/_sass/main.scss")
-        .pipe(sass())
+    return gulp.src("./src/_less/main.less")
+        .pipe(less())
         .pipe(minifyCss({
             compatibility: '*,-units.pt,-units.pc'
         }))
         .pipe(rename({
             basename: "styles"
         }))
+        .pipe(gulp.dest("./public/assets"))
+        .pipe(livereload({start: false}));
+});
+
+gulp.task("js", function() {
+    return gulp.src("./src/_js/main.js")
+        .pipe(babel())
+        .pipe(uglify())
         .pipe(gulp.dest("./public/assets"))
         .pipe(livereload({start: false}));
 });
@@ -46,5 +56,5 @@ gulp.task("watch", function() {
     livereload.listen();
     gulp.watch(POSTS_PATH, ["posts"]);
     gulp.watch(PAGES_PATH, ["pages"]);
-    gulp.watch("./src/_sass/**/*.scss", ["css"]);
+    gulp.watch("./src/_less/**/*.less", ["css"]);
 });
