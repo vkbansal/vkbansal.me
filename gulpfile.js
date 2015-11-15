@@ -5,7 +5,8 @@ let gulp = require("gulp"),
     config = require("./scripts/config"),
     stylus = require("gulp-stylus"),
     minifyCss = require("gulp-minify-css"),
-    posts = require("./scripts/posts");
+    posts = require("./scripts/posts"),
+    pages = require("./scripts/pages");
 
 gulp.task("default", function() {
 
@@ -25,4 +26,9 @@ gulp.task("posts", function() {
     return gulp.src(read_path)
         .pipe(posts(config))
         .pipe(gulp.dest(write_path));
+});
+
+gulp.task("pages", function() {
+    return gulp.src(`${config.location.source}/**/*.html`)
+        .pipe(pages());
 });
