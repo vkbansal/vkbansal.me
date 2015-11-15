@@ -3,33 +3,48 @@
 let gulp = require("gulp"),
     path = require("path"),
     config = require("./scripts/config"),
-    stylus = require("gulp-stylus"),
+    sass = require("gulp-sass"),
     minifyCss = require("gulp-minify-css"),
+    rename = require("gulp-rename"),
     posts = require("./scripts/posts"),
-    pages = require("./scripts/pages");
+    pages = require("./scripts/pages"),
+    livereload = require("gulp-livereload");
 
-gulp.task("default", function() {
+const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
+      PAGES_PATH = `${config.location.source}/**/*.html`;
 
-});
+gulp.task("default", ["css", "posts", "pages"]);
 
 gulp.task("css", function() {
-    return gulp.src("./src/_styl/main.styl")
-        .pipe(stylus())
-        .pipe(minifyCss())
-        .pipe(gulp.dest("./public/css/"));
+    return gulp.src("./src/_sass/main.scss")
+        .pipe(sass())
+        .pipe(minifyCss({
+            compatibility: '*,-units.pt,-units.pc'
+        }))
+        .pipe(rename({
+            basename: "styles"
+        }))
+        .pipe(gulp.dest("./public/assets"))
+        .pipe(livereload({start: false}));
 });
 
 gulp.task("posts", function() {
-    let read_path = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
-        write_path = config.location.destination;
-
-    return gulp.src(read_path)
+    return gulp.src(POSTS_PATH)
         .pipe(posts(config))
-        .pipe(gulp.dest(write_path));
+        .pipe(gulp.dest(config.location.destination))
+        .pipe(livereload({start: false}));
 });
 
 gulp.task("pages", function() {
-    return gulp.src(`${config.location.source}/**/*.html`)
+    return gulp.src(PAGES_PATH)
         .pipe(pages(config))
-        .pipe(gulp.dest(config.location.destination));
+        .pipe(gulp.dest(config.location.destination))
+        .pipe(livereload({start: false}));
+});
+
+gulp.task("watch", function() {
+    livereload.listen();
+    gulp.watch(POSTS_PATH, ["posts"]);
+    gulp.watch(PAGES_PATH, ["pages"]);
+    gulp.watch("./src/_sass/**/*.scss", ["css"]);
 });

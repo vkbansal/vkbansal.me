@@ -1,9 +1,11 @@
 // @import "utils/";
-
+@import "utils/variables";
 // @import "vendors/";
-@import "vendors/_normalize.styl";
+@import "vendors/_normalize";
 
 // @import "base/";
+@import "base/scaffolding";
+@import "base/typography";
 
 // @import "layout/";
 
