@@ -16,16 +16,14 @@ let config = {
         baseUrl: "http://vkbansal.me/"
     },
     posts: {
-        permalink: "/posts/:title",
+        permalink: "/blog/:title",
         pretty: true,
         layout: "article.html",
-        pagination_dir: "",
-        limit: 10,
+        index: "/blog",
+        pagination_dir: "/blog/page/:num",
+        pagination_layout: "blog.html",
+        limit: 3,
         feed: false
-    },
-    format: {
-        date: "YYYY-MM-DD",
-        time: "HH:mm:ss"
     },
     server: {
         host: "localhost",

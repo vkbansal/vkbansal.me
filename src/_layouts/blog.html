@@ -1,0 +1,34 @@
+{% extends "_layouts/page.html" %}
+
+{% block title %}{{ title }}Blog | {% endblock %}
+
+{% block body_class %}blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <br>
+    {{ posts.length }}
+    <section class="articles">
+        {% if posts.length > 0 %}
+            {% for post in posts %}
+            <div class="article">
+                <a href="{{post.url}}">
+                    <p class="meta">{{ post.date.format("MMMM Do, YYYY") }}</p>
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.description }}</p>
+                </a>
+                <ul class="tags">
+                    {% for tag in post.tag %}
+                        <li class="tag">
+                            <a href="#">{{ tag }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p>No recent articles found.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

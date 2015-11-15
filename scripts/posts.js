@@ -8,10 +8,14 @@ let through = require("through2"),
     md = require('markdown-it')({
         html: true
     }),
-    _ = require("lodash");
+    _ = require("lodash"),
+    moment = require("moment");
 
-let { File } = gutil;
-
+/**
+ * Parse given file path
+ * @param  {String} filepath Path to the file
+ * @return {Object}          Parsed path object
+ */
 function parsePath(filepath) {
     let extname = path.extname(filepath);
 
@@ -22,15 +26,24 @@ function parsePath(filepath) {
     };
 }
 
+/**
+ * Creates New File
+ * @param  {String} path    Path of the file
+ * @param  {String} content Content for the file
+ * @return {Object}         File Object
+ */
 function createNewFile(path, content) {
-    return new File({path, contents: new Buffer(content)});
+    return new gutil.File({path, contents: new Buffer(content)});
 }
 
-
-let posts = function(options) {
-    let { location: _location, posts: _posts } = options,
+module.exports = function(options) {
+    let {
+            location: _location,
+            posts: _posts
+        } = options,
         posts = [];
 
+    // Setup templating
     nj.configure(
         path.resolve(process.cwd(), _location.source),
         {
@@ -38,7 +51,8 @@ let posts = function(options) {
         }
     );
 
-    function makePosts(file, unused, done) {
+    // transform function for through2
+    function transform(file, unused, done) {
 
         if (file.isNull()) {
             return done(null, file);
@@ -51,7 +65,10 @@ let posts = function(options) {
 
         let { attributes, body } = fm(file.contents.toString("utf-8")),
             parsedPath = parsePath(file.relative),
-            [year, month, day, ...title] = parsedPath.basename.split("-");
+            [year, month, day, ...title] = parsedPath.basename.split("-"),
+            date = moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
+
+        if (attributes.date) attributes.date = moment(attributes.date);
 
         title = title.join("-");
 
@@ -60,7 +77,7 @@ let posts = function(options) {
                         .replace(":month", month)
                         .replace(":day", day)
                         .replace(":title", _.kebabCase(title)),
-            newPath = `${permalink}${_posts.pretty ? "/index" : "" }.html`,
+            filePath = `${permalink}${_posts.pretty ? "/index" : "" }.html`,
             ajaxPath = `${permalink}${_posts.pretty ? "/" : "-" }ajax.html`;
 
         let contents = nj.render(
@@ -71,14 +88,18 @@ let posts = function(options) {
         );
 
         file.contents = new Buffer(contents);
-        file.path = path.join(file.base, ...newPath.split("/"));
+        file.path = path.join(file.base, ...filePath.split("/"));
 
-        posts.push({
-            permalink,
-            file,
-            attributes,
-            title
-        });
+        posts.push(
+            _.merge({
+                    permalink,
+                    file,
+                    title,
+                    date,
+                },
+                attributes
+            )
+        );
 
         this.push(
             createNewFile(
@@ -90,20 +111,73 @@ let posts = function(options) {
         return done(null, file);
     }
 
-    function makePostsList(done) {
-        let pages = _.chunk(posts.reverse(), posts.limit),
-            indexPath = `${_posts.index}${_posts.pretty ? "/index" : "" }.html`
+    // flush function for through2
+    function flush(done) {
+        let pages = _.chunk(posts.reverse(), _posts.limit),
+            indexPath = `${_posts.index}${_posts.pretty ? "/index" : "" }.html`,
+            indexPage = pages.shift();
 
+        const LAYOUT = path.join(_location.layouts, _posts.index_layout || _posts.pagination_layout);
+
+        function getPageNumLink(num) {
+            return `${_posts.pagination_dir.replace(":num", num)}${_posts.pretty ? "/index" : "" }.html`
+        }
+
+        function getIndexLink() {
+            return _posts.pretty ? indexPath.replace(/index\.html$/, "") : indexPath;
+        }
+
+        //Blog Index Page
         this.push(
             createNewFile(
-                indexPath,
-                "JSON.stringify"
+                path.join(...indexPath.split("/")),
+                nj.render(LAYOUT, {
+                    posts: indexPage,
+                    pages: {
+                        total: pages.length + 1,
+                        current: 1
+                    },
+                    links: {
+                        prev: false,
+                        next: pages.length > 0 ? getPageNumLink(2) : false
+                    }
+                })
             )
         );
+
+        let recent = indexPage.map((post) => _.pick(post, ["title", "permalink"]));
+
+        // Recent Posts JSON
+        this.push(
+            createNewFile(
+                path.join(_posts.index, "recent.json"),
+                JSON.stringify(recent, null, 2)
+            )
+        );
+
+        //Pagination pages >= 2
+        pages.forEach((page, i) => {
+            let num = i + 2;
+            this.push(
+                createNewFile(
+                    path.join(...getPageNumLink(num).split("/")),
+                    nj.render(LAYOUT, {
+                        posts: page,
+                        pages: {
+                            total: pages.length + 1,
+                            current: num,
+                        },
+                        links: {
+                            prev: num === 2 ? getIndexLink() : getPageNumLink(num - 1),
+                            next: pages.length - 1 > i ? getPageNumLink(num + 1) : false
+                        }
+                    })
+                )
+            );
+        })
+
         done();
     }
 
-    return through.obj(makePosts, makePostsList);
+    return through.obj(transform, flush);
 };
-
-module.exports = posts;

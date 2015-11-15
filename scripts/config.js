@@ -22,10 +22,12 @@ let defaultConfig = {
     },
     posts: {
         permalink: "posts/:year/:month/:day/:title",
-        limit: 10,
-        index: "blog",
-        pagination_dir: "blog/:num",
         layout: "default.html",
+        index: "blog",
+        limit: 10,
+        index_layout: "",
+        pagination_dir: "blog/page/:num",
+        pagination_layout: "",
         pretty: false,
         feed: false
     },
