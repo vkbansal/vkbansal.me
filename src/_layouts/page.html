@@ -15,53 +15,23 @@
             <a href="#" class="nav-btn" id="nav-btn">
                 <span class="nav-btn-icon"></span>
             </a>
+        {% set nav = [
+                { title: "Home", link: "/"},
+                { title: "About", link: "/about/"},
+                { title: "Work", link: "/work/"},
+                { title: "Blog", link: "/blog/"},
+                { title: "Contact", link: "/contact/"}
+            ]
+        %}
           <ul class="nav-menu">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about/">About</a></li>
-            <li><a href="/work/">Work</a></li>
-            <li><a href="/blog/">Blog</a></li>
-            <li><a href="/contact/">Contact</a></li>
+            {% for n in nav %}
+                <li style="transition-delay: {{loop.index0 * 0.05}}s">
+                    <a href="{{n.title}}">{{n.title}}</a>
+                </li>
+            {% endfor %}
           </ul>
         </nav>
-        {#<nav class="off-canvas">
-            <ul class="main-nav">
-                <li>
-                    <a href="./">
-                        <svg class="icon">
-                            <use xlink:href="#navicon-home" />
-                        </svg>Home
-                    </a>
-                </li>
-                <li>
-                    <a href="/about/">
-                        <svg class="icon">
-                            <use xlink:href="#navicon-about" />
-                        </svg>About
-                    </a>
-                </li>
-                <li>
-                    <a href="/work/">
-                        <svg class="icon">
-                            <use xlink:href="#navicon-work" />
-                        </svg>Work
-                    </a>
-                </li>
-                <li>
-                    <a href="/blog/">
-                        <svg class="icon">
-                            <use xlink:href="#navicon-blog" />
-                        </svg>Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="/contact/">
-                        <svg class="icon">
-                            <use xlink:href="#navicon-contact" />
-                        </svg>Contact
-                    </a>
-                </li>
-            </ul>
-            <footer class="connect">
+        {#<footer class="connect">
                 <p class="social">Connect with me</p>
                 <ul class="social">
                     <li>
@@ -107,8 +77,7 @@
                         </a>
                     </li>
                 </ul>
-            </footer>
-        </nav> #}
+            </footer>#}
         <div id="canvas-container" class="canvas-container"></div>
         <div class="site-canvas" id="site-canvas">
             <header class="site-header">
