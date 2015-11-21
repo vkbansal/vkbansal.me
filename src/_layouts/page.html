@@ -78,25 +78,22 @@
                     </li>
                 </ul>
             </footer>#}
-        <div id="canvas-container" class="canvas-container"></div>
-        <div class="site-canvas" id="site-canvas">
-            <header class="site-header">
-                <div class="container">
-                    <span class="info"></span>
-                    <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
-                </div>
-            </header>
-            <div id="site-content" class="site-content">
-                {% block content %}{% endblock %}
+        <header class="site-header">
+            <div class="container">
+                <div class="info"></div>
+                <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
             </div>
-            {%  if template not in ['contact', 'project-planner'] %}
-            <footer class="container center footer" id="hire-me">
-                <h2 class="heading">Want to work with me?</h2>
-                <p>If you like what you've seen and want to hire me, Just hit the link below.</p>
-                <p><a href="/project-planner/" class="button">Plan a Project </a></p>
-            </footer>
-            {% endif %}
+        </header>
+        <div id="site-content" class="site-content">
+            {% block content %}{% endblock %}
         </div>
+        {%  if template not in ['contact', 'project-planner'] %}
+        <footer class="container center footer" id="hire-me">
+            <h2 class="heading">Want to work with me?</h2>
+            <p>If you like what you've seen and want to hire me, Just hit the link below.</p>
+            <p><a href="/project-planner/" class="button">Plan a Project </a></p>
+        </footer>
+        {% endif %}
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script> -->
         <!-- <script type="text/javascript" src="js/plugins.min.js"></script> -->
