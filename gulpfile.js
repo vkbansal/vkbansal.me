@@ -3,6 +3,7 @@
 let gulp = require("gulp"),
     path = require("path"),
     config = require("./scripts/config"),
+    handleErrors = require("./scripts/gulp-handle-errors"),
     less = require("gulp-less"),
     minifyCss = require("gulp-minify-css"),
     rename = require("gulp-rename"),
@@ -19,10 +20,10 @@ gulp.task("default", ["css", "posts", "pages"]);
 
 gulp.task("css", function() {
     return gulp.src("./src/_less/main.less")
-        .pipe(less())
+        .pipe(less()).on("error", handleErrors)
         .pipe(minifyCss({
             compatibility: '*,-units.pt,-units.pc'
-        }))
+        })).on("error", handleErrors)
         .pipe(rename({
             basename: "styles"
         }))
@@ -32,22 +33,22 @@ gulp.task("css", function() {
 
 gulp.task("js", function() {
     return gulp.src("./src/_js/main.js")
-        .pipe(babel())
-        .pipe(uglify())
+        .pipe(babel()).on("error", handleErrors)
+        .pipe(uglify()).on("error", handleErrors)
         .pipe(gulp.dest("./public/assets"))
         .pipe(livereload({start: false}));
 });
 
 gulp.task("posts", function() {
     return gulp.src(POSTS_PATH)
-        .pipe(posts(config))
+        .pipe(posts(config)).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
 });
 
 gulp.task("pages", function() {
     return gulp.src(PAGES_PATH)
-        .pipe(pages(config))
+        .pipe(pages(config)).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
 });
