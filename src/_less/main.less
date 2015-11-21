@@ -1,16 +1,33 @@
-// @import "utils/";
+/**
+ The main file (usually labelled `main.less`) should be the only file from
+ the whole code base not to begin with an underscore. This file should not
+ contain anything but `@import` and comments.
+
+ Files should be imported according to the folder they live in, one after the
+ other in the following order:
+
+  1. `utils/`
+  2. `vendors/`
+  3. `base/`
+  4. `layout/`
+  5. `components/`
+  6. `pages/`
+  7. `themes/`
+ */
+// @import "utils";
 @import "utils/variables";
-// @import "vendors/";
+
+// @import "vendors";
 @import "vendors/_normalize";
 
-// @import "base/";
+// @import "base";
 @import "base/scaffolding";
 @import "base/typography";
 
-// @import "layout/";
+// @import "layout";
+@import "layout/grid";
+@import "layout/main-nav";
 
-// @import "components/"
-@import "components/grid";
-@import "components/main-nav";
+// @import "components"
 
-// @import "pages/";
+// @import "pages";
