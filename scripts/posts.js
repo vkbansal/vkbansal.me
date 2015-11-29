@@ -10,16 +10,17 @@ let through = require("through2"),
     }),
     _ = require("lodash"),
     moment = require("moment"),
-    utils = require("./utils");
+    utils = require("./utils"),
+    requireDir = require("require-dir");
 
 module.exports = function(options) {
     let {
             location: _location,
             posts: _posts,
-            site: _site,
-            data
+            site: _site
         } = options,
-        posts = [];
+        posts = [],
+        data = requireDir(path.resolve(process.cwd(), _location.source, "_data"));
 
     // Setup templating
     nj.configure(

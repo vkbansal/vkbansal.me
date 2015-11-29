@@ -38,8 +38,7 @@ let defaultConfig = {
         host: "localhost",
         port: "4000",
         protocol: "http"
-    },
-    data: {}
+    }
 };
 
 let config = merge(defaultConfig, userConfig);
