@@ -3,22 +3,15 @@
 let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
-    nj = require("nunjucks"),
+    nj = require("./nunjucks"),
     utils = require("./utils"),
     requireDir = require("require-dir");
 
 module.exports = function(config) {
 
     let {location, site} = config,
+        template = nj(path.resolve(process.cwd(), location.source)),
         data = requireDir(path.resolve(process.cwd(), location.source, "_data"));
-
-    // Setup templating
-    nj.configure(
-        path.resolve(process.cwd(), location.source),
-        {
-            watch: false
-        }
-    );
 
     function transform(file, encoding, done) {
         if (file.isNull()) {
@@ -35,7 +28,7 @@ module.exports = function(config) {
         }
 
         let parsedPath = utils.parsePath(file.relative),
-            contents = nj.render(file.relative, {site, data});
+            contents = template.render(file.relative, {site, data});
 
         file.contents = new Buffer(contents);
 

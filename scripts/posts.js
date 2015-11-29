@@ -4,7 +4,7 @@ let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
     fm = require("front-matter"),
-    nj = require("nunjucks"),
+    nj = require("./nunjucks"),
     md = require('markdown-it')({
         html: true
     }),
@@ -20,16 +20,8 @@ module.exports = function(options) {
             site: _site
         } = options,
         posts = [],
-        data = requireDir(path.resolve(process.cwd(), _location.source, "_data"));
-
-    // Setup templating
-    nj.configure(
-        path.resolve(process.cwd(), _location.source),
-        {
-            watch: false,
-            autoescape: false
-        }
-    );
+        data = requireDir(path.resolve(process.cwd(), _location.source, "_data")),
+        template = nj(path.resolve(process.cwd(), _location.source));
 
     // transform function for through2
     function transform(file, unused, done) {
@@ -62,7 +54,7 @@ module.exports = function(options) {
             filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
             ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.html`;
 
-        let contents = nj.render(
+        let contents = template.render(
             path.join(_location.layouts, attributes.layout || _posts.layout),
             {
                 content: md.render(body),
@@ -115,7 +107,7 @@ module.exports = function(options) {
         this.push(
             utils.createNewFile(
                 path.join(...indexPath.split("/")),
-                nj.render(LAYOUT, {
+                template.render(LAYOUT, {
                     posts: indexPage,
                     pages: {
                         total: pages.length + 1,
@@ -145,7 +137,7 @@ module.exports = function(options) {
             this.push(
                 utils.createNewFile(
                     path.join(...getPageNumLink(num).split("/")),
-                    nj.render(LAYOUT, {
+                    template.render(LAYOUT, {
                         posts: page,
                         pages: {
                             total: pages.length + 1,
