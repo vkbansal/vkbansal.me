@@ -25,68 +25,21 @@
             ]
         %}
         {% set active = active %}
-          <ul class="nav-menu">
+            <ul class="nav-menu">
             {% for n in nav %}
                 <li>
                     <a href="{{n.link}}" class="{% if active == n.title %}active{% endif %}">
                         <svg class="nav-icon">
                             <use xlink:href="#navicon-{{n.title|lower}}" />
-                            
+
                         </svg>
                         <span class="nav-text">{{n.title}}</span>
                     </a>
                 </li>
             {% endfor %}
-          </ul>
-          <span class="nav-bg"></span>
+            </ul>
+            <span class="nav-bg"></span>
         </nav>
-        {#<footer class="connect">
-                <p class="social">Connect with me</p>
-                <ul class="social">
-                    <li>
-                        <a href="https://www.facebook.com/vkbansal.me" class="facebook">
-                          <svg class="icon">
-                                <use xlink:href="#navicon-facebook" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://twitter.com/_vkbansal" class="twitter">
-                            <svg class="icon">
-                                <use xlink:href="#navicon-twitter" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/104240046366721765666" rel="publisher" class="google-plus">
-                            <svg class="icon">
-                                <use xlink:href="#navicon-gplus" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/vkbansal" class="github">
-                            <svg class="icon">
-                                <use xlink:href="#navicon-github" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.behance.net/vkbansal" class="behance">
-                            <svg class="icon">
-                                <use xlink:href="#navicon-behance" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://in.linkedin.com/in/vkb0310" class="linkedin">
-                            <svg class="icon">
-                                <use xlink:href="#navicon-linkedin" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </footer>#}
         <header class="site-header">
             <div class="container">
                 <div class="info"></div>
@@ -96,13 +49,24 @@
         <div id="site-content" class="site-content">
             {% block content %}{% endblock %}
         </div>
-        {%  if template not in ['contact', 'project-planner'] %}
-        <footer class="container center footer" id="hire-me">
-            <h2 class="heading">Want to work with me?</h2>
-            <p>If you like what you've seen and want to hire me, Just hit the link below.</p>
-            <p><a href="/project-planner/" class="button">Plan a Project </a></p>
+        <footer class="footer" id="footer">
+            <div class="container">
+                <p class="copyright">&copy; {{ moment().format("YYYY") }}</p>
+                <ul class="social">
+                    {% for media in data.social %}
+                        {% if media.footer %}
+                            <li>
+                                <a href="{{media.link}}" title="{{media.name}}" class="{{media.name|kebabCase}}">
+                                  <svg class="icon">
+                                        <use xlink:href="#navicon-{{media.name|kebabCase}}" />
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </footer>
-        {% endif %}
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script> -->
         <!-- <script type="text/javascript" src="js/plugins.min.js"></script> -->
