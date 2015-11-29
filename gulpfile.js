@@ -1,17 +1,20 @@
 "use strict";
 
+let path = require("path");
+
 let gulp = require("gulp"),
-    path = require("path"),
-    config = require("./scripts/config"),
-    handleErrors = require("./scripts/gulp-handle-errors"),
     less = require("gulp-less"),
     minifyCss = require("gulp-minify-css"),
     rename = require("gulp-rename"),
-    posts = require("./scripts/posts"),
-    pages = require("./scripts/pages"),
     livereload = require("gulp-livereload"),
     babel = require("gulp-babel"),
     uglify = require("gulp-uglify");
+
+let config = require("./scripts/config"),
+    posts = require("./scripts/posts"),
+    pages = require("./scripts/pages"),
+    svgSprite =require("./scripts/svg-symbol-sprite"),
+    handleErrors = require("./scripts/gulp-handle-errors");
 
 const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
       PAGES_PATH = `${config.location.source}/**/*.html`;
@@ -51,6 +54,15 @@ gulp.task("pages", function() {
         .pipe(pages(config)).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
+});
+
+gulp.task("navicons", function() {
+    return gulp.src("./src/_img/navicons/*.svg")
+        .pipe(svgSprite({
+            name: "navicons.svg",
+            id: "navicon-:basename"
+        }))
+        .pipe(gulp.dest("./src/_includes/"));
 });
 
 gulp.task("watch", function() {
