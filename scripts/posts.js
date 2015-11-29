@@ -47,6 +47,8 @@ module.exports = function(options) {
             [year, month, day, ...title] = parsedPath.basename.split("-"),
             date = moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
 
+        if(attributes.draft) return done();
+
         if (attributes.date) attributes.date = moment(attributes.date);
 
         title = title.join("-");
