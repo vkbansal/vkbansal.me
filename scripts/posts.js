@@ -25,7 +25,8 @@ module.exports = function(options) {
     nj.configure(
         path.resolve(process.cwd(), _location.source),
         {
-            watch: false
+            watch: false,
+            autoescape: false
         }
     );
 
@@ -103,8 +104,8 @@ module.exports = function(options) {
             return `${_posts.pagination_dir.replace(":num", num)}${_site.pretty_url ? "/index" : "" }.html`
         }
 
-        function getIndexLink() {
-            return _site.pretty_url ? indexPath.replace(/index\.html$/, "") : indexPath;
+        function cleanPath(path) {
+            return _site.pretty_url ? path.replace(/index\.html$/, "") : path;
         }
 
         //Blog Index Page
@@ -119,7 +120,7 @@ module.exports = function(options) {
                     },
                     links: {
                         prev: false,
-                        next: pages.length > 0 ? getPageNumLink(2) : false
+                        next: pages.length > 0 ? cleanPath(getPageNumLink(2)) : false
                     }
                 })
             )
@@ -148,8 +149,8 @@ module.exports = function(options) {
                             current: num,
                         },
                         links: {
-                            prev: num === 2 ? getIndexLink() : getPageNumLink(num - 1),
-                            next: pages.length - 1 > i ? getPageNumLink(num + 1) : false
+                            prev: num === 2 ? cleanPath(indexPath) : cleanPath(getPageNumLink(num - 1)),
+                            next: pages.length - 1 > i ? cleanPath(getPageNumLink(num + 1)) : false
                         }
                     })
                 )
