@@ -10,8 +10,9 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700 | Libre+Baskerville:400,400italic,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/assets/styles.css">
     </head>
-    <body class="{% block body_class %}{% endblock %}">
-        <nav class="main-nav">
+    <body>
+        {% include "_includes/navicons.svg" %}
+        <nav class="main-nav" id="main-nav">
             <a href="#" class="nav-btn" id="nav-btn">
                 <span class="nav-btn-icon"></span>
             </a>
@@ -23,13 +24,21 @@
                 { title: "Contact", link: "/contact/"}
             ]
         %}
+        {% set active = active %}
           <ul class="nav-menu">
             {% for n in nav %}
-                <li style="transition-delay: {{loop.index0 * 0.05}}s">
-                    <a href="{{n.title}}">{{n.title}}</a>
+                <li>
+                    <a href="{{n.link}}" class="{% if active == n.title %}active{% endif %}">
+                        <svg class="nav-icon">
+                            <use xlink:href="#navicon-{{n.title|lower}}" />
+                            
+                        </svg>
+                        <span class="nav-text">{{n.title}}</span>
+                    </a>
                 </li>
             {% endfor %}
           </ul>
+          <span class="nav-bg"></span>
         </nav>
         {#<footer class="connect">
                 <p class="social">Connect with me</p>

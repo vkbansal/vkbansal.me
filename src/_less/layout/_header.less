@@ -1,0 +1,43 @@
+.site-header {
+    .container {
+        display: flex;
+        padding: 25px;
+    }
+
+    .info {
+        &:before {
+            content: "";
+            font-family: @font-sans;
+            .home & {
+                content: "Home";
+                color: inherit;
+            }
+        }
+    }
+
+    .info, h1.title {
+        font-weight: normal;
+        font-size: 1.625rem;
+        line-height: 1.15384615;
+    }
+
+    h1.title {
+        margin: 0;
+        flex-grow: 2;
+        text-align: right;
+
+        @media (max-width: @screen-md){
+            & span {
+                display: none;
+                &:before {
+                    content: ".";
+                }
+            }
+        }
+    }
+
+    .home & {
+        background: @color-primary;
+        color: @color-white;
+    }
+}

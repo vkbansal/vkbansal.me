@@ -1,9 +1,9 @@
 (function(){
-    let burger = document.getElementById("nav-btn");
+    let burger = document.getElementById("nav-btn"),
+        nav = document.getElementById("main-nav");
 
     burger.addEventListener("click", (e) => {
       e.preventDefault();
-      document.body.classList.toggle("open");
-      burger.classList.toggle("open");
+      nav.classList.toggle("open");
     });
 })();
