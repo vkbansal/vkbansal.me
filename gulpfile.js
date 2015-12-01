@@ -12,6 +12,7 @@ let gulp = require("gulp"),
 
 let config = require("./scripts/config"),
     build = require("./scripts/build"),
+    plugins = require("./scripts/plugins"),
     handleErrors = require("./scripts/utils/gulp-handle-errors");
 
 const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
@@ -42,7 +43,10 @@ gulp.task("js", function() {
 
 gulp.task("posts", function() {
     return gulp.src(POSTS_PATH)
-        .pipe(build.posts(config)).on("error", handleErrors)
+        .pipe(build.posts(config, [
+            plugins.postsList,
+            plugins.recentJson
+        ])).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
 });

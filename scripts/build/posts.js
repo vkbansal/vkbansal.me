@@ -13,7 +13,7 @@ let through = require("through2"),
     utils = require("../utils"),
     requireDir = require("require-dir");
 
-module.exports = function(options) {
+module.exports = function(options, plugins = []) {
     let {
             location: _location,
             posts: _posts,
@@ -89,68 +89,9 @@ module.exports = function(options) {
 
     // flush function for through2
     function flush(done) {
-        let pages = _.chunk(posts.reverse(), _posts.limit),
-            indexPath = `${_posts.index}${_site.pretty_url ? "/index" : "" }.html`,
-            indexPage = pages.shift();
+        posts.reverse();
 
-        const LAYOUT = path.join(_location.layouts, _posts.index_layout || _posts.pagination_layout);
-
-        function getPageNumLink(num) {
-            return `${_posts.pagination_dir.replace(":num", num)}${_site.pretty_url ? "/index" : "" }.html`
-        }
-
-        function cleanPath(path) {
-            return _site.pretty_url ? path.replace(/index\.html$/, "") : path;
-        }
-
-        //Blog Index Page
-        this.push(
-            utils.createNewFile(
-                path.join(...indexPath.split("/")),
-                template.render(LAYOUT, {
-                    posts: indexPage,
-                    pages: {
-                        total: pages.length + 1,
-                        current: 1
-                    },
-                    links: {
-                        prev: false,
-                        next: pages.length > 0 ? cleanPath(getPageNumLink(2)) : false
-                    }
-                })
-            )
-        );
-
-        let recent = indexPage.map((post) => _.pick(post, ["title", "permalink"]));
-
-        // Recent Posts JSON
-        this.push(
-            utils.createNewFile(
-                path.join(_posts.index, "recent.json"),
-                JSON.stringify(recent, null, 2)
-            )
-        );
-
-        //Pagination pages >= 2
-        pages.forEach((page, i) => {
-            let num = i + 2;
-            this.push(
-                utils.createNewFile(
-                    path.join(...getPageNumLink(num).split("/")),
-                    template.render(LAYOUT, {
-                        posts: page,
-                        pages: {
-                            total: pages.length + 1,
-                            current: num,
-                        },
-                        links: {
-                            prev: num === 2 ? cleanPath(indexPath) : cleanPath(getPageNumLink(num - 1)),
-                            next: pages.length - 1 > i ? cleanPath(getPageNumLink(num + 1)) : false
-                        }
-                    })
-                )
-            );
-        })
+        plugins.forEach((plugin) => plugin(posts.slice(0), options, this.push.bind(this), template));
 
         done();
     }
