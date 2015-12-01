@@ -3,8 +3,8 @@
 let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
-    nj = require("./nunjucks"),
-    utils = require("./utils"),
+    nj = require("../vendors/nunjucks"),
+    utils = require("../utils"),
     requireDir = require("require-dir");
 
 module.exports = function(config) {

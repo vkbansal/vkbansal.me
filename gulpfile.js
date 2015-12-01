@@ -11,10 +11,8 @@ let gulp = require("gulp"),
     uglify = require("gulp-uglify");
 
 let config = require("./scripts/config"),
-    posts = require("./scripts/posts"),
-    pages = require("./scripts/pages"),
-    svgSprite =require("./scripts/svg-symbol-sprite"),
-    handleErrors = require("./scripts/gulp-handle-errors");
+    build = require("./scripts/build"),
+    handleErrors = require("./scripts/utils/gulp-handle-errors");
 
 const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
       PAGES_PATH = `${config.location.source}/**/*.html`;
@@ -44,21 +42,21 @@ gulp.task("js", function() {
 
 gulp.task("posts", function() {
     return gulp.src(POSTS_PATH)
-        .pipe(posts(config)).on("error", handleErrors)
+        .pipe(build.posts(config)).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
 });
 
 gulp.task("pages", function() {
     return gulp.src(PAGES_PATH)
-        .pipe(pages(config)).on("error", handleErrors)
+        .pipe(build.pages(config)).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
 });
 
 gulp.task("navicons", function() {
     return gulp.src("./src/_img/navicons/*.svg")
-        .pipe(svgSprite({
+        .pipe(build.svgSprite({
             name: "navicons.svg",
             id: "navicon-:basename"
         }))

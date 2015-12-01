@@ -3,7 +3,7 @@
 let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
-    utils = require("./utils"),
+    utils = require("../utils"),
     cheerio = require("cheerio"),
     SVGOptim = require("svgo");
 

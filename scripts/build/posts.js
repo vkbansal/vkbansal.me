@@ -4,13 +4,13 @@ let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
     fm = require("front-matter"),
-    nj = require("./nunjucks"),
+    nj = require("../vendors/nunjucks"),
     md = require('markdown-it')({
         html: true
     }),
     _ = require("lodash"),
     moment = require("moment"),
-    utils = require("./utils"),
+    utils = require("../utils"),
     requireDir = require("require-dir");
 
 module.exports = function(options) {
