@@ -2,5 +2,6 @@
 
 module.exports = {
     postsList: require("./posts-list"),
-    recentJson: require("./recent-json")
+    recentJson: require("./recent-json"),
+    rss: require("./rss")
 };

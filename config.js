@@ -26,7 +26,8 @@ let config = {
         pagination_dir: "/blog/page/:num",
         pagination_layout: "blog.html",
         limit: 3,
-        feed: false
+        feed: true,
+        feed_limit: 15
     },
     server: {
         host: "localhost",
