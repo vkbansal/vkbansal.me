@@ -15,10 +15,21 @@ module.exports = function({posts, options, add}) {
 
     let feed = new RSS(feedOptions);
 
+    posts.slice(0, options.posts.feed_limit).forEach((post) => {
+        let itemOptions = {
+            title: post.title,
+            description: post.description,
+            url: post.permalink,
+            date: post.date.toDate()
+        };
+
+        feed.item(itemOptions);
+    });
+
     add(
         utils.createNewFile(
             "feed.xml",
-            feed.xml()
+            feed.xml({indent: true})
         )
     );
 };

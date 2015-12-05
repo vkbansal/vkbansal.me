@@ -10,7 +10,7 @@ let gulp = require("gulp"),
     babel = require("gulp-babel"),
     uglify = require("gulp-uglify");
 
-let config = require("./scripts/config"),
+let config = require("./config"),
     build = require("./scripts/build"),
     plugins = require("./scripts/plugins"),
     handleErrors = require("./scripts/utils/gulp-handle-errors");

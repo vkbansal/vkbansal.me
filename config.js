@@ -1,12 +1,13 @@
 "use strict"
+
+module.exports = {
 // use relative paths
 // names starting with _ will be ignored (for pages/posts)
-let config = {
     location: {
-        // source: "src",
-        // destination: "public",
-        // layouts: "_layouts",
-        // posts: "_posts"
+        source: "src",
+        destination: "public",
+        layouts: "_layouts",
+        posts: "_posts"
     },
     site: {
         title: "V.K.Bansal",
@@ -29,10 +30,13 @@ let config = {
         feed: true,
         feed_limit: 15
     },
+    format: {
+        date: "YYYY-MM-DD",
+        time: "HH:mm:ss"
+    },
     server: {
         host: "localhost",
-        port: "4000"
+        port: "4000",
+        protocol: "http"
     }
 };
-
-module.exports = config;
