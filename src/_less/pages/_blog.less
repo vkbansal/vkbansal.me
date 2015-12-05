@@ -1,0 +1,50 @@
+.blog-articles {
+    .article {
+        border-bottom: 1px solid #dddddd;
+        padding: 15px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .meta {
+            margin: 0;
+            color: #999999;
+            font-style: italic;
+        }
+
+        h2 {
+            margin: 0;
+        }
+    }
+
+    a {
+        color: #333333;
+
+        &:hover, &:active, &:focus {
+            color: #333333;
+            text-decoration: none;
+        }
+    }
+
+    .tags {
+        list-style-type: none;
+        padding: 0;
+        font-size: 0.7rem;
+
+        li {
+            display: inline-block;
+        }
+
+        a {
+            padding: 2px 5px;
+            background: @color-primary;
+            color: #fff;
+            border-radius: 2px;
+        }
+    }
+}
+
+.blog-articles + .pagination {
+    margin: 30px 0;
+}

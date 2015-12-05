@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container">
     <br>
-    <section class="articles">
+    <section class="blog-articles">
         {% if posts.length > 0 %}
             {% for post in posts %}
             <div class="article">
@@ -33,12 +33,12 @@
         <ul>
             {% if links.next %}
             <li>
-                <a href="{{links.next}}">&larr; Older Posts</a>
+                <a href="{{links.next}}">&larr;&nbsp;&nbsp;Older Posts</a>
             </li>
             {% endif %}
             {% if links.prev %}
             <li>
-                <a href="{{links.prev}}">Newer Posts &rarr;</a>
+                <a href="{{links.prev}}">Newer Posts&nbsp;&nbsp;&rarr;</a>
             </li>
             {% endif %}
         </ul>
