@@ -51,7 +51,7 @@
         </div>
         <footer class="footer" id="footer">
             <div class="container">
-                <p class="copyright">&copy; {{ moment().format("YYYY") }}</p>
+                <p class="copyright">Copyright &copy; {{ moment().format("YYYY") }} {{ site.author.name }}. All rights reserved.</p>
                 <ul class="social">
                     {% for media in data.social %}
                         {% if media.footer %}
