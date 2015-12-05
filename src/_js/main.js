@@ -5,5 +5,6 @@
     burger.addEventListener("click", (e) => {
       e.preventDefault();
       nav.classList.toggle("open");
+      document.body.classList.toggle("open");
     });
 })();

@@ -84,7 +84,7 @@
             color: #333;
             font-weight: bold;
             font-size: 0.8rem;
-            font-family: Arial, "san-serif";
+            font-family: "Roboto", Arial, "san-serif";
             line-height: 50px;
             transition: all @nav-animation-time;
             padding-left: @nav-btn-radius + 10px;
@@ -176,4 +176,17 @@
         }
     }
 
+}
+
+
+body.open {
+    &:before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.8);
+    }
 }
