@@ -3,42 +3,69 @@
 {% block title %}{{ title }} | Blog | {% endblock %}
 
 {% block content %}
+{% set link = site.base_url + permalink %}
 <div class="container">
-    <div class="row">
-        <div class="blog-title">
-            <h1>{{ title }}</h1>
-            <small class="post-meta">By <a href="{% if author.site %}{{ author.site }}{% elif author.email %}mailto:{{ author.email }}{% endif %}">{{ author.name }}</a> {{ date }}</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="blog-sidebar-left">
-            <ul class="share">
-                <li>Share this:</li>
-                <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}">Facebook</a></li>
-                <li><a href="https://twitter.com/intent/tweet?url={{ currentUrl }}&text={{ title }}&via=_vkbansal">Twitter</a></li>
-                <li><a href="https://plus.google.com/share?url={{ currentUrl }}">Google+</a></li>
-            </ul>
-            <ul class="share">
-                <li>Follow me:</li>
-                <li><a href="http://feeds.feedburner.com/vkbansal">RSS</a></li>
-                <li><a href="https://github.com/vkbansal">Github</a></li>
-                <li><a href="https://www.facebook.com/vkbansal.me">Facebook</a></li>
-                <li><a href="https://twitter/_vkbansal">Twitter</a></li>
-            </ul>
-        </div>
-        <div class="blog-content">
-            {{ content }}
-        </div>
-        <div class="blog-sidebar-right">
-            <ul class="recent-posts">
-                <li>Recent posts:</li>
-                {% for post in posts %}
-                    {% if post.title != title %}
-                    <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
+    <header class="blog-header">
+        <h1 class="blog-title">{{ title }}</h1>
+        <section class="blog-social-media">
+            <h5 class="blog-publish-info">By <a href="{% if author.site %}{{ author.site }}{% elif author.email %}mailto:{{ author.email }}{% endif %}">{{ author.name }}</a> on {{ date.format("MMMM Do, YYYY") }}</h5>
+            <div class="share">
+                <h5>Share this:</h5>
+                <ul class="share-links">
+                    <li>
+                        <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ link }}">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-facebook" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="twitter" href="https://twitter.com/intent/tweet?url={{ link }}&text={{ title }}&via=_vkbansal">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-twitter" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="google-plus" href="https://plus.google.com/share?url={{ link }}">
+                            <svg class="icon">
+                                <use xlink:href="#navicon-google-plus" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+            {# <div class="follow">
+                <h5>Follow me:</h5>
+                <ul class="follow-links">
+                    {% for media in data.social %}
+                        {% if media.follow %}
+                            <li>
+                                <a href="{{media.link}}" title="{{media.name}}" class="{{media.name|kebabCase}}">
+                                    <svg class="icon">
+                                        <use xlink:href="#navicon-{{media.name|kebabCase}}" />
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div> #}
+        </section>
+    </header>
+    <section class="blog-content">
+        {{ content }}
+    </section>
+    <div class="blog-sidebar-right">
+        <ul class="recent-posts">
+            <li>Recent posts:</li>
+            {% for post in posts %}
+                {% if post.title != title %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </div>
     <div id="disqus_thread"></div>
     {% if env != 'development' %}

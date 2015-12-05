@@ -1,0 +1,87 @@
+.blog-header {
+    margin: 0 -15px 1.15384616rem;
+}
+
+.blog-social-media {
+    display: flex;
+
+    .blog-publish-info {
+        flex-grow: 2
+    }
+
+    & .share {
+        flex-grow: 1;
+        text-align: right;
+        // width: 50%;
+        h5 {
+            display: inline-block;
+        }
+    }
+
+    ul {
+        display: inline-flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-left: .25rem;
+
+
+        a {
+            display: block;
+            line-height: 18px;
+            padding: 5px 10px;
+            transition: all 0.2s;
+
+            &.facebook {
+                background: @brand-facebook-blue;
+
+                &:hover {
+                    background: darken(@brand-facebook-blue, 10%);
+                }
+            }
+
+            &.twitter {
+                background: @brand-twitter-blue;
+
+                &:hover {
+                    background: darken(@brand-twitter-blue, 5%);
+                }
+            }
+
+            &.google-plus {
+                background: @brand-google-plus-red;
+
+                &:hover {
+                    background: darken(@brand-google-plus-red, 5%);
+                }
+            }
+
+            &.rss {
+                background: @brand-rss;
+
+                &:hover {
+                    background: darken(@brand-rss, 5%);
+                }
+            }
+
+            &.github {
+                background: @brand-github-blue;
+
+                &:hover {
+                    background: darken(@brand-github-blue, 10%);
+                }
+            }
+        }
+
+        svg {
+            fill: #fff;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+}
+
+.blog-content {
+    margin: 0 -15px;
+}
