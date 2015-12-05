@@ -4,7 +4,7 @@ let path = require("path"),
     _ = require("lodash"),
     utils = require("../utils");
 
-module.exports = function(posts, options, add, template) {
+module.exports = function({posts, options, add, template, data}) {
     let pages = _.chunk(posts, options.posts.limit),
         indexPath = `${options.posts.index}${options.site.pretty_url ? "/index" : "" }.html`,
         indexPage = pages.shift();
@@ -23,17 +23,20 @@ module.exports = function(posts, options, add, template) {
     add(
         utils.createNewFile(
             path.join(...indexPath.split("/")),
-            template.render(LAYOUT, {
-                posts: indexPage,
-                pages: {
-                    total: pages.length + 1,
-                    current: 1
-                },
-                links: {
-                    prev: false,
-                    next: pages.length > 0 ? cleanPath(getPageNumLink(2)) : false
-                }
-            })
+            template.render(
+                LAYOUT,
+                _.merge({
+                    posts: indexPage,
+                    pages: {
+                        total: pages.length + 1,
+                        current: 1
+                    },
+                    links: {
+                        prev: false,
+                        next: pages.length > 0 ? cleanPath(getPageNumLink(2)) : false
+                    }
+                }, data)
+            )
         )
     );
 
@@ -43,17 +46,20 @@ module.exports = function(posts, options, add, template) {
         add(
             utils.createNewFile(
                 path.join(...getPageNumLink(num).split("/")),
-                template.render(LAYOUT, {
-                    posts: page,
-                    pages: {
-                        total: pages.length + 1,
-                        current: num,
-                    },
-                    links: {
-                        prev: num === 2 ? cleanPath(indexPath) : cleanPath(getPageNumLink(num - 1)),
-                        next: pages.length - 1 > i ? cleanPath(getPageNumLink(num + 1)) : false
-                    }
-                })
+                template.render(
+                    LAYOUT,
+                        _.merge({
+                        posts: page,
+                        pages: {
+                            total: pages.length + 1,
+                            current: num,
+                        },
+                        links: {
+                            prev: num === 2 ? cleanPath(indexPath) : cleanPath(getPageNumLink(num - 1)),
+                            next: pages.length - 1 > i ? cleanPath(getPageNumLink(num + 1)) : false
+                        }
+                    }, data)
+                )
             )
         );
     })

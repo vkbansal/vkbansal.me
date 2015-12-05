@@ -4,7 +4,7 @@ let path = require("path"),
     _ = require("lodash"),
     utils = require("../utils");
 
-module.exports = function(posts, options, add) {
+module.exports = function({posts, options, add}) {
     let recent = posts.slice(0, options.posts.limit)
         .map((post) => _.pick(post, ["title", "permalink"]));
 

@@ -3,7 +3,7 @@
 let RSS = require("rss"),
     utils = require("../utils");
 
-module.exports = function(posts, options, add) {
+module.exports = function({posts, options, add}) {
     if (!options.posts.feed) return;
 
     let feedOptions = {

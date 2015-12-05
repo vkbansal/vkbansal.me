@@ -54,26 +54,33 @@ module.exports = function(options, plugins = []) {
             filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
             ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.html`;
 
+        let templateData = _.merge(
+            {
+                permalink,
+                file,
+                title,
+                data,
+                date,
+                site: _site
+            },
+            attributes
+        );
+
         let contents = template.render(
             path.join(_location.layouts, attributes.layout || _posts.layout),
-            {
-                content: md.render(body),
-                site: _site,
-                data
-            }
+            _.merge(
+                {content: md.render(body)},
+                templateData
+            )
         );
 
         file.contents = new Buffer(contents);
         file.path = path.join(file.base, ...filePath.split("/"));
 
         posts.push(
-            _.merge({
-                    permalink,
-                    file,
-                    title,
-                    date,
-                },
-                attributes
+            _.merge(
+                { file },
+                templateData
             )
         );
 
@@ -91,7 +98,15 @@ module.exports = function(options, plugins = []) {
     function flush(done) {
         posts.reverse();
 
-        plugins.forEach((plugin) => plugin(posts.slice(0), options, this.push.bind(this), template));
+        plugins.forEach((plugin) => plugin(
+            {
+                posts: posts.slice(0),
+                options,
+                add: this.push.bind(this),
+                template,
+                data: { site: _site, data }
+            }
+        ));
 
         done();
     }
