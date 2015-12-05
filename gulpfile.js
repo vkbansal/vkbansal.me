@@ -71,6 +71,6 @@ gulp.task("navicons", function() {
 gulp.task("watch", function() {
     livereload.listen();
     gulp.watch(POSTS_PATH, ["posts"]);
-    gulp.watch(PAGES_PATH, ["pages"]);
+    gulp.watch(PAGES_PATH, ["pages", "posts"]);
     gulp.watch("./src/_less/**/*.less", ["css"]);
 });
