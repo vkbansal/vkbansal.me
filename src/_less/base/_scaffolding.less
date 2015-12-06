@@ -1,9 +1,25 @@
 html {
 	box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    height: 100%;
 }
 
 *,
 *:before,
 *:after {
 	box-sizing: inherit;
+}
+
+.site-wrapper {
+    min-height: 100%;
+    margin-bottom: -54px;
+
+    &:after {
+        display: block;
+        content: "";
+        height: 54px; 
+    }
 }
