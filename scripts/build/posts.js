@@ -61,7 +61,8 @@ module.exports = function(options, plugins = []) {
                 title,
                 data,
                 date,
-                site: _site
+                site: _site,
+                config: _posts
             },
             attributes
         );
@@ -104,7 +105,7 @@ module.exports = function(options, plugins = []) {
                 options,
                 add: this.push.bind(this),
                 template,
-                data: { site: _site, data }
+                data: { site: _site, data, config: _posts }
             }
         ));
 
