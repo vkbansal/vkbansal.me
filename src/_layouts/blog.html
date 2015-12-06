@@ -6,7 +6,9 @@
 
 {% block content %}
 <div class="container">
-    <br>
+    {% if tag_applied %}
+        <h5>Current label: <span class="applied-tag">{{ tag_applied }}&nbsp;&nbsp;<a href="{{ config.index }}">&times;</a></span></h5>
+    {% endif %}
     <section class="blog-articles">
         {% if posts.length > 0 %}
             {% for post in posts %}
@@ -16,13 +18,15 @@
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.description }}</p>
                 </a>
-                <ul class="tags">
-                    {% for tag in post.tag %}
-                        <li class="tag">
-                            <a href="#">{{ tag }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if not tag_applied %}
+                    <ul class="tags">
+                        {% for tag in post.tag %}
+                            <li class="tag">
+                                <a href="{{ config.tags_dir|replace(":tag", tag) }}">{{ tag }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
             {% endfor %}
         {% else %}

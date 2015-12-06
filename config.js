@@ -28,7 +28,10 @@ module.exports = {
         pagination_layout: "blog.html",
         limit: 3,
         feed: true,
-        feed_limit: 15
+        feed_limit: 15,
+        tags_layout: "blog.html",
+        tags_dir: "/blog/labels/:tag",
+        tags_pagination: "/blog/labels/:tag/page/:num",
     },
     format: {
         date: "YYYY-MM-DD",

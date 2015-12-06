@@ -46,7 +46,8 @@ gulp.task("posts", function() {
         .pipe(build.posts(config, [
             plugins.postsList,
             plugins.recentJson,
-            plugins.rss
+            plugins.rss,
+            plugins.tags
         ])).on("error", handleErrors)
         .pipe(gulp.dest(config.location.destination))
         .pipe(livereload({start: false}));
