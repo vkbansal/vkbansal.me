@@ -2,7 +2,7 @@
 
 let Express = require("express"),
     path = require("path"),
-    config = require("./scripts/config"),
+    config = require("./config"),
     opener = require("opener");
 
 let app = new Express(),
