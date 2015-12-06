@@ -1,12 +1,17 @@
 "use strict";
 
 let path = require("path"),
-    _ = require("lodash"),
     utils = require("../utils");
 
 module.exports = function({posts, options, add}) {
     let recent = posts.slice(0, options.posts.limit)
-        .map((post) => _.pick(post, ["title", "permalink"]));
+        .map((post) => ({
+            permalink: post.permalink,
+            title: post.title,
+            description: post.description,
+            date: post.date.format("MMMM Do, YYYY"),
+            tags: post.tag
+        }));
 
     add(
         utils.createNewFile(
