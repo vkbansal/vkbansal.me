@@ -1,8 +1,14 @@
 "use strict";
 
-let hljs = require('highlight.js'),
+let illuminate = require('illuminate-js'),
     md = require('markdown-it');
 
 module.exports = md({
-    html: true
+    html: true,
+    highlight(text, language) {
+        if (illuminate.getLanguage(language)) {
+            return illuminate.highlight(text, language);
+        }
+        return "";
+    }
 });
