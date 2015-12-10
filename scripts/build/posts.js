@@ -5,9 +5,7 @@ let through = require("through2"),
     gutil = require("gulp-util"),
     fm = require("front-matter"),
     nj = require("../vendors/nunjucks"),
-    md = require('markdown-it')({
-        html: true
-    }),
+    md = require("../vendors/markdown-it"),
     _ = require("lodash"),
     moment = require("moment"),
     utils = require("../utils"),
