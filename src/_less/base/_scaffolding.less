@@ -20,6 +20,15 @@ body {
     &:after {
         display: block;
         content: "";
-        height: 54px; 
+        height: 54px;
+    }
+}
+
+a {
+    color: @color-primary;
+
+    &:hover, &:active, &:focus {
+        color: darken(@color-primary, 10%);
+        text-decoration: underline;
     }
 }
