@@ -8,18 +8,20 @@
       document.body.classList.toggle("open");
     });
 
-    if (document.body.classList.contains("home")) {
+    function getRecentPosts () {
         let request = new XMLHttpRequest();
         request.open("GET", "/blog/recent.json", true);
 
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 let data = JSON.parse(request.responseText),
-                    homePageRecent = document.querySelector("#latest-blog-posts .blog-articles");
+                    homePageRecent = document.querySelector("#latest-blog-posts .blog-articles"),
+                    recentPosts = document.getElementById("recent-posts");
 
                 if (homePageRecent) {
                     homePageRecent.innerHTML = data.reduce((prev, post) => (
-                        `${prev}<div class="article">
+                        `${prev}
+                        <div class="article">
                             <a href="${post.permalink}">
                                 <p class="meta">${post.date}</p>
                                 <h2>${post.title}</h2>
@@ -27,6 +29,19 @@
                             </a>
                         </div>`
                     ), "");
+                } else if (recentPosts) {
+                    let current = recentPosts.getAttribute("data-current");
+
+                    recentPosts.innerHTML = data
+                        .filter((post) => post.permalink !== current)
+                        .reduce((prev, post) => (
+                            `${prev}
+                            <li>
+                                <a href="${post.permalink}" title="${post.title}">
+                                    ${post.title}
+                                </a>
+                            </li>`
+                        ), "")
                 }
 
             }
@@ -34,4 +49,6 @@
 
         request.send();
     }
+
+    getRecentPosts();
 })();
