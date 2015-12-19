@@ -36,7 +36,7 @@
 
     @media (max-width: @screen-lg){
         max-width : 700px;
-        margin: 0 auto 1.15384616rem;
+        margin: 1.15384616rem auto ;
     }
 
     @media (min-width: @screen-lg) {
@@ -138,20 +138,46 @@
             }
         }
 
-        &.share-links a:hover {
-            color: #fff;
-            text-decoration: none;
-            svg {
-                fill: #fff;
-            }
-        }
-
         svg {
             fill: #333333;
             width: 16px;
             height: 16px;
             vertical-align: bottom;
             margin-right: 0.5rem;
+        }
+
+    }
+
+    & .share {
+        @media (max-width: @screen-lg) {
+            h4 {
+                display:inline-block;
+                margin-right: 0.5rem;
+
+                &:after {
+                    content: ":";
+                }
+            }
+
+            ul {
+                display:inline-flex;
+
+                li {
+                    border: 1px solid #ddd;
+
+                    &:not(:last-child) {
+                        border-right: none;
+                    }
+                }
+            }
+        }
+
+        & a:hover {
+            color: #fff;
+            text-decoration: none;
+            svg {
+                fill: #fff;
+            }
         }
     }
 }
