@@ -1,34 +1,23 @@
 .site-header {
+    margin-bottom: 1.5rem;
+
+    body.home & {
+        margin-bottom: 0;
+    }
+
     .container {
         display: flex;
         padding: 25px 0;
         border-bottom: 1px solid #dddddd;
     }
 
-    h1.title {
-        font-family: "Open Sans", "Helvetica Neue", Verdana, sans-serif;
-        font-size: 1.625rem;
-        line-height: 1.15384615;
-        margin: 0;
-        flex-grow: 2;
-        text-align: right;
-
-        @media (max-width: @screen-md){
-            & span {
-                display: none;
-                &:before {
-                    content: ".";
-                }
-            }
-        }
-    }
-
 
     .logo {
         line-height: 1;
         display: block;
+        padding: 0 15px;
         svg {
-            height: 30px * 1.15384615;
+            height: 30px;
             fill: @color-primary;
         }
     }

@@ -15,35 +15,29 @@
             <header class="site-header">
                 <div class="container">
                     <a href="/" class="logo">{% include "_img/logo.svg" %}</a>
-                    <h1 class="title">V<span>ivek </span>K<span>umar </span>Bansal</h1>
+                    {% set nav = [
+                        { title: "About", link: "/about/"},
+                        { title: "Work", link: "/work/"},
+                        { title: "Blog", link: "/blog/"},
+                        { title: "Contact", link: "/contact/"}
+                        ]
+                    %}
+                    {% set active = active %}
+                    <ul class="nav-menu">
+                        {% for n in nav %}
+                        <li>
+                            <a href="{{n.link}}" class="{% if active == n.title %}active{% endif %}">
+                                {{n.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </header>
             <nav class="main-nav" id="main-nav">
                 <a href="#" class="nav-btn" id="nav-btn">
                     <span class="nav-btn-icon"></span>
                 </a>
-            {% set nav = [
-                    { title: "Home", link: "/"},
-                    { title: "About", link: "/about/"},
-                    { title: "Work", link: "/work/"},
-                    { title: "Blog", link: "/blog/"},
-                    { title: "Contact", link: "/contact/"}
-                ]
-            %}
-            {% set active = active %}
-                <ul class="nav-menu">
-                {% for n in nav %}
-                    <li>
-                        <a href="{{n.link}}" class="{% if active == n.title %}active{% endif %}">
-                            <svg class="nav-icon">
-                                <use xlink:href="#navicon-{{n.title|lower}}" />
-
-                            </svg>
-                            <span class="nav-text">{{n.title}}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-                </ul>
                 <span class="nav-bg"></span>
             </nav>
             <div id="site-content" class="site-content">
