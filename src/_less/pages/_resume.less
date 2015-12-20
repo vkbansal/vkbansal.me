@@ -1,0 +1,100 @@
+.resume-wrapper {
+    .title, .subtitle {
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    .title {
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+
+    a {
+        color: #333;
+    }
+
+    .subtitle {
+        font-size: 1em;
+
+        &:before {
+            content: "<";
+        }
+
+        &:after {
+            content: "/>";
+        }
+    }
+
+    .profile-links {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            margin: 0 auto;
+            width: auto;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .link-name, .link-url {
+            display: block;
+        }
+
+        .link-name {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .link-url {
+            font-size: 0.85rem;
+        }
+    }
+
+    h3 {
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 1px solid #333;
+    }
+
+    p {
+        line-height: 1.35;
+    }
+
+    ul {
+        margin: 0.5rem auto;
+        p {
+            margin: 0;
+        }
+    }
+
+    p + ul {
+        margin-top: -0.5rem;
+
+        &  p + ul {
+            margin-top: 0;
+        }
+    }
+
+    .right {
+        float: right;
+    }
+}
+
+.resume {
+    @media print {
+        .site-header, .footer {
+            display: none;
+        }
+
+        .container {
+            width: auto;
+        }
+    }
+}
