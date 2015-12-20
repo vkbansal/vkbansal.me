@@ -9,7 +9,7 @@ let through = require("through2"),
 
 module.exports = function(config) {
 
-    let {location, site} = config,
+    let { location, site } = config,
         template = nj(path.resolve(process.cwd(), location.source)),
         data = requireDir(path.resolve(process.cwd(), location.source, "_data"));
 
@@ -28,7 +28,11 @@ module.exports = function(config) {
         }
 
         let parsedPath = utils.parsePath(file.relative),
-            contents = template.render(file.relative, {site, data});
+            contents = template.render(file.relative, {
+                site,
+                data,
+                env: process.env.NODE_ENV || "development"
+            });
 
         file.contents = new Buffer(contents);
 

@@ -57,10 +57,12 @@ module.exports = function(options, plugins = []) {
                 permalink,
                 file,
                 title,
+                slug: title,
                 data,
                 date,
                 site: _site,
-                config: _posts
+                config: _posts,
+                env: process.env.NODE_ENV || "development"
             },
             attributes
         );
