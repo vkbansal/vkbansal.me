@@ -74,9 +74,9 @@
     <div class="blog-container center">
         <div id="disqus_thread"></div>
     </div>
-    {% if env != 'development' %}
-    <!--script type="text/javascript">
-        var disqus_shortname = 'vkbansal',
+    {% if env == 'production' %}
+    <script type="text/javascript">
+        var disqus_shortname = '{{ data.disqus.shortname }}',
             disqus_identifier = '{{ slug }}',
             disqus_title = '{{ title }}';
         (function() {
@@ -84,7 +84,7 @@
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
-    </script-->
+    </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     {% endif %}
 </div>
