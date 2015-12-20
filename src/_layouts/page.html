@@ -47,7 +47,7 @@
             <div class="container">
                 <p class="copyright">Copyright &copy; {{ moment().format("YYYY") }} {{ site.author.name }}. All rights reserved.</p>
                 <ul class="social">
-                    {% for media in data.social %}
+                    {% for key, media in data.social %}
                         {% if media.footer %}
                             <li>
                                 <a href="{{media.link}}" title="{{media.name}}" class="{{media.name|kebabCase}}">

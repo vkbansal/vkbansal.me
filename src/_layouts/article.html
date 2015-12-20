@@ -25,7 +25,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="twitter" href="https://twitter.com/intent/tweet?url={{ link }}&text={{ title }}&via=_vkbansal">
+                        <a class="twitter" href="https://twitter.com/intent/tweet?url={{ link }}&text={{ title }}&via={{data.social.twitter.username}}">
                             <svg class="icon">
                                 <use xlink:href="#navicon-twitter" />
                             </svg>
@@ -45,7 +45,7 @@
             <div class="follow">
                 <h4>Follow me</h4>
                 <ul class="follow-links">
-                    {% for media in data.social %}
+                    {% for key, media in data.social %}
                         {% if media.follow %}
                             <li>
                                 <a href="{{media.link}}" title="{{media.name}}" class="{{media.name|kebabCase}}">
