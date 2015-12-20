@@ -17,7 +17,7 @@ module.exports = {
             name: "Vivek Kumar Bansal",
             email: "contact@vkbansal.me"
         },
-        base_url: "http://vkbansal.me/",
+        base_url: "https://vkbansal.me/",
         pretty_url: true
     },
     posts: {
