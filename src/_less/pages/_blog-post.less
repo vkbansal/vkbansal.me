@@ -75,7 +75,7 @@
         // display: inline-flex;
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 0 0 1rem;
 
         li {
             border-bottom: 1px solid #dddddd;
@@ -148,7 +148,7 @@
 
     }
 
-    & .share {
+    & .share, & .follow {
         @media (max-width: @screen-lg) {
             h4 {
                 display:inline-block;
@@ -164,6 +164,7 @@
 
                 li {
                     border: 1px solid #ddd;
+                    flex-grow: 1;
 
                     &:not(:last-child) {
                         border-right: none;

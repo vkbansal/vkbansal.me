@@ -41,10 +41,9 @@
                         </a>
                     </li>
                 </ul>
-
             </div>
-            {# <div class="follow">
-                <h5>Follow me:</h5>
+            <div class="follow">
+                <h4>Follow me</h4>
                 <ul class="follow-links">
                     {% for media in data.social %}
                         {% if media.follow %}
@@ -53,12 +52,13 @@
                                     <svg class="icon">
                                         <use xlink:href="#navicon-{{media.name|kebabCase}}" />
                                     </svg>
+                                    {{media.name}}
                                 </a>
                             </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
-            </div> #}
+            </div>
         </section>
         <div class="blog-article">
             <article class="blog-container">
