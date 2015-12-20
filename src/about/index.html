@@ -6,64 +6,47 @@
     <div class="banner">
         <h1>A Creative Frontend Developer &amp; Designer</h1>
     </div>
-    <div class="row">
-        <div class="about--intro group">
             {#<figure class="img-right">#}
                 {#<img src="images/VKB.jpg" alt="Vivek Kumar Bansal">#}
             {#</figure>#}
-            <p>
-                I am <strong>Vivek Kumar Bansal, a frontend developer and designer ,</strong> based in <em>Hyderabad, India.</em> I began freelancing in August 2013 and have been since working closely with companies and individuals on variety of projects. I enjoy exploring and learning new technologies. Currently, I also serve full-time as a front-end developer at <a href="http://helicaltech.com" target="_blank">Helical IT solutions, Hyderabad</a>.
-            </p>
-            <p>Here are some of the technologies I deal with:</p>
-            <ul class="my-tech">
-                <li><a href="http://www.w3.org/TR/html5/" class="html" title="HTML5"></a></li>
-                <li><a href="http://www.w3.org/Style/CSS/current-work.en.html" class="css" title="CSS3"></a></li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/About_JavaScript" class="js" title="JavaScript"></a></li>
-                <li><a href="http://jquery.com" class="jquery" target="_blank" title="jQuery"></a></li>
-                <li><a href="http://backbonejs.org" class="backbone" target="_blank" title="Backbone.js"></a></li>
-                <li><a href="http://coffeescript.org" class="coffee-script" target="_blank" title="Coffee-Script"></a></li>
-                <li><a href="http://lesscss.org" class="less" target="_blank" title="Less CSS"></a></li>
-                <li><a href="http://learnboost.github.io/stylus/" class="stylus" title="Stylus" target="_blank"></a></li>
-                <li><a href="http://getbootstrap.com" target="_blank" title="Bootstrap" class="bootstrap"></a></li>
-                <li><a href="htp://php.net" class="php" target="_blank" title="PHP"></a></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <p>
-                And when I'm not developing or learning, I like to unwind by listening music and playing PC games.</em>.
-            </p>
 
-        </div>
-        <div class="about--skills">
-            <svg viewBox="0 0 600 600">
-                <path d="M 300,300 L 300,0 A 300,300 0 0,1 585.317,392.705 Z" fill="#FABA2C"></path>
-                <path d="M 300,300 L 585.317,392.705 A 300,300 0 0,1 392.705,585.317 Z" fill="#EB4A4A"></path>
-                <path d="M 300,300 L 392.705,585.317 A 300,300 0 1,1 300,0 Z" fill="#44b29d"></path>
-                <text x="30" y="300" textLength="240" style="text-anchor: start; font-size: 24px" fill="#ffffff">Frontend Development</text>
-                <text x="350" y="220" textLength="180" style="text-anchor: start; font-size: 24px" fill="#ffffff">Frontend Design</text>
-                <text x="390" y="430" textLength="96" style="text-anchor: start; font-size: 24px"  fill="#ffffff">Backend</text>
-            </svg>
-        </div>
-    </div>
-    <section id="process" class="container process">
-        <h2 class="heading">How I work</h2>
-        <ul class="process__list">
-            <li class="process__stage process__stage--1">
-                <h3>Research &amp; Planning</h3>
-                <p>Through the project planner, interactions and research I get to know you/your company and its philosophy, the project goals and your objectives. This helps me in crafting a through plan.</p>
-            </li>
-            <li class="process__stage process__stage--2">
-                <h3>Concept &amp; Design</h3>
-                <p>The brainstorming starts and ideas that fit your goals and objective see the light of the day. Then most effective designs are pursued and explored, and are reviewed.</p>
-            </li>
-            <li class="process__stage process__stage--3">
-                <h3>Finalization &amp; Delivery</h3>
-                <p>The final designs are made and may be tweaked and polished if required. The project is delivered to the client. I may help monitor the launch and assist with any future requirements.</p>
-            </li>
-        </ul>
-    </section>
+    <h2>About Me</h2>
+    <p>I am Vivek Kumar Bansal, a frontend developer and designer, based in <em>Hyderabad, India.</em> I enjoy exploring and learning new technologies. I’m an active proponent of Modern JavaScript, CSS3 and HTML5. <strong>I <span class="color-primary">&#10084;</span> Open Source</strong> and actively contribute on <a href="{{ data.social.github.link }}" target="_blank">GitHub</a>. Currently, I serve as a full-time front-end developer at <a href="http://helicaltech.com" target="_blank">Helical IT solutions, Hyderabad</a>. I also work on freelance projects from time to time. I began freelancing in August 2013 and have been since working closely with companies and individuals on variety of projects. And when I'm not developing or learning, I like to unwind by listening music and playing PC games.</p>
+
+    <h2>My Work</h2>
+    <p>You can glance my work</p>
+    <ul class="work-list">
+        <li>
+            <a href="{{ data.social.github.link }}" class="github" title="{{ data.social.github.name }}" target="_blank">
+                <svg class="icon">
+                      <use xlink:href="#navicon-github" />
+                  </svg>
+            </a>
+        </li>
+        <li>
+            <a href="{{ data.social.behance.link }}" class="behance" title="{{ data.social.behance.name }}" target="_blank">
+                <svg class="icon">
+                      <use xlink:href="#navicon-behance" />
+                  </svg>
+            </a>
+        </li>
+        <li>
+            <a href="{{ data.social.codepen.link }}" class="codepen" title="{{ data.social.codepen.name }}" target="_blank">
+                <svg class="icon">
+                      <use xlink:href="#navicon-codepen" />
+                  </svg>
+            </a>
+        </li>
+    </ul>
+    {# <div class="skills">
+        <svg viewBox="0 0 600 600">
+            <path d="M 300,300 L 300,0 A 300,300 0 0,1 585.317,392.705 Z" fill="#FABA2C"></path>
+            <path d="M 300,300 L 585.317,392.705 A 300,300 0 0,1 392.705,585.317 Z" fill="#EB4A4A"></path>
+            <path d="M 300,300 L 392.705,585.317 A 300,300 0 1,1 300,0 Z" fill="#44b29d"></path>
+            <text x="30" y="300" textLength="240" style="text-anchor: start; font-size: 24px" fill="#ffffff">Frontend Development</text>
+            <text x="350" y="220" textLength="180" style="text-anchor: start; font-size: 24px" fill="#ffffff">Frontend Design</text>
+            <text x="390" y="430" textLength="96" style="text-anchor: start; font-size: 24px"  fill="#ffffff">Backend</text>
+        </svg>
+    </div> #}
 </div>
 {% endblock %}
