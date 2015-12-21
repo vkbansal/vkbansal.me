@@ -18,7 +18,12 @@ let config = require("./config"),
 const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
       PAGES_PATH = `${config.location.source}/**/*.html`;
 
-gulp.task("default", ["css", "posts", "pages"]);
+gulp.task("default", ["css", "js", "posts", "pages", "navicons", "include"]);
+
+gulp.task("include", function() {
+    return gulp.src("./include/**/*.*")
+        .pipe(gulp.dest("./public"));
+});
 
 gulp.task("css", function() {
     return gulp.src("./src/_less/main.less")
