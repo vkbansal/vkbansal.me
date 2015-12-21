@@ -1,7 +1,11 @@
-{% extends "_layouts/page.html" %}
+{% if ajax == true %}
+    {% extends "_layouts/ajax.html" %}
+{% else %}
+    {% extends "_layouts/page.html" %}
+{% endif %}
+
 {% block title %}Contact | {% endblock %}
 {% set active = "Contact" %}
-{% set template = 'contact' %}
 {% block content %}
 <div class="container">
     <section class="banner">

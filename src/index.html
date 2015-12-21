@@ -1,4 +1,9 @@
-{% extends "_layouts/page.html" %}
+{% if ajax == true %}
+    {% extends "_layouts/ajax.html" %}
+{% else %}
+    {% extends "_layouts/page.html" %}
+{% endif %}
+
 {% block title %}Vivek Kumar Bansal, frontend designer and developer{% endblock %}
 {% set active = "Home" %}
 {% block content %}
