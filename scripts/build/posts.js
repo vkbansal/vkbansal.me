@@ -50,7 +50,7 @@ module.exports = function(options, plugins = []) {
                         .replace(":day", day)
                         .replace(":title", _.kebabCase(title)),
             filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
-            ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.html`;
+            ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.json`;
 
         let templateData = _.merge(
             {
@@ -62,6 +62,7 @@ module.exports = function(options, plugins = []) {
                 date,
                 site: _site,
                 config: _posts,
+                content: md.render(body),
                 env: process.env.NODE_ENV || "development"
             },
             attributes
@@ -69,10 +70,7 @@ module.exports = function(options, plugins = []) {
 
         let contents = template.render(
             path.join(_location.layouts, attributes.layout || _posts.layout),
-            _.merge(
-                {content: md.render(body)},
-                templateData
-            )
+            templateData
         );
 
         file.contents = new Buffer(contents);
@@ -85,10 +83,17 @@ module.exports = function(options, plugins = []) {
             )
         );
 
+        templateData.ajax = true;
+
+        contents = template.render(
+            path.join(_location.layouts, attributes.layout || _posts.layout),
+            templateData
+        );
+
         this.push(
             utils.createNewFile(
                 path.join(...ajaxPath.split("/")),
-                md.render(body)
+                contents
             )
         );
 
