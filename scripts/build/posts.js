@@ -50,7 +50,7 @@ module.exports = function(options, plugins = []) {
                         .replace(":day", day)
                         .replace(":title", _.kebabCase(title)),
             filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
-            ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }ajax.json`;
+            ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }index.json`;
 
         let templateData = _.merge(
             {
