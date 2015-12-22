@@ -1,5 +1,7 @@
 {
     "title": "{% block title %}{% endblock %}Vivek Kumar Bansal, frontend developer and designer",
     "body_class": "{{ active|lower() }}",
-    "content": "{% block content %}{% endblock %}"
+    "content": {% applyFilter "jsonEscape" %}
+                {% block content %}{% endblock %}
+                {% endApplyFilter %}
 }

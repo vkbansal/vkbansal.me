@@ -24,7 +24,7 @@
                     <ul class="nav-menu">
                         {% for n in nav %}
                         <li>
-                            <a href="{{n.link}}" class="{% if active == n.title %}active{% endif %}">
+                            <a href="{{n.link}}" data-ajax="true" class="{% if active == n.title %}active{% endif %}">
                                 {{n.title}}
                             </a>
                         </li>
