@@ -28,20 +28,31 @@ module.exports = function(config) {
         }
 
         let parsedPath = utils.parsePath(file.relative),
-            contents = template.render(file.relative, {
+            templatePath = file.relative,
+            basePath = file.base,
+            templateData = {
                 site,
                 data,
                 env: process.env.NODE_ENV || "development"
-            });
+            },
+            contents = template.render(templatePath, templateData);
 
         file.contents = new Buffer(contents);
 
+        let ajaxPath;
+
         if (site.pretty_url && parsedPath.basename !== "index") {
-            file.path = path.join(file.base, parsedPath.dirname, parsedPath.basename, "index.html");
+            ajaxPath = path.join(parsedPath.dirname, parsedPath.basename, "index.json");
+            file.path = path.join(basePath, parsedPath.dirname, parsedPath.basename, "index.html");
+        } else {
+            ajaxPath = path.join(parsedPath.dirname, `${parsedPath.basename}.json`);
         }
 
-        done(null, file);
+        templateData.ajax = true;
+        contents = template.render(templatePath, templateData);
+        this.push(utils.createNewFile(ajaxPath, contents));
 
+        done(null, file);
     }
 
     function flush(done) {
