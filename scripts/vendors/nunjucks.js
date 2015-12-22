@@ -16,6 +16,9 @@ module.exports = function(path) {
     env.addFilter("kebabCase", function (str) {
         return _.kebabCase(str);
     });
+    env.addFilter("jsonEscape", function(str) {
+        return JSON.stringify(str);
+    });
     env.addGlobal("moment", moment);
 
     return env;
