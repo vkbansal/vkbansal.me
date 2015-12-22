@@ -3,6 +3,7 @@
 let path = require("path");
 
 let gulp = require("gulp"),
+    del = require("del"),
     less = require("gulp-less"),
     minifyCss = require("gulp-minify-css"),
     rename = require("gulp-rename"),
@@ -19,6 +20,13 @@ const POSTS_PATH = path.resolve(config.location.source, config.location.posts) +
       PAGES_PATH = `${config.location.source}/**/*.html`;
 
 gulp.task("default", ["css", "js", "posts", "pages", "navicons", "include"]);
+
+gulp.task("clean", function() {
+    return del([
+        "public/**/*",
+        "!public/.gitkeep"
+    ]);
+});
 
 gulp.task("include", function() {
     return gulp.src("./include/**/*.*")
