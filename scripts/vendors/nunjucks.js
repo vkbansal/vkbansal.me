@@ -13,6 +13,10 @@ module.exports = function(path) {
         }
     );
 
+    let FilterExtension = require("nunjucks-filter")(nj);
+
+    env.addExtension('FilterExtension', new FilterExtension(env));
+
     env.addFilter("kebabCase", function (str) {
         return _.kebabCase(str);
     });
