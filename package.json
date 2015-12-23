@@ -30,6 +30,8 @@
     "rss": "^1.2.1",
     "svgo": "^0.6.1",
     "through2": "^2.0.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.6.0"
   }
 }
