@@ -3,10 +3,27 @@
 let Express = require("express"),
     path = require("path"),
     config = require("./config"),
-    opener = require("opener");
+    opener = require("opener"),
+    webpack = require('webpack'),
+    webpackConfig = require('./webpack.config');
 
 let app = new Express(),
     root = path.resolve(__dirname, config.location.destination);
+
+webpackConfig.entry.unshift("webpack-hot-middleware/client");
+webpackConfig.plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+];
+
+let compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.use(Express.static(root));
 
