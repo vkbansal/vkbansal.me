@@ -16,11 +16,11 @@ webpackConfig.plugins = [
     new webpack.NoErrorsPlugin()
 ];
 
-let compiler = webpack(config);
+let compiler = webpack(webpackConfig);
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath
+    publicPath: webpackConfig.output.publicPath
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
