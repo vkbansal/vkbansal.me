@@ -1,6 +1,8 @@
 "use strict";
 
-export default function(e) {
+import { stripHash } from "./utils";
+
+export default function(e, callback, ...params) {
     let link = e.currentTarget;
 
     if (link.tagName.toUpperCase() !== "A") return;
@@ -12,5 +14,12 @@ export default function(e) {
     // Ignore cross origin links
     if(location.protocol !== link.protocol || location.hostname !== link.hostname) return;
 
+    // Ignore case when a hash is being tacked on the current URL
+    if (link.href.indexOf("#") > -1 && stripHash(link) === stripHash(location)) return;
+
+    // Ignore event with default prevented
+    if (e.isDefaultPrevented()) return;
+
+    callback(link.getAttribute("href"), ...params);
     e.preventDefault();
 }
