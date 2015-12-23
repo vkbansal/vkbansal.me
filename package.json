@@ -1,5 +1,11 @@
 {
   "private": true,
+  "scripts": {
+    "build": "npm run gulp && npm run webpack",
+    "gulp": "gulp clean && gulp",
+    "webpack": "webpack --config ./webpack.config.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "lodash": "^3.10.1",
     "normalize.css": "^3.0.3",
