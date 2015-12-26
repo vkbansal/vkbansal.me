@@ -7,6 +7,8 @@ let Express = require("express"),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config');
 
+require("dontenv").load();
+
 let app = new Express(),
     root = path.resolve(__dirname, config.location.destination);
 
@@ -27,7 +29,7 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use(Express.static(root));
 
-app.listen(config.server.port, config.server.host, function (err) {
+app.listen(process.env.PORT, process.env.IP, function (err) {
     if (err) {
         console.log(err);
     }
