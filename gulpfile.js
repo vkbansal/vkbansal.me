@@ -1,5 +1,8 @@
 "use strict";
 
+require("dotenv").load();
+require("babel-register");
+
 let path = require("path");
 
 let gulp = require("gulp"),
