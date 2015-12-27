@@ -2,6 +2,7 @@
     .title, .subtitle {
         display: inline-block;
         text-transform: uppercase;
+        color: #333;
     }
 
     .title {
@@ -27,33 +28,52 @@
 
     .profile-links {
         display: flex;
+        margin-top: 1.5rem;
         list-style-type: none;
         padding: 0;
+        justify-content: space-between;
 
         li {
-            margin: 0 auto;
-            width: auto;
+            display: block;
+            // margin: 0 auto;
+            // width: auto;
 
-            &:first-child {
-                margin-left: 0;
-            }
+            // &:first-child {
+            //     margin-left: 0;
+            // }
 
-            &:last-child {
-                margin-right: 0;
-            }
+            // &:last-child {
+            //     margin-right: 0;
+            // }
         }
 
-        .link-name, .link-url {
+        a, a:hover {
+            text-decoration: none;
             display: block;
+        }
+
+
+        svg.icon {
+            height: 1.375rem;
+            width: 1rem;
+            fill: #333333;
+        }
+
+        .icon.email > svg, .icon.link > svg {
+            width: 38px;
+            height: 40px;
         }
 
         .link-name {
             font-weight: bold;
             text-transform: uppercase;
+            vertical-align: top;
         }
 
         .link-url {
             font-size: 0.85rem;
+            display: block;
+
         }
     }
 
@@ -61,14 +81,16 @@
         font-weight: bold;
         text-transform: uppercase;
         border-bottom: 1px solid #333;
+        color: #333;
     }
 
     p {
         line-height: 1.35;
+        color: #333;
     }
 
     ul {
-        margin: 0.5rem auto;
+        margin: 1rem auto;
         p {
             margin: 0;
         }
@@ -85,6 +107,10 @@
     .right {
         float: right;
     }
+
+    section {
+        page-break-inside: avoid;
+    }
 }
 
 .resume {
@@ -94,7 +120,48 @@
         }
 
         .container {
-            width: auto;
+            width: auto !important;
+            max-width: 100%;
+        }
+
+        .title {
+            font-size: 32px !important;
+            margin-right: 10px !important;
+        }
+
+        .subtitle {
+            font-size: 16px !important;
+        }
+
+        h3 {
+            font-size: 18px !important;
+        }
+
+        p {
+            font-size: 12px !important;
+            line-height: 1.65;
+        }
+
+        .icon {
+            float: left;
+        }
+
+        .link-name {
+            font-size: 13px !important;
+            line-height: 15px !important;
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 5px
+        }
+
+        .link-url {
+            font-size: 12px !important;
+            line-height: 1;
+        }
+
+        svg.icon {
+            width: 15px !important;
+            height: 15px !important;
         }
     }
 }

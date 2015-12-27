@@ -14,18 +14,27 @@
         <ul class="profile-links">
             <li>
                 <a href="mailto:{{ site.author.email }}">
+                    <svg class="icon email">
+                        <use xlink:href="#navicon-email" />
+                    </svg>
                     <span class="link-name">Email</span>
                     <span class="link-url">{{ site.author.email }}</span>
                 </a>
             </li>
             <li>
                 <a href="#">
+                    <svg class="icon">
+                        <use xlink:href="#navicon-mobile" />
+                    </svg>
                     <span class="link-name">Mobile</span>
                     <span class="link-url">+91-9676635890</span>
                 </a>
             </li>
             <li>
                 <a href="{{ site.base_url }}">
+                    <svg class="icon link">
+                        <use xlink:href="#navicon-link" />
+                    </svg>
                     <span class="link-name">Website</span>
                     <span class="link-url">
                         {{ site.base_url|replace("https://", "")|replace("/", "") }}
@@ -34,12 +43,18 @@
             </li>
             <li>
                 <a href="{{ data.social.github.link }}">
+                    <svg class="icon">
+                        <use xlink:href="#navicon-github" />
+                    </svg>
                     <span class="link-name">Github</span>
                     <span class="link-url">{{ data.social.github.link|replace("https://", "") }}</span>
                 </a>
             </li>
             <li>
                 <a href="{{ data.social.twitter.link }}">
+                    <svg class="icon">
+                        <use xlink:href="#navicon-twitter" />
+                    </svg>
                     <span class="link-name">Twitter</span>
                     <span class="link-url">@{{ data.social.twitter.username }}</span>
                 </a>
@@ -48,11 +63,11 @@
     </section>
     <section id="profile">
         <h3>Profile</h3>
-        <p>I’m a frontend developer with about two years of experience of building applications with Backbone.js and React.js Frameworks.</p>
+        <p>I’m a frontend developer with about two years of experience in building applications with Backbone.js and React.js Frameworks.</p>
 
-        <p>I’m an active proponent of Modern JavaScript (a.k.a. ES2015), CSS3 and HTML5. I love building application agnostic plugins/components using aforementioned technologies. I also like working on backend server using PHP and NodeJS.</p>
+        <p>I’m an active proponent of Modern JavaScript, CSS3 and HTML5. I love building application agnostic plugins/components using aforementioned technologies. I also like working on backend server using PHP and NodeJS.</p>
 
-        <p>My personal development project includes creating an application agnostic right-click menu (context menu) using React.js and Flux architecture.</p>
+        <p>My personal development projects include an application agnostic right-click menu (context menu) using React.js and Flux architecture; and a syntax highlighter for NodeJS.</p>
     </section>
     <section id="work-experience">
         <h3>Work Experience</h3>
@@ -103,17 +118,17 @@
             <li><p>Plugin creation using <b>jQuery</b>.</p></li>
             <li><p>Build tools like <b>Gulp</b> and <b>Webpack</b>.</p></li>
         </ul>
-        <p>HTML5 and CSS3:</p>
+        <p><b>HTML5 and CSS3:</b></p>
         <ul>
             <li><p>Experience with frameworks like <b>Bootstrap</b> and <b>Foundation</b>.</p></li>
             <li><p>Knowledge of <b>Responsive web design</b> with exposure to <b>mobile first development</b>.</p></li>
         </ul>
-        <p>PHP:</p>
+        <p><b>PHP:</b></p>
         <ul>
             <li><p>Experience with frameworks like <b>Laravel\Lumen</b> and <b>Slim</b>.</p></li>
             <li><p>Knowledge of <b>Test Driven Development</b> with exposure to <b>PHPUnit</b> and <b>PHPSpec</b>.</p></li>
         </ul>
-        <p>Others:</p>
+        <p><b>Others:</b></p>
         <ul>
             <li><p>Version control: <b>Git</b>.</p></li>
             <li><p>Pretty good with <b>Photoshop</b> and <b>Illustrator</b>.</p></li>
