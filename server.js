@@ -7,7 +7,7 @@ let Express = require("express"),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config');
 
-require("dontenv").load();
+require("dotenv").load();
 
 let app = new Express(),
     root = path.resolve(__dirname, config.location.destination);
