@@ -1,0 +1,18 @@
+{% if ajax == true %}
+    {% extends "_layouts/ajax.html" %}
+{% else %}
+    {% extends "_layouts/page.html" %}
+{% endif %}
+
+{% block title %}Contact | {% endblock %}
+{% set active = "Contact" %}
+{% block content %}
+<div class="container">
+    <section id="contact-me">
+        <h2>Thank you!</h2>
+        <p>I have received your message and will get back to you as soon as possible.</p>
+        <br>
+    </section>
+    {# include 'partials/ajax-form-status.twig'  #}
+</div>
+{% endblock %}
