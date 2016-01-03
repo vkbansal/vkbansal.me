@@ -34,7 +34,7 @@ app.listen(process.env.PORT, process.env.IP, function (err) {
         console.log(err);
     }
 
-    let url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
+    let url = `http://${process.env.IP}:${process.env.PORT}`;
 
     console.log(`Serving ${root}`);
     console.log(`Server started at ${url}`);
