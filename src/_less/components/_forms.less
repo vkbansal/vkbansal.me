@@ -1,0 +1,92 @@
+
+.input-field {
+    position: relative;
+    margin-top: 1rem;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #9e9e9e;
+        outline: none;
+        height: 3rem;
+        width: 100%;
+        font-size: 1rem;
+        margin: 0 0 1rem 0;
+        padding: 0;
+        transition: all 0.3s;
+
+        & + label {
+            position: absolute;
+            color: #9e9e9e;
+            left: 0.1rem;
+            top: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+            cursor: text;
+        }
+
+        &:focus {
+            border-bottom: 1px solid #333;
+            & + label {
+                color: #333;
+            }
+        }
+
+
+        &:focus + label, &.not-empty + label {
+            font-size: 0.8rem;
+            transform: translateY(-140%);
+        }
+
+        &.not-empty:invalid {
+            border-bottom: 1px solid @color-red;
+            & + label {
+                color: @color-red;
+            }
+        }
+
+        &:required + label {
+            &:after {
+                content: "*";
+            }
+        }
+    }
+
+    textarea {
+        overflow-y: hidden;
+        padding: 1.6rem 0;
+        resize: none;
+        height: auto;
+        min-height: 3rem;
+    }
+
+}
+
+.btn {
+    background: @color-primary;
+    color: #fff;
+    padding: 0 2rem;
+    border: none;
+    border-radius: 2px;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    outline: 0;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: darken(@color-primary, 10%);
+    }
+}
+
+.honeypot {
+    display: none;
+    visibility: hidden;
+}

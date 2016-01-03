@@ -1,0 +1,7 @@
+.col-loop(@i, @prefix) when (@i > 0) {
+    .col-@{prefix}-@{i} {
+        width: 100% * @i / @grid-columns;
+    }
+
+    .col-loop(@i - 1, @prefix);
+}
