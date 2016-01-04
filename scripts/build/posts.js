@@ -38,7 +38,7 @@ module.exports = function(options, plugins = []) {
             [year, month, day, ...title] = parsedPath.basename.split("-"),
             date = moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
 
-        if(attributes.draft) return done();
+        if (process.env.NODE_ENV === "production" && attributes.draft) return done();
 
         if (attributes.date) attributes.date = moment(attributes.date);
 
