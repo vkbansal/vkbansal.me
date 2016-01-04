@@ -39,5 +39,9 @@
     "google_plus":{
         "name": "Google Plus",
         "link": "https://plus.google.com/104240046366721765666"
+    },
+    "npm": {
+        "name": "Node Package Manager (NPM)",
+        "link": "https://www.npmjs.com/~vkbansal"
     }
 }
