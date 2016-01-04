@@ -1,0 +1,41 @@
+{% if ajax == true %}
+    {% extends "_layouts/ajax.html" %}
+{% else %}
+    {% extends "_layouts/page.html" %}
+{% endif %}
+
+{% block title %}Stats | {% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Stats</h2>
+    <p>Here are some statistics from my projects</p>
+    <h4>NPM</h4>
+    {% for e in data.npm %}
+        <h5>{{e.name}}</h5>
+        <p>
+            <a href="https://nodei.co/npm/{{e.package}}/">
+                <img src="https://nodei.co/npm/{{e.package}}.png?downloads=true">
+            </a>
+            <br>
+            <a href="https://npmjs.org/package/{{e.package}}">
+                <img alt="NPM version" src="http://img.shields.io/npm/v/{{e.package}}.svg?style=flat-square">
+            </a>
+            <a href="https://travis-ci.org/vkbansal/{{e.package}}">
+                <img alt="Build Status" src="http://img.shields.io/travis/vkbansal/{{e.package}}/master.svg?style=flat-square">
+            </a>
+            <a href="https://david-dm.org/vkbansal/{{e.package}}">
+                <img alt="Dependency Status" src="https://img.shields.io/david/vkbansal/{{e.package}}.svg?style=flat-square">
+            </a>
+            <a href="https://david-dm.org/vkbansal/{{e.package}}">
+                <img alt="Dev Dependency Status" src="https://img.shields.io/david/dev/vkbansal/{{e.package}}.svg?style=flat-square">
+            </a>
+            <a href="https://coveralls.io/r/vkbansal/{{e.package}}?branch=master">
+                <img alt="Coverage Status" src="http://img.shields.io/coveralls/vkbansal/{{e.package}}/master.svg?style=flat-square">
+            </a>
+            <a href="https://codeclimate.com/github/vkbansal/{{e.package}}">
+                <img alt="Code Climate" src="http://img.shields.io/codeclimate/github/vkbansal/{{e.package}}.svg?style=flat-square">
+            </a>
+        </p>
+    {% endfor %}
+</div>
+{% endblock %}
