@@ -26,7 +26,7 @@ module.exports = {
         index: "/blog",
         pagination_dir: "/blog/page/:num",
         pagination_layout: "blog.html",
-        limit: 3,
+        limit: 5,
         feed: true,
         feed_limit: 15,
         tags_layout: "blog.html",
