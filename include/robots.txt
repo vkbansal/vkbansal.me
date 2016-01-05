@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /about/resume/
+Disallow: /about/stats/
