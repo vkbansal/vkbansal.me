@@ -61,6 +61,7 @@ module.exports = function(options, plugins = []) {
                 data,
                 date,
                 site: _site,
+                author: _site.author,
                 config: _posts,
                 content: md.render(body),
                 env: process.env.NODE_ENV || "development"
