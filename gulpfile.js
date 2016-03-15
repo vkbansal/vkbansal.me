@@ -1,14 +1,13 @@
 "use strict";
 
 require("dotenv").load();
-require("babel-register");
 
 let path = require("path");
 
 let gulp = require("gulp"),
     del = require("del"),
     less = require("gulp-less"),
-    minifyCss = require("gulp-minify-css"),
+    cleanCss = require("gulp-clean-css"),
     rename = require("gulp-rename"),
     livereload = require("gulp-livereload"),
     babel = require("gulp-babel"),
@@ -39,7 +38,7 @@ gulp.task("include", function() {
 gulp.task("css", function() {
     return gulp.src("./src/_less/main.less")
         .pipe(less()).on("error", handleErrors)
-        .pipe(minifyCss({
+        .pipe(cleanCss({
             compatibility: '*,-units.pt,-units.pc'
         })).on("error", handleErrors)
         .pipe(rename({
