@@ -33,7 +33,8 @@ module.exports = function({posts, options, add, template, data}) {
         links: {
             prev: false,
             next: pages.length > 0 ? cleanPath(getPageNumLink(2)) : false
-        }
+        },
+        title: "Blog"
     }, data);
 
     //Blog Index Page
@@ -65,7 +66,8 @@ module.exports = function({posts, options, add, template, data}) {
                 links: {
                     prev: num === 2 ? cleanPath(indexPath) : cleanPath(getPageNumLink(num - 1)),
                     next: pages.length - 1 > i ? cleanPath(getPageNumLink(num + 1)) : false
-                }
+                },
+                title: `Page ${num} | Blog`
             }, data);
 
         add(
