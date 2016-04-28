@@ -21,7 +21,7 @@ module.exports = {
         pretty_url: true
     },
     posts: {
-        base_dir: "/blog/",
+        base_dir: "blog",
         layout: "article.html",
         index: "/blog",
         pagination_dir: "/blog/page/:num",

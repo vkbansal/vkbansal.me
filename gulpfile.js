@@ -56,7 +56,14 @@ gulp.task("js", function() {
         .pipe(livereload({start: false}));
 });
 
-gulp.task("posts", function() {
+gulp.task("post_assets", function() {
+    let PATH = path.resolve(config.location.source, config.location.posts);
+
+    return gulp.src([`${PATH}/**/*.*`, `!${PATH}/**/*.md`])
+        .pipe(gulp.dest(path.resolve(config.location.destination, config.posts.base_dir)));
+});
+
+gulp.task("posts", ["post_assets"], function() {
     return gulp.src(POSTS_PATH)
         .pipe(build.posts(config, [
             plugins.postsList,

@@ -9,7 +9,8 @@ let through = require("through2"),
     _ = require("lodash"),
     moment = require("moment"),
     utils = require("../utils"),
-    requireDir = require("require-dir");
+    requireDir = require("require-dir"),
+    cheerio = require("cheerio");
 
 module.exports = function(options, plugins = []) {
     let {
@@ -75,7 +76,17 @@ module.exports = function(options, plugins = []) {
             templateData
         );
 
-        file.contents = new Buffer(contents);
+        let $ = cheerio.load(contents);
+
+        $("img").each(function() {
+            let src = $(this).attr("src");
+
+            if(!/^\/|http(s)?/.test(src)) {
+                $(this).attr("src", `../${src}`);
+            }
+        });
+
+        file.contents = new Buffer($.html());
         file.path = path.resolve(file.base,...filePath.split("/"));
 
         posts.push(
