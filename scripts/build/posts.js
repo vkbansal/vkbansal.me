@@ -33,22 +33,23 @@ module.exports = function(options, plugins = []) {
         }
 
 
-        let { attributes, body } = fm(file.contents.toString("utf-8")),
+        let { attributes, body } = fm(file.contents.toString("utf-8"));
+
+        if (process.env.NODE_ENV === "production" && attributes.draft) return done();
+
+        let dirname = path.dirname(file.relative),
             parsedPath = utils.parsePath(file.relative),
             [year, month, day, ...title] = parsedPath.basename.split("-"),
             date = moment.utc(`${year}-${month}-${day}`, "YYYY-MM-DD");
 
-        if (process.env.NODE_ENV === "production" && attributes.draft) return done();
-
         if (attributes.date) attributes.date = moment.utc(attributes.date);
 
-        title = title.join("-");
+        if (dirname === ".") dirname = "";
 
-        let permalink = _posts.permalink
-                        .replace(":year", year)
-                        .replace(":month", month)
-                        .replace(":day", day)
-                        .replace(":title", _.kebabCase(title)),
+        title = title.join("-");
+        title = _.kebabCase(attributes.title || title);
+
+        let permalink = `${_posts.base_dir}/${dirname}/${title}`.replace(/[\/\\]+/g, "/"),
             filePath = `${permalink}${_site.pretty_url ? "/index" : "" }.html`,
             ajaxPath = `${permalink}${_site.pretty_url ? "/" : "-" }index.json`;
 
@@ -75,7 +76,7 @@ module.exports = function(options, plugins = []) {
         );
 
         file.contents = new Buffer(contents);
-        file.path = path.join(file.base, ...filePath.split("/"));
+        file.path = path.resolve(file.base,...filePath.split("/"));
 
         posts.push(
             _.merge(
