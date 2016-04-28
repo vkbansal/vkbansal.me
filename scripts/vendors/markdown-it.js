@@ -1,7 +1,8 @@
 "use strict";
 
-let illuminate = require('illuminate-js'),
-    md = require('markdown-it');
+let illuminate = require("illuminate-js"),
+    md = require("markdown-it"),
+    mathjax = require("markdown-it-mathjax");
 
 module.exports = md({
     html: true,
@@ -11,4 +12,4 @@ module.exports = md({
         }
         return "";
     }
-});
+}).use(mathjax);

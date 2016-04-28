@@ -7,6 +7,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "markdown-it-mathjax": "^1.0.3",
     "normalize.css": "^4.0.0"
   },
   "devDependencies": {
