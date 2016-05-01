@@ -2,7 +2,8 @@
 
 let illuminate = require("illuminate-js"),
     md = require("markdown-it"),
-    mathjax = require("markdown-it-mathjax");
+    mathjax = require("markdown-it-mathjax"),
+    decorate = require("markdown-it-decorate");
 
 module.exports = md({
     html: true,
@@ -12,4 +13,5 @@ module.exports = md({
         }
         return "";
     }
-}).use(mathjax);
+}).use(mathjax)
+    .use(decorate);
