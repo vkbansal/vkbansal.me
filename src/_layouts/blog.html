@@ -26,7 +26,7 @@
                     <ul class="tags">
                         {% for tag in post.tag %}
                             <li class="tag">
-                                <a href="{{ config.tags_dir|replace(":tag", tag) }}">{{ tag }}</a>
+                                <a href="/blog/labels/{{tag}}/">{{ tag }}</a>
                             </li>
                         {% endfor %}
                     </ul>

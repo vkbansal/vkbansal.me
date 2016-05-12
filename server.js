@@ -2,7 +2,6 @@
 
 let Express = require("express"),
     path = require("path"),
-    config = require("./config"),
     opener = require("opener"),
     webpack = require('webpack'),
     webpackConfig = require('./webpack.config');
@@ -10,7 +9,7 @@ let Express = require("express"),
 require("dotenv").load();
 
 let app = new Express(),
-    root = path.resolve(__dirname, config.location.destination);
+    root = path.resolve(__dirname, "public");
 
 webpackConfig.entry.unshift("webpack-hot-middleware/client");
 webpackConfig.plugins = [
