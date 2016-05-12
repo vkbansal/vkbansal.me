@@ -3,15 +3,16 @@
 let through = require("through2"),
     path = require("path"),
     gutil = require("gulp-util"),
+    fm = require("front-matter"),
     nj = require("../vendors/nunjucks"),
+    md = require("../vendors/markdown-it"),
     utils = require("../utils"),
+    R = require("ramda"),
     requireDir = require("require-dir");
 
-module.exports = function(config) {
-
-    let { location, site } = config,
-        template = nj(path.resolve(process.cwd(), location.source)),
-        data = requireDir(path.resolve(process.cwd(), location.source, "_data"));
+module.exports = function() {
+    let template = nj(path.resolve(process.cwd(), "src")),
+        data = requireDir(path.resolve(process.cwd(), "src", "_data"));
 
     function transform(file, encoding, done) {
         if (file.isNull()) {
@@ -27,30 +28,23 @@ module.exports = function(config) {
             return done();
         }
 
-        let parsedPath = utils.parsePath(file.relative),
-            templatePath = file.relative,
-            basePath = file.base,
-            templateData = {
-                site,
-                data,
-                env: process.env.NODE_ENV || "development"
-            },
-            contents = template.render(templatePath, templateData);
+        let { attributes, body } = fm(file.contents.toString("utf-8")),
+            parsedPath = utils.parsePath(file.relative),
+            templateData = R.merge({}, attributes),
+            basePath = path.join(file.base, parsedPath.dirname, parsedPath.basename);
 
-        file.contents = new Buffer(contents);
+        basePath = parsedPath.basename === "index" ? `${basePath}.html`: path.join(basePath, "index.html");
+        templateData.data = data;
+        templateData.content = template.renderString(md.render(body));
+        templateData.env = process.env.NODE_ENV || "development";
 
-        let ajaxPath;
+        let content = template.render(
+            path.join("_layouts", attributes.layout || "page.html"),
+            templateData
+        );
 
-        if (site.pretty_url && parsedPath.basename !== "index") {
-            ajaxPath = path.join(parsedPath.dirname, parsedPath.basename, "index.json");
-            file.path = path.join(basePath, parsedPath.dirname, parsedPath.basename, "index.html");
-        } else {
-            ajaxPath = path.join(parsedPath.dirname, `${parsedPath.basename}.json`);
-        }
-
-        templateData.ajax = true;
-        contents = template.render(templatePath, templateData);
-        this.push(utils.createNewFile(ajaxPath, contents));
+        file.contents = new Buffer(content);
+        file.path =  basePath;
 
         done(null, file);
     }

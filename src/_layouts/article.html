@@ -1,14 +1,8 @@
-{% if ajax == true %}
-    {% extends "_layouts/ajax.html" %}
-{% else %}
-    {% extends "_layouts/page.html" %}
-{% endif %}
-
+{% extends "_layouts/base.html" %}
 
 {% block title %}{{ title }} | Blog | {% endblock %}
 
 {% block content %}
-{% set link = site.base_url + permalink %}
 <div class="container">
     <header class="blog-header">
         <div class="blog-container center">

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock %}Vivek Kumar Bansal, frontend developer and designer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Roboto" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/assets/styles.css">
+    </head>
+    <body class="{{ active|lower() }}">
+        <div class="site-wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <a href="/" class="logo">{% include "_img/logo.svg" %}</a>
+                    {% set nav = [
+                            { title: "About", link: "/about/"},
+                            { title: "Blog", link: "/blog/"},
+                            { title: "Contact", link: "/contact/"},
+                            { title: "RSS", link: "/feed.xml"}
+                        ]
+                    %}
+                    {% set active = active %}
+                    <ul class="nav-menu">
+                        {% for n in nav %}
+                        <li>
+                            <a href="{{n.link}}" data-ajax="true" class="{% if active == n.title %}active{% endif %}">
+                                {{n.title}}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </header>
+            <nav class="main-nav" id="main-nav">
+                <a href="#" class="nav-btn" id="nav-btn">
+                    <span class="nav-btn-icon"></span>
+                </a>
+                <span class="nav-bg"></span>
+            </nav>
+            <div id="site-content" class="site-content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <footer class="footer" id="footer">
+            <div class="container">
+                <p class="copyright">Copyright &copy; {{ moment().format("YYYY") }} {{ site.author.name }}. All rights reserved.</p>
+                <ul class="social">
+                    {% for key, media in data.social %}
+                        {% if media.footer %}
+                            <li>
+                                <a href="{{media.link}}" title="{{media.name}}" class="{{media.name|kebabCase}}">
+                                    <svg class="icon">
+                                        <use xlink:href="#navicon-{{media.name|kebabCase}}" />
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </footer>
+        <script type="text/javascript" src="/assets/main.js"></script>
+        {% block js %}
+        {% endblock %}
+        {% if env == 'production' %}
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-54521168-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+        {% endif %}
+        {% include "_includes/navicons.svg" %}
+    </body>
+</html>

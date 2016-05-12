@@ -17,7 +17,7 @@ let build = require("./scripts/build"),
     handleErrors = require("./scripts/utils/gulp-handle-errors");
 
 const POSTS_IN_PATH = "src/_posts/**/*.md",
-      PAGES_IN_PATH = ["src/**/*.html"],
+      PAGES_IN_PATH = ["src/**/*.md", "!_*/**/.md"],
       PAGES_OUT_PATH = "public",
       POSTS_OUT_PATH = `${PAGES_OUT_PATH}/blog`;
 
@@ -73,7 +73,7 @@ gulp.task("posts", ["post_assets"], function() {
 
 gulp.task("pages", function() {
     return gulp.src(PAGES_IN_PATH)
-        .pipe(build.pages(config)).on("error", handleErrors)
+        .pipe(build.pages()).on("error", handleErrors)
         .pipe(gulp.dest(PAGES_OUT_PATH))
         .pipe(livereload({start: false}));
 });

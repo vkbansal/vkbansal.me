@@ -1,12 +1,8 @@
-{% if ajax == true %}
-    {% extends "_layouts/ajax.html" %}
-{% else %}
-    {% extends "_layouts/page.html" %}
-{% endif %}
-
-{% block title %}Vivek Kumar Bansal, frontend designer and developer{% endblock %}
-{% set active = "Home" %}
-{% block content %}
+---
+title: "Vivek Kumar Bansal, frontend designer and developer"
+layout: "page.html"
+active: "Home"
+---
 <div class="banner intro">
     <div class="container">
         <div class="text">
@@ -19,7 +15,7 @@
             </div> #}
         </div>
         <figure>
-            {% include '_includes/web-design-banner.svg' %}
+            {% include "_includes/web-design-banner.svg" %}
         </figure>
     </div>
 </div>
@@ -30,4 +26,3 @@
         </div>
     </section>
 </div>
-{% endblock %}
