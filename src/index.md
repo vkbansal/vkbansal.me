@@ -2,6 +2,7 @@
 title: "Vivek Kumar Bansal, frontend designer and developer"
 layout: "page.html"
 active: "Home"
+container: false
 ---
 <div class="banner intro">
     <div class="container">
@@ -15,7 +16,7 @@ active: "Home"
             </div> #}
         </div>
         <figure>
-            {% include "_includes/web-design-banner.svg" %}
+            {% include "\_includes/web-design-banner.svg" %}
         </figure>
     </div>
 </div>
