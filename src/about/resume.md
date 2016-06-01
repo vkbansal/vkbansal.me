@@ -1,4 +1,4 @@
-i---
+---
 title: "Resume "
 active: "Resume"
 container: "resume-wrapper"
@@ -8,12 +8,11 @@ container: "resume-wrapper"
 
 ## Frontend-Developer <!--{.subtitle}-->
 
-- [<svg class="icon email"><use xlink:href="#navicon-email" /></svg>~Email~<!--{.link-name}--> ~{{site.author.email}}~<!--{.link-url}-->](mailto:{{ data.site.author.email }})
-- [<svg class="icon"><use xlink:href="#navicon-mobile" /></svg><span class="link-name">Mobile</span><span class="link-url">+91-9676635890</span>](#)
-- [<svg class="icon link"><use xlink:href="#navicon-link" /></svg><span class="link-name">Website</span><span class="link-url">{{ data.site.base_url|replace("https://", "")|replace("/", "") }}</span>]({{ data.site.base_url }})
+- [<svg class="icon email"><use xlink:href="#navicon-email" \/><\/svg> ~Email~ <!--{.link-name}--> ~{{site.author.email}}~<!--{.link-url}-->](mailto:{{ data.site.author.email }})
+- [<svg class="icon"><use xlink:href="#navicon-mobile" \/></svg><span class="link-name">Mobile</span><span class="link-url">+91-9676635890</span>](#)
+- [<svg class="icon link"><use xlink:href="#navicon-link" \/></svg><span class="link-name">Website</span><span class="link-url">{{ data.site.base_url|replace("https://", "")|replace("/", "") }}</span>]({{ data.site.base_url }})
 - [<svg class="icon"><use xlink:href="#navicon-github" /></svg><span class="link-name">Github</span><span class="link-url">{{ data.social.github.link|replace("https://", "") }}</span>]({{ data.social.github.link }})
-- [<svg class="icon"><use xlink:href="#navicon-twitter" /></svg><span class="link-name">Twitter</span><span class="link-url">@{{ data.social.twitter.username }}</span>]({{ data.social.twitter.link }})
-<!--{ul.profile-links}-->
+- [<svg class="icon"><use xlink:href="#navicon-twitter" /></svg><span class="link-name">Twitter</span><span class="link-url">@{{ data.social.twitter.username }}</span>]({{ data.social.twitter.link }})<!--{ul.profile-links}-->
 
 ### Profile
 
