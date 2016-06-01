@@ -35,7 +35,7 @@ module.exports = function() {
 
         basePath = parsedPath.basename === "index" ? `${basePath}.html`: path.join(basePath, "index.html");
         templateData.data = data;
-        templateData.content = template.renderString(md.render(body));
+        templateData.content = md.render(template.renderString(body, templateData));
         templateData.env = process.env.NODE_ENV || "development";
 
         let content = template.render(
