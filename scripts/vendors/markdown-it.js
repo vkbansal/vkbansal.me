@@ -4,7 +4,8 @@ let illuminate = require("illuminate-js"),
     md = require("markdown-it"),
     mathjax = require("markdown-it-mathjax"),
     decorate = require("markdown-it-decorate"),
-    span = require("../utils/markdown-it-span");
+    span = require("../utils/markdown-it-span"),
+    svg_inline = require("../utils/markdown-it-inline-svg");
 
 module.exports = md({
     html: true,
@@ -16,4 +17,5 @@ module.exports = md({
     }
 }).use(mathjax)
     .use(decorate)
-    .use(span);
+    .use(span)
+    .use(svg_inline);
