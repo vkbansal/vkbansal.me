@@ -8,11 +8,12 @@ container: "resume-wrapper"
 
 ## Frontend-Developer <!--{.subtitle}-->
 
-- [<svg class="icon email"><use xlink:href="#navicon-email" \/><\/svg> ~Email~ <!--{.link-name}--> ~{{site.author.email}}~<!--{.link-url}-->](mailto:{{ data.site.author.email }})
-- [<svg class="icon"><use xlink:href="#navicon-mobile" \/></svg><span class="link-name">Mobile</span><span class="link-url">+91-9676635890</span>](#)
-- [<svg class="icon link"><use xlink:href="#navicon-link" \/></svg><span class="link-name">Website</span><span class="link-url">{{ data.site.base_url|replace("https://", "")|replace("/", "") }}</span>]({{ data.site.base_url }})
-- [<svg class="icon"><use xlink:href="#navicon-github" /></svg><span class="link-name">Github</span><span class="link-url">{{ data.social.github.link|replace("https://", "") }}</span>]({{ data.social.github.link }})
-- [<svg class="icon"><use xlink:href="#navicon-twitter" /></svg><span class="link-name">Twitter</span><span class="link-url">@{{ data.social.twitter.username }}</span>]({{ data.social.twitter.link }})<!--{ul.profile-links}-->
+- [:navicon-email: ~Email~ ~{{data.site.author.email}}~](mailto:{{ data.site.author.email }})
+- [:navicon-mobile: ~Mobile~ ~+91-9676635890~](#)
+- [:navicon-link: ~Website~ ~{{data.site.base_url|replace("https://", "")|replace("/", "")}}~]({{data.site.base_url}})
+- [:navicon-github: ~Github~ ~{{data.social.github.link|replace("https://", "")}}~]({{data.social.github.link}})
+- [:navicon-twitter: ~Twitter~ ~@{{data.social.twitter.username}}~]({{data.social.twitter.link}})
+<!--{ul:.profile-links}-->
 
 ### Profile
 
@@ -25,12 +26,16 @@ My personal development projects include an application agnostic right-click men
 
 ### Work Experience
 
+**UI Engineer**
+*June 2016 – present* <!--{.right}-->
+<br>Flipkart
+  - Working on the desktop site of Flipkart.com
+
 **Lead Frontend Developer**
-*Mar 2014 – Present* <!--{.right}-->
+*Mar 2014 – May 2016* <!--{.right}-->
 <br>Helical IT Solutions Pvt. Ltd.
 
-  - Developed company product (a data analysis tool) using Backbone.js.
-  - Ported the same product to React.js.
+  - Developed company product (a data analysis tool) using Backbone.js and React.js.
   - Promoted to lead developer within 6 months.
 
 **Freelance Frontend Web Developer**
@@ -84,8 +89,8 @@ I’m an active participant on GitHub. I maintain ES5 Examples for ReactDnD and 
 
 **Major Contributions:**
   - **Prism.js (Syntax Highlighter)**
-    - Provided definitions JSX (React) and TypeScript.</p></li>
-    - Provided `highlight-keywords` plugin.</p></li>
+    - Provided definitions JSX (React) and TypeScript.
+    - Provided 'highlight-keywords' plugin.
 
   - **Node Notifier (by @mikaelbr)**
     - Added support for Windows 8+ Toast Notifications.
