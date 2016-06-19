@@ -66,13 +66,15 @@
         </div>
         <div class="blog-sidebar sidebar-right">
             <h4>Recent posts</h4>
-            <ul id="recent-posts" class="recent-posts" data-current="{{ permalink }}">
+            <ul class="recent-posts">
                 {% for post in recent_posts %}
-                <li>
-                    <a href="/blog/{{post.permalink}}" title="{{post.title}}">
-                        {{post.title}}
-                    </a>
-                </li>
+                    {% if permalink != post.permalink %}
+                    <li>
+                        <a href="/blog/{{post.permalink}}" title="{{post.title}}">
+                            {{post.title}}
+                        </a>
+                    </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
 

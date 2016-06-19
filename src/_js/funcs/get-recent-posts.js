@@ -3,8 +3,7 @@
 import { get } from "../requests";
 
 export default function () {
-    let homePageRecent = document.querySelector("#latest-blog-posts .blog-articles"),
-    recentPosts = document.getElementById("recent-posts");
+    let homePageRecent = document.querySelector("#latest-blog-posts .blog-articles");
 
     if (!homePageRecent && !recentPosts) return;
 
@@ -20,19 +19,6 @@ export default function () {
                     </a>
                 </div>`
             ), "");
-        } else if (recentPosts) {
-            let current = recentPosts.getAttribute("data-current");
-
-            recentPosts.innerHTML = data
-                .filter((post) => post.permalink !== current)
-                .reduce((prev, post) => (
-                    `${prev}
-                    <li>
-                        <a href="${post.permalink}" title="${post.title}">
-                            ${post.title}
-                        </a>
-                    </li>`
-                ), "")
         }
     });
 }

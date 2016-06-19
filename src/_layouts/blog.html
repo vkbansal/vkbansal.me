@@ -13,7 +13,7 @@
         {% if posts.length > 0 %}
             {% for post in posts %}
             <div class="article">
-                <a href="/{{post.permalink}}">
+                <a href="/blog/{{post.permalink}}">
                     <p class="meta">{{ post.date.format("MMMM Do, YYYY") }}</p>
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.description }}</p>
