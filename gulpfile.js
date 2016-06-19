@@ -13,13 +13,13 @@ let gulp = require("gulp"),
     babel = require("gulp-babel"),
     uglify = require("gulp-uglify");
 
-let config = require("./config"),
-    build = require("./scripts/build"),
-    plugins = require("./scripts/plugins"),
+let build = require("./scripts/build"),
     handleErrors = require("./scripts/utils/gulp-handle-errors");
 
-const POSTS_PATH = path.resolve(config.location.source, config.location.posts) + "/**/*.md",
-      PAGES_PATH = `${config.location.source}/**/*.html`;
+const POSTS_IN_PATH = "src/_posts/**/*.md",
+      PAGES_IN_PATH = ["src/**/*.md", "!_*/**/.md"],
+      PAGES_OUT_PATH = "public",
+      POSTS_OUT_PATH = `${PAGES_OUT_PATH}/blog`;
 
 gulp.task("default", ["css", "js", "posts", "pages", "navicons", "include"]);
 
@@ -57,28 +57,24 @@ gulp.task("js", function() {
 });
 
 gulp.task("post_assets", function() {
-    let PATH = path.resolve(config.location.source, config.location.posts);
+    let PATH = "src/_posts";
 
     return gulp.src([`${PATH}/**/*.*`, `!${PATH}/**/*.md`])
-        .pipe(gulp.dest(path.resolve(config.location.destination, config.posts.base_dir)));
+        .pipe(gulp.dest(POSTS_OUT_PATH));
 });
 
 gulp.task("posts", ["post_assets"], function() {
-    return gulp.src(POSTS_PATH)
-        .pipe(build.posts(config, [
-            plugins.postsList,
-            plugins.recentJson,
-            plugins.rss,
-            plugins.tags
-        ])).on("error", handleErrors)
-        .pipe(gulp.dest(config.location.destination))
+    return gulp.src(POSTS_IN_PATH)
+        .pipe(build.posts())
+        .on("error", handleErrors)
+        .pipe(gulp.dest(POSTS_OUT_PATH))
         .pipe(livereload({start: false}));
 });
 
 gulp.task("pages", function() {
-    return gulp.src(PAGES_PATH)
-        .pipe(build.pages(config)).on("error", handleErrors)
-        .pipe(gulp.dest(config.location.destination))
+    return gulp.src(PAGES_IN_PATH)
+        .pipe(build.pages()).on("error", handleErrors)
+        .pipe(gulp.dest(PAGES_OUT_PATH))
         .pipe(livereload({start: false}));
 });
 
@@ -93,7 +89,7 @@ gulp.task("navicons", function() {
 
 gulp.task("watch", function() {
     livereload.listen();
-    gulp.watch(POSTS_PATH, ["posts"]);
-    gulp.watch(PAGES_PATH, ["pages", "posts"]);
+    gulp.watch(POSTS_IN_PATH, ["posts"]);
+    gulp.watch(PAGES_IN_PATH, ["pages", "posts"]);
     gulp.watch("./src/_less/**/*.less", ["css"]);
 });

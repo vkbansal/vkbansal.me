@@ -1,8 +1,4 @@
-{% if ajax == true %}
-    {% extends "_layouts/ajax.html" %}
-{% else %}
-    {% extends "_layouts/page.html" %}
-{% endif %}
+{% extends "_layouts/base.html" %}
 
 {% block title %}{{ title }} | {% endblock %}
 
@@ -26,7 +22,7 @@
                     <ul class="tags">
                         {% for tag in post.tag %}
                             <li class="tag">
-                                <a href="{{ config.tags_dir|replace(":tag", tag) }}">{{ tag }}</a>
+                                <a href="/blog/labels/{{tag}}/">{{ tag }}</a>
                             </li>
                         {% endfor %}
                     </ul>
