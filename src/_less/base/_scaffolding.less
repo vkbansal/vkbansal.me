@@ -5,6 +5,8 @@ html {
 
 body {
     height: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 *,
@@ -14,14 +16,7 @@ body {
 }
 
 .site-wrapper {
-    min-height: 100%;
-    margin-bottom: -84px;
-
-    &:after {
-        display: block;
-        content: "";
-        height: 84px;
-    }
+	flex: 1;
 }
 
 a {
