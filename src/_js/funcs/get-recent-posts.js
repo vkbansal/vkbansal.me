@@ -12,7 +12,7 @@ export default function () {
             homePageRecent.innerHTML = data.reduce((prev, post) => (
                 `${prev}
                 <div class="article">
-                    <a href="${post.permalink}">
+                    <a href="/blog/${post.permalink}">
                         <p class="meta">${post.date}</p>
                         <h2>${post.title}</h2>
                         <p>${post.description}</p>
