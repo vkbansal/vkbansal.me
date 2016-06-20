@@ -45,7 +45,7 @@ module.exports = function(options) {
         title = title.join("-");
 
         let permalink = `${dirname}/${title}`.replace(/[\/\\]+/g, "/"),
-            post = R.merge(
+            post = Object.assign(
                 {
                     permalink,
                     slug: title,
@@ -161,7 +161,7 @@ module.exports = function(options) {
     function makePages(group, title, { getPageNumLink, getPageNumPath, getIndexLink, getIndexPath }, extradata) {
         let pages = R.splitEvery(5, group),
             indexPage = pages.shift(),
-            indexPageData = R.merge({
+            indexPageData = Object.assign({
                 posts: indexPage,
                 pages: {
                     total: pages.length + 1,
@@ -186,7 +186,7 @@ module.exports = function(options) {
         //Pagination pages >= 2
         pages.forEach((page, i) => {
             let num = i + 2,
-                pageData = R.merge({
+                pageData = Object.assign({
                     posts: page,
                     pages: {
                         total: pages.length + 1,
