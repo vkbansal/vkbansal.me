@@ -17,6 +17,13 @@ container: false
     <section class="container" id="latest-blog-posts">
         <h2 class="heading">Latest Posts</h2>
         <div class="blog-articles">
+        {% for post in recent_posts %}<div class="article">
+            <a href="/blog/{{post.permalink}}">
+                <p class="meta">{{post.date}}</p>
+                <h2>{{post.title}}</h2>
+                <p>{{post.description}}</p>
+            </a>
         </div>
+        {% endfor %}</div>
     </section>
 </div>

@@ -10,7 +10,7 @@ let through = require("through2"),
     R = require("ramda"),
     requireDir = require("require-dir");
 
-module.exports = function() {
+module.exports = function({ recent_posts }) {
     let template = nj(path.resolve(process.cwd(), "src")),
         data = requireDir(path.resolve(process.cwd(), "src", "_data"));
 
@@ -35,6 +35,7 @@ module.exports = function() {
 
         basePath = parsedPath.basename === "index" ? `${basePath}.html`: path.join(basePath, "index.html");
         templateData.data = data;
+        templateData.recent_posts = recent_posts;
         templateData.content = md.render(template.renderString(body, templateData));
         templateData.env = process.env.NODE_ENV || "development";
 
