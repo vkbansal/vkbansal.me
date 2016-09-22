@@ -67,7 +67,7 @@ module.exports = function(options) {
 
     // flush function for through2
     function flush(done) {
-        posts.reverse();
+        posts.sort((a, b) => b.date.unix() - a.date.unix());
 
         let all_tags = R.pipe(R.pluck("tag")(R.__), R.flatten, R.uniq)(posts).sort(),
             recent_posts = posts.slice(0, 5),
