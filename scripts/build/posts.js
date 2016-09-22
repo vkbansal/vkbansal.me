@@ -44,7 +44,7 @@ module.exports = function(options) {
 
         title = title.join("-");
 
-        let permalink = `${dirname}/${title}`.replace(/[\/\\]+/g, "/"),
+        let permalink = `${dirname}/${title}`.replace(/[\/\\]+/g, "/").replace(/^[\/\\]/, ''),
             post = Object.assign(
                 {
                     permalink,
