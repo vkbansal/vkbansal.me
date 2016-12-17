@@ -2,6 +2,8 @@
 
 {% block title %}{{ title }} | Blog | {% endblock %}
 
+{% set link = encodeURIComponent('https://vkbansal.me/blog/' + permalink) %}
+
 {% block content %}
 <div class="container">
     <header class="blog-header">
@@ -16,7 +18,7 @@
                 <h4>Share this</h4>
                 <ul class="share-links">
                     <li>
-                        <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ link }}">
+                        <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ link }}" target="_blank">
                             <svg class="icon">
                                 <use xlink:href="#navicon-facebook" />
                             </svg>
@@ -24,7 +26,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="twitter" href="https://twitter.com/intent/tweet?url={{ link }}&text={{ title }}&via={{data.social.twitter.username}}">
+                        <a class="twitter" href="https://twitter.com/intent/tweet?url={{ link }}&text={{ title }}&via={{data.social.twitter.username}}" target="_blank">
                             <svg class="icon">
                                 <use xlink:href="#navicon-twitter" />
                             </svg>
@@ -32,7 +34,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="google-plus" href="https://plus.google.com/share?url={{ link }}">
+                        <a class="google-plus" href="https://plus.google.com/share?url={{ link }}" target="_blank">
                             <svg class="icon">
                                 <use xlink:href="#navicon-google-plus" />
                             </svg>

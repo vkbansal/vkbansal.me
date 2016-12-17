@@ -20,6 +20,7 @@ module.exports = function(path) {
         return JSON.stringify(str);
     });
     env.addGlobal("moment", moment);
+    env.addGlobal('encodeURIComponent', encodeURIComponent);
 
     return env;
 };
