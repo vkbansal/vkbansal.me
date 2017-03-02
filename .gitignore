@@ -9,3 +9,4 @@ public/*
 !public/.gitkeep
 .env
 .vscode/
+scripts/app.js
