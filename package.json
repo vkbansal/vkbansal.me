@@ -46,5 +46,17 @@
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.0",
     "webpack-sources": "^0.1.4"
+  },
+  "devDependencies": {
+    "babel-jest": "^19.0.0",
+    "enzyme": "^2.7.1",
+    "enzyme-to-json": "^1.5.0",
+    "jest": "^19.0.2",
+    "react-addons-test-utils": "^15.4.2"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }
