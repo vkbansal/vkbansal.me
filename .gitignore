@@ -6,7 +6,6 @@ node_modules/
 node_modules_*/
 .deploy*/
 public/*
-!public/.gitkeep
 .env
 .vscode/
 scripts/app.js
