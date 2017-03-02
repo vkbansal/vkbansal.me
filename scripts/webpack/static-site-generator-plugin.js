@@ -64,66 +64,56 @@ class StaticSiteGeneratorWebpackPlugin {
     apply(compiler) {
         compiler.plugin('this-compilation', (compilation) => {
             compilation.plugin('optimize-assets', (_, done) => {
-            const webpackStats = compilation.getStats();
-            const webpackStatsJson = webpackStats.toJson();
+                const webpackStats = compilation.getStats();
+                const webpackStatsJson = webpackStats.toJson();
 
-            try {
-                const asset = findAsset(this.entry, compilation, webpackStatsJson);
+                try {
+                    const asset = findAsset(this.entry, compilation, webpackStatsJson);
 
-                if (asset == null) {
-                    throw new Error('Source file not found: "' + this.entry + '"');
-                }
-
-                const assets = getAssetsFromCompilation(compilation, webpackStatsJson);
-
-                const source = asset.source();
-                let render = evaluate(source, /* filename: */ this.entry, /* scope: */ this.globals, /* includeGlobals: */ true);
-
-                if (render.hasOwnProperty('default')) {
-                    render = render['default'];
-                }
-
-                if (typeof render !== 'function') {
-                    throw new Error(`Export from ${this.entry} must be a function that returns an HTML string, but got ${JSON.stringify(render)}`);
-                }
-
-                const renderPromises = this.paths.map((outputPath) => {
-                    let outputFileName = outputPath.replace(/^(\/|\\)/, ''); // Remove leading slashes for webpack-dev-server
-
-                    if (!/\.(html?)$/i.test(outputFileName)) {
-                        outputFileName = path.join(outputFileName, 'index.html');
+                    if (asset == null) {
+                        throw new Error('Source file not found: "' + this.entry + '"');
                     }
 
-                    let locals = {
-                        path: outputPath,
-                        assets: assets,
-                        webpackStats: webpackStats
-                    };
+                    const assets = getAssetsFromCompilation(compilation, webpackStatsJson);
 
-                    for (let prop in this.locals) {
-                        if (this.locals.hasOwnProperty(prop)) {
-                            locals[prop] = this.locals[prop];
+                    const source = asset.source();
+                    let render = evaluate(source, /* filename: */ this.entry, /* scope: */ this.globals, /* includeGlobals: */ true);
+
+                    if (render.hasOwnProperty('default')) {
+                        render = render['default'];
+                    }
+
+                    if (typeof render !== 'function') {
+                        throw new Error(`Export from ${this.entry} must be a function that returns an HTML string, but got ${JSON.stringify(render)}`);
+                    }
+
+                    const renderPromises = this.paths.map((outputPath) => {
+                        let outputFileName = outputPath.replace(/^(\/|\\)/, ''); // Remove leading slashes for webpack-dev-server
+
+                        if (!/\.(html?)$/i.test(outputFileName)) {
+                            outputFileName = path.join(outputFileName, 'index.html');
                         }
-                    }
 
-                    var renderPromise = render.length < 2 ?
-                        Promise.resolve(render(locals)) :
-                        Promise.fromNode(render.bind(null, locals));
+                        let locals = Object.assign({
+                            path: outputPath,
+                            assets: assets,
+                            webpackStats: webpackStats
+                        }, this.locals);
 
-                    return renderPromise
-                        .then(function(output) {
-                        compilation.assets[outputFileName] = new RawSource(output);
-                        })
-                        .catch(function(err) {
-                        compilation.errors.push(err.stack);
-                        });
-                });
+                        var renderPromise = render.length < 2 ?
+                            Promise.resolve(render(locals)) :
+                            Promise.fromNode(render.bind(null, locals));
 
-                Promise.all(renderPromises).nodeify(done);
-            } catch (err) {
-                compilation.errors.push(err.stack);
-                done();
-            }
+                        return renderPromise
+                            .then((output) => (compilation.assets[outputFileName] = new RawSource(output)))
+                            .catch((err) => compilation.errors.push(err.stack));
+                    });
+
+                    Promise.all(renderPromises).nodeify(done);
+                } catch (err) {
+                    compilation.errors.push(err.stack);
+                    done();
+                }
             });
         });
     }
