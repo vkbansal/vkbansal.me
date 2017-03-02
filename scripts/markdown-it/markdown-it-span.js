@@ -1,9 +1,7 @@
 // Process ~hi~ => <span>hi</span>
-"use strict";
 
 // same as UNESCAPE_MD_RE plus a space
 var UNESCAPE_RE = /\\([ \\!"#$%&'()*+,.\/:;<=>?@[\]^_`{|}~-])/g;
-
 
 function span(state, silent) {
   var found,

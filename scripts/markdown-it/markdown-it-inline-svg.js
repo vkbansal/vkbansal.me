@@ -3,7 +3,6 @@
 // same as UNESCAPE_MD_RE plus a space
 let UNESCAPE_RE = /\\([ \\!"#$%&'()*+,.\/:;<=>?@[\]^_`{|}~-])/g;
 
-
 function svg(state, silent) {
   let found,
       content,
