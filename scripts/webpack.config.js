@@ -1,8 +1,7 @@
 const path = require('path');
-
 const webpack = require('webpack');
-
 const settings = require('./settings');
+const babelRC = require('./settings/babelrc').webpack;
 
 const PROD = process.env.NODE_ENV === 'production';
 
@@ -20,6 +19,7 @@ const config = {
             {
                 test: /\.js$/,
                 use:['babel-loader'],
+                options: babelRC,
                 include: [
                     path.resolve(__dirname, '..')
                 ]
