@@ -8,4 +8,5 @@ node_modules_*/
 public/*
 .env
 .vscode/
-scripts/app.js
+scripts/_app.js
+scripts/_routes.json
