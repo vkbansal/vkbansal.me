@@ -6,11 +6,11 @@ const babelRC = require('./settings/babelrc').webpack;
 const PROD = process.env.NODE_ENV === 'production';
 
 const config = {
-    context: path.resolve(__dirname, '../'),
+    context: __dirname,
     output: {
-        filename: '[name].js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, '../public'),
-        sourceMapFilename: '[name].js.map',
+        sourceMapFilename: 'bundle.js.map',
         publicPath: '/',
         libraryTarget: 'umd'
     },
@@ -18,8 +18,10 @@ const config = {
         rules: [
             {
                 test: /\.js$/,
-                use:['babel-loader'],
-                options: babelRC,
+                use:[{
+                    loader: 'babel-loader',
+                    options: babelRC
+                }],
                 include: [
                     path.resolve(__dirname, '..')
                 ]
