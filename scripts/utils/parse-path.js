@@ -1,6 +1,8 @@
 import path from 'path';
 
 import frontMatter from 'front-matter';
+import * as babylon from 'babylon';
+import traverse from 'babel-traverse';
 
 import fs from './fs-promisified';
 
@@ -62,13 +64,37 @@ export default async function (file) {
         case '.js':
             url = getUrl({name, path, url, ext});
 
-            // let meta = await import(file);
-            let meta = require(file);
+            const content = await fs.readFileAsync(file, 'utf-8');
+            const ast = babylon.parse(content, {
+                sourceType: 'module',
+                plugins: [
+                    'jsx',
+                    'objectRestSpread',
+                    'classProperties',
+                    'dynamicImport'
+                ]
+            });
+
+            let attributes = {};
+
+            traverse(ast, {
+                // search for a named export 'attributes';
+                ExportNamedDeclaration(astPath) {
+                    const attributesNode = astPath.node.declaration.declarations.find((declaration) => {
+                        return declaration.id.name === 'attributes';
+                    });
+
+                    if (!attributesNode || attributesNode.init.type !== 'ObjectExpression') return;
+
+                    attributesNode.init.properties.forEach((objectProperty) => {
+                        attributes[objectProperty.key.name] = objectProperty.value.value;
+                    });
+                }
+            });
 
             Object.assign(data, {
-                url,
-
-            }, meta.attributes);
+                url
+            }, attributes);
         break;
     }
 
