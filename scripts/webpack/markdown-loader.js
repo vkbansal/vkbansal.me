@@ -4,6 +4,7 @@ const mathjax = require("markdown-it-mathjax");
 const decorate = require("markdown-it-decorate");
 const span = require("../markdown-it/markdown-it-span");
 const svgInline = require("../markdown-it/markdown-it-inline-svg")
+const htmlLoader = require('html-loader');
 
 const md = markdown({
     html: true
@@ -13,12 +14,13 @@ const md = markdown({
     .use(svgInline);
 
 module.exports = function (content) {
-    // this.cacheable();
+    this.cacheable && this.cacheable();
     const meta= frontMatter(content);
-    const body = md.render(meta.body);
-    const result = Object.assign({}, meta.attributes, { body });
+    const attributes = JSON.stringify(meta.attributes).slice(1, -1);
 
-    // this.value = result;
+    let body = md.render(meta.body);
 
-    return `export default ${JSON.stringify(result)}`;
+    body = htmlLoader.call(this, body).slice(18, -4);
+
+    return `export default {${attributes}, body: "${body}"};`;
 };

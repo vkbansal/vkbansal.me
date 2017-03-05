@@ -33,7 +33,9 @@ const config = {
                 ]
             }, {
                 test: /\.md$/,
-                use: ['markdown-loader'],
+                use: [{
+                    loader: 'markdown-loader'
+                }],
                 include: [
                     path.resolve(__dirname, '..')
                 ]

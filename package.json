@@ -26,6 +26,7 @@
     "front-matter": "^2.1.2",
     "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
+    "html-loader": "^0.4.5",
     "illuminate-js": "^0.3.0",
     "js-yaml": "^3.8.1",
     "lodash": "^4.17.4",
