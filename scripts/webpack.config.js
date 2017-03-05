@@ -20,6 +20,9 @@ const config = {
         publicPath: '/',
         libraryTarget: 'umd'
     },
+    stats: {
+        children: false
+    },
     module: {
         rules: [
             {
