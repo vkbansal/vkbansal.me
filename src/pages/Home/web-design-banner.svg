@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 3000 1520" xml:space="preserve">
+	 viewBox="0 0 3000 1000" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#EF4438;}
 	.st1{opacity:0.49;fill:#FFFFFF;}
 	.st2{opacity:0.49;}
 	.st3{fill:#FFFFFF;}
@@ -35,10 +34,7 @@
 	.st31{fill:none;stroke:#BDCED1;stroke-width:3;stroke-miterlimit:10;}
 	.st32{fill:none;stroke:#F7BC1A;stroke-width:3;stroke-miterlimit:10;}
 </style>
-<g>
-	<rect x="0" y="0.7" class="st0" width="3000.1" height="1518.5"/>
-</g>
-<g>
+<g transform="translate(0, -500)">
 	<path class="st1" d="M521,674H363.9c-17.3,0-31.4,14.1-31.4,31.4V851c0,17.3,14.1,31.4,31.4,31.4H521
 		c17.3,0,31.4-14.1,31.4-31.4V705.4C552.5,688.1,538.3,674,521,674z M537.6,851c0,9.1-7.4,16.5-16.5,16.5H363.9
 		c-9.1,0-16.5-7.4-16.5-16.5V705.4c0-9.1,7.4-16.5,16.5-16.5h48v92.6h-45.5l72,69.5l76.1-68.6h-49.6l2.3-93.5H521

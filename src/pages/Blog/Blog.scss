@@ -1,0 +1,12 @@
+
+.blogs-list {
+    .blog-page-article {
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    .articles {
+        margin-bottom: 30px;
+    }
+}

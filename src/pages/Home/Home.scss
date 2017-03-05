@@ -1,0 +1,18 @@
+@import "variables.scss";
+
+.home-page {
+    .intro {
+        background: $color-primary;
+    }
+
+    .text {
+        text-align: center;
+        position: relative;
+        color: #fff;
+        padding: 48px 0;
+    }
+
+    .banner {
+        margin-top: 0;
+    }
+}
