@@ -4,11 +4,11 @@ require('babel-register')(babelRC);
 
 const Express = require('express');
 const chalk = require('chalk');
-const opener = require('opener');
 const webpack = require('webpack');
 
 const template = require('./templates/html.template');
 const webpackConfig = require('./webpack.config');
+const groupWebpackAssets = require('./utils/group-webpack-assets').default;
 
 const app = new Express();
 
@@ -21,16 +21,26 @@ const boostrap = require('./bootstrap');
     try {
         await boostrap.default();
 
-        webpackConfig.entry = './_app.js'
-
         console.log(chalk.bold('## setting up webpack ##'));
+        webpackConfig.entry.static.splice(0, 0, 'react-hot-loader/patch', 'webpack-hot-middleware/client');
+        webpackConfig.module.rules[0].use.unshift({loader: 'react-hot-loader/webpack'});
+        webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+        webpackConfig.plugins.push(new webpack.NamedModulesPlugin());
+
         let compiler = webpack(webpackConfig);
 
         app.use(require('webpack-dev-middleware')(compiler, {
-            publicPath: webpackConfig.output.publicPath
+            publicPath: webpackConfig.output.publicPath,
+            serverSideRender: true
         }));
 
-        app.get('*', (req, res) => res.status(200).send(template({})));
+        app.use(require('webpack-hot-middleware')(compiler));
+
+        app.get('*', (req, res) => {
+            const assets = groupWebpackAssets(res.locals.webpackStats.toJson().assetsByChunkName);
+
+            res.status(200).send(template({ assets }))
+        });
 
         console.log(chalk.bold('## starting server ##'));
         app.listen(PORT, HOST, function (err) {
@@ -39,25 +49,10 @@ const boostrap = require('./bootstrap');
             }
 
             let url = `http://${HOST}:${PORT}`;
-
-            // console.log(`Serving from ${root}`);
-            console.log(`Server started at ${url}`);
-            // opener(url);
+            console.log(chalk.bold(`## server started at ${url} ##`));
         });
 
     } catch (e) {
         console.log(e);
     }
-
-
-    // webpackConfig.entry.unshift('webpack-hot-middleware/client');
-    // webpackConfig.plugins = [
-    //     new webpack.HotModuleReplacementPlugin(),
-    //     new webpack.NoErrorsPlugin()
-    // ];
-
-
-
-    // app.use(require('webpack-hot-middleware')(compiler));
-
 })()
