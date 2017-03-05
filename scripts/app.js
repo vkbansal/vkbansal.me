@@ -4,6 +4,8 @@ import ReactDOMServer from 'react-dom/server';
 import { BrowserRouter, StaticRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader'
 
+import 'src/bootstrap';
+
 import groupWebpackAssets from './utils/group-webpack-assets';
 import template from './templates/html.template';
 import Routes from './_routes';
