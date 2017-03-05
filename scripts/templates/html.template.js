@@ -14,7 +14,7 @@ module.exports = function({
             <meta name="viewport" content="width=device-width, initial-scale=1">
             ${'.css' in assets ? assets['.css'].map(({asset}) => (
                 `<link rel="stylesheet" href="/${asset}" />`
-            ).join('/n')) : ''}
+            )).join('/n') : ''}
             ${'.js' in assets ? assets['.js'].map(({asset}) => (
                 `<script src="/${asset}" defer ></script>`
             )).join('/n') : ''}
