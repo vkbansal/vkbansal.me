@@ -6,6 +6,9 @@ import { map } from 'lodash';
 import BlogPost from 'src/pages/BlogPost';
 /*${postImports}*/
 
+import posts from './_posts.json';
+import pages from './_pages.json';
+
 const PROD = process.env.NODE_ENV === 'production';
 
 const pageImports = {/*${postImportsMap}*/};
@@ -18,12 +21,13 @@ export default function Root(parentProps) {
             {map(pageRoutes, (Component, key) => (
                 <Route key={key} path={key} exact
                     render={(props) => (
-                    <Component {...parentProps} {...props} />
+                    <Component {...parentProps} {...props} posts={posts} pages={pages} />
                 )}/>
             ))}
             <Route path='/blog/:slug' exact
                 render={(props) => (
-                    <BlogPost {...parentProps} {...props} post={pageImports[props.match.params.slug]}/>
+                    <BlogPost {...parentProps} {...props} posts={posts} pages={pages}
+                        post={pageImports[props.match.params.slug]}/>
                 )} />
         </Switch>
     );

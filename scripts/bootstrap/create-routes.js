@@ -39,4 +39,6 @@ export default async function ({pages, posts}) {
 
     await fs.writeFileAsync(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8'});
     await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
+    await fs.writeJsonAsync(path.resolve(__dirname, '../_posts.json'), posts);
+    await fs.writeJsonAsync(path.resolve(__dirname, '../_pages.json'), pages);
 }
