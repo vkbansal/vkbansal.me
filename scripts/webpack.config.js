@@ -40,6 +40,14 @@ const config = {
                     path.resolve(__dirname, '..')
                 ]
             }, {
+                test: /\.ya?ml$/,
+                use: [{
+                    loader: 'yaml-loader'
+                }],
+                include: [
+                    path.resolve(__dirname, '..')
+                ]
+            }, {
                 test: /\.scss$/,
                 use: Extract.extract({
                     fallback: 'style-loader',
