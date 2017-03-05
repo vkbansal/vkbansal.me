@@ -11,7 +11,8 @@ const config = ({modules = false} = {}) => ({
     ],
     "plugins": [
         "transform-class-properties",
-        "syntax-dynamic-import"
+        "syntax-dynamic-import",
+        "transform-object-rest-spread"
     ]
 });
 
