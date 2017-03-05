@@ -1,0 +1,18 @@
+@import "mixins.scss";
+
+.article-preview {
+    display: block;
+    padding: 48px 30px;
+    @include reset-link;
+    border-top: 1px solid #ddd;
+
+    .meta {
+        margin: 0;
+        color: #999;
+        font-style: italic;
+    }
+
+    .tags {
+        padding-top: 24px;
+    }
+}
