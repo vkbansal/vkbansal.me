@@ -1,13 +1,13 @@
 ---
 title: Drawing pie/donut chart without d3
-description:  Create a pie/donut-chart using nothing but vanilla JS 
+description:  Create a pie/donut-chart using nothing but vanilla JS
 tag:
   - d3
   - charts
   - javascript
 ---
 
-As an exercise on learning how SVG works, I decided to create a pie/donut-chart using nothing but vanilla JS (Yes, not even d3!). 
+As an exercise on learning how SVG works, I decided to create a pie/donut-chart using nothing but vanilla JS (Yes, not even d3!).
 
 ## SVG coordinate system and arcs
 
@@ -22,15 +22,15 @@ Next, to draw an arc, we will be using `path` element of SVG, and we need a star
 	style="stroke: #0000ff; stroke-width:2; fill:none;"/>
 ```
 
-We will focus mainly on `d` attribute. The two parameters after `M` indicate a starting point. The two parameters after `A` indicate the `x-radius` and `y-radius`  of the arc respectively. The third parameter after `A`  indicates `x-axis-rotation` and can be ignored for now. 
+We will focus mainly on `d` attribute. The two parameters after `M` indicate a starting point. The two parameters after `A` indicate the `x-radius` and `y-radius`  of the arc respectively. The third parameter after `A`  indicates `x-axis-rotation` and can be ignored for now.
 
-The fourth and fifth parameters after `A` indicate `large-arc-flag` and `sweep-flag` respectively. Given any two points, only two arcs can be drawn through them with give radii and it controlled using `large-arc-flag`. As shown below, the blue arc is the smaller one (denoted by `0`) and the the red arc is the the larger one (denoted by `1`). 
+The fourth and fifth parameters after `A` indicate `large-arc-flag` and `sweep-flag` respectively. Given any two points, only two arcs can be drawn through them with give radii and it controlled using `large-arc-flag`. As shown below, the blue arc is the smaller one (denoted by `0`) and the the red arc is the the larger one (denoted by `1`).
 
-![svg arcs](./images/2017/arcs.svg)
+![svg arcs](./arcs.svg)
 
 The `sweep-flag` controls whether the arc is be to drawn in counter-clockwise direction (denoted by `0` and shown in blue) or clock-wise-direction (denoted by `1` and shown in red).
 
-![svg arcs](./images/2017/arcs-direction.svg)
+![svg arcs](./arcs-direction.svg)
 
 For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path-element.html#arcs)
 
@@ -40,7 +40,7 @@ For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path
 
 The following is a diagram of a circle in the SVG coordinate-system. We assume that `r` is the radius of the the circle.
 
-![chart-analysis](./images/2017/donught-chart-analysis.png)
+![chart-analysis](./donught-chart-analysis.png)
 
 <!--{.img-center}-->
 
@@ -72,7 +72,7 @@ To make a donught chart, we need to make these circles concentric (have same cen
 
 Now we will learn how to draw an arc (`PQRS`) as shown in picture below. We assume that the start angle of the arc is `α` and the end angle is `β`. We also assume that the inner-radius (`OS` ) is `r1` the outer-radius (`OP`) is `r2`.
 
-![Drawing-arc](./images/2017/drawing-arc.png)
+![Drawing-arc](./drawing-arc.png)
 
 <!--{.img-center}-->
 
@@ -121,29 +121,29 @@ function arc(startAngle, endAngle, outerRadius, innerRadius = 0) {
   const cosAlpha = Math.cos(startAngle);
   const sinBeta = Math.sin(endAngle);
   const cosBeta = Math.cos(endAngle);
-  
+
   const largeArc = endAngle - startAngle > Math.PI;
-  
+
   const P = {
     x: outerRadius + (outerRadius * sinAlpha),
     y: outerRadius - (outerRadius * cosAlpha)
   };
-  
+
   const Q = {
     x: outerRadius + (outerRadius * sinBeta),
     y: outerRadius - (outerRadius * cosBeta)
   };
-  
+
   const R = {
     x: outerRadius + (innerRadius * sinBeta),
     y: outerRadius - (innerRadius * cosBeta)
   };
-  
+
   const S = {
     x: outerRadius + (innerRadius * sinAlpha),
     y: outerRadius - (innerRadius* cosAlpha)
   }
-  
+
   return `M${P.x},${P.y} A${outerRadius},${outerRadius} 0 ${largeArc ? '1,1' : '0,1'} ${Q.x},${Q.y} L${R.x},${R.y} A${innerRadius},${innerRadius} 0 ${largeArc ? '1,0' : '0,0'} ${S.x},${S.y} Z`;
 }
 ```
@@ -172,7 +172,7 @@ Total can be easily calculated using `Array.proptotype.reduce`:
 const total = data.reduce((p, c) => p + c.value, 0);
 ```
 
-Now that we have raw data and total, we have to scale the data linearly between `0` and `2π` 
+Now that we have raw data and total, we have to scale the data linearly between `0` and `2π`
 
 ```javascript
 function scale (value) {

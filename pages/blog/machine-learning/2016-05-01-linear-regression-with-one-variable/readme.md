@@ -1,6 +1,6 @@
 ---
 title: Linear Regression with One Variable
-author: 
+author:
     name: Vivek Kumar Bansal
     site: http://vkbansal.me
 date: 2016-05-01
@@ -17,7 +17,7 @@ In *regression problems*, we taking input variables and trying to fit the output
 
 Linear regression with one variable is also known as "univariate linear regression."
 
-Univariate linear regression is used when you want to predict a **single output** value from a **single input** value. 
+Univariate linear regression is used when you want to predict a **single output** value from a **single input** value.
 
 We now introduce notation for equations.
 
@@ -32,13 +32,13 @@ y's &= \text{output variable/target variable} \\
 $$
 We're doing **supervised learning** here, so that means we already have an idea about what the input/output cause and effect should be.
 
- So h 
+ So h
 
 We feed training set a learning algorithm. Is the job of a learning algorithm to then output a function which by convention is usually denoted lowercase $h$ and $h$ stands for **hypothesis**. And hypothesis is a function that maps from $x$'s to $y$'s.
 
 
 
-![hypothesis](./images/hypothesis.png)
+![hypothesis](./hypothesis.png)
 <!--{.img-center}-->
 
 ## The Hypothesis Function
@@ -60,7 +60,7 @@ We give to $h_\theta(x)$ values for $\theta_0$ and $\theta_1$ to get our output 
 
 Now we can make a random guess about our $h_\theta$ function: $\theta_0=2$ and $\theta_1=2$. The hypothesis function becomes $h_\theta(x)= 2 + 2x$.
 
-![univariate-linear-regression-hypothesis](./images/univariate-linear-regression-hypothesis.png)
+![univariate-linear-regression-hypothesis](./univariate-linear-regression-hypothesis.png)
 
 <!--{.img-center}-->
 
@@ -79,7 +79,7 @@ This function is otherwise called the **Squared error function**, or **Mean squa
 
 To break it apart, it is $\dfrac {1}{2} \bar x$ where $\bar x$ is the mean of the squares of $h_\theta(x_{i})−y_{i}$, or the difference between the predicted value and the actual value as it can be seen in figure below.
 
-![univariate-linear-regression-hypothesis](./images/univariate-linear-regression-error.png)
+![univariate-linear-regression-hypothesis](./univariate-linear-regression-error.png)
 
 <!--{.img-center}-->
 
@@ -91,7 +91,7 @@ So we have our hypothesis function and we have a way of measuring how accurate i
 
 If we graph our hypothesis function based on its fields $\theta_0$ and $\theta_1$.We put $\theta_0$ on the x axis and $\theta_1$ on the y axis, with the cost function on the vertical z axis. The points on our graph will be the result of the **cost function** using our hypothesis with those specific theta parameters. We are not graphing $x $and $y$ itself, but the parameter range of our hypothesis function and the cost resulting from selecting particular set of parameters.
 
-![Gradient Descent](./images/gradient-descent.png)
+![Gradient Descent](./gradient-descent.png)
 
 <!--{.img-center}-->
 
@@ -124,7 +124,7 @@ Intuitively, this could be thought of as:
 
 $$
 \begin{align*}
-& \text{repeat until convergence: } \lbrace & \newline 
+& \text{repeat until convergence: } \lbrace & \newline
 & \hspace{2em} \theta_j:= \theta_j - \alpha[\text{Slope of tangent in j dimension}] \newline
 & \rbrace \\
 \end{align*}
@@ -136,7 +136,7 @@ When specifically applied to the case of linear regression, a new form of the gr
 
 $$
 \begin{align*}
-& \text{repeat until convergence: } \lbrace & \newline 
+& \text{repeat until convergence: } \lbrace & \newline
 & \hspace{2em} \theta_0 :=  \theta_0 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m}(h_\theta(x_{i}) - y_{i}) \newline
 & \hspace{2em} \theta_1 :=  \theta_1 - \alpha \frac{1}{m} \sum\limits_{i=1}^{m}\left((h_\theta(x_{i}) - y_{i}) x_{i}\right) \newline
 & \rbrace \newline
@@ -155,13 +155,13 @@ Let us start with simple hypothesis $h_\theta =  \theta_1 x$. (i.e  $\theta_0 = 
 
 If we plot a graph between parameter $\theta_1$ and cost function $J(\theta_1)$, it will look something like this.
 
-![Parabola](./images/parabola.png)
+![Parabola](./parabola.png)
 
 <!--{.img-center}-->
 
 Suppose we start with $\theta_1$ that has positive slope:
 
-![Parabola](./images/parabola-p-slope.png)
+![Parabola](./parabola-p-slope.png)
 
 <!--{.img-center}-->
 
@@ -169,7 +169,7 @@ The $\theta_1$ value will be updated as $\theta_1 := \theta_1 - \alpha [\text{po
 
 On the other hand, if we start with $\theta_1$ with negative slope:
 
-![Parabola -ve](./images/parabola-n-slope.png)
+![Parabola -ve](./parabola-n-slope.png)
 
 <!--{.img-center}-->
 
@@ -179,11 +179,11 @@ If $\alpha$ is too small, gradient descent can be too slow, where as if it is to
 
 Gradient descent can converge to a local minimum, even with the learning rate $\alpha$ fixed.
 
-As we approach a local minimum, gradient descent will automatically take smaller steps. So, no need to decrease $\alpha$ over time. 
+As we approach a local minimum, gradient descent will automatically take smaller steps. So, no need to decrease $\alpha$ over time.
 
 The same can be extended to hypothesis: $h_\theta (x)= \theta_0 + \theta_1 x$. The plot for cost function in this case will be a surface plot:
 
-![Gradient Descent](./images/gradient-descent.png)
+![Gradient Descent](./gradient-descent.png)
 
 <!--{.img-center}-->
 
