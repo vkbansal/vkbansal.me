@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
 @import "normalize.css/normalize.css";
 @import "variables.scss";
 
@@ -6,26 +7,10 @@ html {
     height: 100%;
 }
 
-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 *,
 *:before,
 *:after {
 	box-sizing: inherit;
-}
-
-a {
-    color: $color-primary;
-    text-decoration: none;
-
-    &:hover, &:active, &:focus {
-        color: darken($color-primary, 10%);
-        text-decoration: underline;
-    }
 }
 
 @page {
@@ -59,7 +44,13 @@ a {
 /** Typography **/
 
 body {
-    font: 18px/1.25 "Source Sans Pro", "Helvetica Neue", Verdana, sans-serif;
+    font: 18px/1.25 'Open Sans', sans-serif;
+    height: 100%;
+    display: flex;
+    font-weight: normal;
+    flex-direction: column;
+    color: $base-font-color;
+    -webkit-font-smoothing: antialiased;
 
     @media (min-width: $screen-md) {
         font-size: 18px;
@@ -72,7 +63,6 @@ h1 {
     letter-spacing: -1px;
     line-height: 1.25;
     margin: 0.9375rem auto 0;
-    font-weight: normal;
 
     @media (min-width: $screen-md) {
         font-size: 2.5rem;
@@ -92,7 +82,6 @@ h2 {
     font-size: 1.625rem;
     line-height: 1.15384615;
     margin: 1.15384616rem auto 0;
-    font-weight: bold;
 
     @media (min-width: $screen-md) {
         font-size: 1.825rem;
@@ -156,8 +145,8 @@ h6 {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: normal;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
 }
 
 p {
@@ -165,6 +154,16 @@ p {
     padding-top: 0;
     line-height: 1.75;
     margin: 0.5rem auto;
+}
+
+a {
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+        color: darken($color-primary, 10%);
+        text-decoration: underline;
+    }
 }
 
 li {

@@ -1,22 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class BlogPost extends Component {
-    static defaultProps = {
-        post: {}
-    };
+import Page from 'src/components/Page';
 
-    constructor(props) {
-        super(props);
+export default function BlogPost(props) {
+    const { post } = props;
 
-        this.state = {
-            body: props.body || ''
-        };
-        this.data = {};
-    }
-
-    render() {
-        const { body } = this.props.post;
-
-        return <div dangerouslySetInnerHTML={{__html: body}} />;
-    }
+    return (
+        <Page {...props}>
+            <div className='container'>
+                <div dangerouslySetInnerHTML={{__html: post.body}} />
+            </div>
+        </Page>
+    );
 }

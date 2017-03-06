@@ -21,7 +21,6 @@ export default function Home(props) {
                 </div>
             </section>
             <section className='container'>
-                <h2>Latest posts</h2>
                 {props.posts.slice(0, settings.homepage.postsLimit).map((post, i) => (
                     <ArticlePreview key={i} post={post} />
                 ))}

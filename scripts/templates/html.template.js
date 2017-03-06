@@ -18,7 +18,6 @@ module.exports = function({
             ${'.js' in assets ? assets['.js'].map(({asset}) => (
                 `<script src="/${asset}" defer ></script>`
             )).join('/n') : ''}
-            <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Roboto" rel="stylesheet" type="text/css" />
         </head>
         <body>
             <div id='root'>

@@ -5,3 +5,4 @@ blog:
     postsLimit: 5
     pagination: true
     paginationUrl: /blog/page/:num
+    labelUrl: /blog/label/:label

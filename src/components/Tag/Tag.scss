@@ -5,30 +5,15 @@ $tag-hole-size: 6px;
     display: inline-flex;
     position: relative;
     line-height: $tag-height;
-    font-size: 11px;
-    background: #ddd;
-    margin-right: 24px;
-    padding: 0 10px 0 12px;
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
+    margin-right: 8px;
+    padding: 5px 10px;
 
-    &::before {
-        content: '';
-        position: absolute;
-        left: -1 * $tag-height;
-        height: 0;
-        width: 0;
-        border: 0.5 * $tag-height solid;
-        border-color: transparent #ddd transparent transparent;
-    }
-
-    &::after {
-        content: '';
-        height: $tag-hole-size;
-        width: $tag-hole-size;
-        background: #fff;
-        border-radius: 50%;
-        position: absolute;
-        left: 0;
-        top: ($tag-height - $tag-hole-size) / 2;
-        box-shadow: -1px -1px 1px -1px rgba(0, 0, 0, 0.6) inset;
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.6);
+        text-decoration: none;
     }
 }
