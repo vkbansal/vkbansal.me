@@ -159,6 +159,7 @@ p {
 a {
     color: $color-primary;
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
         color: darken($color-primary, 10%);
