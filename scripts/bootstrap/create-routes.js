@@ -1,5 +1,6 @@
 import path from 'path';
-import { camelCase, times } from 'lodash';
+import { camelCase, times, uniq } from 'lodash';
+
 import fs from '../utils/fs-promisified';
 import settings from '../settings';
 
@@ -10,7 +11,9 @@ export default async function ({pages, posts}) {
     let postImportsMap = '';
     let pageImportsMap = '';
     let routes = [];
+    let tags = [];
     let blogPaginationRenderer = null;
+    let blogLabelsRenderer = null;
 
     posts.forEach(post => {
         if (PROD && post.draft) return;
@@ -19,7 +22,10 @@ export default async function ({pages, posts}) {
         importStatements += `import ${postImportName} from '${post.file}';\n`
         postImportsMap += `'${post.slug}': ${postImportName},\n`;
         routes.push(post.url);
+        tags.push(...post.tag);
     });
+
+    tags = uniq(tags).sort();
 
     pages.forEach((page) => {
         if (PROD && page.draft) return;
@@ -30,13 +36,20 @@ export default async function ({pages, posts}) {
             blogPaginationRenderer = pageImportName;
         }
 
+        if (page.useForBlogLabels) {
+            blogLabelsRenderer = pageImportName;
+        }
+
         importStatements += `import ${pageImportName} from '${page.file}';\n`
         pageImportsMap += `'${page.url}': ${pageImportName},\n`;
 
         routes.push(page.url);
     });
 
-    if (settings.blog.pagination) {
+
+    if (settings.blog.pagination && settings.blog.paginationUrl && blogPaginationRenderer) {
+        pageImportsMap += `'${settings.blog.paginationUrl}': ${blogPaginationRenderer},\n`;
+
         const limit = settings.blog.postsLimit;
         const total = posts.length;
         const numPages = Math.ceil(total / limit);
@@ -46,13 +59,14 @@ export default async function ({pages, posts}) {
 
             if (pageNum === 1) return;
 
-            const url = settings.blog.paginationUrl.replace(':num', pageNum);
-            routes.push(url);
+            routes.push(settings.blog.paginationUrl.replace(':num', pageNum));
         });
+    }
 
-        if (blogPaginationRenderer) {
-            pageImportsMap += `'${settings.blog.paginationUrl}': ${blogPaginationRenderer},\n`
-        }
+    if (settings.blog.labelUrl && blogLabelsRenderer) {
+        pageImportsMap += `'${settings.blog.labelUrl}': ${blogLabelsRenderer},\n`;
+
+        tags.forEach((tag) => routes.push(settings.blog.labelUrl.replace(':label', tag)));
     }
 
     let template = await fs.readFileAsync(path.resolve(__dirname, '../templates/routes.template.js'), 'utf8');
@@ -66,4 +80,5 @@ export default async function ({pages, posts}) {
     await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_posts.json'), posts);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_pages.json'), pages);
+    await fs.writeJsonAsync(path.resolve(__dirname, '../_tags.json'), tags);
 }
