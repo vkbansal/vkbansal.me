@@ -58,6 +58,7 @@ export default async function (file) {
                     slug
                 };
 
+                url = url.replace(postname, slug);
             }
 
             Object.assign(data, mdData, {url}, meta.attributes);
