@@ -1,39 +1,46 @@
 import path from 'path';
-import { camelCase, times, uniq } from 'lodash';
+import { camelCase, times, forEach } from 'lodash';
 
-import fs from '../utils/fs-promisified';
-import settings from '../settings';
+import fs from 'scripts/utils/fs-promisified';
+import settings from 'scripts/settings';
+import { getBlogUrls } from 'utils';
 
 const PROD = process.env.NODE_ENV === 'production';
+
+const { blog } = settings;
+const blogUrls = getBlogUrls(blog);
 
 export default async function ({pages, posts}) {
     let importStatements = '';
     let postImportsMap = '';
     let pageImportsMap = '';
     let routes = [];
-    let tags = [];
-    let blogPaginationRenderer = null;
+    let labels = {};
+    let blogRenderer = null;
     let blogLabelsRenderer = null;
 
-    posts.forEach(post => {
+    forEach(posts, (post, index) => {
         if (PROD && post.draft) return;
 
         const postImportName = camelCase(post.slug);
         importStatements += `import ${postImportName} from '${post.file}';\n`
         postImportsMap += `'${post.slug}': ${postImportName},\n`;
         routes.push(post.url);
-        tags.push(...post.tag);
+        forEach(post.tag, (tag) => {
+            if (!Array.isArray(labels[tag])) {
+                labels[tag] = [];
+            }
+            labels[tag].push(index);
+        });
     });
 
-    tags = uniq(tags).sort();
-
-    pages.forEach((page) => {
+    forEach(pages, (page) => {
         if (PROD && page.draft) return;
 
         const pageImportName = camelCase(page.file.replace(page.ext, ''));
 
-        if (page.useForBlogPagination) {
-            blogPaginationRenderer = pageImportName;
+        if (page.useForBlog) {
+            blogRenderer = pageImportName;
         }
 
         if (page.useForBlogLabels) {
@@ -43,14 +50,14 @@ export default async function ({pages, posts}) {
         importStatements += `import ${pageImportName} from '${page.file}';\n`
         pageImportsMap += `'${page.url}': ${pageImportName},\n`;
 
-        routes.push(page.url);
+        if (!page.skip) routes.push(page.url);
     });
 
 
-    if (settings.blog.pagination && settings.blog.paginationUrl && blogPaginationRenderer) {
-        pageImportsMap += `'${settings.blog.paginationUrl}': ${blogPaginationRenderer},\n`;
+    if (blogRenderer) {
+        pageImportsMap += `'${blogUrls.paginationUrl}': ${blogRenderer},\n`;
 
-        const limit = settings.blog.postsLimit;
+        const limit = blog.postsLimit;
         const total = posts.length;
         const numPages = Math.ceil(total / limit);
 
@@ -59,14 +66,32 @@ export default async function ({pages, posts}) {
 
             if (pageNum === 1) return;
 
-            routes.push(settings.blog.paginationUrl.replace(':num', pageNum));
+            routes.push(blogUrls.paginationUrl.replace(':num', pageNum));
         });
     }
 
-    if (settings.blog.labelUrl && blogLabelsRenderer) {
-        pageImportsMap += `'${settings.blog.labelUrl}': ${blogLabelsRenderer},\n`;
+    if (blogLabelsRenderer) {
+        const limit = blog.postsLimit;
 
-        tags.forEach((tag) => routes.push(settings.blog.labelUrl.replace(':label', tag)));
+        pageImportsMap += `'${blogUrls.labelUrl}': ${blogLabelsRenderer},\n`;
+        pageImportsMap += `'${blogUrls.labelPaginationUrl}': ${blogLabelsRenderer},\n`;
+
+        forEach(labels, (labelPosts, label) => {
+            const total = labelPosts.length;
+            const numPages = Math.ceil(total / limit);
+            const currentLabelUrl = blogUrls.labelPaginationUrl.replace(':label', label);
+
+            times(numPages, (n) => {
+                const pageNum = n + 1;
+
+                if (pageNum === 1) {
+                    routes.push(blogUrls.labelUrl.replace(':label', label));
+                    return;
+                }
+
+                routes.push(currentLabelUrl.replace(':num', pageNum));
+            });
+        });
     }
 
     let template = await fs.readFileAsync(path.resolve(__dirname, '../templates/routes.template.js'), 'utf8');
@@ -80,5 +105,5 @@ export default async function ({pages, posts}) {
     await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_posts.json'), posts);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_pages.json'), pages);
-    await fs.writeJsonAsync(path.resolve(__dirname, '../_tags.json'), tags);
+    await fs.writeJsonAsync(path.resolve(__dirname, '../_tags.json'), labels);
 }

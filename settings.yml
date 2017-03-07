@@ -2,7 +2,8 @@
 homepage:
     postsLimit: 5
 blog:
+    prefix: blog
     postsLimit: 5
     pagination: true
-    paginationUrl: /blog/page/:num
-    labelUrl: /blog/label/:label
+    labelSuffix: label/:label
+    paginationSuffix: page/:num

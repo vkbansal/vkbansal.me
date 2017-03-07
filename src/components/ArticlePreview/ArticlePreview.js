@@ -5,8 +5,12 @@ import cx from 'classnames';
 
 import Tag from 'src/components/Tag';
 import settings from 'settings.yml';
+import { getBlogUrls } from 'utils';
 
 import styles from './ArticlePreview.scss';
+
+const { blog } = settings;
+const urls = getBlogUrls(blog);
 
 function ArticlePreview({post, className, showTags}) {
     return (
@@ -20,7 +24,7 @@ function ArticlePreview({post, className, showTags}) {
             {showTags && (
                 <div className={styles['tags']}>
                     {post.tag.map((tag, i) => (
-                        <Tag key={i} url={settings.blog.labelUrl.replace(':label', tag)}>{tag}</Tag>
+                        <Tag key={i} url={urls.labelUrl.replace(':label', tag)}>{tag}</Tag>
                     ))}
                 </div>
             )}
