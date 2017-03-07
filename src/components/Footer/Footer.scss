@@ -1,0 +1,64 @@
+@import "variables.scss";
+
+.footer {
+    background: #333;
+    color: #fff;
+    margin-top: 3rem;
+
+    .container {
+        display: flex;
+    }
+
+    .copyright {
+        margin: 0;
+        flex-grow: 1;
+        font-size: 0.75rem;
+        line-height: 3rem;
+    }
+
+    .social {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+
+        svg {
+            fill: #fff;
+            width: 100%;
+            height: calc(3rem - 0.95rem - 0.95rem);
+            transition: fill 0.3s;
+        }
+
+        .link {
+            display: block;
+            padding: 0.95rem;
+            width: 3rem;
+            height: 3rem;
+            background-color: transparent;
+            transition: background-color 0.3s;
+
+            &.twitter:hover {
+                background-color: $brand-twitter-blue;
+            }
+
+            &.github:hover {
+                background-color: $brand-github-blue;
+            }
+
+            &.rss:hover {
+                background-color: $brand-rss;
+            }
+
+            &.codepen:hover {
+                background-color: #fff;
+
+                svg {
+                    fill: black;
+                }
+            }
+        }
+    }
+}
+
