@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import { map } from 'lodash';
 
 import BlogPost from 'src/pages/BlogPost';
+import Page from 'src/components/Page';
 /*${postImports}*/
 
 import posts from './_posts.json';
@@ -14,15 +15,25 @@ const PROD = process.env.NODE_ENV === 'production';
 
 const pageImports = {/*${postImportsMap}*/};
 
-const pageRoutes = {/*${pageImportsMap}*/};
+const pageJSRoutes = {/*${pageJSImportsMap}*/};
+
+const pageMarkdownRoutes = {/*${pageMarkdownImportsMap}*/};
 
 export default function Root(parentProps) {
     return (
         <Switch>
-            {map(pageRoutes, (Component, key) => (
+            {map(pageJSRoutes, (Component, key) => (
                 <Route key={key} path={key} exact
                     render={(props) => (
                     <Component {...parentProps} {...props} posts={posts} tags={tags} pages={pages} />
+                )}/>
+            ))}
+            {map(pageMarkdownRoutes, (page, key) => (
+                <Route key={key} path={key} exact
+                    render={(props) => (
+                        <Page {...props} >
+                            <div dangerouslySetInnerHTML={{__html: page.body}}/>
+                        </Page>
                 )}/>
             ))}
             <Route path='/blog/:slug' exact

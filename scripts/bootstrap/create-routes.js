@@ -13,7 +13,8 @@ const blogUrls = getBlogUrls(blog);
 export default async function ({pages, posts}) {
     let importStatements = '';
     let postImportsMap = '';
-    let pageImportsMap = '';
+    let pageJSImportsMap = '';
+    let pageMarkdownImportsMap = '';
     let routes = [];
     let labels = {};
     let blogRenderer = null;
@@ -39,23 +40,31 @@ export default async function ({pages, posts}) {
 
         const pageImportName = camelCase(page.file.replace(page.ext, ''));
 
-        if (page.useForBlog) {
-            blogRenderer = pageImportName;
-        }
-
-        if (page.useForBlogLabels) {
-            blogLabelsRenderer = pageImportName;
-        }
-
         importStatements += `import ${pageImportName} from '${page.file}';\n`
-        pageImportsMap += `'${page.url}': ${pageImportName},\n`;
+
+        switch(page.ext) {
+            case '.js':
+                if (page.useForBlog) {
+                    blogRenderer = pageImportName;
+                }
+
+                if (page.useForBlogLabels) {
+                    blogLabelsRenderer = pageImportName;
+                }
+                pageJSImportsMap += `'${page.url}': ${pageImportName},\n`;
+                break;
+            case '.md':
+                pageMarkdownImportsMap += `'${page.url}': ${pageImportName},\n`;
+                break;
+        }
+
 
         if (!page.skip) routes.push(page.url);
     });
 
 
     if (blogRenderer) {
-        pageImportsMap += `'${blogUrls.paginationUrl}': ${blogRenderer},\n`;
+        pageJSImportsMap += `'${blogUrls.paginationUrl}': ${blogRenderer},\n`;
 
         const limit = blog.postsLimit;
         const total = posts.length;
@@ -73,8 +82,8 @@ export default async function ({pages, posts}) {
     if (blogLabelsRenderer) {
         const limit = blog.postsLimit;
 
-        pageImportsMap += `'${blogUrls.labelUrl}': ${blogLabelsRenderer},\n`;
-        pageImportsMap += `'${blogUrls.labelPaginationUrl}': ${blogLabelsRenderer},\n`;
+        pageJSImportsMap += `'${blogUrls.labelUrl}': ${blogLabelsRenderer},\n`;
+        pageJSImportsMap += `'${blogUrls.labelPaginationUrl}': ${blogLabelsRenderer},\n`;
 
         forEach(labels, (labelPosts, label) => {
             const total = labelPosts.length;
@@ -99,7 +108,8 @@ export default async function ({pages, posts}) {
     template = template
                 .replace('/*${postImports}*/', importStatements)
                 .replace('/*${postImportsMap}*/', postImportsMap)
-                .replace('/*${pageImportsMap}*/', pageImportsMap);
+                .replace('/*${pageJSImportsMap}*/', pageJSImportsMap)
+                .replace('/*${pageMarkdownImportsMap}*/', pageMarkdownImportsMap);
 
     await fs.writeFileAsync(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8'});
     await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
