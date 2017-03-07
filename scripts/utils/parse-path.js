@@ -8,7 +8,7 @@ import fs from './fs-promisified';
 
 const POST_REGEX = /^(\d{4}-\d{2}-\d{2})-([\w\-]+)$/;
 
-const getUrl = ({name, path, url, ext}) => {
+const getUrl = ({name, url, ext}) => {
     if (
         (ext === '.js' && name === 'index') ||
         (ext === '.md' && (name === 'readme' || name === 'index'))
@@ -28,6 +28,11 @@ export default async function (file) {
 
     switch (ext) {
         case '.md':
+            const mdContent = await fs.readFileAsync(file, 'utf-8')
+            const meta = frontMatter(mdContent);
+            url = getUrl({name, path, url, ext});
+            let mdData = {};
+
             if (url.startsWith('/blog')) {
                 let postname;
 
@@ -37,8 +42,6 @@ export default async function (file) {
                     postname = name;
                 }
 
-                url = getUrl({name, path, url, ext});
-
                 const match = postname.match(POST_REGEX);
 
                 if(!match) {
@@ -47,22 +50,19 @@ export default async function (file) {
 
                 const [, date, slug] = match;
 
-                const content = await fs.readFileAsync(file, 'utf-8')
-                const meta = frontMatter(content);
-
-                Object.assign(data, {
+                mdData = {
                     isPost: true,
                     date,
-                    slug,
-                    url: url.replace(postname, slug)
-                }, meta.attributes);
-            } else {
-                url = getUrl({name, path, url, ext});
+                    slug
+                };
+
             }
+
+            Object.assign(data, mdData, {url}, meta.attributes);
         break;
 
         case '.js':
-            url = getUrl({name, path, url, ext});
+            url = getUrl({name, url, ext});
 
             const content = await fs.readFileAsync(file, 'utf-8');
             const ast = babylon.parse(content, {
