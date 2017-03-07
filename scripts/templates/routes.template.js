@@ -32,7 +32,7 @@ export default function Root(parentProps) {
                 <Route key={key} path={key} exact
                     render={(props) => (
                         <Page {...props} >
-                            <div dangerouslySetInnerHTML={{__html: page.body}}/>
+                            <div className='container' dangerouslySetInnerHTML={{__html: page.body}}/>
                         </Page>
                 )}/>
             ))}
