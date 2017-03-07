@@ -5,7 +5,9 @@ import * as babylon from 'babylon';
 import traverse from 'babel-traverse';
 
 import fs from './fs-promisified';
+import settings from '../settings';
 
+const BLOG_REGEX = new RegExp('^\/?' + settings.blog.prefix);
 const POST_REGEX = /^(\d{4}-\d{2}-\d{2})-([\w\-]+)$/;
 
 const getUrl = ({name, url, ext}) => {
@@ -33,7 +35,7 @@ export default async function (file) {
             url = getUrl({name, path, url, ext});
             let mdData = {};
 
-            if (url.startsWith('/blog')) {
+            if (BLOG_REGEX.test(url)) {
                 let postname;
 
                 if(name === 'index' || name === 'readme') {
