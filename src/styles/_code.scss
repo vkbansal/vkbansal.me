@@ -1,0 +1,25 @@
+@import "variables.scss";
+
+:global(code) {
+    font-family: Monaco, "Ubuntu Mono", monospace;
+    font-size: 14px;
+    padding: 0 5px;
+    line-height: 22px;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.6);
+    border-radius: 2px;
+}
+
+:global(pre) {
+    border-bottom: 1px solid $color-divider;
+    border-top: 1px solid $color-divider;
+    padding: 20px 0!important;
+    background: #fff;
+    overflow: scroll;
+}
+
+:global(pre > code) {
+    background: #fff;
+    line-height: 24px;
+}
