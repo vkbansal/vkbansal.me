@@ -3,9 +3,16 @@ const markdown = require('markdown-it');
 const mathjax = require("markdown-it-mathjax");
 const decorate = require("markdown-it-decorate");
 const htmlLoader = require('html-loader');
+const illuminate = require("illuminate-js");
 
 const md = markdown({
-    html: true
+    html: true,
+    highlight(text, language) {
+        if (illuminate.getLanguage(language)) {
+            return illuminate.highlight(text, language);
+        }
+        return "";
+    }
 }).use(mathjax)
     .use(decorate);
 
