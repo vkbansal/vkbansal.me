@@ -7,6 +7,6 @@ export default function (assets) {
     return groupBy(finalAssets, (file) => {
         const meta = pathParse(file.asset);
 
-        return meta.ext;
+        return meta.ext.replace(/^\./, '');
     });
 }

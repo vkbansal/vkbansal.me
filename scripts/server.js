@@ -6,7 +6,6 @@ const Express = require('express');
 const chalk = require('chalk');
 const webpack = require('webpack');
 
-const template = require('./templates/html.template');
 const webpackConfig = require('./webpack.config');
 const groupWebpackAssets = require('./utils/group-webpack-assets').default;
 
@@ -19,7 +18,7 @@ const boostrap = require('./bootstrap');
 
 (async function () {
     try {
-        await boostrap.default();
+        const files = await boostrap.default();
 
         console.log(chalk.bold('## setting up webpack ##'));
         webpackConfig.entry.static.splice(0, 0, 'react-hot-loader/patch', 'webpack-hot-middleware/client');
@@ -39,7 +38,7 @@ const boostrap = require('./bootstrap');
         app.get('*', (req, res) => {
             const assets = groupWebpackAssets(res.locals.webpackStats.toJson().assetsByChunkName);
 
-            res.status(200).send(template({ assets }))
+            res.status(200).send(files.template({ assets }))
         });
 
         console.log(chalk.bold('## starting server ##'));

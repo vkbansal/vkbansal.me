@@ -21,7 +21,10 @@ const PROD = process.env.NODE_ENV === 'production';
         webpackConfig.plugins.push(
             new StaticSiteGeneratorPlugin({
                 entry: 'static',
-                paths: require('./_routes.json')
+                paths: require('./_routes.json'),
+                locals: {
+                    template: files.template
+                }
             })
         );
 

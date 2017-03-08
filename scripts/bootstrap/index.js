@@ -1,7 +1,8 @@
 import chalk from 'chalk';
 
 import globPages from './glob-pages';
-import creatRoutes from './create-routes';
+import createRoutes from './create-routes';
+import readTemplate from './read-template';
 
 export default async function() {
     console.log(chalk.bold('## globbing pages ##'));
@@ -11,7 +12,10 @@ export default async function() {
     console.log(`Found ${files.posts.length} posts`);
 
     console.log(chalk.bold('## creating routes ##'));
-    await creatRoutes(files);
+    await createRoutes(files);
 
-    return files;
+    console.log(chalk.bold('## reading template ##'));
+    const template = await readTemplate('index.hbs');
+
+    return Object.assign(files, { template });
 }

@@ -8,8 +8,9 @@ import 'src/bootstrap';
 import settings from 'settings.yml';
 
 import groupWebpackAssets from './utils/group-webpack-assets';
-import template from './templates/html.template';
 import Routes from './_routes';
+
+const PROD = process.env.NODE_ENV === 'production';
 
 const render = (Component) => {
   ReactDOM.render(
@@ -42,7 +43,7 @@ export default function(locals) {
         content,
         assets: groupWebpackAssets(locals.webpackStats.toJson().assetsByChunkName),
         settings,
-        env: process.env.NODE_ENV
+        PROD
     };
 
     return template(data);
