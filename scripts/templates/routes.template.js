@@ -19,6 +19,8 @@ const pageJSRoutes = {/*${pageJSImportsMap}*/};
 
 const pageMarkdownRoutes = {/*${pageMarkdownImportsMap}*/};
 
+const postsMap = new Map(posts.map((post) => [post.slug, post]));
+
 export default function Root(parentProps) {
     return (
         <Switch>
@@ -37,10 +39,15 @@ export default function Root(parentProps) {
                 )}/>
             ))}
             <Route path='/blog/:slug' exact
-                render={(props) => (
-                    <BlogPost {...parentProps} {...props} posts={posts} tags={tags} pages={pages}
-                        post={pageImports[props.match.params.slug]}/>
-                )} />
+                render={(props) => {
+                    const { slug } = props.match.params;
+                    const data = postsMap.get(slug) || {};
+
+                    return (
+                        <BlogPost {...parentProps} {...props} posts={posts} tags={tags} pages={pages}
+                            post={{ ...data, ...pageImports[slug]}}/>
+                    );
+                }} />
         </Switch>
     );
 }
