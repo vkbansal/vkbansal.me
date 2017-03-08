@@ -13,6 +13,12 @@ site:
     author: Vivek Kumar Bansal
     email: contact@vkbansal.me
 
+disqus:
+    shortname: vkbansal
+
+ga:
+    token: UA-54521168-1
+
 social: !!pairs
     - rss:
         name: RSS
@@ -25,6 +31,7 @@ social: !!pairs
         username: _vkbansal
         follow: true
         footer: true
+        share: true
     - github:
         name: Github
         link: https://github.com/vkbansal
@@ -37,16 +44,14 @@ social: !!pairs
         footer: true
     - facebook:
         name: Facebook
-        link: https://www.facebook.com/vkbansal.me
+        share: true
     - linkedin:
         name: Linkend In
         link: https://in.linkedin.com/in/vkbansal03
-    - behance:
-        name: Behance
-        link: https://www.behance.net/vkbansal
-    - google_plus:
+        share: true
+    - googlePlus:
         name: Google Plus
-        link: https://plus.google.com/104240046366721765666
+        share: true
     - npm:
         name: Node Package Manager (NPM)
         link: https://www.npmjs.com/~vkbansal
