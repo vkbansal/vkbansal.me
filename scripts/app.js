@@ -46,5 +46,5 @@ export default function(locals) {
         PROD
     };
 
-    return template(data);
+    return locals.template(data);
 }
