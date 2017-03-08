@@ -9,9 +9,10 @@ blog:
     labelSuffix: label/:label
     paginationSuffix: page/:num
 
-site:
-    author: Vivek Kumar Bansal
+author:
+    name: Vivek Kumar Bansal
     email: contact@vkbansal.me
+    website: https://vkbansal.me
 
 disqus:
     shortname: vkbansal
