@@ -5,6 +5,7 @@ import { BrowserRouter, StaticRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader'
 
 import 'src/bootstrap';
+import settings from 'settings.yml';
 
 import groupWebpackAssets from './utils/group-webpack-assets';
 import template from './templates/html.template';
@@ -14,7 +15,7 @@ const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
         <BrowserRouter>
-            <Component/>
+            <Component />
         </BrowserRouter>
     </AppContainer>,
     document.getElementById('root')
@@ -31,12 +32,18 @@ if (typeof document !== 'undefined') {
 export default function(locals) {
     console.log(`Rendering: ${locals.path}`);
 
-    const assets = groupWebpackAssets(locals.webpackStats.toJson().assetsByChunkName);
     const content = ReactDOMServer.renderToStaticMarkup(
         <StaticRouter location={locals.path} context={{}}>
-            <Routes posts={locals.posts} />
+            <Routes />
         </StaticRouter>
     );
 
-    return template({ content, assets });
+    const data = {
+        content,
+        assets: groupWebpackAssets(locals.webpackStats.toJson().assetsByChunkName),
+        settings,
+        env: process.env.NODE_ENV
+    };
+
+    return template(data);
 }

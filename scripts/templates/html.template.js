@@ -1,8 +1,9 @@
 module.exports = function({
     content = "",
     env = "development",
-    assets = {}
-}) {
+    assets = {},
+    settings = {}
+} = {}) {
     return `
     <!DOCTYPE html>
     <html>
@@ -23,7 +24,7 @@ module.exports = function({
             <div id='root'>
             ${content}
             </div>
-            ${typeof env !== 'undefined' && env === 'production' ? `
+            ${env === 'production' ? `
             <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
             <script>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
