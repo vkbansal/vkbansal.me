@@ -38,7 +38,7 @@ export default function Root(parentProps) {
                         </Page>
                 )}/>
             ))}
-            <Route path='/blog/:slug' exact
+            <Route path='/blog/:folder?/:slug' exact
                 render={(props) => {
                     const { slug } = props.match.params;
                     const data = postsMap.get(slug) || {};
