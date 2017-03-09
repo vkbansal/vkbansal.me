@@ -9,6 +9,7 @@
     background: rgba(0, 0, 0, 0.05);
     color: rgba(0, 0, 0, 0.6);
     border-radius: 2px;
+    font-weight: 600;
 }
 
 :global(pre) {
@@ -17,9 +18,82 @@
     padding: 20px 0!important;
     background: #fff;
     overflow: scroll;
+    position: relative;
 }
 
 :global(pre > code) {
     background: #fff;
     line-height: 24px;
+}
+
+:global(.token.cdata),
+:global(.token.comment),
+:global(.token.doctype),
+:global(.token.prolog) {
+    color: #708090
+}
+
+:global(.token.punctuation) {
+    color: #999
+}
+
+:global(.namespace) {
+    opacity: .7
+}
+
+:global(.token.boolean),
+:global(.token.constant),
+:global(.token.deleted),
+:global(.token.number),
+:global(.token.property),
+:global(.token.symbol),
+:global(.token.tag) {
+    color: #905
+}
+
+:global(.token.attr-name),
+:global(.token.builtin),
+:global(.token.char),
+:global(.token.inserted),
+:global(.token.selector),
+:global(.token.string) {
+    color: #690;
+}
+
+:global(.language-css .token.string),
+:global(.style .token.string),
+:global(.token.entity),
+:global(.token.operator),
+:global(.token.url) {
+    color: #a67f59;
+    background: hsla(0,0%,100%,.5);
+}
+
+:global(.token.atrule),
+:global(.token.attr-value),
+:global(.token.keyword) {
+    color: #07a;
+}
+
+:global(.token.function) {
+    color: #DD4A68;
+}
+
+:global(.token.important),
+:global(.token.regex),
+:global(.token.variable) {
+    color: #e90;
+}
+
+:global(.token.bold),
+:global(.token.important) {
+    font-weight: 700;
+}
+
+:global(.token.italic) {
+    font-style: italic
+}
+
+:global(.token.entity) {
+    cursor: help
 }
