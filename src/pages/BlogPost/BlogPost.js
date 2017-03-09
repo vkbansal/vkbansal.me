@@ -40,10 +40,12 @@ export default class BlogPost extends Component {
 
         return (
             <Page {...this.props} className={styles['blog-post']}>
+                <div className='container'>
+                    <h1 className={styles['title']}>{post.title}</h1>
+                    <div className={styles['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
+                </div>
                 <div className={cx('container', styles['container'])}>
                     <div className={styles['post']}>
-                        <h1 className={styles['title']}>{post.title}</h1>
-                        <div className={styles['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
                         <div dangerouslySetInnerHTML={{__html: post.body}} />
                         <div className={styles['footer']}>
                             <div className={styles['tags']}>
