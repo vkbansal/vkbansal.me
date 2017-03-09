@@ -29,5 +29,15 @@
             ga('send', 'pageview');
         </script>`
         {{/if}}
+        {{#if postData.isPost}}
+            {{#if postData.math}}
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+                });
+            </script>
+            <script type="text/javascript" async src="{{settings.scripts.mathjax}}"></script>
+            {{/if}}
+        {{/if}}
     </body>
 </html>

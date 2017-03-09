@@ -20,6 +20,9 @@ disqus:
 ga:
     token: UA-54521168-1
 
+scripts:
+    mathjax: https://cdn.mathjax.org/mathjax/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML
+
 social: !!pairs
     - rss:
         name: RSS

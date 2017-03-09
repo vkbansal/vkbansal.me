@@ -9,6 +9,7 @@ import settings from 'settings.yml';
 
 import groupWebpackAssets from './utils/group-webpack-assets';
 import Routes from './_routes';
+import posts from './_posts.json';
 
 const PROD = process.env.NODE_ENV === 'production';
 
@@ -30,6 +31,8 @@ if (typeof document !== 'undefined') {
     }
 }
 
+const postsMap = new Map(posts.map((post) => [post.url, post]));
+
 export default function(locals) {
     console.log(`Rendering: ${locals.path}`);
 
@@ -39,11 +42,14 @@ export default function(locals) {
         </StaticRouter>
     );
 
+    const postData = postsMap.get(locals.path) || {};
+
     const data = {
         content,
         assets: groupWebpackAssets(locals.webpackStats.toJson().assetsByChunkName),
         settings,
-        PROD
+        PROD,
+        postData
     };
 
     return locals.template(data);
