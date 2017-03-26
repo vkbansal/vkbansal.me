@@ -1,19 +1,19 @@
 @import "variables.scss";
 
 .footer {
-    background: #333;
-    color: #fff;
-    margin-top: 3rem;
+    margin-bottom: 8px;
+    box-shadow: 0 4px #333, 0 8px $color-primary;
 
     .container {
+        padding: 48px 0;
+        border-top: 1px solid #ddd;
         display: flex;
     }
 
     .copyright {
         margin: 0;
-        flex-grow: 1;
-        font-size: 0.75rem;
-        line-height: 3rem;
+        font-size: 16px;
+        text-align: right;
     }
 
     .social {
@@ -24,38 +24,65 @@
         justify-content: flex-end;
         flex-grow: 1;
 
-        svg {
-            fill: #fff;
-            width: 100%;
-            height: calc(3rem - 0.95rem - 0.95rem);
-            transition: fill 0.3s;
-        }
-
         .link {
             display: block;
-            padding: 0.95rem;
-            width: 3rem;
-            height: 3rem;
-            background-color: transparent;
-            transition: background-color 0.3s;
+            line-height: 24px;
+            margin-bottom: 14px;
+            font-size: 16px;
 
-            &.twitter:hover {
-                background-color: $brand-twitter-blue;
+            &:before {
+                content: '';
+                width: 18px;
+                height: 24px;
+                margin-right: 6px;
+                display: inline-block;
+                background-size: 100%;
+                vertical-align: bottom;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
             }
 
-            &.github:hover {
-                background-color: $brand-github-blue;
+            &.twitter {
+                color: $brand-twitter-blue;
+
+                &:before {
+                    background-image: url('./twitter.svg');
+                }
             }
 
-            &.rss:hover {
-                background-color: $brand-rss;
+            &.github {
+                color: $brand-github-dark-grey;
+
+                &:before {
+                    background-image: url('./github.svg');
+                }
             }
 
-            &.codepen:hover {
-                background-color: #fff;
+            &.codepen {
+                color: #222;
 
-                svg {
-                    fill: black;
+                &:before {
+                    background-image: url('./codepen.svg');
+                }
+            }
+
+            &.linkedin {
+                color: $brand-linkedin-blue;
+
+                &:before {
+                    background-image: url('./linkedin.svg');
+                    height: 26px;
+                }
+            }
+
+            &.npm {
+                color: $brand-npm-red;
+
+                &:before {
+                    background-image: url('./npm.svg');
+                    width: 32px;
+                    margin-right: 2px;
+                    height: 20px;
                 }
             }
         }
