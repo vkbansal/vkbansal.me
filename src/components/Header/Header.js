@@ -6,7 +6,6 @@ import Logo from './Logo';
 import styles from './Header.scss';
 
 const nav = [
-    { title: 'About', link: '/about/'},
     { title: 'Blog', link: '/blog/'},
     { title: 'Contact', link: 'mailto:contact@vkbansal.me'},
     { title: 'RSS', link: '/feed.xml'}
