@@ -1,6 +1,6 @@
 ---
 homepage:
-    postsLimit: 5
+    postsLimit: 3
 
 blog:
     prefix: blog

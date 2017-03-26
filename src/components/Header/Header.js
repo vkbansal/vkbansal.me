@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
-import Logo from './Logo';
-import styles from './Header.scss';
+import logo from './logo.svg';
+import $ from './Header.scss';
 
 const nav = [
     { title: 'Blog', link: '/blog/'},
@@ -13,15 +13,15 @@ const nav = [
 
 function Header ({match}) {
     return (
-        <header className={cx(styles['header'], {[styles['home-page']]: match.path === '/'})}>
-            <div className={cx('container', styles['container'])}>
-                <Link to='/' className={styles['logo']}>
-                    <Logo fill={match.path === '/' ? '#ffffff' : '#f44336'}/>
+        <header className={cx($['header'], {[$['home-page']]: match.path === '/'})}>
+            <div className={cx('container', $['container'])}>
+                <Link to='/' className={$['logo']}>
+                    <object className={$['logo-img']} type='image/svg+xml' data={logo} />
                 </Link>
-                <ul className={styles['nav-menu']}>
+                <ul className={$['nav-menu']}>
                     {nav.map((n, i) => (
-                        <li key={i} className={styles['link-container']}>
-                            <Link to={n.link} className={cx(styles['link'], {[styles['active']]: match.url === n.link})}>
+                        <li key={i} className={$['link-container']}>
+                            <Link to={n.link} className={cx($['link'], {[$['active']]: match.url === n.link})}>
                                 {n.title}
                             </Link>
                         </li>
