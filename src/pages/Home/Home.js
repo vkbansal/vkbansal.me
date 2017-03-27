@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Page from 'src/components/Page';
-import ArticlePreview from 'src/Components/ArticlePreview';
+import ArticlePreview from 'src/components/ArticlePreview';
 import Markdown from 'src/components/Markdown';
 
 import profile from './mypic.png';

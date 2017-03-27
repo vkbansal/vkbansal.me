@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Page from 'src/components/Page';
-import ArticlePreview from 'src/Components/ArticlePreview';
-import Pagination from 'src/Components/Pagination';
+import ArticlePreview from 'src/components/ArticlePreview';
+import Pagination from 'src/components/Pagination';
 import { getBlogUrls } from 'utils';
 import settings from 'settings.yml';
 

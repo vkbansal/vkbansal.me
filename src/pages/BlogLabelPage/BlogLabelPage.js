@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Page from 'src/components/Page';
-import ArticlePreview from 'src/Components/ArticlePreview';
-import Pagination from 'src/Components/Pagination';
+import ArticlePreview from 'src/components/ArticlePreview';
+import Pagination from 'src/components/Pagination';
 import settings from 'settings.yml';
 import { getBlogUrls } from 'utils';
 
