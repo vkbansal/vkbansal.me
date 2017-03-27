@@ -3,6 +3,7 @@ const babelRC = require('./settings/babelrc').node
 require('babel-register')(babelRC);
 
 const path = require('path');
+const fs = require('fs-extra');
 const webpack = require('webpack');
 const Promise = require('bluebird');
 const chalk = require('chalk');
@@ -40,6 +41,11 @@ const PROD = process.env.NODE_ENV === 'production';
             console.log(`Error: ${stats.toJson().errors}`);
         } else {
             console.log(stats.toString());
+            fs.moveSync(
+                path.resolve(__dirname, '../public_1'),
+                path.resolve(__dirname, '../public'),
+                { overwrite: true }
+            );
         }
 
     } catch (e) {

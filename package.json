@@ -3,9 +3,9 @@
   "description": "Site for Vivek Kumar Bansal",
   "private": true,
   "scripts": {
-    "build": "rm -rf public && NODE_PATH=. NODE_ENV=production node scripts/build.js",
-    "build:dev": "rm -rf public && NODE_PATH=. node scripts/build.js",
-    "start": "NODE_PATH=. node scripts/server.js"
+    "build": "rimraf public_1 && cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
+    "build:dev": "rimraf public_1 && cross-env NODE_PATH=. node scripts/build.js",
+    "start": "cross-env NODE_PATH=. node scripts/server.js"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
@@ -21,6 +21,7 @@
     "bluebird": "^3.5.0",
     "chalk": "^1.1.3",
     "classnames": "^2.2.5",
+    "cross-env": "^3.2.4",
     "css-loader": "^0.27.3",
     "date-fns": "^1.28.1",
     "eval": "^0.1.2",
@@ -44,6 +45,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0-beta.7",
+    "rimraf": "^2.6.1",
     "rss": "^1.2.2",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.0",
