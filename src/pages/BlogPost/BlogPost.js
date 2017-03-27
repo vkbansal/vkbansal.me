@@ -68,7 +68,7 @@ export default class BlogPost extends Component {
                         ))}
                     </ul>
                 </div>
-                 <div id='disqus_thread'></div>
+                 <div id='disqus_thread' className='container'/>
             </Page>
         );
     }

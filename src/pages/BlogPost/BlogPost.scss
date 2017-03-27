@@ -92,4 +92,8 @@
             font-size: 14px;
         }
     }
+
+    :global(#disqus_thread) {
+        margin: 0 0 16px 0;
+    }
 }
