@@ -6,6 +6,7 @@ node_modules/
 node_modules_*/
 .deploy*/
 public/*
+public_1/*
 .env
 .vscode/
 scripts/_*.json

@@ -41,6 +41,11 @@ const PROD = process.env.NODE_ENV === 'production';
             console.log(`Error: ${stats.toJson().errors}`);
         } else {
             console.log(stats.toString());
+            fs.copySync(
+                path.resolve(__dirname, '../src/_includes'),
+                path.resolve(__dirname, '../public_1'),
+                { overwrite: true }
+            );
             fs.moveSync(
                 path.resolve(__dirname, '../public_1'),
                 path.resolve(__dirname, '../public'),
