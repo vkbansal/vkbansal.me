@@ -14,6 +14,11 @@ export default async function() {
 
     let [posts, pages] = partition(files, (file) => file.isPost);
 
+    if (process.env.NODE_ENV === 'production') {
+        posts = posts.filter(post => !post.draft);
+        pages = pages.filter(page => !page.draft);
+    }
+
     posts.sort((a, b) => isBefore(a.date, b.date) ? 1 : -1);
 
     return {pages, posts};

@@ -5,8 +5,6 @@ import fs from 'scripts/utils/fs-promisified';
 import settings from 'scripts/settings';
 import { getBlogUrls } from 'utils';
 
-const PROD = process.env.NODE_ENV === 'production';
-
 const { blog } = settings;
 const blogUrls = getBlogUrls(blog);
 
@@ -21,8 +19,6 @@ export default async function ({pages, posts}) {
     let blogLabelsRenderer = null;
 
     forEach(posts, (post, index) => {
-        if (PROD && post.draft) return;
-
         const postImportName = camelCase(post.slug);
         importStatements += `import ${postImportName} from '${post.file}';\n`
         postImportsMap += `'${post.slug}': ${postImportName},\n`;
@@ -36,8 +32,6 @@ export default async function ({pages, posts}) {
     });
 
     forEach(pages, (page) => {
-        if (PROD && page.draft) return;
-
         const pageImportName = camelCase(page.file.replace(page.ext, ''));
 
         importStatements += `import ${pageImportName} from '${page.file}';\n`
