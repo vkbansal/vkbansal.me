@@ -9,9 +9,11 @@
         {{#each assets.css}}
             <link rel='stylesheet' href='/{{this.asset}}' />
         {{/each}}
+        {{#unless PROD}}
         {{#each assets.js}}
             <script src='/{{this.asset}}' async defer></script>
         {{/each}}
+        {{/unless}}
     </head>
     <body>
         <div id='root'>
