@@ -1,0 +1,91 @@
+@import "variables.scss";
+
+.footer {
+    margin-bottom: 8px;
+    box-shadow: 0 4px #333, 0 8px $color-primary;
+
+    .container {
+        padding: 48px 0;
+        border-top: 1px solid #ddd;
+        display: flex;
+    }
+
+    .copyright {
+        margin: 0;
+        font-size: 16px;
+        text-align: right;
+    }
+
+    .social {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+
+        .link {
+            display: block;
+            line-height: 24px;
+            margin-bottom: 14px;
+            font-size: 16px;
+
+            &:before {
+                content: '';
+                width: 18px;
+                height: 24px;
+                margin-right: 6px;
+                display: inline-block;
+                background-size: 100%;
+                vertical-align: bottom;
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+            }
+
+            &.twitter {
+                color: $brand-twitter-blue;
+
+                &:before {
+                    background-image: url('./twitter.svg');
+                }
+            }
+
+            &.github {
+                color: $brand-github-dark-grey;
+
+                &:before {
+                    background-image: url('./github.svg');
+                }
+            }
+
+            &.codepen {
+                color: #222;
+
+                &:before {
+                    background-image: url('./codepen.svg');
+                }
+            }
+
+            &.linkedin {
+                color: $brand-linkedin-blue;
+
+                &:before {
+                    background-image: url('./linkedin.svg');
+                    height: 26px;
+                }
+            }
+
+            &.npm {
+                color: $brand-npm-red;
+
+                &:before {
+                    background-image: url('./npm.svg');
+                    width: 32px;
+                    margin-right: 2px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+}
+

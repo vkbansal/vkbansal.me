@@ -1,0 +1,62 @@
+---
+homepage:
+    postsLimit: 3
+
+blog:
+    prefix: blog
+    postsLimit: 5
+    pagination: true
+    labelSuffix: label/:label
+    paginationSuffix: page/:num
+
+author:
+    name: Vivek Kumar Bansal
+    email: contact@vkbansal.me
+    website: https://vkbansal.me
+
+disqus:
+    shortname: vkbansal
+
+ga:
+    token: UA-54521168-1
+
+scripts:
+    mathjax: https://cdn.mathjax.org/mathjax/2.7-latest/MathJax.js?config=TeX-MML-AM_CHTML
+
+social: !!pairs
+    - rss:
+        name: RSS
+        link: http://feeds.feedburner.com/vkbansal
+        follow: true
+    - twitter:
+        name: Twitter
+        link: http://twitter.com/_vkbansal
+        username: _vkbansal
+        follow: true
+        footer: true
+        share: true
+    - github:
+        name: GitHub
+        link: https://github.com/vkbansal
+        username: vkbansal
+        follow: true
+        footer: true
+    - codepen:
+        name: CodePen
+        link: http://codepen.io/vkbansal/
+        footer: true
+    - facebook:
+        name: Facebook
+        share: true
+    - linkedin:
+        name: LinkendIn
+        link: https://in.linkedin.com/in/vkbansal03
+        share: true
+        footer: true
+    - googlePlus:
+        name: Google Plus
+        share: true
+    - npm:
+        name: npm
+        link: https://www.npmjs.com/~vkbansal
+        footer: true
