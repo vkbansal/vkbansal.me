@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import { format as formatDate } from 'date-fns';
 import cx from 'classnames';
 
@@ -7,7 +8,7 @@ import Tag from 'src/components/Tag';
 import settings from 'settings.yml';
 import { getBlogUrls } from 'utils';
 
-import styles from './BlogPost.scss';
+import $ from './BlogPost.scss';
 
 const { author, blog } = settings;
 const urls = getBlogUrls(blog);
@@ -36,33 +37,36 @@ export default class BlogPost extends Component {
     }
 
     render() {
-        const { post } = this.props;
+        const { post, match } = this.props;
 
         return (
-            <Page {...this.props} className={styles['blog-post']}>
-                <div className='container'>
-                    <h1 className={styles['title']}>{post.title}</h1>
-                    <div className={styles['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
-                </div>
-                <div className={cx('container', styles['container'])}>
-                    <div className={styles['post']}>
+            <Page {...this.props} className={$['blog-post']}>
+                <div className={cx('container', $['container'])}>
+                    <h1 className={$['title']}>{post.title}</h1>
+                    <div className={$['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
+                    <div className={$['post']}>
                         <div dangerouslySetInnerHTML={{__html: post.body}} />
-                        <div className={styles['footer']}>
-                            <div className={styles['tags']}>
+                        <div className={$['footer']}>
+                            <div className={$['tags']}>
                                 {post.tag.map((tag, i) => (
                                     <Tag key={i} url={urls.labelUrl.replace(':label', tag)}>{tag}</Tag>
                                 ))}
                             </div>
                         </div>
                     </div>
-                    <div className={styles['sidebar']}>
-                        <h4>Recent Posts</h4>
-                        <ul>
-                            {this.props.posts.slice(0, 5).map((recentPost, i) => (
-                                <li key={i}>{recentPost.title}</li>
-                            ))}
-                        </ul>
-                    </div>
+                </div>
+                <div className={cx('container', $['recent-posts-container'])}>
+                    <h4>Recent Posts</h4>
+                    <ul className={$['recent-posts']}>
+                        {this.props.posts.slice(0, 4).filter(post => post.url !== match.url).slice(0, 3).map((recentPost, i) => (
+                            <li className={cx('col-4-12', $['recent-post'])} key={i}>
+                                <Link to={recentPost.url} className={$['recent-post-link']}>
+                                    <h4>{recentPost.title}</h4>
+                                    <p className={$['description']}>{recentPost.description}</p>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </Page>
         );
