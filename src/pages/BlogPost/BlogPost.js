@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import { format as formatDate } from 'date-fns';
@@ -25,7 +26,7 @@ export default class BlogPost extends Component {
             let head = document.getElementsByTagName('head')[0];
             script = document.createElement('script');
             script.type = 'text/x-mathjax-config';
-            script[(window.opera ? 'innerHTML' : 'text')] =
+            script[window.opera ? 'innerHTML' : 'text'] =
                 'MathJax.Hub.Config({\n' +
                 '  tex2jax: { inlineMath: [["$","$"], ["\\\\(","\\\\)"]] }\n' +
                 '});';
@@ -33,7 +34,7 @@ export default class BlogPost extends Component {
             script = document.createElement('script');
             script.id = 'mathjax-script';
             script.type = 'text/javascript';
-            script.src  = settings.scripts.mathjax;
+            script.src = settings.scripts.mathjax;
             head.appendChild(script);
         }
     }
@@ -47,11 +48,13 @@ export default class BlogPost extends Component {
                     <h1 className={$['title']}>{`${post.title}${!PROD && post.draft ? ' [DRAFT]' : ''}`}</h1>
                     <div className={$['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
                     <div className={$['post']}>
-                        <div dangerouslySetInnerHTML={{__html: post.body}} />
+                        <div dangerouslySetInnerHTML={{ __html: post.body }} />
                         <div className={$['footer']}>
                             <div className={$['tags']}>
-                                {post.tag.map((tag, i) => (
-                                    <Tag key={i} url={urls.labelUrl.replace(':label', tag)}>{tag}</Tag>
+                                {post.tag.map(tag => (
+                                    <Tag key={tag} url={urls.labelUrl.replace(':label', tag)}>
+                                        {tag}
+                                    </Tag>
                                 ))}
                             </div>
                         </div>
@@ -60,18 +63,29 @@ export default class BlogPost extends Component {
                 <div className={cx('container', $['recent-posts-container'])}>
                     <h4>Recent Posts</h4>
                     <ul className={$['recent-posts']}>
-                        {this.props.posts.slice(0, 4).filter(post => post.url !== match.url).slice(0, 3).map((recentPost, i) => (
-                            <li className={cx('col-4-12', $['recent-post'])} key={i}>
-                                <Link to={recentPost.url} className={$['recent-post-link']}>
-                                    <h4>{recentPost.title}</h4>
-                                    <p className={$['description']}>{recentPost.description}</p>
-                                </Link>
-                            </li>
-                        ))}
+                        {this.props.posts
+                            .slice(0, 4)
+                            .filter(p => p.url !== match.url)
+                            .slice(0, 3)
+                            .map(recentPost => (
+                                <li className={cx('col-4-12', $['recent-post'])} key={recentPost.name}>
+                                    <Link to={recentPost.url} className={$['recent-post-link']}>
+                                        <h4>{recentPost.title}</h4>
+                                        <p className={$['description']}>{recentPost.description}</p>
+                                    </Link>
+                                </li>
+                            )
+                        )}
                     </ul>
                 </div>
-                 <div id='disqus_thread' className='container'/>
+                <div id='disqus_thread' className='container' />
             </Page>
         );
     }
 }
+
+BlogPost.propTypes = {
+    post: PropTypes.object.isRequired,
+    posts: PropTypes.array.isRequired,
+    match: PropTypes.object.isRequired
+};

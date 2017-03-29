@@ -1,19 +1,17 @@
 import React from 'react';
 import cx from 'classnames';
 
-import * as Icons from 'src/components/Icons';
 import settings from 'settings.yml';
 
 import $ from './Footer.scss';
 
 const { author, social } = settings;
-const footerLinks = social.filter((link) => link[1].footer);
+const footerLinks = social.filter(link => link[1].footer);
 const footerBreak = Math.ceil(footerLinks.length / 2);
 
 export default function Footer() {
-    const renderFooterLinks = ([name, media], i) => (
-        <a key={name} href={media.link} title={media.name}
-            className={cx($['link'], $[name])}>
+    const renderFooterLinks = ([name, media]) => (
+        <a key={name} href={media.link} title={media.name} className={cx($['link'], $[name])}>
             {media.name}
         </a>
     );
@@ -39,5 +37,5 @@ export default function Footer() {
                 </div>
             </div>
         </footer>
-    )
+    );
 }

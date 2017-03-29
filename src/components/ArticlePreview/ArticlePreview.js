@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import { format as formatDate } from 'date-fns';
 import cx from 'classnames';
@@ -14,7 +14,7 @@ const urls = getBlogUrls(blog);
 
 const PROD = process.env.NODE_ENV === 'production';
 
-function ArticlePreview({post, className, showTags}) {
+function ArticlePreview({ post, className, showTags }) {
     return (
         <div className={cx(styles['article-preview'], className)}>
             <p className={styles['meta']}>{formatDate(post.date, 'MMMM Do, YYYY')}</p>
@@ -25,13 +25,26 @@ function ArticlePreview({post, className, showTags}) {
             </Link>
             {showTags && (
                 <div className={styles['tags']}>
-                    {post.tag.map((tag, i) => (
-                        <Tag key={i} url={urls.labelUrl.replace(':label', tag)}>{tag}</Tag>
+                    {post.tag.map(tag => (
+                        <Tag key={tag} url={urls.labelUrl.replace(':label', tag)}>
+                            {tag}
+                        </Tag>
                     ))}
                 </div>
             )}
         </div>
     );
 }
+
+ArticlePreview.propTypes = {
+    post: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    showTags: PropTypes.bool
+};
+
+ArticlePreview.defaultProps = {
+    className: '',
+    showTags: false
+};
 
 export default ArticlePreview;

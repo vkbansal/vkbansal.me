@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-
+/* eslint-disable react/no-danger */
+import React, { PropTypes } from 'react';
 import markdown from 'markdown-it';
 import decorate from 'markdown-it-decorate';
 
@@ -7,20 +7,21 @@ const md = markdown({
     html: true
 }).use(decorate);
 
-class Markdown extends Component {
-    static propTypes = {
-        children: PropTypes.string.isRequired
-    };
+function Markdown({ className, children }) {
+    if (typeof children !== 'string') children = String(children); // eslint-disable-line no-param-reassign
 
-    render() {
-        let { className = '', children } = this.props;
-
-        if (typeof children !== 'string') children = String(children);
-
-        return (
-            <div className={className} dangerouslySetInnerHTML={{__html: md.render(children)}} />
-        );
-    }
+    return (
+        <div className={className} dangerouslySetInnerHTML={{ __html: md.render(children) }} />
+    );
 }
+
+Markdown.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.string.isRequired
+};
+
+Markdown.defaultProps = {
+    className: ''
+};
 
 export default Markdown;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Page from 'src/components/Page';
 import ArticlePreview from 'src/components/ArticlePreview';
@@ -19,19 +19,27 @@ export default function Blog(props) {
     page = parseInt(page, 10);
     const skip = (page - 1) * blog.postsLimit;
 
-    const url = (page) => page === 1 ? urls.index : urls.paginationUrl.replace(':num', page);
+    const url = p => p === 1 ? urls.index : urls.paginationUrl.replace(':num', p); // eslint-disable-line no-confusing-arrow
 
     return (
         <Page {...props} className={styles['blogs-list']}>
-           <section className='container'>
-               <div className={styles['articles']}>
-                    {props.posts.slice(skip, skip + blog.postsLimit).map((post, i) => (
-                        <ArticlePreview key={i} post={post} className={styles['blog-page-article']}
+            <section className='container'>
+                <div className={styles['articles']}>
+                    {props.posts.slice(skip, skip + blog.postsLimit).map(post => (
+                        <ArticlePreview
+                            key={post.name}
+                            post={post}
+                            className={styles['blog-page-article']}
                             showTags />
                     ))}
-               </div>
+                </div>
                 <Pagination pages={numPages} currentPage={page} url={url} />
             </section>
         </Page>
     );
 }
+
+Blog.propTypes = {
+    posts: PropTypes.array.isRequired,
+    match: PropTypes.object.isRequired
+};

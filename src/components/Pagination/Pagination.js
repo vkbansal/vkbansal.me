@@ -1,29 +1,45 @@
-// eslint-disable react/no-array-index-key
-import React from 'react';
+/* eslint-disable react/no-array-index-key */
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 
-import styles from './Pagination.scss';
-
-const pageClasses = (page, currentPage = 1, disabled, className) => cx(styles['page-link'], {
-    [styles['active']]: page === currentPage && !disabled,
-    [styles['disabled']]: disabled
-}, className);
+import $ from './Pagination.scss';
 
 function Page(props) {
-    const {page, currentPage, children, disabled, title, className, url} = props;
+    const { page, currentPage, children, disabled, title, className, url } = props;
+
+    const pageClasses = cx($['page-link'], {
+        [$['disabled']]: disabled,
+        [$['active']]: page === currentPage
+    }, className);
 
     return disabled
         ? (
-            <span className={pageClasses(page, currentPage, disabled, className)}>
+            <span className={pageClasses}>
                 {children || page}
             </span>
         ) : (
-            <Link to={url(page)} className={pageClasses(page, currentPage, disabled, className)} title={title || page}>
+            <Link to={url(page)} className={pageClasses} title={title || page}>
                 {children || page}
             </Link>
         );
 }
+
+Page.propTypes = {
+    page: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    children: PropTypes.node.isRequired,
+    disabled: PropTypes.bool,
+    title: PropTypes.string,
+    className: PropTypes.string,
+    url: PropTypes.oneOf([PropTypes.string, PropTypes.object]).isRequired
+};
+
+Page.defaultProps = {
+    disabled: PropTypes.bool,
+    title: null,
+    className: ''
+};
 
 function PrevPage(props) {
     const { currentPage } = props;
@@ -35,6 +51,10 @@ function PrevPage(props) {
     );
 }
 
+PrevPage.propTypes = {
+    currentPage: PropTypes.number.isRequired
+};
+
 function NextPage(props) {
     const { currentPage, pages } = props;
 
@@ -45,6 +65,11 @@ function NextPage(props) {
     );
 }
 
+NextPage.propTypes = {
+    currentPage: PropTypes.number.isRequired,
+    pages: PropTypes.number.isRequired
+};
+
 export default function Pagination(props) {
     const { currentPage, pages } = props;
 
@@ -52,13 +77,13 @@ export default function Pagination(props) {
 
     if (pages >= 2 && pages <= 9) {
         return (
-            <nav className={styles['pagination']}>
-                <div className={styles['pagination-list']}>
-                    <PrevPage {...props} className={styles['direction']}/>
-                    <div className={styles['page-numbers']}>
+            <nav className={$['pagination']}>
+                <div className={$['pagination-list']}>
+                    <PrevPage {...props} className={$['direction']} />
+                    <div className={$['page-numbers']}>
                         {Array(pages).fill(0).map((v, i) => <Page key={i} {...props} page={i + 1} />)}
                     </div>
-                    <NextPage {...props} className={styles['direction']}/>
+                    <NextPage {...props} className={$['direction']} />
                 </div>
             </nav>
         );
@@ -68,22 +93,24 @@ export default function Pagination(props) {
     const moreRight = pages - currentPage >= 5;
 
     return (
-        <nav className={styles['pagination']}>
-            <ul className={styles['pagination-list']}>
-                <FirstPage {...props} />
+        <nav className={$['pagination']}>
+            <ul className={$['pagination-list']}>
                 <PrevPage {...props} />
                 {Array(moreLeft ? 2 : 7).fill(0).map((v, i) => <Page key={i} {...props} page={i + 1} />)}
-                {moreLeft ? <li className={styles['more']} /> : null}
+                {moreLeft && <li className={$['more']} />}
                 {moreLeft && moreRight
-                    ? Array(5).fill(0).map((v, i) => <Page key={i} {...props} page={i + currentPage - 2} />)
-                    : null}
-                {moreRight ? <li className={styles['more']} /> : null}
+                    && Array(5).fill(0).map((v, i) => <Page key={i} {...props} page={(i + currentPage) - 2} />)}
+                {moreRight && <li className={$['more']} />}
                 {moreRight
-                    ? [pages - 1, pages].map((i) => <Page key={i} {...props} page={i} />)
-                    : Array(7).fill(0).map((v, i) => <Page key={i} {...props} page={pages + i - 6} />)}
+                    ? [pages - 1, pages].map(i => <Page key={i} {...props} page={i} />)
+                    : Array(7).fill(0).map((v, i) => <Page key={i} {...props} page={(pages + i) - 6} />)}
                 <NextPage {...props} />
-                <LastPage {...props} />
             </ul>
         </nav>
     );
 }
+
+Pagination.propTypes = {
+    currentPage: PropTypes.number.isRequired,
+    pages: PropTypes.number.isRequired
+};

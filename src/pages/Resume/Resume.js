@@ -2,7 +2,6 @@ import React from 'react';
 
 import Page from 'src/components/Page';
 import Markdown from 'src/components/Markdown';
-
 import settings from 'settings.yml';
 
 const social = new Map(settings.social);

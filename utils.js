@@ -1,4 +1,4 @@
-export function getBlogUrls (blogSettings) {
+export function getBlogUrls(blogSettings) {
     return {
         index: `/${blogSettings.prefix}/`,
         paginationUrl: `/${blogSettings.prefix}/${blogSettings.paginationSuffix}`,

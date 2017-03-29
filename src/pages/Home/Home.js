@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Page from 'src/components/Page';
 import ArticlePreview from 'src/components/ArticlePreview';
 import Markdown from 'src/components/Markdown';
+import settings from 'settings.yml';
 
 import profile from './mypic.png';
 import $ from './Home.scss';
-
-import settings from 'settings.yml';
 
 const social = new Map(settings.social);
 
@@ -24,23 +23,29 @@ export default function Home(props) {
             <section className={$['intro']}>
                 <div className='container'>
                     <div className={$['profile-pic']}>
-                        <img className={$['profile-img']}  src={profile} alt={settings.author.name} />
+                        <img className={$['profile-img']} src={profile} alt={settings.author.name} />
                     </div>
                     <div className={$['text']}>
                         <h1>Vivek Kumar Bansal</h1>
                         <h2>Full-stack JavaScript developer</h2>
                     </div>
                     <Markdown className={$['about']}>
-                    {ABOUT}
+                        {ABOUT}
                     </Markdown>
                 </div>
             </section>
             <section className='container'>
                 <h2>Latest from Blog</h2>
-                {props.posts.slice(0, settings.homepage.postsLimit).map((post, i) => (
-                    <ArticlePreview key={i} post={post} />
-                ))}
+                {
+                    props.posts.slice(0, settings.homepage.postsLimit)
+                        .map(post => <ArticlePreview key={post.name} post={post} />)
+                }
             </section>
         </Page>
     );
 }
+
+Home.propTypes = {
+    posts: PropTypes.array.isRequired
+};
+
