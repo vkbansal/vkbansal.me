@@ -50,22 +50,27 @@ The following is a diagram of a circle in the SVG coordinate-system. We assume t
 <!--{.img-center}-->
 
 Now suppose we want the coordinates of a point $A$ on the circle which has an angle $\theta$ from vertical axis, we will make projections of $A$ on  horizontal and vertical axis as $\vec{X}$ and $\vec{Y}$ respectively. By using basic trigonometry we get:
+
 $$
 \begin{align}
-& X = r + r sin\theta = r (1 + sin\theta) \\\\
-& Y = r - r  cos\theta = r (1 - cos\theta) \\\\
-\\\\
+& X = r + r sin\theta = r (1 + sin\theta) \newline
+& Y = r - r  cos\theta = r (1 - cos\theta) \newline
+\newline
 & \text{Thus, } A = [r (1+ sin\theta), r(1 - cos\theta)]
 \end{align}
 $$
+
 For a donut chart, we will need to make another smaller circle with radius $r'$ where $r' < r$. And similar to above example, we get coordinates of a point on this smaller circle as
+
 $$
 \left[r' (1+ sin\theta), r'(1 - cos\theta)\right]
 $$
+
 To make a donut-chart, we need to make these circles concentric (have same centers), thus, we need to shift the smaller circle by $r - r'$ in both directions. Thus the updated coordinates for smaller circle are:
+
 $$
 \begin{align}
-&[(r'(1 + sin\theta)) + (r - r'), (r'(1 - cos\theta)) + (r - r')] \\\\
+&[(r'(1 + sin\theta)) + (r - r'), (r'(1 - cos\theta)) + (r - r')] \newline
 & = [r + r'sin\theta, r - r'cos\theta]
 \end{align}
 $$
@@ -82,11 +87,11 @@ From the above section, we can concluded that
 $$
 \begin{align}
 & P = [r_2 + r_2 sin\alpha, r_2  - r_2 cos\alpha]
-\\\\
+\newline
 & Q = [r_2 + r_2 sin\beta, r_2  - r_2 cos\beta]
-\\\\
+\newline
 & R =[r_2 + r_1 sin\beta, r_2  - r_1 cos\beta]
-\\\\
+\newline
 & S = [r_2 + r_1 sin\alpha, r_2  - r_1 cos\alpha]
 \end{align}
 $$
