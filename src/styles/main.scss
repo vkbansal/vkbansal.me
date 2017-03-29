@@ -30,11 +30,8 @@ body {
     color: $base-font-color;
     background-color: #fff;
     -webkit-font-smoothing: antialiased;
-
-    @media (min-width: $screen-md) {
-        font-size: 18px;
-        line-height: 1.375;
-    }
+    padding: 0;
+    margin: 0;
 }
 
 h1 {
@@ -142,4 +139,5 @@ li {
     }
 }
 
-@import "code";
+@import "code.scss";
+@import "table.scss";
