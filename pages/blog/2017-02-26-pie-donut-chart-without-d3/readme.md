@@ -1,6 +1,7 @@
 ---
 title: Drawing pie/donut chart without d3
 description:  Create a pie/donut-chart using nothing but vanilla JS
+math: true
 tag:
   - d3
   - charts
@@ -28,9 +29,13 @@ The fourth and fifth parameters after `A` indicate `large-arc-flag` and `sweep
 
 ![svg arcs](./arcs.svg)
 
+<!--{.img-center}-->
+
 The `sweep-flag` controls whether the arc is be to drawn in counter-clockwise direction (denoted by `0` and shown in blue) or clock-wise-direction (denoted by `1` and shown in red).
 
 ![svg arcs](./arcs-direction.svg)
+
+<!--{.img-center}-->
 
 For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path-element.html#arcs)
 
@@ -44,47 +49,47 @@ The following is a diagram of a circle in the SVG coordinate-system. We assume t
 
 <!--{.img-center}-->
 
-Now suppose we want the coordinates of a point `A` on the circle which has an angle `θ` from vertical axis, we will make projections of `A` on  horizontal and vertical axis as `X` and `Y` respectively. By using basic trignomerty we get:
-
-```
-X = r + (r * sinθ)
-Y = r - (r * cosθ)
-
-Thus A = (r + (r * sinθ), r - (r * cosθ))
-```
-
-For a donut chart, we will need to make another smaller circle with radius `r'` where `r' < r`. And similar to above example, we get coordinates of a point on this smaller circle as
-
-```
-(r' + (r' * sinθ), r' - (r' * cosθ))
-```
-
-To make a donught chart, we need to make these circles concentric (have same centers), thus, we need to shift the smaller circle by `r - r'` in both directions. Thus the updated coordinates for smaller circle are:
-
-```
-(r' + (r' * sinθ) + r - r' , r' - (r' * cosθ) + r - r')
-= (r + (r' * sinθ), r - (r' * cosθ))
-```
-
-
+Now suppose we want the coordinates of a point $A$ on the circle which has an angle $\theta$ from vertical axis, we will make projections of $A$ on  horizontal and vertical axis as $\vec{X}$ and $\vec{Y}$ respectively. By using basic trigonometry we get:
+$$
+\begin{align}
+& X = r + r sin\theta = r (1 + sin\theta) \\\\
+& Y = r - r  cos\theta = r (1 - cos\theta) \\\\
+\\\\
+& \text{Thus, } A = [r (1+ sin\theta), r(1 - cos\theta)]
+\end{align}
+$$
+For a donut chart, we will need to make another smaller circle with radius $r'$ where $r' < r$. And similar to above example, we get coordinates of a point on this smaller circle as
+$$
+\left[r' (1+ sin\theta), r'(1 - cos\theta)\right]
+$$
+To make a donut-chart, we need to make these circles concentric (have same centers), thus, we need to shift the smaller circle by $r - r'$ in both directions. Thus the updated coordinates for smaller circle are:
+$$
+\begin{align}
+&[(r'(1 + sin\theta)) + (r - r'), (r'(1 - cos\theta)) + (r - r')] \\\\
+& = [r + r'sin\theta, r - r'cos\theta]
+\end{align}
+$$
 
 ## Drawing an arc
 
-Now we will learn how to draw an arc (`PQRS`) as shown in picture below. We assume that the start angle of the arc is `α` and the end angle is `β`. We also assume that the inner-radius (`OS` ) is `r1` the outer-radius (`OP`) is `r2`.
+Now we will learn how to draw an arc $(\widehat{PQRS})$ as shown in picture below. We assume that the start angle of the arc is $\alpha$ and the end angle is $\beta$. We also assume that the inner-radius $(\overline{OS})$ is $r_1$ the outer-radius $(\overline{OP})$ is $r_2$.
 
 ![Drawing-arc](./drawing-arc.png)
 
 <!--{.img-center}-->
 
 From the above section, we can concluded that
-
-```
-P = (r2 + (r2 * sinα), r2 - (r2 * cosα))
-Q = (r2 + (r2 * sinβ), r2 - (r2 * cosβ))
-R = (r2 + (r1 * sinβ), r2 - (r1 * cosβ))
-S = (r2 + (r1 * sinα), r2 - (r1 * cosα))
-```
-
+$$
+\begin{align}
+& P = [r_2 + r_2 sin\alpha, r_2  - r_2 cos\alpha]
+\\\\
+& Q = [r_2 + r_2 sin\beta, r_2  - r_2 cos\beta]
+\\\\
+& R =[r_2 + r_1 sin\beta, r_2  - r_1 cos\beta]
+\\\\
+& S = [r_2 + r_1 sin\alpha, r_2  - r_1 cos\alpha]
+\end{align}
+$$
 For drawing the arc, we will start from point `P(x, y)`. Thus, we can write:
 
 ```html
@@ -111,7 +116,7 @@ Next we move **counterclock-wise** to point `S(x, y)` with radius `r1`.  Thus, w
 
 The final `Z` is to close the path.
 
-There is one last bit remaining. We need to decide whether to use large-arc or small-arc (flip `large-arc-flag`) based on the angle of the arc (`β - α` ). If it is greater than `π`, we must use large-arc else small-arc.
+There is one last bit remaining. We need to decide whether to use large-arc or small-arc (flip `large-arc-flag`) based on the angle of the arc $(\beta - \alpha )$. If it is greater than $\pi$, we must use large-arc else small-arc.
 
 The final javascript code will look like this:
 
