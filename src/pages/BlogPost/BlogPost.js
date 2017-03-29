@@ -13,6 +13,8 @@ import $ from './BlogPost.scss';
 const { author, blog } = settings;
 const urls = getBlogUrls(blog);
 
+const PROD = process.env.NODE_ENV === 'production';
+
 export default class BlogPost extends Component {
     componentDidMount() {
         if (this.props.post.math) {
@@ -42,7 +44,7 @@ export default class BlogPost extends Component {
         return (
             <Page {...this.props} className={$['blog-post']}>
                 <div className={cx('container', $['container'])}>
-                    <h1 className={$['title']}>{post.title}</h1>
+                    <h1 className={$['title']}>{`${post.title}${!PROD && post.draft ? ' [DRAFT]' : ''}`}</h1>
                     <div className={$['intro']}>By <a href={author.website}>{author.name}</a> on {formatDate(post.date, 'MMMM Do, YYYY')} </div>
                     <div className={$['post']}>
                         <div dangerouslySetInnerHTML={{__html: post.body}} />

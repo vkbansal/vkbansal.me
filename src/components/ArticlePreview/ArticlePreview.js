@@ -12,12 +12,14 @@ import styles from './ArticlePreview.scss';
 const { blog } = settings;
 const urls = getBlogUrls(blog);
 
+const PROD = process.env.NODE_ENV === 'production';
+
 function ArticlePreview({post, className, showTags}) {
     return (
         <div className={cx(styles['article-preview'], className)}>
             <p className={styles['meta']}>{formatDate(post.date, 'MMMM Do, YYYY')}</p>
             <Link to={post.url} className={styles['link']}>
-                <h2 className={styles['title']}>{post.title}</h2>
+                <h2 className={styles['title']}>{`${post.title}${!PROD && post.draft ? ' [DRAFT]' : ''}`}</h2>
                 <p className={styles['description']}>{post.description}</p>
                 <p className={styles['read-more']}>Read more…</p>
             </Link>
