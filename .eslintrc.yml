@@ -8,3 +8,4 @@ settings:
       config: scripts/webpack.config.js
 env:
   browser: true
+  jest: true

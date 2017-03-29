@@ -1,9 +1,9 @@
+/* eslint-disable import/no-commonjs */
 const path = require('path');
 
 const webpack = require('webpack');
 const Extract = require('extract-text-webpack-plugin');
 
-const settings = require('./settings');
 const babelRC = require('./settings/babelrc').webpack;
 
 const PROD = process.env.NODE_ENV === 'production';
@@ -27,7 +27,7 @@ const config = {
         rules: [
             {
                 test: /\.js$/,
-                use:[{
+                use: [{
                     loader: 'babel-loader',
                     options: babelRC
                 }],
@@ -58,7 +58,7 @@ const config = {
                         loader: 'css-loader',
                         query: {
                             modules: true,
-                            localIdentName: PROD ? '[hash:base64:6]'  : '[name]_[local]_[hash:base64:6]',
+                            localIdentName: PROD ? '[hash:base64:6]' : '[name]_[local]_[hash:base64:6]',
                             sourceMap: true
                         }
                     }, {
@@ -104,7 +104,7 @@ const config = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': PROD
+                NODE_ENV: PROD
                     ? JSON.stringify('production')
                     : JSON.stringify('development')
             }

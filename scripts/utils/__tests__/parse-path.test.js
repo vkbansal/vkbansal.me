@@ -1,8 +1,8 @@
 import settings from '../../settings';
 import parsePath from '../parse-path';
 
-const postFilePath = (fileName) => `pages/${settings.blog.prefix}/${fileName}`;
-const blogPath = (fileName) => `/${settings.blog.prefix}/${fileName}`;
+const postFilePath = fileName => `pages/${settings.blog.prefix}/${fileName}`;
+const blogPath = fileName => `/${settings.blog.prefix}/${fileName}`;
 
 jest.mock('../fs-promisified.js');
 
@@ -26,7 +26,7 @@ describe('Parse path tests', () => {
 
     test('parse blog path for dir', async () => {
         const data = await parsePath(postFilePath('machine-learning/2016-05-01-linear-regression-with-one-variable/readme.md'));
-        const data2 = await parsePath(postFilePath('2015-01-02-hello-world-2015.md'))
+        const data2 = await parsePath(postFilePath('2015-01-02-hello-world-2015.md'));
 
         expect(data).toMatchObject({
             url: blogPath('machine-learning/linear-regression-with-one-variable'),
@@ -67,7 +67,7 @@ describe('Parse path tests', () => {
             url: '/'
         });
 
-         expect(data3).toMatchObject({
+        expect(data3).toMatchObject({
             url: '/about'
         });
     });

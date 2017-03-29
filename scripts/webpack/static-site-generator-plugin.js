@@ -1,7 +1,11 @@
+/* eslint-disable import/no-commonjs, no-param-reassign */
+const path = require('path');
+
 const RawSource = require('webpack-sources/lib/RawSource');
 const evaluate = require('eval');
-const path = require('path');
 const Promise = require('bluebird');
+
+const hasOwnProp = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
 
 function findAsset(src, compilation, webpackStatsJson) {
     if (!src) {
@@ -27,13 +31,15 @@ function findAsset(src, compilation, webpackStatsJson) {
         chunkValue = chunkValue[0];
     }
     return compilation.assets[chunkValue];
-};
+}
 
 // Shamelessly stolen from html-webpack-plugin - Thanks @ampedandwired :)
 function getAssetsFromCompilation(compilation, webpackStatsJson) {
     let assets = {};
 
     for (let chunk in webpackStatsJson.assetsByChunkName) {
+        if (!hasOwnProp(webpackStatsJson.assetsByChunkName, chunk)) continue;
+
         let chunkValue = webpackStatsJson.assetsByChunkName[chunk];
 
         // Webpack outputs an array for each chunk when using sourcemaps
@@ -49,10 +55,10 @@ function getAssetsFromCompilation(compilation, webpackStatsJson) {
     }
 
     return assets;
-};
+}
 
 class StaticSiteGeneratorWebpackPlugin {
-    constructor (options = {}) {
+    constructor(options = {}) {
         this.entry = options.entry;
         this.paths = Array.isArray(options.paths) ? options.paths : [options.paths || '/'];
         this.locals = options.locals;
@@ -70,17 +76,22 @@ class StaticSiteGeneratorWebpackPlugin {
                 try {
                     const asset = findAsset(this.entry, compilation, webpackStatsJson);
 
-                    if (asset == null) {
-                        throw new Error('Source file not found: "' + this.entry + '"');
+                    if (typeof asset === 'undefined' || asset === null) {
+                        throw new Error(`Source file not found: "${this.entry}"`);
                     }
 
                     const assets = getAssetsFromCompilation(compilation, webpackStatsJson);
 
                     const source = asset.source();
-                    let render = evaluate(source, /* filename: */ this.entry, /* scope: */ this.globals, /* includeGlobals: */ true);
+                    let render = evaluate(
+                                    source,
+                                    this.entry,  /* filename: */
+                                    this.globals, /* scope: */
+                                    true /* includeGlobals: */
+                                );
 
-                    if (render.hasOwnProperty('default')) {
-                        render = render['default'];
+                    if (hasOwnProp(render, 'default')) {
+                        render = render.default;
                     }
 
                     if (typeof render !== 'function') {
@@ -90,23 +101,23 @@ class StaticSiteGeneratorWebpackPlugin {
                     const renderPromises = this.paths.map((outputPath) => {
                         let outputFileName = outputPath.replace(/^(\/|\\)/, ''); // Remove leading slashes for webpack-dev-server
 
-                        if (!/\.(html?)$/i.test(outputFileName)) {
+                        if (!(/\.(html?)$/i).test(outputFileName)) {
                             outputFileName = path.join(outputFileName, 'index.html');
                         }
 
                         let locals = Object.assign({
                             path: outputPath,
-                            assets: assets,
-                            webpackStats: webpackStats
+                            assets,
+                            webpackStats
                         }, this.locals);
 
-                        var renderPromise = render.length < 2 ?
+                        let renderPromise = render.length < 2 ?
                             Promise.resolve(render(locals)) :
                             Promise.fromNode(render.bind(null, locals));
 
                         return renderPromise
-                            .then((output) => (compilation.assets[outputFileName] = new RawSource(output)))
-                            .catch((err) => compilation.errors.push(err.stack));
+                            .then(output => (compilation.assets[outputFileName] = new RawSource(output)))
+                            .catch(err => compilation.errors.push(err.stack));
                     });
 
                     Promise.all(renderPromises).nodeify(done);

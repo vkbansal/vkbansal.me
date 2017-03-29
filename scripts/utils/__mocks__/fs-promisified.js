@@ -7,5 +7,7 @@ export default {
         if (file.match(/\.js$/)) {
             return Promise.resolve('export const attributes = {foo: "bar"}');
         }
+
+        return Promise.reject('');
     }
-}
+};
