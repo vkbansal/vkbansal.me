@@ -1,8 +1,11 @@
-const babelRC = require('./settings/babelrc').node
+/* eslint-disable import/no-commonjs */
+const babelRC = require('./settings/babelrc').node; // eslint-disable-line import/order
+
 
 require('babel-register')(babelRC);
 
 const path = require('path');
+
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const Promise = require('bluebird');
@@ -11,18 +14,15 @@ const chalk = require('chalk');
 const bootstrap = require('./bootstrap');
 const webpackConfig = require('./webpack.config');
 const StaticSiteGeneratorPlugin = require('./webpack/static-site-generator-plugin');
-const settings = require('./settings');
 
-const PROD = process.env.NODE_ENV === 'production';
-
-(async function () {
+(async function build() {
     try {
         let files = await bootstrap.default();
 
         webpackConfig.plugins.push(
             new StaticSiteGeneratorPlugin({
                 entry: 'static',
-                paths: require('./_routes.json'),
+                paths: require('./_routes.json'), // eslint-disable-line global-require
                 locals: {
                     template: files.template
                 }
@@ -52,7 +52,6 @@ const PROD = process.env.NODE_ENV === 'production';
                 { overwrite: true }
             );
         }
-
     } catch (e) {
         console.log(e);
     }

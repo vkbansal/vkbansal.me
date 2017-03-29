@@ -1,22 +1,23 @@
-const config = ({modules = false} = {}) => ({
-    "presets": [
-        "react",
-        ["env", {
-            "targets": {
-                "node": "current"
+/* eslint-disable import/no-commonjs */
+const config = ({ modules = false } = {}) => ({
+    presets: [
+        'react',
+        ['env', {
+            targets: {
+                node: 'current'
             },
-            "modules": modules,
-            "loose": true
+            modules,
+            loose: true
         }]
     ],
-    "plugins": [
-        "transform-class-properties",
-        "syntax-dynamic-import",
-        "transform-object-rest-spread"
+    plugins: [
+        'transform-class-properties',
+        'syntax-dynamic-import',
+        'transform-object-rest-spread'
     ]
 });
 
 module.exports = {
-    node: config({modules: 'commonjs'}),
+    node: config({ modules: 'commonjs' }),
     webpack: config()
-}
+};

@@ -4,7 +4,7 @@ import globPages from './glob-pages';
 import createRoutes from './create-routes';
 import readTemplate from './read-template';
 
-export default async function() {
+export default async function () {
     console.log(chalk.bold('## globbing pages ##'));
     let files = await globPages();
 

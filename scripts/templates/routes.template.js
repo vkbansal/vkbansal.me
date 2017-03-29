@@ -5,47 +5,58 @@ import { map } from 'lodash';
 
 import BlogPost from 'src/pages/BlogPost';
 import Page from 'src/components/Page';
-/*${postImports}*/
+/* ${postImports} */
 
+/* eslint-disable import/no-unresolved */
 import posts from './_posts.json';
 import pages from './_pages.json';
 import tags from './_tags.json';
+/* eslint-enable import/no-unresolved */
 
-const PROD = process.env.NODE_ENV === 'production';
+const pageImports = {/* ${postImportsMap} */};
 
-const pageImports = {/*${postImportsMap}*/};
+const pageJSRoutes = {/* ${pageJSImportsMap} */};
 
-const pageJSRoutes = {/*${pageJSImportsMap}*/};
+const pageMarkdownRoutes = {/* ${pageMarkdownImportsMap} */};
 
-const pageMarkdownRoutes = {/*${pageMarkdownImportsMap}*/};
+const postsMap = new Map(posts.map(post => [post.slug, post]));
 
-const postsMap = new Map(posts.map((post) => [post.slug, post]));
-
-export default function Root(parentProps) {
+export default function Root(parent) {
     return (
         <Switch>
             {map(pageJSRoutes, (Component, key) => (
-                <Route key={key} path={key} exact
-                    render={(props) => (
-                    <Component {...parentProps} {...props} posts={posts} tags={tags} pages={pages} />
-                )}/>
+                <Route
+                    key={key}
+                    path={key}
+                    exact
+                    render={props => <Component {...parent} {...props} posts={posts} tags={tags} pages={pages} />} />
             ))}
             {map(pageMarkdownRoutes, (page, key) => (
-                <Route key={key} path={key} exact
-                    render={(props) => (
+                <Route
+                    key={key}
+                    path={key}
+                    exact
+                    render={props => (
                         <Page {...props} >
-                            <div className='container' dangerouslySetInnerHTML={{__html: page.body}}/>
+                            <div className='container' dangerouslySetInnerHTML={{ __html: page.body }} />
                         </Page>
-                )}/>
+                )} />
             ))}
-            <Route path='/blog/:folder?/:slug' exact
+            <Route
+                path='/blog/:folder?/:slug'
+                exact
                 render={(props) => {
                     const { slug } = props.match.params;
                     const data = postsMap.get(slug) || {};
 
                     return (
-                        <BlogPost {...parentProps} {...props} posts={posts} tags={tags} pages={pages}
-                            post={{ ...data, ...pageImports[slug]}}/>
+                        <BlogPost
+                            {...parent}
+                            {...props}
+                            posts={posts}
+                            tags={tags}
+                            pages={pages}
+                            post={{ ...data, ...pageImports[slug] }} />
                     );
                 }} />
         </Switch>

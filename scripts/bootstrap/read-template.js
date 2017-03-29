@@ -1,4 +1,5 @@
 import path from 'path';
+
 import handlebars from 'handlebars';
 
 import fs from '../utils/fs-promisified';

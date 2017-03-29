@@ -1,0 +1,4 @@
+---
+rules:
+  react/prop-types: off
+  react/no-danger: off

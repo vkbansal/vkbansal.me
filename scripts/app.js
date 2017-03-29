@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import { BrowserRouter, StaticRouter } from 'react-router-dom';
-import { AppContainer } from 'react-hot-loader'
+import { AppContainer } from 'react-hot-loader';
 
 import 'src/bootstrap';
 import settings from 'settings.yml';
@@ -14,14 +14,14 @@ import posts from './_posts.json';
 const PROD = process.env.NODE_ENV === 'production';
 
 const render = (Component) => {
-  ReactDOM.render(
-    <AppContainer>
-        <BrowserRouter>
-            <Component />
-        </BrowserRouter>
-    </AppContainer>,
-    document.getElementById('root')
-  );
+    ReactDOM.render(
+        <AppContainer>
+            <BrowserRouter>
+                <Component />
+            </BrowserRouter>
+        </AppContainer>,
+        document.getElementById('root')
+    );
 };
 if (typeof document !== 'undefined') {
     render(Routes);
@@ -31,9 +31,9 @@ if (typeof document !== 'undefined') {
     }
 }
 
-const postsMap = new Map(posts.map((post) => [post.url, post]));
+const postsMap = new Map(posts.map(post => [post.url, post]));
 
-export default function(locals) {
+export default function (locals) {
     console.log(`Rendering: ${locals.path}`);
 
     const content = ReactDOMServer.renderToStaticMarkup(

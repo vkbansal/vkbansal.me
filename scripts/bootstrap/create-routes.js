@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { camelCase, times, forEach } from 'lodash';
 
 import fs from 'scripts/utils/fs-promisified';
@@ -8,7 +9,7 @@ import { getBlogUrls } from 'utils';
 const { blog } = settings;
 const blogUrls = getBlogUrls(blog);
 
-export default async function ({pages, posts}) {
+export default async function ({ pages, posts }) {
     let importStatements = '';
     let postImportsMap = '';
     let pageJSImportsMap = '';
@@ -20,7 +21,7 @@ export default async function ({pages, posts}) {
 
     forEach(posts, (post, index) => {
         const postImportName = camelCase(post.slug);
-        importStatements += `import ${postImportName} from '${post.file}';\n`
+        importStatements += `import ${postImportName} from '${post.file}';\n`;
         postImportsMap += `'${post.slug}': ${postImportName},\n`;
         routes.push(post.url);
         forEach(post.tag, (tag) => {
@@ -34,9 +35,9 @@ export default async function ({pages, posts}) {
     forEach(pages, (page) => {
         const pageImportName = camelCase(page.file.replace(page.ext, ''));
 
-        importStatements += `import ${pageImportName} from '${page.file}';\n`
+        importStatements += `import ${pageImportName} from '${page.file}';\n`;
 
-        switch(page.ext) {
+        switch (page.ext) {
             case '.js':
                 if (page.useForBlog) {
                     blogRenderer = pageImportName;
@@ -50,6 +51,8 @@ export default async function ({pages, posts}) {
             case '.md':
                 pageMarkdownImportsMap += `'${page.url}': ${pageImportName},\n`;
                 break;
+            default:
+                return;
         }
 
 
@@ -99,13 +102,15 @@ export default async function ({pages, posts}) {
 
     let template = await fs.readFileAsync(path.resolve(__dirname, '../templates/routes.template.js'), 'utf8');
 
+    /* eslint-disable no-template-curly-in-string*/
     template = template
-                .replace('/*${postImports}*/', importStatements)
-                .replace('/*${postImportsMap}*/', postImportsMap)
-                .replace('/*${pageJSImportsMap}*/', pageJSImportsMap)
-                .replace('/*${pageMarkdownImportsMap}*/', pageMarkdownImportsMap);
+                .replace('/* ${postImports} */', importStatements)
+                .replace('/* ${postImportsMap} */', postImportsMap)
+                .replace('/* ${pageJSImportsMap} */', pageJSImportsMap)
+                .replace('/* ${pageMarkdownImportsMap} */', pageMarkdownImportsMap);
+    /* eslint-enable no-template-curly-in-string*/
 
-    await fs.writeFileAsync(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8'});
+    await fs.writeFileAsync(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8' });
     await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_posts.json'), posts);
     await fs.writeJsonAsync(path.resolve(__dirname, '../_pages.json'), pages);

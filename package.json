@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rimraf public_1 && cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
     "build:dev": "rimraf public_1 && cross-env NODE_PATH=. node scripts/build.js",
-    "start": "cross-env NODE_PATH=. node scripts/server.js"
+    "start": "cross-env NODE_PATH=. node scripts/server.js",
+    "lint:es": "eslint scripts/ src/ pages/"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
@@ -39,16 +40,17 @@
     "markdown-it": "^8.3.1",
     "markdown-it-decorate": "^1.2.2",
     "markdown-it-mathjax": "^2.0.0",
-    "node-sass": "^4.5.1",
-    "normalize.css": "^5.0.0",
+    "node-sass": "^4.5.2",
+    "normalize.css": "^6.0.0",
     "path-parse": "^1.0.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
     "react-router-dom": "^4.0.0-beta.7",
     "rimraf": "^2.6.1",
     "rss": "^1.2.2",
     "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.0",
+    "style-loader": "^0.16.1",
     "svgo": "^0.7.1",
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
@@ -60,9 +62,13 @@
     "babel-jest": "^19.0.0",
     "enzyme": "^2.8.0",
     "enzyme-to-json": "^1.5.0",
+    "eslint": "^3.18.0",
+    "eslint-config-vkbansal": "^5.0.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
-    "react-addons-test-utils": "^15.4.2",
-    "react-hot-loader": "^3.0.0-beta.6"
+    "react-addons-test-utils": "^15.4.2"
   },
   "jest": {
     "snapshotSerializers": [
