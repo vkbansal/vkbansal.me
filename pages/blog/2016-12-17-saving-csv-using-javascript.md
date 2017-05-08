@@ -66,7 +66,7 @@ let csvData = '';
 
 data.forEach((row) => {
     csvData += '\n';
-    csvData += row.reduce((prev, col) => `${prev},${col}`, '').slice(1); 
+    csvData += row.reduce((prev, col) => `${prev},${col}`, '').slice(1);
 });
 ```
 
