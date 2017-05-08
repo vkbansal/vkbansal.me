@@ -8,7 +8,7 @@ const babelRC = require('./settings/babelrc').webpack;
 
 const PROD = process.env.NODE_ENV === 'production';
 
-const config = {
+let config = {
     context: __dirname,
     entry: {
         static: ['./app.js']
@@ -100,7 +100,6 @@ const config = {
     resolveLoader: {
         modules: ['node_modules', path.resolve(__dirname, './webpack')]
     },
-    devtool: 'source-map',
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
@@ -117,5 +116,9 @@ const config = {
         })
     ]
 };
+
+if (!PROD) {
+    config.devtool = 'source-map';
+}
 
 module.exports = config;
