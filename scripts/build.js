@@ -38,7 +38,8 @@ const StaticSiteGeneratorPlugin = require('./webpack/static-site-generator-plugi
         const stats = await run();
 
         if (stats.hasErrors()) {
-            console.log(`Error: ${stats.toJson().errors}`);
+            console.error(`Error: ${stats.toJson().errors}`);
+            process.exit(1);
         } else {
             console.log(stats.toString());
             fs.copySync(
@@ -53,6 +54,7 @@ const StaticSiteGeneratorPlugin = require('./webpack/static-site-generator-plugi
             );
         }
     } catch (e) {
-        console.log(e);
+        console.error(e);
+        process.exit(1);
     }
 })();
