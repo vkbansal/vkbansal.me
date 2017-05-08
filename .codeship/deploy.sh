@@ -1,4 +1,4 @@
-cd $DEPLOY_DIR
+cd "$DEPLOY_DIR"
 git pull
 npm install
 npm run build
