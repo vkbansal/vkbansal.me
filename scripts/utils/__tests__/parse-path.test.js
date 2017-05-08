@@ -4,7 +4,7 @@ import parsePath from '../parse-path';
 const postFilePath = fileName => `pages/${settings.blog.prefix}/${fileName}`;
 const blogPath = fileName => `/${settings.blog.prefix}/${fileName}`;
 
-jest.mock('../fs-promisified.js');
+jest.mock('fs-extra');
 
 describe('Parse path tests', () => {
     test('parse blog path for file', async () => {

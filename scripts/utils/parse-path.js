@@ -4,10 +4,9 @@ import path from 'path';
 import frontMatter from 'front-matter';
 import * as babylon from 'babylon';
 import traverse from 'babel-traverse';
+import fs from 'fs-extra';
 
 import settings from '../settings';
-
-import fs from './fs-promisified';
 
 const BLOG_REGEX = new RegExp(`^\\/?${settings.blog.prefix}`);
 const POST_REGEX = /^(\d{4}-\d{2}-\d{2})-([\w-]+)$/;
@@ -32,7 +31,7 @@ export default async function (file) {
 
     switch (ext) {
         case '.md':
-            const mdContent = await fs.readFileAsync(file, 'utf-8');
+            const mdContent = await fs.readFile(file, 'utf-8');
             const meta = frontMatter(mdContent);
             url = getUrl({ name, path, url, ext });
             let mdData = {};
@@ -69,7 +68,7 @@ export default async function (file) {
         case '.js':
             url = getUrl({ name, url, ext });
 
-            const content = await fs.readFileAsync(file, 'utf-8');
+            const content = await fs.readFile(file, 'utf-8');
             const ast = babylon.parse(content, {
                 sourceType: 'module',
                 plugins: [

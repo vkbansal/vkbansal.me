@@ -1,8 +1,8 @@
 import path from 'path';
 
+import fs from 'fs-extra';
 import { camelCase, times, forEach } from 'lodash';
 
-import fs from 'scripts/utils/fs-promisified';
 import settings from 'scripts/settings';
 import { getBlogUrls } from 'utils';
 
@@ -100,7 +100,7 @@ export default async function ({ pages, posts }) {
         });
     }
 
-    let template = await fs.readFileAsync(path.resolve(__dirname, '../templates/routes.template.js'), 'utf8');
+    let template = await fs.readFile(path.resolve(__dirname, '../templates/routes.template.js'), 'utf8');
 
     /* eslint-disable no-template-curly-in-string*/
     template = template
@@ -110,9 +110,9 @@ export default async function ({ pages, posts }) {
                 .replace('/* ${pageMarkdownImportsMap} */', pageMarkdownImportsMap);
     /* eslint-enable no-template-curly-in-string*/
 
-    await fs.writeFileAsync(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8' });
-    await fs.writeJsonAsync(path.resolve(__dirname, '../_routes.json'), routes);
-    await fs.writeJsonAsync(path.resolve(__dirname, '../_posts.json'), posts);
-    await fs.writeJsonAsync(path.resolve(__dirname, '../_pages.json'), pages);
-    await fs.writeJsonAsync(path.resolve(__dirname, '../_tags.json'), labels);
+    await fs.writeFile(path.resolve(__dirname, '../_routes.js'), template, { encoding: 'utf8' });
+    await fs.writeJson(path.resolve(__dirname, '../_routes.json'), routes);
+    await fs.writeJson(path.resolve(__dirname, '../_posts.json'), posts);
+    await fs.writeJson(path.resolve(__dirname, '../_pages.json'), pages);
+    await fs.writeJson(path.resolve(__dirname, '../_tags.json'), labels);
 }
