@@ -26,5 +26,5 @@ module.exports = function markdownLoader(content) {
 
     body = htmlLoader.call(this, body).slice(18, -4);
 
-    return `export default {${attributes}, body: '${body}'};`;
+    return `export default {${attributes}, body: "${body}"};`;
 };
