@@ -59,7 +59,7 @@ let config = {
                         query: {
                             modules: true,
                             localIdentName: PROD ? '[hash:base64:6]' : '[name]_[local]_[hash:base64:6]',
-                            sourceMap: true
+                            sourceMap: !PROD
                         }
                     }, {
                         loader: 'sass-loader',
