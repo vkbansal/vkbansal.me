@@ -9,6 +9,11 @@ blog:
     labelSuffix: label/:label
     paginationSuffix: page/:num
 
+site:
+    title: Vivek Kumar Bansal
+    description: FULL-STACK JAVASCRIPT DEVELOPER
+    base_url: https://vkbansal.me
+
 author:
     name: Vivek Kumar Bansal
     email: contact@vkbansal.me
