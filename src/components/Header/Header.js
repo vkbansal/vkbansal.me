@@ -7,7 +7,7 @@ import $ from './Header.scss';
 
 const nav = [
     { title: 'Blog', link: '/blog/' },
-    { title: 'Contact', link: 'mailto:contact@vkbansal.me' },
+    { title: 'Contact', link: 'mailto:contact@vkbansal.me', external: true },
     { title: 'RSS', link: '/feed.xml' }
 ];
 
@@ -21,9 +21,15 @@ function Header({ match }) {
                 <ul className={$['nav-menu']}>
                     {nav.map(n => (
                         <li key={n.title} className={$['link-container']}>
-                            <Link to={n.link} className={cx($['link'])} activeClassName={$['active']}>
-                                {n.title}
-                            </Link>
+                            {n.external ? (
+                                <a href={n.link} className={cx($['link'])}>
+                                    {n.title}
+                                </a>
+                            ) : (
+                                <Link to={n.link} className={cx($['link'])} activeClassName={$['active']}>
+                                    {n.title}
+                                </Link>
+                            )}
                         </li>
                     ))}
                 </ul>
