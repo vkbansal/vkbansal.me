@@ -44,11 +44,6 @@ const StaticSiteGeneratorPlugin = require('./webpack/static-site-generator-plugi
             console.log(stats.toString());
             fs.copySync(
                 path.resolve(__dirname, '../src/_includes'),
-                path.resolve(__dirname, '../public_1'),
-                { overwrite: true }
-            );
-            fs.moveSync(
-                path.resolve(__dirname, '../public_1'),
                 path.resolve(__dirname, '../public'),
                 { overwrite: true }
             );

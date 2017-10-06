@@ -3,8 +3,8 @@
   "description": "Site for Vivek Kumar Bansal",
   "private": true,
   "scripts": {
-    "build": "rimraf public_1 && cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
-    "build:dev": "rimraf public_1 && cross-env NODE_PATH=. node scripts/build.js",
+    "build": "cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
+    "build:dev": "cross-env NODE_PATH=. node scripts/build.js",
     "start": "cross-env NODE_PATH=. node scripts/server.js",
     "lint:es": "eslint scripts/ src/ pages/"
   },

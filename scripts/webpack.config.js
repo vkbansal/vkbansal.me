@@ -15,7 +15,7 @@ let config = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, '../public_1'),
+        path: path.resolve(__dirname, '../public'),
         sourceMapFilename: 'bundle.js.map',
         publicPath: '/',
         libraryTarget: 'umd'
