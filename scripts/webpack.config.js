@@ -3,6 +3,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 const Extract = require('extract-text-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const babelRC = require('./settings/babelrc').webpack;
 
@@ -51,6 +52,18 @@ let config = {
                     path.resolve(__dirname, '..')
                 ]
             }, {
+                test: /\.tsx?$/,
+                use: [{
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true
+                    }
+                }],
+                include: [
+                    path.resolve(__dirname, '..')
+                ]
+            },
+            {
                 test: /\.scss$/,
                 use: Extract.extract({
                     fallback: 'style-loader',
@@ -95,7 +108,7 @@ let config = {
             path.resolve(__dirname, '..'),
             'node_modules'
         ],
-        extensions: ['.js', '.json', '.md']
+        extensions: ['.js', '.json', '.md', '.yml', '.yaml', '.ts', '.tsx']
     },
     resolveLoader: {
         modules: ['node_modules', path.resolve(__dirname, './webpack')]
@@ -113,7 +126,8 @@ let config = {
                 ? 'css/bundle.[contenthash:6].css'
                 : 'css/bundle.css',
             allChunks: true
-        })
+        }),
+        new ForkTsCheckerWebpackPlugin()
     ]
 };
 

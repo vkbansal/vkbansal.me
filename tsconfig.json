@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "experimentalDecorators": true,
+        "target": "es6",
+        "strict": true,
+        "rootDirs": [
+            "./"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "moduleResolution": "node",
+        "module": "es6",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "jsx": "react"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
