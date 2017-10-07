@@ -5,10 +5,10 @@ const babelRC = require('./settings/babelrc').node; // eslint-disable-line impor
 require('babel-register')(babelRC);
 
 const path = require('path');
+const util = require('util');
 
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const Promise = require('bluebird');
 const chalk = require('chalk');
 
 const bootstrap = require('./bootstrap');
@@ -33,7 +33,7 @@ const StaticSiteGeneratorPlugin = require('./webpack/static-site-generator-plugi
 
         console.log(chalk.bold('## starting webpack ##'));
 
-        const run = Promise.promisify(compiler.run.bind(compiler));
+        const run = util.promisify(compiler.run.bind(compiler));
 
         const stats = await run();
 

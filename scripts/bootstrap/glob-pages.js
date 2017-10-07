@@ -1,11 +1,12 @@
+import util from 'util';
+
 import glob from 'glob';
-import Promise from 'bluebird';
 import { partition } from 'lodash';
 import { isBefore } from 'date-fns';
 
 import parseFilepath from '../utils/parse-path';
 
-const globPromise = Promise.promisify(glob);
+const globPromise = util.promisify(glob);
 
 export default async function () {
     let files = await globPromise('pages/**/*.@(js|md)');
