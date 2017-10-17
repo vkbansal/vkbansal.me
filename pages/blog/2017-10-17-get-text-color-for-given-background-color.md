@@ -10,9 +10,9 @@ tag:
   - css
 ---
 
-For a side project, I needed a way to determine whether to use a dark font or light font based on the `background-color`, which is configurable by user. After googling for a while, I found a perfect solution (for my use case).
+For a side project, I needed a way to determine, whether to use a dark font or light font, based on the `background-color`, which is configurable by the user. After googling for a while, I found a perfect solution (for my use case at least).
 
-If *luminance* of `background-color` is less than `0.5`, use light font else use dark font. Luminance of a given RGB value can be calculated using the following function:
+If **luminance** of `background-color` is less than `0.5`, use light font else use dark font. Luminance of a given RGB value can be calculated using the following function:
 
 ```javascript
 /**
