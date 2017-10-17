@@ -10,9 +10,9 @@ const babelRC = require('./settings/babelrc').webpack;
 const PROD = process.env.NODE_ENV === 'production';
 
 let config = {
-    context: __dirname,
+    context: path.resolve(__dirname, '../'),
     entry: {
-        static: ['./app.js']
+        static: ['./scripts/app.js']
     },
     output: {
         filename: 'bundle.js',
