@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format as formatDate } from 'date-fns';
 import cx from 'classnames';
