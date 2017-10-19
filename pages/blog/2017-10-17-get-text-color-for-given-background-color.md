@@ -16,9 +16,9 @@ If **luminance** of `background-color` is less than `0.5`, use light font else u
 
 ```javascript
 /**
- * red   number Value between 0 and 255
- * green number Value between 0 and 255
- * blue  number Value between 0 and 255
+ * red   number HEX value between 0 and 255 scaled to 0 and 1
+ * green number HEX value between 0 and 255 scaled to 0 and 1
+ * blue  number HEX value between 0 and 255 scaled to 0 and 1
  */
 function getLuminance (red, green, blue) {
     const luminance = 1 - ( 0.299 * red + 0.587 * green + 0.114 * blue);
