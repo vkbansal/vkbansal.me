@@ -1,95 +1,41 @@
 {
-  "name": "vkbansal.me",
-  "description": "Site for Vivek Kumar Bansal",
-  "private": true,
-  "scripts": {
-    "build": "cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
-    "build:dev": "cross-env NODE_PATH=. node scripts/build.js",
-    "start": "cross-env NODE_PATH=. node scripts/server.js",
-    "lint:es": "eslint scripts/ src/ pages/"
-  },
-  "engines": {
-    "node": ">=7.10.0"
-  },
-  "dependencies": {
-    "@types/react": "^16.0.10",
-    "@types/react-dom": "^16.0.1",
-    "@types/react-router": "^4.0.15",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.24.0",
-    "babel-traverse": "^6.24.1",
-    "babylon": "^6.17.0",
-    "bluebird": "^3.5.0",
-    "chalk": "^2.1.0",
-    "classnames": "^2.2.5",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.1",
-    "date-fns": "^1.28.1",
-    "eval": "^0.1.2",
-    "express": "^4.15.2",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "file-loader": "^1.1.5",
-    "fork-ts-checker-webpack-plugin": "^0.2.8",
-    "front-matter": "^2.1.2",
-    "fs-extra": "^4.0.2",
-    "glamor": "^2.20.40",
-    "glamorous": "^4.9.7",
-    "glob": "^7.1.1",
-    "handlebars": "^4.0.6",
-    "html-loader": "^0.5.1",
-    "illuminate-js": "^0.3.0",
-    "js-yaml": "^3.8.2",
-    "lodash": "^4.17.4",
-    "markdown-it": "^8.3.1",
-    "markdown-it-decorate": "^1.2.2",
-    "markdown-it-mathjax": "^2.0.0",
-    "node-sass": "^4.5.2",
-    "normalize.css": "^7.0.0",
-    "path-parse": "^1.0.5",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "react-router-dom": "^4.1.1",
-    "rimraf": "^2.6.1",
-    "rss": "^1.2.2",
-    "sass-loader": "^6.0.3",
-    "style-loader": "^0.19.0",
-    "svgo": "^0.7.1",
-    "ts-loader": "^2.3.7",
-    "typescript": "^2.5.3",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.6.0",
-    "webpack-dev-middleware": "^1.10.1",
-    "webpack-hot-middleware": "^2.18.0",
-    "webpack-sources": "^1.0.1"
-  },
-  "devDependencies": {
-    "babel-jest": "^20.0.0",
-    "enzyme": "^2.8.0",
-    "enzyme-to-json": "^1.5.0",
-    "eslint": "^3.19.0",
-    "eslint-config-vkbansal": "^5.1.0",
-    "eslint-import-resolver-webpack": "^0.8.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^7.0.0",
-    "jest": "^20.0.0",
-    "prettier": "^1.7.4",
-    "react-addons-test-utils": "^15.5.1",
-    "tslint": "^5.7.0"
-  },
-  "jest": {
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest"
+    "name": "vkbansal.me",
+    "description": "Site for Vivek Kumar Bansal",
+    "private": true,
+    "scripts": {
+        "build": "cross-env NODE_PATH=. NODE_ENV=production node scripts/build.js",
+        "build:dev": "cross-env NODE_PATH=. node scripts/build.js",
+        "start": "cross-env NODE_PATH=. node scripts/server.js",
+        "lint:es": "eslint scripts/ src/ pages/"
+    },
+    "engines": {
+        "node": ">=7.10.0"
+    },
+    "dependencies": {
+        "chalk": "^2.1.0",
+        "classnames": "^2.2.5",
+        "cross-env": "^5.0.5",
+        "date-fns": "^1.28.1",
+        "express": "^4.15.2",
+        "front-matter": "^3.0.1",
+        "fs-extra": "^7.0.1",
+        "glob": "^7.1.1",
+        "illuminate-js": "^1.0.0-alpha.2",
+        "js-yaml": "^3.8.2",
+        "lodash": "^4.17.4",
+        "markdown-it": "^8.3.1",
+        "markdown-it-decorate": "^1.2.2",
+        "markdown-it-mathjax": "^2.0.0",
+        "normalize.css": "^8.0.1",
+        "path-parse": "^1.0.5",
+        "rimraf": "^2.6.1",
+        "rss": "^1.2.2",
+        "svgo": "^1.2.0",
+        "ts-loader": "^2.3.7",
+        "typescript": "^3.4.1"
+    },
+    "devDependencies": {
+        "prettier": "^1.7.4",
+        "tslint": "^5.7.0"
     }
-  }
 }
