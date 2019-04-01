@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Open+Sans');
-@import "normalize.css/normalize.css";
-@import "variables.scss";
+// @import 'normalize.css';
+@import 'variables.scss';
 
 html {
     box-sizing: border-box;
@@ -11,7 +11,7 @@ html {
 *,
 *:before,
 *:after {
-	box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 @page {
@@ -46,7 +46,7 @@ h2 {
 
 h3 {
     font-size: 22px;
-    line-height: 30px
+    line-height: 30px;
 }
 
 h4 {
@@ -63,7 +63,12 @@ h6 {
     font-size: 12px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: 'Lato', sans-serif;
     margin: 0 0 16px 0;
     font-weight: bold;
@@ -98,7 +103,8 @@ a {
     }
 }
 
-ul, ol {
+ul,
+ol {
     margin: 0 0 30px 18px;
     padding: 0;
 }
@@ -117,19 +123,34 @@ li {
     transition: width 0.2s ease;
 
     @media (min-width: $screen-xs) {
-        width : 480px;
+        width: 480px;
     }
 
     @media (min-width: $screen-sm) {
-        width : 720px;
+        width: 720px;
     }
 
     @media (min-width: $screen-md) {
-        width : 960px;
+        width: 960px;
     }
 
     @media (min-width: $screen-lg) {
-        width : 1024px;
+        width: 1024px;
+    }
+
+    @media print {
+        width: 100%;
+    }
+}
+
+:global(.page-break) {
+    @media all {
+        display: none;
+    }
+
+    @media print {
+        display: block;
+        page-break-before: always;
     }
 }
 
@@ -139,5 +160,5 @@ li {
     }
 }
 
-@import "code.scss";
-@import "table.scss";
+@import 'code.scss';
+@import 'table.scss';

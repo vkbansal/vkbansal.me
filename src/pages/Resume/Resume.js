@@ -5,37 +5,42 @@ import Markdown from 'src/components/Markdown';
 import settings from 'settings.yml';
 
 const social = new Map(settings.social);
+const now = new Date();
+const CAREER_START = 2013;
 
 const resume = `
-### Profile
-
-I’m a frontend developer with about two years of experience in building applications with Backbone.js and React.js Frameworks.
+I’m a frontend developer/engineer with about ${now.getFullYear() - CAREER_START} years of experience in building web applications.
 
 I’m an active proponent of Modern JavaScript, CSS3 and HTML5. I love building application agnostic plugins/components using aforementioned technologies. I also like working on backend server using PHP and NodeJS.
 
-My personal development projects include an application agnostic right-click menu (context menu) using React.js and Flux architecture; and a syntax highlighter for NodeJS.
+My personal development projects include an application agnostic right-click menu (context menu) using React.js and a syntax highlighter for NodeJS.
 
 ### Work Experience
 
-**UI Engineer**
-*June 2016 – present* <!--{.right}-->
-<br>Flipkart
-  - Working on the desktop site of Flipkart.com
+**Flipkart Internet Pvt. Ltd., Bengaluru, India.**
 
-**Lead Frontend Developer**
-*Mar 2014 – May 2016* <!--{.right}-->
-<br>Helical IT Solutions Pvt. Ltd.
+*UI Engineer II - July 2017 – present*
 
+*UI Engineer - June 2016 – June 2017*
+<br>
+  - Worked on the desktop & mobile sites of Flipkart.com
+  - Technology evangelist for web platform
+
+**Helical IT Solutions Pvt. Ltd., Hyderabad, India.**
+
+*Lead Frontend Developer - Mar 2014 – May 2016*
+<br>
   - Developed company product (a data analysis tool) using Backbone.js and React.js.
   - Promoted to lead developer within 6 months.
 
-**Freelance Frontend Web Developer**
-*Aug 2013 - Present* <!--{.right}-->
-<br>http://vkbansal.me/
+**Freelance Frontend Web Developer, Hyderabad, India.**
 
+*Aug 2013 - March 2014*
+<br>
   - Worked with people from around the world.
   - Developed websites/applications based on the customer requirement
 
+<div class="page-break"></div>
 
 ### Education
 **Indian Institute of Technology Indore (IIT Indore)**
@@ -54,10 +59,10 @@ My personal development projects include an application agnostic right-click men
 
 ### Technical Skills
 **JavaScript:**
-  - Building applications/components using **Backbone.js** and **React.js**.
-  - Testing with **Jasmine**, **Mocha/Chai** and **Karma**.
-  - Plugin creation using **jQuery**.
+  - Building applications/components using **React.js**.
+  - Testing with **Jest**, **Jasmine**, **Mocha/Chai** and **Karma**.
   - Build tools like **Gulp** and **Webpack**.
+  - Strong Typing with
 
 
 **HTML5 and CSS3:**
@@ -70,13 +75,14 @@ My personal development projects include an application agnostic right-click men
 
 **Others:**
  - Version control: **Git**.
- - Pretty good with **Photoshop** and **Illustrator**.
  - Familiar with databases like **MySQL**, **SQLite** and **MongoDB**.
  - Familiar with **Apache** and **Nginx** servers and **\*nix** environments.
  - Can work on any OS: **Windows**, **Mac OS X** and **Ubuntu**.
 
+ <div class="page-break"></div>
+
 ### Open source and community</h3>
-I’m an active participant on GitHub. I maintain ES5 Examples for ReactDnD and provide active feedback on development of NVM for Windows.
+I’m an active participant on GitHub.
 
 **Major Contributions:**
   - **Prism.js (Syntax Highlighter)**
@@ -100,7 +106,6 @@ export default function About(props) {
         <Page {...props}>
             <div className='container'>
                 <h1 className='title'>Vivek Kumar Bansal</h1>
-                <h2 className='subtitle'>Frontend-Developer</h2>
                 <Markdown>
                     {resume}
                 </Markdown>

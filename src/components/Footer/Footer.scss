@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import 'variables.scss';
 
 .footer {
     margin-bottom: 8px;
@@ -87,5 +87,8 @@
             }
         }
     }
-}
 
+    @media print {
+        display: none;
+    }
+}
