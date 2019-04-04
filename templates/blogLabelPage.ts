@@ -1,19 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-
-import Page from 'src/components/Page';
-import ArticlePreview from 'src/components/ArticlePreview';
-import Pagination from 'src/components/Pagination';
-import settings from 'settings.yml';
-import { getBlogUrls } from 'utils';
-
-import styles from './BlogLabelPage.scss';
-
-const { blog } = settings;
-const urls = getBlogUrls(blog);
-
-export default function BlogLabelPage(props) {
+/**
+ * export default function BlogLabelPage(props) {
     let { label, num: pageNum = 1 } = props.match.params;
     const posts = props.tags[label].map(tag => props.posts[tag]);
     const pages = posts.length;
@@ -45,7 +31,17 @@ export default function BlogLabelPage(props) {
     );
 }
 
-BlogLabelPage.propTypes = {
-    match: PropTypes.object.isRequired,
-    tags: PropTypes.array.isRequired
-};
+
+.blogs-list {
+    .blog-page-article {
+        &:first-child {
+            border-top: none;
+        }
+    }
+
+    .articles {
+        margin-bottom: 30px;
+    }
+}
+
+ */
