@@ -1,3 +1,8 @@
+import { RenderArgs } from '../typings/common';
+
+export function render(props: RenderArgs) {
+    return props.content;
+}
 /*
 <section className='container'>
     <div className={styles['articles']}>

@@ -5,19 +5,14 @@
         "experimentalDecorators": true,
         "target": "es6",
         "strict": true,
-        "rootDirs": [
-            "./"
-        ],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
+        "rootDirs": ["./"],
+        "typeRoots": ["./node_modules/@types", "./typings"],
+        "esModuleInterop": true,
         "moduleResolution": "node",
-        "module": "es6",
+        "module": "commonjs",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "jsx": "react"
+        "resolveJsonModule": true
     },
-    "exclude": [
-        "node_modules"
-    ]
+    "exclude": ["node_modules"]
 }

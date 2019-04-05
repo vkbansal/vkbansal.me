@@ -1,4 +1,4 @@
-.table {
+:global(.table) {
     /* Remove spacing between table cells (from Normalize.css) */
     border-collapse: collapse;
     border-spacing: 0;
@@ -6,16 +6,16 @@
     border: 1px solid #cbcbcb;
 }
 
-.table caption {
+:global(.table) caption {
     color: #000;
     font: italic 85%/1 arial, sans-serif;
     padding: 1em 0;
     text-align: center;
 }
 
-.table td,
-.table th {
-    border-left: 1px solid #cbcbcb;/*  inner column border */
+:global(.table) td,
+:global(.table) th {
+    border-left: 1px solid #cbcbcb; /*  inner column border */
     border-width: 0 0 0 1px;
     font-size: inherit;
     margin: 0;
@@ -25,12 +25,12 @@
 
 /* Consider removing this next declaration block, as it causes problems when
 there's a rowspan on the first cell. Case added to the tests. issue#432 */
-.table td:first-child,
-.table th:first-child {
+:global(.table) td:first-child,
+:global(.table) th:first-child {
     border-left-width: 0;
 }
 
-.table thead {
+:global(.table) thead {
     background-color: #e0e0e0;
     color: #000;
     text-align: left;
@@ -42,34 +42,33 @@ striping:
    even - #fff (white)
    odd  - #f2f2f2 (light gray)
 */
-.table td {
+:global(.table) td {
     background-color: transparent;
 }
-.table-odd td {
+:global(.table) td {
     background-color: #f2f2f2;
 }
 
 /* nth-child selector for modern browsers */
-.table-striped tr:nth-child(2n-1) td {
+:global(.table-striped) tr:nth-child(2n-1) td {
     background-color: #f2f2f2;
 }
 
 /* BORDERED TABLES */
-.table-bordered td {
+:global(.table-bordered) td {
     border-bottom: 1px solid #cbcbcb;
 }
-.table-bordered tbody > tr:last-child > td {
+:global(.table-bordered) tbody > tr:last-child > td {
     border-bottom-width: 0;
 }
 
-
 /* HORIZONTAL BORDERED TABLES */
 
-.table-horizontal td,
-.table-horizontal th {
+:global(.table-horizontal) td,
+:global(.table-horizontal) th {
     border-width: 0 0 1px 0;
     border-bottom: 1px solid #cbcbcb;
 }
-.table-horizontal tbody > tr:last-child > td {
+:global(.table-horizontal) tbody > tr:last-child > td {
     border-bottom-width: 0;
 }

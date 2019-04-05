@@ -154,11 +154,5 @@ li {
     }
 }
 
-@for $i from 1 through $grid-columns {
-    :global(.col-#{$i}-12) {
-        width: $i * 100% / $grid-columns;
-    }
-}
-
 @import 'code.scss';
 @import 'table.scss';
