@@ -3,7 +3,7 @@
     "description": "Site for Vivek Kumar Bansal",
     "private": true,
     "scripts": {
-        "build": "cross-env NODE_ENV=production node scripts/build.ts",
+        "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
         "build:dev": "ts-node scripts/build.ts"
     },
     "engines": {
