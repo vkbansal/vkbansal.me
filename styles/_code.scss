@@ -1,7 +1,11 @@
-@import "variables.scss";
+@import 'variables.scss';
+
+$code-comment: #708090;
+$code-background: #2c3339;
+$code-color: #fff;
 
 :global(code) {
-    font-family: Monaco, "Ubuntu Mono", monospace;
+    font-family: Monaco, 'Ubuntu Mono', monospace;
     font-size: 14px;
     padding: 0 5px;
     line-height: 22px;
@@ -14,31 +18,44 @@
 
 :global(pre) {
     border-bottom: 1px solid $color-divider;
-    border-top: 1px solid $color-divider;
-    padding: 20px 0!important;
-    background: #fff;
+    border-top: 4px solid $color-primary;
+    padding: 20px;
+    background: $code-background;
     overflow: scroll;
     position: relative;
+    border-radius: 4px;
 }
 
 :global(pre > code) {
-    background: #fff;
+    background: $code-background;
     line-height: 24px;
+    color: $code-color;
+}
+
+:global(pre .show-language--lang) {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: $color-primary;
+    padding: 0 10px 4px 16px;
+    font-size: 0.8rem;
+    border-bottom-left-radius: 16px;
 }
 
 :global(.token.cdata),
 :global(.token.comment),
 :global(.token.doctype),
 :global(.token.prolog) {
-    color: #708090
+    color: #708090;
 }
 
 :global(.token.punctuation) {
-    color: #999
+    color: #fff;
 }
 
 :global(.namespace) {
-    opacity: .7
+    opacity: 0.7;
 }
 
 :global(.token.boolean),
@@ -48,7 +65,7 @@
 :global(.token.property),
 :global(.token.symbol),
 :global(.token.tag) {
-    color: #905
+    color: #e0007c;
 }
 
 :global(.token.attr-name),
@@ -57,7 +74,7 @@
 :global(.token.inserted),
 :global(.token.selector),
 :global(.token.string) {
-    color: #690;
+    color: #92da02;
 }
 
 :global(.language-css .token.string),
@@ -65,18 +82,19 @@
 :global(.token.entity),
 :global(.token.operator),
 :global(.token.url) {
-    color: #a67f59;
-    background: hsla(0,0%,100%,.5);
+    color: #da8f46;
+    // background: hsla(0, 0%, 100%, 0.5);
 }
 
 :global(.token.atrule),
 :global(.token.attr-value),
 :global(.token.keyword) {
-    color: #07a;
+    // color: #07a;
+    color: #21bcff;
 }
 
 :global(.token.function) {
-    color: #DD4A68;
+    color: #ff4067;
 }
 
 :global(.token.important),
@@ -91,9 +109,9 @@
 }
 
 :global(.token.italic) {
-    font-style: italic
+    font-style: italic;
 }
 
 :global(.token.entity) {
-    cursor: help
+    cursor: help;
 }
