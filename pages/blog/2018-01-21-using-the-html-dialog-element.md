@@ -1,6 +1,6 @@
 ---
-title: Using the HTML <dialog> element
-description: Here, we take a look at using the new HTML `dialog` element
+title: Using the HTML &lt;dialog/> element
+description: Here, we take a look at using the new HTML <code>dialog</code> element
 author:
     name: Vivek Kumar Bansal
     site: http://vkbansal.me

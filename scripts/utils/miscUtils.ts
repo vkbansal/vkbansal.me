@@ -7,8 +7,9 @@ import markdown from 'markdown-it';
 import mathjax from 'markdown-it-mathjax';
 import decorate from 'markdown-it-decorate';
 import { highlight, getLanguage } from 'illuminate-js';
-
 import { DefaultTreeElement } from 'parse5';
+
+import { MDFileAttributes } from '../../typings/common';
 
 export const BLOG_REGEX = /^\/?blog/;
 export const INDEX_FILES_REGEX = /(index|readme)/i;
@@ -98,7 +99,8 @@ const md = markdown({
     .use(decorate);
 
 export function renderMarkdown(content: string) {
-    const meta = frontMatter(content);
+    const meta = frontMatter<MDFileAttributes | undefined>(content);
 
     return { attributes: meta.attributes, body: md.render(meta.body) };
 }
+

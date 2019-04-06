@@ -2,6 +2,7 @@
 title: Drawing pie/donut chart without d3
 description:  Create a pie/donut-chart using nothing but vanilla JS
 math: true
+date: 2017-02-26
 tag:
   - d3
   - charts

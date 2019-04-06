@@ -3,15 +3,9 @@ import * as fs from 'fs-extra';
 
 import { getURL, BLOG_REGEX, renderMarkdown } from './miscUtils';
 
-import {
-    AllContent,
-    TSFileContents,
-    MDFileContents,
-    PostContents,
-    PageTypes
-} from '../../typings/common';
+import { AllFileContent, TSFileContents, MDFileContents, FileType } from '../../typings/common';
 
-export async function readFile(filePath: string): Promise<AllContent> {
+export async function readFile(filePath: string): Promise<AllFileContent> {
     const { ext, name, dir } = path.parse(filePath);
     const absPath = path.resolve(process.cwd(), filePath);
     const url = getURL(dir, name);
@@ -25,7 +19,7 @@ export async function readFile(filePath: string): Promise<AllContent> {
             }
 
             const tsFileContents: TSFileContents = {
-                type: PageTypes.PAGE_TS,
+                type: FileType.TS,
                 url,
                 render: tsContents.render,
                 styles: tsContents.styles,
@@ -36,28 +30,21 @@ export async function readFile(filePath: string): Promise<AllContent> {
             return tsFileContents;
         case '.md':
             const mdContents = renderMarkdown(fs.readFileSync(absPath, 'utf8'));
+            const isPost = BLOG_REGEX.test(url);
 
-            if (BLOG_REGEX.test(url)) {
-                type: PageTypes.POST;
-
-                const postContents: PostContents = {
-                    type: PageTypes.POST,
-                    url,
-                    attributes: mdContents.attributes,
-                    content: mdContents.body,
-                    date: '',
-                    rawPath: filePath
-                };
-
-                return postContents;
+            if (isPost && !mdContents.attributes) {
+                throw new Error(
+                    `${filePath} is a post, but does not have attributed defined in header`
+                );
             }
 
             const mdFileContents: MDFileContents = {
-                type: PageTypes.PAGE_MD,
+                type: FileType.MD,
                 url,
                 attributes: mdContents.attributes,
                 content: mdContents.body,
-                rawPath: filePath
+                rawPath: filePath,
+                isPost
             };
 
             return mdFileContents;

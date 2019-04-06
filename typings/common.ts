@@ -1,45 +1,66 @@
-export enum PageTypes {
-    PAGE_MD = 'PAGE_MD',
-    PAGE_TS = 'PAGE_TS',
-    POST = 'POST'
+export enum FileType {
+    MD = 'MD',
+    TS = 'TS'
 }
 
-export interface Page {
-    url: string;
-    cotent: string;
+export enum PageType {
+    POST = 'POST',
+    PAGE = 'PAGE'
 }
 
-export interface BaseFileContents {
-    type: PageTypes;
-    attributes?: any;
+export interface MDFileAttributes {
+    title: string;
+    date: Date;
+    description: string;
+    tag: string[];
+    author: {
+        name: string;
+        site: string;
+    };
+    isDraft?: boolean;
+}
+
+export interface BaseFileContents<T = any> {
+    attributes: T;
     url: string;
     rawPath: string;
 }
 
-export interface MDFileContents extends BaseFileContents {
-    type: PageTypes.PAGE_MD;
+export interface PostContents extends BaseFileContents<MDFileAttributes> {
+    type: PageType.POST;
     content: string;
+}
+
+export interface PageContents extends BaseFileContents {
+    type: PageType.PAGE;
+    content: string;
+}
+
+export interface MDFileContents extends BaseFileContents<MDFileAttributes | undefined> {
+    type: FileType.MD;
+    content: string;
+    isPost: boolean;
 }
 
 export interface RenderArgs extends BaseFileContents {
     styles: Record<string, string>;
     posts: PostContents[];
-    content?: string;
     assets: Record<'css' | 'js', string[]>;
+    content: string;
+}
+
+export interface Page {
+    url: string;
+    content: string;
 }
 
 export type RenderedContent = string | Page | Page[];
 
 export interface TSFileContents extends BaseFileContents {
-    type: PageTypes.PAGE_TS;
+    type: FileType.TS;
     render(args: RenderArgs): RenderedContent | Promise<RenderedContent>;
     styles(): string;
 }
 
-export interface PostContents extends BaseFileContents {
-    type: PageTypes.POST;
-    content: string;
-    date: string;
-}
-
-export type AllContent = TSFileContents | PostContents | MDFileContents;
+export type AllFileContent = TSFileContents | MDFileContents;
+export type AllContent = PageContents | PostContents;

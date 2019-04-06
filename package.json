@@ -3,8 +3,8 @@
     "description": "Site for Vivek Kumar Bansal",
     "private": true,
     "scripts": {
-        "build": "cross-env NODE_ENV=production ts-node scripts/build.ts",
-        "build:dev": "ts-node scripts/build.ts"
+        "build": "rimraf public && cross-env NODE_ENV=production ts-node scripts/build.ts",
+        "build:dev": "rimraf public && ts-node scripts/build.ts"
     },
     "engines": {
         "node": ">=7.10.0"
@@ -43,7 +43,7 @@
         "postcss-modules-local-by-default": "^2.0.6",
         "postcss-modules-scope": "^2.1.0",
         "remove": "^0.1.5",
-        "rimraf": "^2.6.1",
+        "rimraf": "^2.6.3",
         "rss": "^1.2.2",
         "sass": "^1.17.4",
         "svgo": "^1.2.0",

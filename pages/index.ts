@@ -1,9 +1,10 @@
 import { RenderArgs } from '../typings/common';
 import meta from './meta.json';
+import { render as renderArticle } from '../templates/partials/ArticlePreview';
 
 export async function render(props: RenderArgs) {
     const { styles } = props;
-    // const postsToRender = props.posts.slice(0, meta.homepage.postsLimit);
+    const postsToRender = props.posts.slice(0, meta.homepage.postsLimit);
 
     return Promise.resolve(`<div class="${styles['home-page']}">
 <section class="container">
@@ -24,13 +25,7 @@ export async function render(props: RenderArgs) {
 </section>
 <section class="container">
     <h2>Latest from Blog</h2>
-
-    ${props.posts
-        .slice(0, meta.homepage.postsLimit)
-        .map(post => {
-            return `<div>${JSON.stringify(post)}<div/>`;
-        })
-        .join('\n')}
+    ${postsToRender.map(post => renderArticle(post, false)).join('\n')}
 </section></div>`);
 }
 
