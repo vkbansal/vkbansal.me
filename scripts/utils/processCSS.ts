@@ -7,6 +7,8 @@ import Scope from 'postcss-modules-scope';
 import cssNano from 'cssnano';
 
 import { isProduction, stringHash } from './miscUtils';
+import options from '../options.json';
+import { fileLoader } from './fileLoader';
 
 const scope = Scope({
     generateScopedName(exportedName, filepath, css) {
@@ -22,6 +24,25 @@ const scope = Scope({
 
         return `${name}__${exportedName}__${hash}`;
     }
+});
+
+const extractAssets = postcss.plugin('postcss-extract-assets', () => {
+    return function(root) {
+        root.each(node => {
+            if (node.type == 'rule') {
+                node.each(decl => {
+                    if (decl.type == 'decl' && decl.value.startsWith('url(')) {
+                        const [, srcPath] = decl.value.match(/url\((.*)\)/) || ['', ''];
+                        const newPath = fileLoader(
+                            srcPath,
+                            path.join(process.cwd(), options.srcPath, 'dummy.css')
+                        );
+                        decl.value = `url(${newPath})`;
+                    }
+                });
+            }
+        });
+    };
 });
 
 export async function processCSS(
@@ -47,7 +68,7 @@ export async function processCSS(
             };
         });
 
-        const postCSSPlugins = [localByDefault({ mode }), scope, extractExports];
+        const postCSSPlugins = [localByDefault({ mode }), scope, extractExports, extractAssets];
 
         if (isProduction()) {
             postCSSPlugins.push(cssNano);

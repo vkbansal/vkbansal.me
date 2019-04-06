@@ -2,10 +2,13 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 
 import { fileHash, isProduction } from './miscUtils';
+import options from '../options.json';
 
 const IMAGE_EXT_REGEX = /\.(jpe?g|png|svg|gif)/i;
 
-export function fileLoader(srcPath: string, filePath: string, outputPath: string) {
+const outputPath = path.join(process.cwd(), options.outPath);
+
+export function fileLoader(srcPath: string, filePath: string) {
     const actualSrcPath = path.join(path.dirname(filePath), srcPath);
     const parsedPath = path.parse(srcPath);
 

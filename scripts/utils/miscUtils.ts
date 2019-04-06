@@ -6,8 +6,36 @@ import frontMatter from 'front-matter';
 import markdown from 'markdown-it';
 import mathjax from 'markdown-it-mathjax';
 import decorate from 'markdown-it-decorate';
-import { highlight, getLanguage } from 'illuminate-js';
+import { highlight, getLanguage, addLanguage, addPlugin } from 'illuminate-js';
+import {
+    javascript,
+    typescript,
+    json5,
+    markup,
+    markdown as mdLang,
+    scss,
+    sql,
+    css
+} from 'illuminate-js/lib/languages';
+import { showLanguage } from 'illuminate-js/lib/plugins/showLanguage';
 import { DefaultTreeElement } from 'parse5';
+
+addLanguage('javascript', javascript);
+addLanguage('js', javascript);
+addLanguage('css', css);
+addLanguage('scss', scss);
+addLanguage('typescript', typescript);
+addLanguage('ts', typescript);
+addLanguage('json', json5);
+addLanguage('html', markup);
+addLanguage('html', markup);
+addLanguage('xml', markup);
+addLanguage('svg', markup);
+addLanguage('markdown', mdLang);
+addLanguage('md', mdLang);
+addLanguage('sql', sql);
+
+addPlugin(showLanguage);
 
 import { MDFileAttributes } from '../../typings/common';
 
@@ -51,9 +79,7 @@ export function getURL(dir: string, name: string) {
         finalIdentifier = slug;
     }
 
-    return `${url}/${finalIdentifier}`;
-
-    return name;
+    return `${url}/${finalIdentifier}/`;
 }
 
 export function isProduction() {

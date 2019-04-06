@@ -1,0 +1,8 @@
+{
+    "srcPath": "pages",
+    "outPath": "public",
+    "srcGlob": "**/*.{md,ts}",
+    "includesPath": "_includes",
+    "mainTemplatePath": "templates/mainTemplate.ts",
+    "blogPageTemplatePath": "templates/blogPageTemplate.ts"
+}

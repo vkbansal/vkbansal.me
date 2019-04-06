@@ -1,17 +1,10 @@
-import * as path from 'path';
-
 import chalk from 'chalk';
 
 import { StaticSiteBuilder } from './StaticSiteBuilder';
 
 try {
     (async function() {
-        const builder = new StaticSiteBuilder({
-            srcGlob: 'pages/**/*.{ts,md}',
-            outputPath: path.join(process.cwd(), 'public'),
-            mainTemplatePath: path.join(process.cwd(), 'templates/mainTemplate.ts'),
-            blogPageTemplatePath: path.join(process.cwd(), 'templates/blogPageTemplate.ts')
-        });
+        const builder = new StaticSiteBuilder();
 
         console.log(chalk.green('Starting Build...'));
 

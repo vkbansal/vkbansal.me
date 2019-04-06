@@ -18,6 +18,7 @@ export interface MDFileAttributes {
         site: string;
     };
     isDraft?: boolean;
+    math?: boolean;
 }
 
 export interface BaseFileContents<T = any> {
@@ -42,11 +43,13 @@ export interface MDFileContents extends BaseFileContents<MDFileAttributes | unde
     isPost: boolean;
 }
 
-export interface RenderArgs extends BaseFileContents {
+export interface RenderArgs extends BaseFileContents<MDFileAttributes | undefined> {
     styles: Record<string, string>;
     posts: PostContents[];
     assets: Record<'css' | 'js', string[]>;
     content: string;
+    isProduction: boolean;
+    isPost: boolean;
 }
 
 export interface Page {
