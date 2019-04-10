@@ -22,6 +22,7 @@ import { readFile } from './utils/readFile';
 import { processCSS } from './utils/processCSS';
 import { fileLoader } from './utils/fileLoader';
 import { walkParse5, stringHash, isProduction as isPROD } from './utils/miscUtils';
+import { useStyles } from './useStyles';
 import options from './options.json';
 
 const minifyHTMLOptions: MinifyHTMLOptions = {
@@ -30,7 +31,7 @@ const minifyHTMLOptions: MinifyHTMLOptions = {
 };
 
 export class StaticSiteBuilder {
-    private globalCSS: string = '';
+    private css: string = '';
     private posts: Map<string, PostContents> = new Map();
     private pages: Map<string, PageContents> = new Map();
     private assest: RenderArgs['assets'] = {
@@ -38,9 +39,9 @@ export class StaticSiteBuilder {
         js: []
     };
 
-    private addGlobalCSS(css: string) {
-        this.globalCSS = this.globalCSS + `\n${css}`;
-    }
+    private addCSS = (css: string) => {
+        this.css = this.css + `\n${css}`;
+    };
 
     private processAssets(html: string, rawPath: string) {
         const htmlAST = parseFragment(html);
@@ -94,13 +95,7 @@ export class StaticSiteBuilder {
     };
 
     private processTSFile = async (file: TSFileContents) => {
-        const styles = file.styles();
-        const css = await processCSS(styles, file.rawPath);
-
-        this.addGlobalCSS(css!.css);
-
         let pageBody = await file.render({
-            styles: css!.exports,
             posts: [...this.posts.values()],
             assets: this.assest,
             content: '',
@@ -156,7 +151,7 @@ export class StaticSiteBuilder {
             'main'
         );
 
-        this.addGlobalCSS(mainCSS!.css);
+        this.addCSS(mainCSS!.css);
 
         /**
          * Process All files
@@ -180,15 +175,17 @@ export class StaticSiteBuilder {
             await this.processContent(page);
         }
 
+        useStyles.stylesMap.forEach(this.addCSS);
+
         /**
          * Write CSS file
          */
         const cssFileHash = isProduction
-            ? `.${stringHash(this.globalCSS, 'sha1', 'hex').slice(0, 6)}`
+            ? `.${stringHash(this.css, 'sha1', 'hex').slice(0, 6)}`
             : '';
         const cssFilePath = path.join(options.outPath, 'styles', `styles${cssFileHash}.css`);
         console.log(chalk.magenta(`Writing: ${cssFilePath}`));
-        fs.outputFileSync(cssFilePath, this.globalCSS, 'utf8');
+        fs.outputFileSync(cssFilePath, this.css, 'utf8');
         this.assest.css.push(`/styles/styles${cssFileHash}.css`);
 
         const mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
@@ -201,7 +198,6 @@ export class StaticSiteBuilder {
         for (const [url, page] of this.pages) {
             console.log(chalk.cyan(`Rendering: ${url}`));
             const html = (await mainTemplate.render({
-                styles: {},
                 posts: [],
                 content: page.content,
                 assets: this.assest,
@@ -224,7 +220,6 @@ export class StaticSiteBuilder {
             console.log(chalk.cyan(`Rendering: ${url}`));
             const postContent = await blogPageTemplate.render({
                 attributes: post.attributes,
-                styles: {},
                 posts: allPosts,
                 content: post.content,
                 assets: this.assest,
@@ -236,7 +231,6 @@ export class StaticSiteBuilder {
 
             const html = (await mainTemplate.render({
                 attributes: post.attributes,
-                styles: {},
                 posts: [],
                 content: postContent.toString(),
                 assets: this.assest,

@@ -3,10 +3,12 @@ import meta from './meta.json';
 import { RenderArgs } from '../typings/common';
 import data from '../templates/data.json';
 import { render as renderArticle } from '../templates/partials/ArticlePreview';
+import { useStyles } from '../scripts/useStyles';
 
 export async function render(props: RenderArgs) {
-    const { styles } = props;
     const postsToRender = props.posts.slice(0, meta.homepage.postsLimit);
+    const posts = await Promise.all(postsToRender.map(post => renderArticle(post, false)));
+    const styles = await useStyles(homepageStyles);
 
     return /* html*/ `
 <div class="${styles['home-page']}">
@@ -30,13 +32,12 @@ export async function render(props: RenderArgs) {
     </section>
     <section class="container">
         <h2>Latest from Blog</h2>
-        ${postsToRender.map(post => renderArticle(post, false)).join('\n')}
+        ${posts.join('\n')}
     </section>
 </div>`;
 }
 
-export function styles() {
-    return /* css */ `
+const homepageStyles = /* css */ `
 @import "variables.scss";
 
 .home-page {
@@ -78,4 +79,3 @@ export function styles() {
     }
 }
 `;
-}

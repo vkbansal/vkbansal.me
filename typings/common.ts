@@ -44,7 +44,6 @@ export interface MDFileContents extends BaseFileContents<MDFileAttributes | unde
 }
 
 export interface RenderArgs extends BaseFileContents<MDFileAttributes | undefined> {
-    styles: Record<string, string>;
     posts: PostContents[];
     assets: Record<'css' | 'js', string[]>;
     content: string;

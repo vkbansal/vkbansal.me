@@ -1,7 +1,10 @@
 import { RenderArgs } from '../typings/common';
 
 export function render(props: RenderArgs) {
-    return props.content;
+    return `
+        <section class="container blog-post">
+            ${props.content}
+        </section>`;
 }
 /*
 <section className='container'>
