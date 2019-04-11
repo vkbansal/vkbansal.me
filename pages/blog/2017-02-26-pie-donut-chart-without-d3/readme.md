@@ -3,6 +3,9 @@ title: Drawing pie/donut chart without d3
 description:  Create a pie/donut-chart using nothing but vanilla JS
 math: true
 date: 2017-02-26
+author:
+    name: Vivek Kumar Bansal
+    site: http://vkbansal.me
 tag:
   - d3
   - charts

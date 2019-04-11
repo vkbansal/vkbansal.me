@@ -2,6 +2,7 @@ import * as crypto from 'crypto';
 import * as fs from 'fs';
 import * as path from 'path';
 
+import { isValid as isValidDate } from 'date-fns';
 import frontMatter from 'front-matter';
 import markdown from 'markdown-it';
 import mathjax from 'markdown-it-mathjax';
@@ -130,3 +131,100 @@ export function renderMarkdown(content: string) {
     return { attributes: meta.attributes, body: md.render(meta.body) };
 }
 
+export function validatePostAttributes(attributes: MDFileAttributes): string | boolean {
+    if (
+        !('title' in attributes) ||
+        typeof attributes.title !== 'string' ||
+        attributes.title.length < 3
+    ) {
+        return 'title is not valid';
+    }
+
+    if (
+        !('date' in attributes) ||
+        !(attributes.date instanceof Date) ||
+        !isValidDate(attributes.date)
+    ) {
+        return 'date is not valid';
+    }
+
+    if (!('description' in attributes) || attributes.description.length < 3) {
+        return 'description is not valid';
+    }
+
+    if (!('tag' in attributes) || !Array.isArray(attributes.tag) || attributes.tag.length === 0) {
+        return 'tag is not an array of strings';
+    }
+
+    if (!('author' in attributes) || !attributes.author.name || !attributes.author.site) {
+        return 'author is not in specified format { name: string; site: string; }';
+    }
+
+    return true;
+}
+
+export function getPageNumbers(
+    currentPage: number,
+    totalPages: number,
+    primaryGroupLimit = 5,
+    secondaryGroupLimit = 2
+): Array<number | null> {
+    if (currentPage < 1 || totalPages < 1 || primaryGroupLimit < 1 || secondaryGroupLimit < 1) {
+        throw new Error('All the arguments must be +ve integers');
+    }
+
+    if (currentPage > totalPages) {
+        throw new Error('currentPage cannot be greater than totalPages');
+    }
+
+    // if (primaryGroupLimit > totalPages) {
+    //     throw new Error('primaryGroupLimit cannot be greater than totalPages');
+    // }
+
+    // if (secondaryGroupLimit > totalPages) {
+    //     throw new Error('secondaryGroupLimit cannot be greater than totalPages');
+    // }
+
+    const length = primaryGroupLimit + 2 * secondaryGroupLimit + 2;
+    const lastIndex = length - 1;
+    const mid = Math.ceil(length / 2);
+    const midIndex = mid - 1;
+
+    if (totalPages <= length) {
+        return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    const pages: Array<number | null> = Array.from({ length });
+
+    for (let i = 0; i < secondaryGroupLimit; i++) {
+        pages[i] = i + 1; // fill first elements
+        pages[lastIndex - i] = totalPages - i; // fill end elements
+    }
+
+    pages[midIndex] = currentPage;
+
+    pages[lastIndex - secondaryGroupLimit] = null;
+    pages[secondaryGroupLimit] = null;
+
+    const mid2 = Math.ceil(primaryGroupLimit / 2);
+
+    if (currentPage <= mid) {
+        for (let i = 0; i < mid + secondaryGroupLimit; i++) {
+            pages[i] = i + 1;
+        }
+    } else if (currentPage >= totalPages - midIndex) {
+        for (let i = 0; i < mid + secondaryGroupLimit; i++) {
+            pages[i + midIndex - secondaryGroupLimit] =
+                i + totalPages - secondaryGroupLimit - midIndex;
+        }
+    } else {
+        pages[midIndex] = currentPage;
+
+        for (let i = 1; i < mid2; i++) {
+            pages[midIndex - i] = currentPage - i;
+            pages[midIndex + i] = currentPage + i;
+        }
+    }
+
+    return pages;
+}

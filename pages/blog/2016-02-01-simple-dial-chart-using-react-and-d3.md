@@ -1,6 +1,10 @@
 ---
 title: Simple dial chart using react and d3
 description: A simple dial using react and d3 modules.
+date: 2016-02-01
+author:
+    name: Vivek Kumar Bansal
+    site: http://vkbansal.me
 tag:
   - react
   - d3

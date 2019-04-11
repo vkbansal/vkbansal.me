@@ -1,6 +1,10 @@
 ---
 title: Rollup, First Impressions
 description: A quick look at Rollup and comparison to Webpack.
+date: 2016-01-17
+author:
+    name: Vivek Kumar Bansal
+    site: http://vkbansal.me
 tag:
   - rollup
   - module-loaders
@@ -95,7 +99,7 @@ rollup -c
 
 And on my first few attempts I got errors in following pattern:
 
-``` 
+```
 Module ~/react-contextmenu/node_modules/react/react.js does not export Component (imported by ~/react-contextmenu/path/to/somefile.js)
 ```
 

@@ -2,36 +2,7 @@
  * Base Colors
  */
 $color-red: #f44336;
-$color-pink: #ff4081;
-$color-purple: #9c27b0;
-$color-deep-purple: #7c4dff;
-$color-indigo: #3f51b5;
-$color-blue: #2196f3;
-$color-light-blue: #03a9f4;
-$color-cyan: #00bcd4;
-$color-teal: #009688;
-$color-green: #4caf50;
-$color-light-green: #8bc34a;
-$color-lime: #cddc39;
-$color-yellow: #ffeb3b;
-$color-amber: #ffc107;
-$color-orange: #ff9800;
-$color-deep-orange: #ff5722;
-$color-brown: #795548;
 $color-grey: #9e9e9e;
-$color-blue-grey: #607d8b;
-
-// Fonts
-$base-font-size: 18px;
-$base-font-color: rgba(0, 0, 0, 0.8);
-
-/*
- * Break-Points
- */
-$screen-xs: 30em; // ~480px
-$screen-sm: 48em; // ~768px
-$screen-md: 64em; // ~1024px
-$screen-lg: 80em; // ~1280px;
 
 /**
  * Main colors
@@ -41,73 +12,14 @@ $color-white: #ffffff;
 $color-divider: #ddd;
 $color-dark: #333333;
 
-/**
- * Main Nav Btn
- */
-$nav-btn-color: #333333;
-$nav-btn-radius: 50px;
-$nav-btn-line-height: 2px;
-$nav-burger-width: 0.35 * $nav-btn-radius;
-$nav-burger-gutter: 7px;
-$nav-animation-time: 0.2s;
+// Fonts
+$base-font-size: 18px;
+$base-font-color: $color-dark;
 
-/**
- * Facebook
- * sources :
- *   http://designpieces.com/2012/12/facebook-colour-palette/
- *   http://www.sitepoint.com/fonts-colors-used-facebook-twitter-google/
+/*
+ * Break-Points
  */
-$brand-facebook-blue: #3b5998;
-$brand-facebook-white: #ffffff;
-$brand-facebook-blue-lighter: #afbdd4;
-$brand-facebook-blue-medium: #6d84b4;
-$brand-facebook-blue-lightest: #d8dfea;
-
-/**
- *
- * Twitter
- * sources= https=//about.twitter.com/press/brand-assets
- */
-$brand-twitter-blue: #55acee;
-
-/**
- * Google-plus
- * sources= https=//developers.google.com/+/branding-guidelines
- */
-$brand-google-plus-red: #dd4b39;
-$brand-google-plus-white: #737373;
-
-/**
- * Github
- * sources= https=//github.com/styleguide/css/11.0
- */
-$brand-github-blue: #4183c4;
-$brand-github-lighter-grey: #f5f5f5;
-$brand-github-light-grey: #999;
-$brand-github-medium-grey: #666;
-$brand-github-dark-grey: #333;
-$brand-github-green: #6cc644;
-$brand-github-red: #bd2c00;
-$brand-github-orange: #f93;
-
-/**
- *  LinkedIn
- */
-$brand-linkedin-blue: #0976b4;
-$brand-linkedin-black: #000;
-
-/**
- * Behance
- */
-$brand-behance: #1769ff;
-
-/**
- * RSS
- */
-$brand-rss: #e15a00;
-
-/**
- * NPM
- */
-$brand-npm-red: #cb3837;
-$brand-npm-grey: rgba(0, 0, 0, 0.08);
+$screen-xs: 30em; // ~480px
+$screen-sm: 48em; // ~768px
+$screen-md: 64em; // ~1024px
+$screen-lg: 80em; // ~1280px;

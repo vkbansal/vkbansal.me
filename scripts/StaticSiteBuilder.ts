@@ -21,7 +21,12 @@ import {
 import { readFile } from './utils/readFile';
 import { processCSS } from './utils/processCSS';
 import { fileLoader } from './utils/fileLoader';
-import { walkParse5, stringHash, isProduction as isPROD } from './utils/miscUtils';
+import {
+    walkParse5,
+    stringHash,
+    isProduction as isPROD,
+    validatePostAttributes
+} from './utils/miscUtils';
 import { useStyles } from './useStyles';
 import options from './options.json';
 
@@ -71,6 +76,14 @@ export class StaticSiteBuilder {
             case FileType.MD:
                 const content = this.processAssets(file.content, file.rawPath);
                 if (file.isPost) {
+                    const test = validatePostAttributes(file.attributes!);
+
+                    if (typeof test === 'string') {
+                        console.log(chalk.red.bold(test));
+                        console.log(chalk.yellow.bold(file.rawPath));
+                        process.exit(1);
+                    }
+
                     this.posts.set(file.url, {
                         type: PageType.POST,
                         content,

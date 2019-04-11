@@ -1,6 +1,10 @@
 ---
 title: How to write a gulp plugin
 description: A quick look at writing a gulp plugin
+date: 2016-03-29
+author:
+    name: Vivek Kumar Bansal
+    site: http://vkbansal.me
 tag:
   - gulp
   - gulp-plugin
@@ -72,7 +76,7 @@ export default function() {
     let error = null,
         output = doSomeThingWithFile(file);
 
-    callback(error, output); 
+    callback(error, output);
   };
 
   let flush = function(callback) {
@@ -111,7 +115,7 @@ export default function() {
 
     file.contents = new Buffer(output);
 
-    callback(null, file); 
+    callback(null, file);
   };
 
   return through.obj(transform);

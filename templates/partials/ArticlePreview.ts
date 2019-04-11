@@ -2,9 +2,11 @@ import formatDate from 'date-fns/format';
 
 import { PostContents } from '../../typings/common';
 import { useStyles } from '../../scripts/useStyles';
+import { render as renderTags } from './Tags';
 
 export async function render(post: PostContents, showTags: boolean, isProduction?: boolean) {
     const styles = await useStyles(articleStyles);
+    const tags = showTags ? await renderTags(post.attributes.tag) : '';
 
     return /* html */ `
     <div class="${styles['article-preview']}">
@@ -19,21 +21,7 @@ export async function render(post: PostContents, showTags: boolean, isProduction
             <p class="styles['description']">${post.attributes.description}</p>
             <p class="styles['read-more']">Read more…</p>
         </a>
-        ${
-            showTags
-                ? /* html */ `
-        <div class="styles['tags']">
-            ${post.attributes.tag
-                .map(
-                    tag => `
-                <span key="tag" url="urls.labelUrl.replace(':label', tag)">
-                    ${tag}
-                </span>`
-                )
-                .join('\n')}
-        </div>`
-                : ''
-        }
+        ${tags}
 </div>`;
 }
 
