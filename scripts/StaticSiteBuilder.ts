@@ -153,8 +153,8 @@ export class StaticSiteBuilder {
     public async build() {
         const isProduction = isPROD();
         const filePaths = await globby(path.join(options.srcPath, options.srcGlob));
-        // const templates = await globby(path.join(process.cwd(), 'templates'));
-        // const
+        const mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
+        const blogPageTemplate = (await readFile(options.blogPageTemplatePath)) as TSFileContents;
 
         /**
          * Read and build main CSS
@@ -184,6 +184,30 @@ export class StaticSiteBuilder {
         // Then process pages
         await Promise.all(pages.map(this.processContent));
 
+        // render template with no content to extract CSS
+        await mainTemplate.render({
+            posts: [],
+            content: '',
+            assets: this.assest,
+            isProduction,
+            isPost: false,
+            attributes: {} as any,
+            url: '',
+            rawPath: ''
+        });
+
+        // render template with no content to extract CSS
+        await blogPageTemplate.render({
+            posts: [],
+            content: '',
+            assets: this.assest,
+            isProduction,
+            isPost: true,
+            attributes: {} as any,
+            url: '',
+            rawPath: ''
+        });
+
         useStyles.stylesMap.forEach(this.addCSS);
 
         /**
@@ -197,8 +221,6 @@ export class StaticSiteBuilder {
         fs.outputFileSync(cssFilePath, this.css, 'utf8');
         this.assest.css.push(`/styles/styles${cssFileHash}.css`);
 
-        const mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
-        const blogPageTemplate = (await readFile(options.blogPageTemplatePath)) as TSFileContents;
         const allPosts = [...this.posts.values()];
 
         /**

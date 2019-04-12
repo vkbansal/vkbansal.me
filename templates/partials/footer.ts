@@ -1,32 +1,67 @@
+import cx from 'classnames';
+
+import { useStyles } from '../../scripts/useStyles';
+import data from '../data.json';
+
+const footerLinks = Object.values(data.social).filter(link => link.footer);
+
+export async function render() {
+    const styles = await useStyles(footerStyles);
+
+    return /* html */ `
+    <footer class="${styles['footer']}">
+        <div class="${cx('container', styles['container'])}">
+            <div class="${styles['social']}">
+                <h4 class="${styles['heading']}">Find me on internet:</h4>
+                    ${footerLinks
+                        .map(s => {
+                            const cl = cx(styles['social-link'], styles[s.name.toLowerCase()]);
+
+                            return /*html*/ `
+                            <a class="${cl}" href="${s.link}" target="_blank">
+                                ${s.name}
+                            </a>
+                            `;
+                        })
+                        .join('\n')}
+            </div>
+            <p class="${styles['copyright']}">
+                &copy; ${new Date().getUTCFullYear()} <a href="/">Vivek Kumar Bansal</a>
+            </p>
+        </div>
+    </footer>`;
+}
+
+const footerStyles = /* css */ `
 @import 'variables.scss';
 @import 'social.scss';
 
-:global(.footer) {
+.footer {
     margin: 8px 0;
     box-shadow: 0 4px $color-dark, 0 8px $color-primary;
 
-    & :global(.container) {
+    & .container {
         padding: 48px 0;
         border-top: 1px solid $color-divider;
     }
 
-    & :global(.heading) {
+    & .heading {
         margin: 0;
     }
 
-    & :global(.copyright) {
+    & .copyright {
         margin: 0;
         font-size: 0.8rem;
     }
 
-    & :global(.social) {
+    & .social {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         grid-template-rows: 40px;
         flex-grow: 1;
     }
 
-    & :global(.social-link) {
+    & .social-link {
         display: block;
         justify-self: center;
 
@@ -42,7 +77,7 @@
             background-position: 50% 50%;
         }
 
-        &:global(.twitter) {
+        &.twitter {
             color: $brand-twitter-blue;
 
             &:before {
@@ -50,7 +85,7 @@
             }
         }
 
-        &:global(.github) {
+        &.github {
             color: $brand-github-dark-grey;
 
             &:before {
@@ -58,7 +93,7 @@
             }
         }
 
-        &:global(.codepen) {
+        &.codepen {
             color: #222;
 
             &:before {
@@ -66,7 +101,7 @@
             }
         }
 
-        &:global(.linkedin) {
+        &.linkedin {
             color: $brand-linkedin-blue;
 
             &:before {
@@ -75,7 +110,7 @@
             }
         }
 
-        &:global(.npm) {
+        &.npm {
             color: $brand-npm-red;
 
             &:before {
@@ -91,3 +126,4 @@
         display: none;
     }
 }
+`;
