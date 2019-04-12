@@ -179,14 +179,10 @@ export class StaticSiteBuilder {
         // this.pages = pages as Array<TSFileContents | MDFileContents>;
 
         // First process posts
-        for (const post of posts) {
-            await this.processContent(post);
-        }
+        await Promise.all(posts.map(this.processContent));
 
         // Then process pages
-        for (const page of pages) {
-            await this.processContent(page);
-        }
+        await Promise.all(pages.map(this.processContent));
 
         useStyles.stylesMap.forEach(this.addCSS);
 
