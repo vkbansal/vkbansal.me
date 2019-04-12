@@ -12,14 +12,14 @@ import { fileLoader } from './fileLoader';
 
 const scope = Scope({
     generateScopedName(exportedName, filepath, css) {
-        const hash = stringHash(exportedName + filepath + css, 'sha1', 'hex').slice(0, 6);
+        const hash = stringHash(exportedName + filepath + css, 'sha1', 'hex').slice(0, 8);
         const name = filepath
             .replace(process.cwd(), '')
             .replace(/[^A-Z0-9]/gi, '_')
             .replace(/^[^A-Z0-9]/, '');
 
         if (isProduction()) {
-            return hash;
+            return `css-${hash}`;
         }
 
         return `${name}__${exportedName}__${hash}`;
