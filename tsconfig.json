@@ -3,6 +3,8 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": "./",
         "experimentalDecorators": true,
+        "jsx": "react",
+        "jsxFactory": "html",
         "target": "es6",
         "strict": true,
         "rootDirs": ["./"],

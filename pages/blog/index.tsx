@@ -1,23 +1,32 @@
 import { chunk, flatten } from 'lodash';
+import { html, render as renderHTML } from '../../scripts/html';
 
 import { RenderArgs, Page, PostContents } from '../../typings/common';
+import { ArticlePreview } from '../../templates/partials/ArticlePreview';
+import { Pagination } from '../../templates/partials/Pagination';
 import meta from '../meta.json';
-import { render as renderArticle } from '../../templates/partials/ArticlePreview';
-import { render as renderPagination } from '../../templates/partials/Pagination';
 
 export async function render(props: RenderArgs, skipLabelPages?: boolean): Promise<Page[]> {
-    const pages = chunk(props.posts, meta.blog.postsLimit);
+    const pageChunks = chunk(props.posts, meta.blog.postsLimit);
     const getUrl = getBlogUrl(props.url);
-    const pagesPromises = pages.map<Promise<Page>>(async (articles, i) => {
+
+    const pagesPromises = pageChunks.map<Promise<Page>>(async (posts, i) => {
         const pageNum = i + 1;
-        const posts = await Promise.all(articles.map(post => renderArticle(post, true)));
-        const content = await renderPage(posts.join('\n'), pageNum, pages.length, props.url);
 
         return {
             url: getUrl(pageNum),
-            content
+            content: await renderHTML(
+                <BlogPage
+                    posts={posts}
+                    page={pageNum}
+                    isProduction={props.isProduction}
+                    baseUrl={props.url}
+                    total={pageChunks.length}
+                />
+            )
         };
     });
+
     const renderedPages = await Promise.all(pagesPromises);
 
     if (!skipLabelPages) {
@@ -61,19 +70,31 @@ function getBlogUrl(baseUrl: string) {
     return (page: number) => (page > 1 ? `${baseUrl}page/${page}` : baseUrl);
 }
 
-async function renderPage(
-    content: string,
-    page: number,
-    total: number,
-    baseUrl: string
-): Promise<string> {
-    const pagination = await renderPagination(page, total, getBlogUrl(baseUrl));
+interface BlogPageProps {
+    posts: PostContents[];
+    page: number;
+    total: number;
+    baseUrl: string;
+    isProduction: boolean;
+}
 
-    return /* html*/ `
-    <div class="container" data-page="${page}">
-        <section class="articles">
-            ${content}
-        </section>
-        ${pagination}
-    </div>`;
+async function BlogPage(props: BlogPageProps): Promise<string> {
+    return (
+        <div class="container">
+            <section class="articles">
+                {props.posts.map(post => (
+                    <ArticlePreview
+                        post={post}
+                        isProduction={props.isProduction}
+                        showTags={false}
+                    />
+                ))}
+            </section>
+            <Pagination
+                currentPage={props.page}
+                totalPages={props.total}
+                getUrl={getBlogUrl(props.baseUrl)}
+            />
+        </div>
+    );
 }

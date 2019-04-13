@@ -6,7 +6,6 @@ import { parseFragment, serialize } from 'parse5';
 import fs from 'fs-extra';
 import { isBefore } from 'date-fns';
 import { partition } from 'lodash';
-import { minify as minifyHTML, Options as MinifyHTMLOptions } from 'html-minifier';
 
 import {
     PageType,
@@ -29,11 +28,6 @@ import {
 } from './utils/miscUtils';
 import { useStyles } from './useStyles';
 import options from './options.json';
-
-const minifyHTMLOptions: MinifyHTMLOptions = {
-    collapseWhitespace: true,
-    removeComments: true
-};
 
 export class StaticSiteBuilder {
     private css: string = '';
@@ -155,7 +149,6 @@ export class StaticSiteBuilder {
         const filePaths = await globby(path.join(options.srcPath, options.srcGlob));
         const mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
         const blogPageTemplate = (await readFile(options.blogPageTemplatePath)) as TSFileContents;
-
         /**
          * Read and build main CSS
          */
@@ -170,7 +163,6 @@ export class StaticSiteBuilder {
          * Process All files
          */
         const files = await Promise.all(filePaths.map(readFile));
-
         let [posts, pages] = partition(files, file => (file as MDFileContents).isPost);
 
         posts = (posts as MDFileContents[])
@@ -222,26 +214,29 @@ export class StaticSiteBuilder {
         this.assest.css.push(`/styles/styles${cssFileHash}.css`);
 
         const allPosts = [...this.posts.values()];
+        const writeFilePromises: Array<Promise<any>> = [];
 
         /**
          * Render and Write Pages
          */
         for (const [url, page] of this.pages) {
             console.log(chalk.cyan(`Rendering: ${url}`));
-            const html = (await mainTemplate.render({
-                posts: [],
-                content: page.content,
-                assets: this.assest,
-                url,
-                attributes: page.attributes,
-                rawPath: page.rawPath,
-                isProduction,
-                isPost: false
-            })) as string;
+            const html =
+                '<!DOCTYPE html>' +
+                (await mainTemplate.render({
+                    posts: [],
+                    content: page.content,
+                    assets: this.assest,
+                    url,
+                    attributes: page.attributes,
+                    rawPath: page.rawPath,
+                    isProduction,
+                    isPost: false
+                }));
 
             const writePath = path.join(options.outPath, page.url, 'index.html');
             console.log(chalk.magenta(`Writing: ${writePath}`));
-            fs.outputFileSync(writePath, minifyHTML(html, minifyHTMLOptions), 'utf8');
+            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
         }
 
         /**
@@ -260,27 +255,34 @@ export class StaticSiteBuilder {
                 isPost: true
             });
 
-            const html = (await mainTemplate.render({
-                attributes: post.attributes,
-                posts: [],
-                content: postContent.toString(),
-                assets: this.assest,
-                url,
-                rawPath: post.rawPath,
-                isProduction,
-                isPost: true
-            })) as string;
+            const html =
+                '<!DOCTYPE html>' +
+                (await mainTemplate.render({
+                    attributes: post.attributes,
+                    posts: [],
+                    content: postContent.toString(),
+                    assets: this.assest,
+                    url,
+                    rawPath: post.rawPath,
+                    isProduction,
+                    isPost: true
+                }));
 
             const writePath = path.join(options.outPath, post.url, 'index.html');
 
             console.log(chalk.magenta(`Writing: ${writePath}`));
-            fs.outputFileSync(writePath, minifyHTML(html, minifyHTMLOptions), 'utf8');
-
-            const includesPath = path.join(process.cwd(), options.includesPath);
-
-            fs.readdirSync(includesPath).map(file => {
-                fs.copyFileSync(path.join(includesPath, file), path.join(options.outPath, file));
-            });
+            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
         }
+
+        await Promise.all(writeFilePromises);
+
+        const includesPath = path.join(process.cwd(), options.includesPath);
+
+        fs.readdirSync(includesPath).map(file => {
+            const src = path.join(includesPath, file);
+            const dest = path.join(process.cwd(), options.outPath, file);
+            console.log(chalk.magenta(`Copying ${file}`));
+            fs.copyFileSync(src, dest);
+        });
     }
 }

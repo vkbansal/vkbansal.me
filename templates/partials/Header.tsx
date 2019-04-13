@@ -1,38 +1,40 @@
 import cx from 'classnames';
 
+import { html } from '../../scripts/html';
 import { RenderArgs } from '../../typings/common';
 import { useStyles } from '../../scripts/useStyles';
 import data from '../data.json';
 
-export async function render(props: RenderArgs) {
+export async function Header(props: RenderArgs) {
     const styles = await useStyles(headerStyles);
 
-    return /* html */ `
-    <header class="${styles['header']}">
-        <div class="${cx('container', styles['container'])}">
-            <a href="/" class="${styles['logo']}" title="Home Page">
-                <img class="${styles['logo-img']}" src="" />
-            </a>
-            <div></div>
-            <ul class="${styles['nav-menu']}">
-                ${data.nav
-                    .map(n => {
+    return (
+        <header class={styles['header']}>
+            <div class={cx('container', styles['container'])}>
+                <a href="/" class={styles['logo']} title="Home Page" />
+                <div />
+                <ul class={styles['nav-menu']}>
+                    {data.nav.map(n => {
                         const cl = cx(styles['link'], {
                             [styles['active']]: props.url.startsWith(n.link)
                         });
 
-                        return /* html */ `
-                        <li class="${styles['link-container']}">
-                            <a href="${n.link}" class="${cl}" title="${n.link}"
-                                target="${n.external ? '_blank' : '_self'}">
-                                ${n.title}
-                            </a>
-                        </li>`;
-                    })
-                    .join('\n')}
-            </ul>
-        </div>
-    </header>`;
+                        return (
+                            <li class={styles['link-container']}>
+                                <a
+                                    href={n.link}
+                                    class={cl}
+                                    title={n.link}
+                                    target={n.external ? '_blank' : '_self'}>
+                                    {n.title}
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        </header>
+    );
 }
 
 const headerStyles = /* css */ `

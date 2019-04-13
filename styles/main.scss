@@ -2,16 +2,16 @@
 // @import 'normalize.css';
 @import 'variables.scss';
 
-html {
-    box-sizing: border-box;
-    height: 100%;
-    background-color: $color-primary;
-}
-
 *,
 *:before,
 *:after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+}
+
+html {
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: $color-primary;
 }
 
 @page {

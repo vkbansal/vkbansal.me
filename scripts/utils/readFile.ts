@@ -12,6 +12,7 @@ export async function readFile(filePath: string): Promise<AllFileContent> {
 
     switch (ext) {
         case '.ts':
+        case '.tsx':
             const tsContents = await import(absPath);
 
             if (!Object.prototype.hasOwnProperty.call(tsContents, 'render')) {

@@ -1,19 +1,22 @@
+import { html } from '../../scripts/html';
 import { useStyles } from '../../scripts/useStyles';
 
-export async function render(tags: string[]) {
+export interface TagsProps {
+    tags: string[];
+}
+
+export async function Tags({ tags }: TagsProps) {
     const styles = await useStyles(tagStyles);
 
-    return /* html */ `
-    <div class="${styles['tags']}">
-        ${tags
-            .map(
-                tag => /* html */ `
-            <a class="${styles['tag-link']}" href="/blog/label/${tag}">${tag}</a>
-        `
-            )
-            .join('\n')}
-    </div>
-    `;
+    return (
+        <div class={styles['tags']}>
+            {tags.map(tag => (
+                <a class={styles['tag-link']} href={`/blog/label/${tag}`}>
+                    {tag}
+                </a>
+            ))}
+        </div>
+    );
 }
 
 const tagStyles = /* css */ `

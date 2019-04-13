@@ -1,38 +1,38 @@
 import cx from 'classnames';
 
+import { html } from '../../scripts/html';
 import { useStyles } from '../../scripts/useStyles';
 import data from '../data.json';
 
 const footerLinks = Object.values(data.social).filter(link => link.footer);
 
-export async function render() {
+export async function Footer() {
     const styles = await useStyles(footerStyles);
 
-    return /* html */ `
-    <footer class="${styles['footer']}">
-        <div class="${cx('container', styles['container'])}">
-            <div class="${styles['social']}">
-                <h4 class="${styles['heading']}">Find me on internet:</h4>
-                    ${footerLinks
-                        .map(s => {
-                            const cl = cx(styles['social-link'], styles[s.name.toLowerCase()]);
+    return (
+        <footer class={styles['footer']}>
+            <div class={cx('container', styles['container'])}>
+                <div class={styles['social']}>
+                    <h4 class={styles['heading']}>Find me on internet:</h4>
+                    {footerLinks.map(s => {
+                        const cl = cx(styles['social-link'], styles[s.name.toLowerCase()]);
 
-                            return /*html*/ `
-                            <a class="${cl}" href="${s.link}" target="_blank">
-                                ${s.name}
+                        return (
+                            <a class={cl} href={s.link} target="_blank">
+                                {s.name}
                             </a>
-                            `;
-                        })
-                        .join('\n')}
+                        );
+                    })}
+                </div>
+                <p class={styles['copyright']}>
+                    &copy; {new Date().getUTCFullYear()} <a href="/">Vivek Kumar Bansal</a>
+                </p>
             </div>
-            <p class="${styles['copyright']}">
-                &copy; ${new Date().getUTCFullYear()} <a href="/">Vivek Kumar Bansal</a>
-            </p>
-        </div>
-    </footer>`;
+        </footer>
+    );
 }
 
-const footerStyles = /* css */ `
+const footerStyles = `
 @import 'variables.scss';
 @import 'social.scss';
 
