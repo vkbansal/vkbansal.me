@@ -10,6 +10,10 @@ export async function html(
     ...children: Array<SingleOrArray<string> | SingleOrArray<Promise<string>>>
 ): Promise<string> {
     if (typeof tag === 'string') {
+        if (tag === 'br') {
+            return '<br>';
+        }
+
         let attrs = '';
         const childrenPromises = children.reduce(
             (p, c) => {

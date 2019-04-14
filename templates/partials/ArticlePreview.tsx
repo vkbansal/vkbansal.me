@@ -1,4 +1,4 @@
-import formatDate from 'date-fns/format';
+import { format as formatDate } from 'date-fns';
 
 import { html } from '../../scripts/html';
 import { PostContents } from '../../typings/common';
@@ -17,7 +17,7 @@ export async function ArticlePreview({ post, isProduction, showTags }: ArticlePr
     return (
         <div class={styles['article-preview']}>
             <p class={styles['article-date']}>
-                {formatDate(post.attributes.date, 'MMMM Do, YYYY')}
+                {formatDate(post.attributes.date, 'MMMM do, yyyy')}
             </p>
             <a href={post.url} class={styles['article-link']}>
                 <h2 class="styles['title']">

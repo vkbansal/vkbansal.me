@@ -35,32 +35,32 @@ body {
 }
 
 h1 {
-    font-size: 34px;
-    line-height: 40px;
+    font-size: 2.125em;
+    line-height: 1.17;
 }
 
 h2 {
-    font-size: 28px;
-    line-height: 32px;
+    font-size: 1.75em;
+    line-height: 1.143;
 }
 
 h3 {
-    font-size: 22px;
-    line-height: 30px;
+    font-size: 1.375em;
+    line-height: 1.36;
 }
 
 h4 {
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 1.125em;
+    line-height: 1.22;
 }
 
 h5 {
-    font-size: 14px;
-    line-height: 18px;
+    font-size: 0.875em;
+    line-height: 1.286;
 }
 
 h6 {
-    font-size: 12px;
+    font-size: 0.75em;
 }
 
 h1,
@@ -70,16 +70,16 @@ h4,
 h5,
 h6 {
     font-family: 'Lato', sans-serif;
-    margin: 0 0 16px 0;
+    margin: 0 0 1em 0;
     font-weight: bold;
-    color: #444;
+    color: $color-dark;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1em;
     padding-top: 0;
-    line-height: 28px;
-    margin: 0 0 16px 0;
+    line-height: 1.75;
+    margin: 0 0 1em 0;
 }
 
 blockquote {
@@ -105,14 +105,14 @@ a {
 
 ul,
 ol {
-    margin: 0 0 30px 18px;
+    margin: 0 0 1.875em 1.125em;
     padding: 0;
 }
 
 li {
-    font-size: 16px;
-    line-height: 28px;
-    margin: 0 0 0 5px;
+    font-size: 1em;
+    line-height: 1.75em;
+    margin: 0 0 0 0.3125em;
 }
 
 /** END Typography **/
@@ -121,7 +121,7 @@ li {
     width: 100%;
     margin: 0 auto;
     transition: width 0.2s ease;
-    padding: 0 20px;
+    padding: 0 1.25em;
 
     @media (min-width: $screen-xs) {
         width: 480px;
@@ -142,17 +142,6 @@ li {
 
     @media print {
         width: 100%;
-    }
-}
-
-:global(.page-break) {
-    @media all {
-        display: none;
-    }
-
-    @media print {
-        display: block;
-        page-break-before: always;
     }
 }
 
