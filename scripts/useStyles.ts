@@ -9,14 +9,18 @@ export async function useStyles(css: string): Promise<Record<string, string>> {
         throw new Error('useStyles should not be invoked directly!');
     }
 
-    const data = await processCSS(css);
-    const hash = stringHash(css, 'md5');
+    const hash = stringHash(css, 'md5', 'hex');
 
-    if (!useStyles.stylesMap.has(hash)) {
-        useStyles.stylesMap.set(hash, data!.css);
+    if (useStyles.stylesMap.has(hash)) {
+        const data = useStyles.stylesMap.get(hash);
+
+        return data!.exports;
     }
+
+    const data = await processCSS(css);
+    useStyles.stylesMap.set(hash, data!);
 
     return data!.exports;
 }
 
-useStyles.stylesMap = new Map<string, string>();
+useStyles.stylesMap = new Map<string, { css: string; exports: Record<string, string> }>();

@@ -160,7 +160,7 @@ export class StaticSiteBuilder {
 
         this.addCSS(mainCSS!.css);
 
-        useStyles.stylesMap.forEach(this.addCSS);
+        useStyles.stylesMap.forEach(data => this.addCSS(data.css));
 
         /**
          * Write CSS file
