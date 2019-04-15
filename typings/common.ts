@@ -30,11 +30,13 @@ export interface BaseFileContents<T = any> {
 export interface PostContents extends BaseFileContents<MDFileAttributes> {
     type: PageType.POST;
     content: string;
+    writtenToDisk: boolean;
 }
 
 export interface PageContents extends BaseFileContents {
     type: PageType.PAGE;
     content: string;
+    writtenToDisk: boolean;
 }
 
 export interface MDFileContents extends BaseFileContents<MDFileAttributes | undefined> {

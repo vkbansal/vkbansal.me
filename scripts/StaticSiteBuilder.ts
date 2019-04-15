@@ -6,6 +6,7 @@ import { parseFragment, serialize } from 'parse5';
 import fs from 'fs-extra';
 import { isBefore } from 'date-fns';
 import { partition } from 'lodash';
+import chokidar from 'chokidar';
 
 import {
     PageType,
@@ -37,6 +38,8 @@ export class StaticSiteBuilder {
         css: [],
         js: []
     };
+    private mainTemplate!: TSFileContents;
+    private blogPageTemplate!: TSFileContents;
 
     private addCSS = (css: string) => {
         this.css = this.css + `\n${css}`;
@@ -83,7 +86,8 @@ export class StaticSiteBuilder {
                         content,
                         attributes: file.attributes!,
                         url: file.url,
-                        rawPath: file.rawPath
+                        rawPath: file.rawPath,
+                        writtenToDisk: false
                     });
                 } else {
                     this.pages.set(file.url, {
@@ -91,7 +95,8 @@ export class StaticSiteBuilder {
                         content,
                         attributes: file.attributes!,
                         url: file.url,
-                        rawPath: file.rawPath
+                        rawPath: file.rawPath,
+                        writtenToDisk: false
                     });
                 }
                 break;
@@ -119,7 +124,8 @@ export class StaticSiteBuilder {
                 type: PageType.PAGE,
                 attributes: file.attributes,
                 url: file.url,
-                rawPath: file.rawPath
+                rawPath: file.rawPath,
+                writtenToDisk: false
             });
         } else if (Array.isArray(pageBody)) {
             pageBody.forEach(page => {
@@ -128,7 +134,8 @@ export class StaticSiteBuilder {
                     type: PageType.PAGE,
                     attributes: file.attributes,
                     url: page.url,
-                    rawPath: file.rawPath
+                    rawPath: file.rawPath,
+                    writtenToDisk: false
                 });
             });
         } else {
@@ -137,27 +144,155 @@ export class StaticSiteBuilder {
                 content: this.processAssets(pageBody.content, file.rawPath),
                 type: PageType.PAGE,
                 attributes: file.attributes,
-                rawPath: file.rawPath
+                rawPath: file.rawPath,
+                writtenToDisk: false
             });
         }
-
-        return pageBody;
     };
 
-    public async build() {
-        const isProduction = isPROD();
-        const filePaths = await globby(path.join(options.srcPath, options.srcGlob));
-        const mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
-        const blogPageTemplate = (await readFile(options.blogPageTemplatePath)) as TSFileContents;
+    private buildCSS = async () => {
         /**
          * Read and build main CSS
          */
         const mainCSS = await processCSS(
-            fs.readFileSync(path.join(process.cwd(), 'styles/main.scss'), 'utf8'),
-            'main'
+            fs.readFileSync(path.join(process.cwd(), 'styles/main.scss'), 'utf8')
         );
 
         this.addCSS(mainCSS!.css);
+
+        useStyles.stylesMap.forEach(this.addCSS);
+
+        /**
+         * Write CSS file
+         */
+        const cssFileHash = isPROD() ? `.${stringHash(this.css, 'sha1', 'hex').slice(0, 6)}` : '';
+        const cssFilePath = path.join(options.outPath, 'styles', `styles${cssFileHash}.css`);
+        console.log(chalk.magenta(`Writing: ${cssFilePath}`));
+        fs.outputFileSync(cssFilePath, this.css, 'utf8');
+        this.assest.css.push(`/styles/styles${cssFileHash}.css`);
+    };
+
+    private renderAndWritePages = async () => {
+        const writeFilePromises: Array<Promise<any>> = [];
+        const isProduction = isPROD();
+
+        /**
+         * Render and Write Pages
+         */
+        for (const [url, page] of this.pages) {
+            if (page.writtenToDisk) continue;
+
+            console.log(chalk.cyan(`Rendering: ${url}`));
+            const html =
+                '<!DOCTYPE html>' +
+                (await this.mainTemplate.render({
+                    posts: [],
+                    content: page.content,
+                    assets: this.assest,
+                    url,
+                    attributes: page.attributes,
+                    rawPath: page.rawPath,
+                    isProduction,
+                    isPost: false
+                }));
+
+            const writePath = path.join(options.outPath, page.url, 'index.html');
+            console.log(chalk.magenta(`Writing: ${writePath}`));
+            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
+            page.writtenToDisk = true;
+        }
+
+        await Promise.all(writeFilePromises);
+    };
+
+    private renderAndWritePosts = async () => {
+        const writeFilePromises: Array<Promise<any>> = [];
+        const isProduction = isPROD();
+        /**
+         * Render and Write Posts
+         */
+        for (const [url, post] of this.posts) {
+            if (post.writtenToDisk) continue;
+
+            console.log(chalk.cyan(`Rendering: ${url}`));
+            const postContent = await this.blogPageTemplate.render({
+                attributes: post.attributes,
+                posts: [...this.posts.values()],
+                content: post.content,
+                assets: this.assest,
+                url,
+                rawPath: post.rawPath,
+                isProduction,
+                isPost: true
+            });
+
+            const html =
+                '<!DOCTYPE html>' +
+                (await this.mainTemplate.render({
+                    attributes: post.attributes,
+                    posts: [],
+                    content: postContent.toString(),
+                    assets: this.assest,
+                    url,
+                    rawPath: post.rawPath,
+                    isProduction,
+                    isPost: true
+                }));
+
+            const writePath = path.join(options.outPath, post.url, 'index.html');
+
+            console.log(chalk.magenta(`Writing: ${writePath}`));
+            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
+            post.writtenToDisk = true;
+        }
+
+        await Promise.all(writeFilePromises);
+    };
+
+    private handleChange = async (path: string) => {
+        console.log(chalk.yellow.bold(`${path} changed`));
+        if (path.startsWith('pages')) {
+            const content = await readFile(path);
+            await this.processContent(content);
+            await this.buildCSS();
+
+            if ((content as MDFileContents).isPost) {
+                await this.renderAndWritePosts();
+            } else {
+                await this.renderAndWritePages();
+            }
+        } else if (path.startsWith('templates')) {
+            await this.build();
+        } else if (path.startsWith('styles')) {
+            await this.buildCSS();
+        }
+    };
+
+    public async watch() {
+        if (isPROD()) {
+            console.log(chalk.red('--watch can be run only in development mode!'));
+            return;
+        }
+
+        await this.build();
+        const watcher = chokidar.watch([
+            'pages/**/*.{md,tsx,json}',
+            'styles/**/*.scss',
+            'templates/**/*.{tsx,json}'
+        ]);
+
+        const watched = watcher.getWatched();
+        const count = Object.keys(watched).reduce((p, c) => p + watched[c].length, 0);
+        console.log(chalk.yellow.bold(`Watching ${count} files`));
+
+        watcher.on('change', this.handleChange);
+    }
+
+    public async build() {
+        const isProduction = isPROD();
+        const filePaths = await globby(path.join(options.srcPath, options.srcGlob));
+        this.mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
+        this.blogPageTemplate = (await readFile(options.blogPageTemplatePath)) as TSFileContents;
 
         /**
          * Process All files
@@ -177,7 +312,7 @@ export class StaticSiteBuilder {
         await Promise.all(pages.map(this.processContent));
 
         // render template with no content to extract CSS
-        await mainTemplate.render({
+        await this.mainTemplate.render({
             posts: [],
             content: '',
             assets: this.assest,
@@ -189,7 +324,7 @@ export class StaticSiteBuilder {
         });
 
         // render template with no content to extract CSS
-        await blogPageTemplate.render({
+        await this.blogPageTemplate.render({
             posts: [],
             content: '',
             assets: this.assest,
@@ -200,81 +335,9 @@ export class StaticSiteBuilder {
             rawPath: ''
         });
 
-        useStyles.stylesMap.forEach(this.addCSS);
-
-        /**
-         * Write CSS file
-         */
-        const cssFileHash = isProduction
-            ? `.${stringHash(this.css, 'sha1', 'hex').slice(0, 6)}`
-            : '';
-        const cssFilePath = path.join(options.outPath, 'styles', `styles${cssFileHash}.css`);
-        console.log(chalk.magenta(`Writing: ${cssFilePath}`));
-        fs.outputFileSync(cssFilePath, this.css, 'utf8');
-        this.assest.css.push(`/styles/styles${cssFileHash}.css`);
-
-        const allPosts = [...this.posts.values()];
-        const writeFilePromises: Array<Promise<any>> = [];
-
-        /**
-         * Render and Write Pages
-         */
-        for (const [url, page] of this.pages) {
-            console.log(chalk.cyan(`Rendering: ${url}`));
-            const html =
-                '<!DOCTYPE html>' +
-                (await mainTemplate.render({
-                    posts: [],
-                    content: page.content,
-                    assets: this.assest,
-                    url,
-                    attributes: page.attributes,
-                    rawPath: page.rawPath,
-                    isProduction,
-                    isPost: false
-                }));
-
-            const writePath = path.join(options.outPath, page.url, 'index.html');
-            console.log(chalk.magenta(`Writing: ${writePath}`));
-            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
-        }
-
-        /**
-         * Render and Write Posts
-         */
-        for (const [url, post] of this.posts) {
-            console.log(chalk.cyan(`Rendering: ${url}`));
-            const postContent = await blogPageTemplate.render({
-                attributes: post.attributes,
-                posts: allPosts,
-                content: post.content,
-                assets: this.assest,
-                url,
-                rawPath: post.rawPath,
-                isProduction,
-                isPost: true
-            });
-
-            const html =
-                '<!DOCTYPE html>' +
-                (await mainTemplate.render({
-                    attributes: post.attributes,
-                    posts: [],
-                    content: postContent.toString(),
-                    assets: this.assest,
-                    url,
-                    rawPath: post.rawPath,
-                    isProduction,
-                    isPost: true
-                }));
-
-            const writePath = path.join(options.outPath, post.url, 'index.html');
-
-            console.log(chalk.magenta(`Writing: ${writePath}`));
-            writeFilePromises.push(fs.outputFile(writePath, html, 'utf8'));
-        }
-
-        await Promise.all(writeFilePromises);
+        await this.buildCSS();
+        await this.renderAndWritePages();
+        await this.renderAndWritePosts();
 
         const includesPath = path.join(process.cwd(), options.includesPath);
 
