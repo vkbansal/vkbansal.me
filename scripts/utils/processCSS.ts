@@ -45,11 +45,7 @@ const extractAssets = postcss.plugin('postcss-extract-assets', () => {
     };
 });
 
-export async function processCSS(
-    data: string,
-    filePath: string,
-    mode: 'local' | 'global' = 'local'
-) {
+export async function processCSS(data: string, mode: 'local' | 'global' = 'local') {
     try {
         const exportTokens: Record<string, string> = {};
 
@@ -76,7 +72,7 @@ export async function processCSS(
 
         const css = sass.renderSync({ data, includePaths: [path.join(process.cwd(), 'styles')] });
         const parser = postcss(postCSSPlugins);
-        const result = await parser.process(css.css, { from: filePath });
+        const result = await parser.process(css.css, { from: undefined });
 
         return { css: result.css, exports: exportTokens };
     } catch (e) {

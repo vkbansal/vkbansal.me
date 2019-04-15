@@ -1,7 +1,5 @@
-'use strict';
-import callsites from 'callsites';
-
 import { processCSS } from './utils/processCSS';
+import { stringHash } from './utils/miscUtils';
 
 /**
  * This function must be used as the first
@@ -11,13 +9,11 @@ export async function useStyles(css: string): Promise<Record<string, string>> {
         throw new Error('useStyles should not be invoked directly!');
     }
 
-    const stack = callsites();
-    const filename = stack[stack.length - 1].getFileName() || '';
+    const data = await processCSS(css);
+    const hash = stringHash(css, 'md5');
 
-    const data = await processCSS(css, filename);
-
-    if (!useStyles.stylesMap.has(filename)) {
-        useStyles.stylesMap.set(filename, data!.css);
+    if (!useStyles.stylesMap.has(hash)) {
+        useStyles.stylesMap.set(hash, data!.css);
     }
 
     return data!.exports;
