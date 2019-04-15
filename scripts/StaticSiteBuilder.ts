@@ -274,17 +274,14 @@ export class StaticSiteBuilder {
             return;
         }
 
-        await this.build();
+        // await this.build();
         const watcher = chokidar.watch([
             'pages/**/*.{md,tsx,json}',
             'styles/**/*.scss',
             'templates/**/*.{tsx,json}'
         ]);
 
-        const watched = watcher.getWatched();
-        const count = Object.keys(watched).reduce((p, c) => p + watched[c].length, 0);
-        console.log(chalk.yellow.bold(`Watching ${count} files`));
-
+        console.log(chalk.yellow.bold('My watch has started'));
         watcher.on('change', this.handleChange);
     }
 
