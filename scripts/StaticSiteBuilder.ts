@@ -274,7 +274,7 @@ export class StaticSiteBuilder {
             return;
         }
 
-        // await this.build();
+        await this.build();
         const watcher = chokidar.watch([
             'pages/**/*.{md,tsx,json}',
             'styles/**/*.scss',
