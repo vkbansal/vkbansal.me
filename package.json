@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "build": "rimraf public && cross-env NODE_ENV=production ts-node scripts/build.ts",
-        "build:dev": "rimraf public && ts-node scripts/build.ts --watch"
+        "build:dev": "rimraf public && ts-node scripts/build.ts",
+        "build:watch": "rimraf public && ts-node scripts/build.ts --watch"
     },
     "engines": {
         "node": ">=11.13.0"

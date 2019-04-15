@@ -4,6 +4,18 @@ export async function render(component: any): Promise<string> {
     return await component;
 }
 
+function flattenDeep<T>(arr: any[]): T[] {
+    const ret = [...arr];
+
+    for (let i = 0; i < ret.length; i++) {
+        if (Array.isArray(ret[i])) {
+            ret.splice(i, 1, ...ret[i--]);
+        }
+    }
+
+    return ret;
+}
+
 export async function html(
     tag: keyof HTMLElementTagNameMap | ((props: Record<string, any>) => Promise<string>),
     props: Record<string, any>,
@@ -15,13 +27,7 @@ export async function html(
         }
 
         let attrs = '';
-        const childrenPromises = children.reduce(
-            (p, c) => {
-                Array.isArray(c) ? p.push(...c) : p.push(c);
-                return p;
-            },
-            [] as Array<string | Promise<string>>
-        );
+        const childrenPromises: Array<string | Promise<string>> = flattenDeep(children);
         const child = await Promise.all(childrenPromises);
 
         for (let prop in props) {

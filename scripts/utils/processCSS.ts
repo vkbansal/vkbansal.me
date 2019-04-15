@@ -11,18 +11,14 @@ import options from '../options.json';
 import { fileLoader } from './fileLoader';
 
 const scope = Scope({
-    generateScopedName(exportedName, filepath, css) {
-        const hash = stringHash(exportedName + filepath + css, 'sha1', 'hex').slice(0, 8);
-        const name = filepath
-            .replace(process.cwd(), '')
-            .replace(/[^A-Z0-9]/gi, '_')
-            .replace(/^[^A-Z0-9]/, '');
+    generateScopedName(exportedName, _, css) {
+        const hash = stringHash(exportedName + css, 'sha1', 'hex').slice(0, 8);
 
         if (isProduction()) {
             return `css-${hash}`;
         }
 
-        return `${name}__${exportedName}__${hash}`;
+        return `css_${exportedName}_${hash}`;
     }
 });
 

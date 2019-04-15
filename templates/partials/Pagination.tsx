@@ -33,21 +33,19 @@ export async function Pagination({
                 </a>
             )}
             <div class={styles['pages']}>
-                {pages
-                    .map(page => {
-                        return typeof page === 'number' ? (
-                            currentPage === page ? (
-                                <span class={styles['active-link']}>{page}</span>
-                            ) : (
-                                <a class={styles['page-link']} href={getUrl(page)}>
-                                    {page}
-                                </a>
-                            )
+                {pages.map(page => {
+                    return typeof page === 'number' ? (
+                        currentPage === page ? (
+                            <span class={styles['active-link']}>{page}</span>
                         ) : (
-                            <span class={styles['more']}>...</span>
-                        );
-                    })
-                    .join('\n')}
+                            <a class={styles['page-link']} href={getUrl(page)}>
+                                {page}
+                            </a>
+                        )
+                    ) : (
+                        <span class={styles['more']}>...</span>
+                    );
+                })}
             </div>
             <a
                 class={cx(styles['page-link'], styles['next-link'])}
