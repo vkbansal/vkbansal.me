@@ -26,7 +26,7 @@ export async function Pagination({
                 </span>
             ) : (
                 <a
-                    class={cx(styles['page-link'], ['prev-link'])}
+                    class={cx(styles['page-link'], styles['prev-link'])}
                     href={getUrl(currentPage - 1)}
                     rel="prev">
                     &larr; Prev
@@ -47,12 +47,18 @@ export async function Pagination({
                     );
                 })}
             </div>
-            <a
-                class={cx(styles['page-link'], styles['next-link'])}
-                href={getUrl(currentPage + 1)}
-                rel="next">
-                Next &rarr;
-            </a>
+            {currentPage >= totalPages ? (
+                <span class={cx(styles['page-link'], styles['next-link'], styles['disabled'])}>
+                    Next &rarr;
+                </span>
+            ) : (
+                <a
+                    class={cx(styles['page-link'], styles['next-link'])}
+                    href={getUrl(currentPage + 1)}
+                    rel="next">
+                    Next &rarr;
+                </a>
+            )}
         </nav>
     );
 }
@@ -67,8 +73,13 @@ const paginationStyles = /*css*/ `
     margin-bottom: 16px;
 
     & .pages {
-        display: flex;
-        justify-content: center;
+        display: none;
+
+        @media (min-width: $screen-sm) {
+            display: flex;
+            justify-content: center;
+        }
+
     }
 
     & .page-link,
@@ -105,13 +116,22 @@ const paginationStyles = /*css*/ `
         color: $color-dark;
     }
 
-    & .prev-link {
+    & .prev-link,
+    & .next-link {
         width: auto;
+        flex-grow: 1;
+
+        @media (min-width: $screen-sm) {
+            flex-grow: 0;
+        }
+
+    }
+
+    & .prev-link {
         text-align: left;
     }
 
     & .next-link {
-        width: auto;
         text-align: right;
     }
 

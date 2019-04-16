@@ -31,7 +31,9 @@ export async function html(
         const child = await Promise.all(childrenPromises);
 
         for (let prop in props) {
-            attrs += ` ${prop}="${props[prop]}"`;
+            if (typeof props[prop] !== 'undefined') {
+                attrs += ` ${prop}="${props[prop]}"`;
+            }
         }
 
         return `<${tag}${attrs}>${child.join('')}</${tag}>`;

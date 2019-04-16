@@ -13,7 +13,6 @@ export async function Footer() {
         <footer class={styles['footer']}>
             <div class={cx('container', styles['container'])}>
                 <div class={styles['social']}>
-                    <h4 class={styles['heading']}>Find me on internet:</h4>
                     {footerLinks.map(s => {
                         const cl = cx(styles['social-link'], styles[s.name.toLowerCase()]);
 
@@ -41,24 +40,38 @@ const footerStyles = `
     box-shadow: 0 4px $color-dark, 0 8px $color-primary;
 
     & .container {
-        padding: 48px 0;
+        padding: 3em 1.25em;
         border-top: 1px solid $color-divider;
     }
 
-    & .heading {
-        margin: 0;
-    }
-
     & .copyright {
-        margin: 0;
+        margin: 8px 0 0 0;
         font-size: 0.8rem;
+        text-align: center;
     }
 
     & .social {
         display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: 40px;
-        flex-grow: 1;
+        grid-auto-rows: 40px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-row-gap: 10px;
+
+        @media (min-width: $screen-xs) {
+            // width: 480px;
+        }
+
+        @media (min-width: $screen-sm) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (min-width: $screen-md) {
+            grid-template-columns: repeat(5, 1fr);
+            grid-row-gap: 0;
+        }
+
+        @media (min-width: $screen-lg) {
+
+        }
     }
 
     & .social-link {

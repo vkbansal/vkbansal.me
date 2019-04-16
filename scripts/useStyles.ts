@@ -24,3 +24,5 @@ export async function useStyles(css: string): Promise<Record<string, string>> {
 }
 
 useStyles.stylesMap = new Map<string, { css: string; exports: Record<string, string> }>();
+
+useStyles.resetMap = () => (useStyles.stylesMap = new Map());

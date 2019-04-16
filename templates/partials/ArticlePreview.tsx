@@ -20,12 +20,12 @@ export async function ArticlePreview({ post, isProduction, showTags }: ArticlePr
                 {formatDate(post.attributes.date, 'MMMM do, yyyy')}
             </p>
             <a href={post.url} class={styles['article-link']}>
-                <h2 class="styles['title']">
+                <h2 class={styles['title']}>
                     {post.attributes.title}
                     {!isProduction && post.attributes.isDraft ? ' [DRAFT]' : ''}
                 </h2>
-                <p class="styles['description']">{post.attributes.description}</p>
-                <p class="styles['read-more']">Read more…</p>
+                <p class={styles['description']}>{post.attributes.description}</p>
+                <p class={styles['read-more']}>Read more…</p>
             </a>
             {showTags ? <Tags tags={post.attributes.tag} /> : null}
         </div>
@@ -43,15 +43,22 @@ export const articleStyles = /* css */ `
         border-bottom: none;
     }
 
-    .article-date {
-        color: rgba(0, 0, 0, 0.7);
-        font-size: 0.67 rem;
+    & .article-date {
+        opacity: 0.8;
+        font-size: 0.85rem;
+        font-style: italic;
     }
 
-    .article-link {
+    & .article-link {
+        color: $color-dark;
+
         &:hover {
             text-decoration: none;
         }
+    }
+
+    & .read-more {
+        color: $color-primary;
     }
 }
 `;

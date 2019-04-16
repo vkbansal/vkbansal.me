@@ -286,6 +286,7 @@ export class StaticSiteBuilder {
     }
 
     public async build() {
+        useStyles.resetMap();
         const isProduction = isPROD();
         const filePaths = await globby(path.join(options.srcPath, options.srcGlob));
         this.mainTemplate = (await readFile(options.mainTemplatePath)) as TSFileContents;
