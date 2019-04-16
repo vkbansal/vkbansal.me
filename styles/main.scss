@@ -146,30 +146,6 @@ li {
     }
 }
 
-:global(.blog-post) {
-    width: 100%;
-
-    @media (min-width: $screen-xs) {
-        width: 480px;
-    }
-
-    @media (min-width: $screen-sm) {
-        width: 720px;
-    }
-
-    @media (min-width: $screen-md) {
-        width: 720px;
-    }
-
-    @media (min-width: $screen-lg) {
-        width: 720px;
-    }
-
-    @media print {
-        width: 100%;
-    }
-}
-
 :global(.img-center) {
     display: block;
     margin: 0 auto;

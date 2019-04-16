@@ -328,7 +328,13 @@ export class StaticSiteBuilder {
             assets: this.assest,
             isProduction,
             isPost: true,
-            attributes: {} as any,
+            attributes: {
+                author: { name: '', site: '' },
+                date: new Date(),
+                description: '',
+                title: '',
+                tag: []
+            },
             url: '',
             rawPath: ''
         });
