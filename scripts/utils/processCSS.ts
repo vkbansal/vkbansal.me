@@ -48,9 +48,9 @@ export async function processCSS(data: string, mode: 'local' | 'global' = 'local
         const extractExports = postcss.plugin('postcss-extract-imports', () => {
             return function(root) {
                 root.each(node => {
-                    if (node.type == 'rule' && node.selector == ':export') {
+                    if (node.type === 'rule' && node.selector === ':export') {
                         node.each(decl => {
-                            if (decl.type == 'decl') {
+                            if (decl.type === 'decl') {
                                 exportTokens[decl.prop] = decl.value;
                             }
                         });
