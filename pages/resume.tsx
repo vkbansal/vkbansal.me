@@ -5,6 +5,7 @@ import { useStyles } from '../scripts/useStyles';
 import { html } from '../scripts/html';
 
 const CAREER_START = new Date(2013, 7);
+// https://survivejs.com/blog/illuminate-interview/
 export async function render() {
     const styles = await useStyles(resumeStyles);
     const now = new Date();
