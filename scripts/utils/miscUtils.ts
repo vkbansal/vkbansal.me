@@ -16,7 +16,8 @@ import {
     markdown as mdLang,
     scss,
     sql,
-    css
+    css,
+    bash
 } from 'illuminate-js/lib/languages';
 import { showLanguage } from 'illuminate-js/lib/plugins/showLanguage';
 import { DefaultTreeElement } from 'parse5';
@@ -35,6 +36,8 @@ addLanguage('svg', markup);
 addLanguage('markdown', mdLang);
 addLanguage('md', mdLang);
 addLanguage('sql', sql);
+addLanguage('bash', bash);
+addLanguage('sh', bash);
 
 addPlugin(showLanguage);
 
