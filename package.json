@@ -1,6 +1,7 @@
 {
     "name": "vkbansal.me",
     "description": "Site for Vivek Kumar Bansal",
+    "version": "2.0.0",
     "private": true,
     "scripts": {
         "build": "rimraf public && cross-env NODE_ENV=production ts-node scripts/build.ts",
