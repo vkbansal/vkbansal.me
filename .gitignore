@@ -12,3 +12,4 @@ public_1/*
 scripts/_*.json
 scripts/_*.js
 temp/
+.netlify

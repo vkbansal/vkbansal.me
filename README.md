@@ -1,5 +1,5 @@
 # My Website
 
-[ ![Codeship Status for vkbansal/vkbansal.me](https://app.codeship.com/projects/c6fc0490-1614-0135-9ed9-3a19ed4766f8/status?branch=master)](https://app.codeship.com/projects/218067)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6f53cbda-b697-4856-a47f-0be066f816a8/deploy-status)](https://app.netlify.com/sites/vkbansal/deploys)
 
-Source code for my website
+Source code for [my website](https://vkbansal.me)
