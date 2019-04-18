@@ -8,9 +8,6 @@
         "build:dev": "rimraf public && ts-node scripts/build.ts",
         "build:watch": "rimraf public && ts-node scripts/build.ts --watch"
     },
-    "engines": {
-        "node": ">=11.13.0"
-    },
     "dependencies": {
         "@types/classnames": "^2.2.7",
         "@types/cssnano": "^4.0.0",
