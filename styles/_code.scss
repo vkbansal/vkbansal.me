@@ -19,7 +19,7 @@ $code-color: #fff;
 :global(pre) {
     border-bottom: 1px solid $color-divider;
     border-top: 4px solid $color-primary;
-    padding: 20px;
+    padding: 32px 20px;
     background: $code-background;
     overflow: scroll;
     position: relative;
