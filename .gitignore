@@ -11,4 +11,5 @@ public_1/*
 .vscode/
 scripts/_*.json
 scripts/_*.js
+temp/
 .netlify

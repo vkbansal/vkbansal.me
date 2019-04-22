@@ -1,0 +1,25 @@
+/**
+ * Base Colors
+ */
+$color-red: #f44336;
+$color-grey: #9e9e9e;
+
+/**
+ * Main colors
+ */
+$color-primary: $color-red;
+$color-white: #ffffff;
+$color-divider: #ddd;
+$color-dark: #333333;
+
+// Fonts
+$base-font-size: 18px;
+$base-font-color: $color-dark;
+
+/*
+ * Break-Points
+ */
+$screen-xs: 30em; // ~480px
+$screen-sm: 48em; // ~768px
+$screen-md: 64em; // ~1024px
+$screen-lg: 80em; // ~1280px;

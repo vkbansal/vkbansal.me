@@ -1,0 +1,13 @@
+{
+    "homepage": {
+        "postsLimit": 5
+    },
+    "blog": {
+        "postsLimit": 5
+    },
+    "author": {
+        "name": "Vivek Kumar Bansal",
+        "email": "contact@vkbansal.me",
+        "website": "https://vkbansal.me"
+    }
+}
