@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs-extra';
 
-import { getURL, BLOG_REGEX, renderMarkdown } from './miscUtils';
+import { getURL, renderMarkdown } from './miscUtils';
 
 import { AllFileContent, TSFileContents, MDFileContents, FileType } from '../../typings/common';
 
@@ -31,7 +31,7 @@ export async function readFile(filePath: string): Promise<AllFileContent> {
             return tsFileContents;
         case '.md':
             const mdContents = renderMarkdown(fs.readFileSync(absPath, 'utf8'));
-            const isPost = BLOG_REGEX.test(dir);
+            const isPost = url.startsWith('/blog');
 
             if (isPost && !mdContents.attributes) {
                 throw new Error(
