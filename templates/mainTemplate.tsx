@@ -21,7 +21,9 @@ export async function render(props: RenderArgs) {
             <body>
                 <Header {...props} />
                 {props.content}
-                {props.isPost && props.isProduction ? <div id="disqus_thread" /> : null}
+                {props.isPost && props.isProduction ? (
+                    <div class="container" id="disqus_thread" style="margin-bottom:-8px" />
+                ) : null}
                 <Footer />
                 {props.isProduction
                     ? `
