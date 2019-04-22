@@ -44,12 +44,12 @@ export async function render(props: RenderArgs) {
                     </script>
                     <script type="text/javascript" async src="${data.scripts.mathjax}"></script>`
                     : ''}
-                {props.isPost && props.isProduction
+                {props.isPost && props.isProduction && props.attributes
                     ? `
                     <script type="text/javascript">
-                        var disqus_shortname = "{{ settings.disqus.shortname }}",
-                            disqus_identifier = "{{ postData.slug }}",
-                            disqus_title = "{{ postData.title }}";
+                        var disqus_shortname = "${data.disqus.shortname}",
+                            disqus_identifier = "${props.slug}",
+                            disqus_title = "${props.attributes.title}";
                         (function() {
                             var dsq = document.createElement("script"); dsq.type = "text/javascript"; dsq.async = true;
                             dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";

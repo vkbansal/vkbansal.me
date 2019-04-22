@@ -85,6 +85,7 @@ export class StaticSiteBuilder {
                         type: PageType.POST,
                         content,
                         attributes: file.attributes!,
+                        slug: path.basename(file.url),
                         url: file.url,
                         rawPath: file.rawPath,
                         writtenToDisk: false
@@ -111,6 +112,7 @@ export class StaticSiteBuilder {
             posts: [...this.posts.values()],
             assets: this.assest,
             content: '',
+            slug: '',
             attributes: file.attributes,
             url: file.url,
             rawPath: file.rawPath,
@@ -193,6 +195,7 @@ export class StaticSiteBuilder {
                     attributes: page.attributes,
                     rawPath: page.rawPath,
                     isProduction,
+                    slug: '',
                     isPost: false
                 }));
 
@@ -222,6 +225,7 @@ export class StaticSiteBuilder {
                 assets: this.assest,
                 url,
                 rawPath: post.rawPath,
+                slug: post.slug,
                 isProduction,
                 isPost: true
             });
@@ -234,6 +238,7 @@ export class StaticSiteBuilder {
                     content: postContent.toString(),
                     assets: this.assest,
                     url,
+                    slug: post.slug,
                     rawPath: post.rawPath,
                     isProduction,
                     isPost: true
@@ -316,6 +321,7 @@ export class StaticSiteBuilder {
             assets: this.assest,
             isProduction,
             isPost: false,
+            slug: '',
             attributes: {} as any,
             url: '',
             rawPath: ''
@@ -328,6 +334,7 @@ export class StaticSiteBuilder {
             assets: this.assest,
             isProduction,
             isPost: true,
+            slug: '',
             attributes: {
                 author: { name: '', site: '' },
                 date: new Date(),

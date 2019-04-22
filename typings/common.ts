@@ -30,6 +30,7 @@ export interface BaseFileContents<T = any> {
 export interface PostContents extends BaseFileContents<MDFileAttributes> {
     type: PageType.POST;
     content: string;
+    slug: string;
     writtenToDisk: boolean;
 }
 
@@ -51,6 +52,7 @@ export interface RenderArgs extends BaseFileContents<MDFileAttributes | undefine
     content: string;
     isProduction: boolean;
     isPost: boolean;
+    slug: string;
 }
 
 export interface Page {
