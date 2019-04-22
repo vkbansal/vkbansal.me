@@ -36,7 +36,7 @@ After some googling and tinkering around with `RegExp`s, I finally found a solut
 
 The above solution works flawlessly as per my requirements. Basically the regex looks for a digit which is followed by digits (in groups of two) followed by a digit and a decimal point.
 
-![Format Regex](./images/2016/format-money-regex.png)
+![Format Regex](./images/format-money-regex.png)
 
 <!--{.img-center}-->
 

@@ -43,10 +43,9 @@ addPlugin(showLanguage);
 
 import { MDFileAttributes } from '../../typings/common';
 
-export const BLOG_REGEX = /^\/?blog/;
+export const BLOG_REGEX = /^\/?blog\/\d{4}/;
 export const INDEX_FILES_REGEX = /(index|readme)/i;
 export const PAGES_REGEX = /^pages/;
-export const POST_REGEX = /^(\d{4}-\d{2}-\d{2})-([\w-]+)$/;
 
 export function getURL(dir: string, name: string) {
     let url = dir.replace(PAGES_REGEX, '');
@@ -72,18 +71,11 @@ export function getURL(dir: string, name: string) {
          */
     }
 
-    const match = finalIdentifier.match(POST_REGEX);
-
-    if (match && !BLOG_REGEX.test(url)) {
-        throw new Error(`${path.join(dir, name)} follows invalid naming schema`);
+    if (BLOG_REGEX.test(url)) {
+        url = url.replace(BLOG_REGEX, '/blog');
     }
 
-    if (match) {
-        const [, , slug] = match;
-        finalIdentifier = slug;
-    }
-
-    return `${url}/${finalIdentifier}/`;
+    return `${url}/${finalIdentifier}/`.replace(/\/+$/, '/');
 }
 
 export function isProduction() {

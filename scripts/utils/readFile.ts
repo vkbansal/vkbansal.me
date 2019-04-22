@@ -31,11 +31,11 @@ export async function readFile(filePath: string): Promise<AllFileContent> {
             return tsFileContents;
         case '.md':
             const mdContents = renderMarkdown(fs.readFileSync(absPath, 'utf8'));
-            const isPost = BLOG_REGEX.test(url);
+            const isPost = BLOG_REGEX.test(dir);
 
             if (isPost && !mdContents.attributes) {
                 throw new Error(
-                    `${filePath} is a post, but does not have attributed defined in header`
+                    `${filePath} is a post, but does not have attributes defined in header`
                 );
             }
 
