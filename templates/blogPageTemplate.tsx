@@ -5,6 +5,7 @@ import { RenderArgs } from '../typings/common';
 import { html } from '../scripts/html';
 import { useStyles } from '../scripts/useStyles';
 import { Tags } from './partials/Tags';
+import data from './data.json';
 
 export async function render(props: RenderArgs) {
     const styles = await useStyles(blogStyles);
@@ -25,7 +26,17 @@ export async function render(props: RenderArgs) {
                 on {formatDate(attributes.date, 'MMMM do, yyyy')}{' '}
             </div>
             <div class={styles['content']}>{props.content}</div>
-            <Tags tags={attributes.tag} />
+            <div class={styles['meta']}>
+                <Tags cutsomClass={styles['tags']} tags={attributes.tag} />
+                <div class={styles['discussion']}>
+                    <a
+                        class={styles['github']}
+                        href={`${data.repository}tree/master/${props.rawPath}`}
+                        target="_blank">
+                        Edit on GitHub
+                    </a>
+                </div>
+            </div>
             <div class={styles['recent-posts']}>
                 <h4>Recent Posts</h4>
                 <div class={styles['posts']}>
@@ -78,14 +89,49 @@ const blogStyles = `
 
     & .content {
         padding-bottom: 28px;
-        margin-bottom: 28px;
         border-bottom: 1px solid $color-divider;
     }
 
-    & .recent-posts {
+    & .meta {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
         padding: 28px 0;
-        margin-top: 28px;
-        border-top: 1px solid $color-divider;
+    }
+
+    & .tags {
+        padding: 4px 0;
+    }
+
+    & .discussion {
+        justify-self: end;
+
+        & > a {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        & .github {
+            color: $color-dark;
+            padding: 4px 8px;
+            border: 1px solid $color-divider;
+            border-radius: 4px;
+
+            &::before {
+                content: '';
+                width: 18px;
+                height: 18px;
+                margin-right: 4px;
+                display: inline-block;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-image: url(images/github.svg);
+            }
+        }
+
+    }
+
+    & .recent-posts {
+        padding-bottom: 28px;
 
         & .posts {
             display: grid;

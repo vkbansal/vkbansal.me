@@ -83,11 +83,7 @@ async function BlogPage(props: BlogPageProps): Promise<string> {
         <div class="container">
             <section class="articles">
                 {props.posts.map(post => (
-                    <ArticlePreview
-                        post={post}
-                        isProduction={props.isProduction}
-                        showTags={false}
-                    />
+                    <ArticlePreview post={post} isProduction={props.isProduction} showTags={true} />
                 ))}
             </section>
             <Pagination

@@ -17,7 +17,8 @@ import {
     scss,
     sql,
     css,
-    bash
+    bash,
+    php
 } from 'illuminate-js/lib/languages';
 import { showLanguage } from 'illuminate-js/lib/plugins/showLanguage';
 import { DefaultTreeElement } from 'parse5';
@@ -38,6 +39,7 @@ addLanguage('md', mdLang);
 addLanguage('sql', sql);
 addLanguage('bash', bash);
 addLanguage('sh', bash);
+addLanguage('php', php);
 
 addPlugin(showLanguage);
 

@@ -78,7 +78,7 @@ const footerStyles = `
         display: block;
         justify-self: center;
 
-        &:before {
+        &::before {
             content: '';
             width: 18px;
             height: 24px;
@@ -93,7 +93,7 @@ const footerStyles = `
         &.twitter {
             color: $brand-twitter-blue;
 
-            &:before {
+            &::before {
                 background-image: url(images/twitter.svg);
             }
         }
@@ -101,7 +101,7 @@ const footerStyles = `
         &.github {
             color: $brand-github-dark-grey;
 
-            &:before {
+            &::before {
                 background-image: url(images/github.svg);
             }
         }
@@ -109,7 +109,7 @@ const footerStyles = `
         &.codepen {
             color: #222;
 
-            &:before {
+            &::before {
                 background-image: url(images/codepen.svg);
             }
         }
@@ -117,7 +117,7 @@ const footerStyles = `
         &.linkedin {
             color: $brand-linkedin-blue;
 
-            &:before {
+            &::before {
                 background-image: url(images/linkedin.svg);
                 height: 26px;
             }
@@ -126,7 +126,7 @@ const footerStyles = `
         &.npm {
             color: $brand-npm-red;
 
-            &:before {
+            &::before {
                 background-image: url(images/npm.svg);
                 width: 32px;
                 margin-right: 2px;

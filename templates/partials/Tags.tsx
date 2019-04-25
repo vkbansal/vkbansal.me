@@ -1,15 +1,19 @@
+import cx from 'classnames';
+
 import { html } from '../../scripts/html';
 import { useStyles } from '../../scripts/useStyles';
 
 export interface TagsProps {
     tags: string[];
+    cutsomClass?: string;
 }
 
-export async function Tags({ tags }: TagsProps) {
+export async function Tags(props: TagsProps) {
     const styles = await useStyles(tagStyles);
-
+    const { tags, cutsomClass } = props;
     return (
-        <div class={styles['tags']}>
+        <div class={cx(styles['tags'], cutsomClass)}>
+            <span class={styles['title']}>Labels</span>
             {tags.map(tag => (
                 <a class={styles['tag-link']} href={`/blog/label/${tag}`}>
                     {tag}
@@ -23,16 +27,19 @@ const tagStyles = /* css */ `
 @import "variables.scss";
 
 .tags {
-    display: flex;
+    & .title {
+        font-weight: bold;
 
-    & .tag-link {
-        display: inline-flex;
-        color: darken($color-grey, 30%);
-        font-size: 0.8rem;
-        margin-right: 8px;
-        padding: 5px 10px;
-        background: lighten($color-grey, 30%);
-        text-decoration: none;
+        &::after {
+            content: ":";
+            margin-right: 4px;
+        }
+    }
+
+    & .tag-link:not(:last-child)::after {
+        content: ",";
+        color: $color-dark;
+        margin-right: 4px;
     }
 }
 `;
