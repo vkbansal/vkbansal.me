@@ -6,7 +6,7 @@
     NODE_VERSION = "v11.13.0"
 
 [[redirects]]
-    from = "/sqlite-wasm-demo/"
-    to = "https://serene-turing-b9ae53.netlify.com/"
+    from = "/sqlite-wasm-demo/*"
+    to = "https://serene-turing-b9ae53.netlify.com/:splat"
     status = 200
     force = true
