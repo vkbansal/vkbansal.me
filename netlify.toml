@@ -7,6 +7,6 @@
 
 [[redirects]]
     from = "/sqlite-wasm-demo/*"
-    to = "https://serene-turing-b9ae53.netlify.com/:splat"
+    to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
     status = 200
     force = true
