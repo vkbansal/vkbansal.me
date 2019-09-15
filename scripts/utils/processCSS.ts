@@ -24,9 +24,9 @@ const scope = Scope({
 
 const extractAssets = postcss.plugin('postcss-extract-assets', () => {
     return function(root) {
-        root.each(node => {
+        root.each((node) => {
             if (node.type == 'rule') {
-                node.each(decl => {
+                node.each((decl) => {
                     if (decl.type == 'decl' && decl.value.startsWith('url(')) {
                         const [, srcPath] = decl.value.match(/url\((.*)\)/) || ['', ''];
                         const newPath = fileLoader(
@@ -47,9 +47,9 @@ export async function processCSS(data: string, mode: 'local' | 'global' = 'local
 
         const extractExports = postcss.plugin('postcss-extract-imports', () => {
             return function(root) {
-                root.each(node => {
+                root.each((node) => {
                     if (node.type === 'rule' && node.selector === ':export') {
-                        node.each(decl => {
+                        node.each((decl) => {
                             if (decl.type === 'decl') {
                                 exportTokens[decl.prop] = decl.value;
                             }
@@ -60,13 +60,21 @@ export async function processCSS(data: string, mode: 'local' | 'global' = 'local
             };
         });
 
-        const postCSSPlugins = [localByDefault({ mode }), scope, extractExports, extractAssets];
+        const postCSSPlugins: postcss.AcceptedPlugin[] = [
+            (localByDefault({ mode }) as unknown) as postcss.Transformer,
+            (scope as unknown) as postcss.Transformer,
+            extractExports,
+            extractAssets
+        ];
 
         if (isProduction()) {
-            postCSSPlugins.push(cssNano);
+            postCSSPlugins.push((cssNano as unknown) as postcss.Plugin<cssNano.CssNanoOptions>);
         }
 
-        const css = sass.renderSync({ data, includePaths: [path.join(process.cwd(), 'styles')] });
+        const css = sass.renderSync({
+            data,
+            includePaths: [path.join(process.cwd(), 'styles')]
+        });
         const parser = postcss(postCSSPlugins);
         const result = await parser.process(css.css, { from: undefined });
 
