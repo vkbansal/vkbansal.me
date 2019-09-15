@@ -4,3 +4,9 @@
 
 [build.environment]
     NODE_VERSION = "v11.13.0"
+
+[[redirects]]
+    from = "/sqlite-wasm-demo/"
+    to = "https://serene-turing-b9ae53.netlify.com/"
+    status = 200
+    force = true
