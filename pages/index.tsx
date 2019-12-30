@@ -25,9 +25,9 @@ export async function render(props: RenderArgs) {
                 <div class={styles['about']}>
                     <h3>About</h3>
                     <p>
-                        Im an UI Engineer II at{' '}
-                        <a href="https://flipkart.com" target="_blank">
-                            Flipkart, Bengaluru
+                        Im a Staff Software Enginner (UI) at{' '}
+                        <a href="https://harness.io" target="_blank">
+                            Harness R&D Labs Pvt. Ltd., Bengaluru
                         </a>
                         . I enjoy exploring and learning new technologies. I’m an active proponent
                         of Modern JavaScript, CSS3 and HTML5.{' '}
@@ -44,7 +44,7 @@ export async function render(props: RenderArgs) {
             </section>
             <section class="container">
                 <h2 class={styles['blog-heading']}>Latest from Blog</h2>
-                {postsToRender.map(post => (
+                {postsToRender.map((post) => (
                     <ArticlePreview
                         post={post}
                         isProduction={props.isProduction}
