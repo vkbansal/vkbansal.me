@@ -27,7 +27,7 @@ export async function render(props: RenderArgs) {
                     <p>
                         Im a Staff Software Enginner (UI) at{' '}
                         <a href="https://harness.io" target="_blank">
-                            Harness R&D Labs Pvt. Ltd., Bengaluru
+                            Harness R&D Labs India Pvt. Ltd., Bengaluru
                         </a>
                         . I enjoy exploring and learning new technologies. I’m an active proponent
                         of Modern JavaScript, CSS3 and HTML5.{' '}
