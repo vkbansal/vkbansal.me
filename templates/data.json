@@ -1,65 +1,19 @@
 {
-    "title": "Vivek Kumar Bansal, UI Engineer, ❤️ JS and React. 🍕, 😴, 💻, ♺",
-    "site": "https://vkbansal.me/",
-    "repository": "https://github.com/vkbansal/vkbansal.me/",
-    "disqus": {
-        "shortname": "vkbansal"
-    },
-    "ga": {
-        "token": "UA-54521168-1"
-    },
-    "scripts": {
-        "mathjax": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"
-    },
-    "nav": [
-        { "title": "Blog", "link": "/blog/", "external": false },
-        { "title": "Contact", "link": "mailto:contact@vkbansal.me", "external": true },
-        { "title": "RSS", "link": "/feed.xml", "external": true }
-    ],
-    "social": {
-        "rss": {
-            "name": "RSS",
-            "link": "http://feeds.feedburner.com/vkbansal",
-            "follow": true,
-            "footer": false,
-            "share": false
-        },
-        "twitter": {
-            "name": "Twitter",
-            "link": "http://twitter.com/_vkbansal",
-            "username": "_vkbansal",
-            "follow": true,
-            "footer": true,
-            "share": true
-        },
-        "github": {
-            "name": "GitHub",
-            "link": "https://github.com/vkbansal",
-            "username": "vkbansal",
-            "follow": true,
-            "footer": true,
-            "share": false
-        },
-        "codepen": {
-            "name": "CodePen",
-            "link": "http://codepen.io/vkbansal/",
-            "follow": false,
-            "footer": true,
-            "share": false
-        },
-        "linkedin": {
-            "name": "LinkedIn",
-            "link": "https://in.linkedin.com/in/vkbansal03",
-            "follow": false,
-            "share": true,
-            "footer": true
-        },
-        "npm": {
-            "name": "npm",
-            "link": "https://www.npmjs.com/~vkbansal",
-            "follow": false,
-            "share": false,
-            "footer": true
-        }
-    }
+  "title": "Vivek Kumar Bansal, UI Engineer, ❤️ JS and React. 🍕, 😴, 💻, ♺",
+  "site": "https://vkbansal.me/",
+  "repository": "https://github.com/vkbansal/vkbansal.me/",
+  "disqus": {
+    "shortname": "vkbansal"
+  },
+  "ga": {
+    "token": "UA-54521168-1"
+  },
+  "scripts": {
+    "mathjax": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"
+  },
+  "nav": [
+    { "title": "Blog", "link": "/blog/", "external": false },
+    { "title": "Contact", "link": "mailto:contact@vkbansal.me", "external": true },
+    { "title": "RSS", "link": "/feed.xml", "external": true }
+  ]
 }

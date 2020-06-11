@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{data.title}</title>
+    <meta name="description" content={site.title} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <header class='header'>
+      <div class='container'>
+          <a href="/" class="logo" title="Home Page" />
+          <ul class='nav-menu'>
+          {% for link in site.nav %}
+            <li class='link-container'>
+              <a href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+                  {{ link.title }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+      </div>
+    </header>
+    {{ content | safe }}
+  </body>
+</html>

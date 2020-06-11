@@ -1,0 +1,44 @@
+.resume {
+  @media print {
+    font-size: 12px;
+  }
+
+  .experience {
+    margin-bottom: 30px;
+
+    & h4 {
+      margin-bottom: 8px;
+    }
+
+    & ul {
+      margin-bottom: 0;
+    }
+  }
+
+  .position {
+    display: grid;
+    grid-template-columns: [company] 1fr [date] 1fr;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .company {
+    grid-column: company;
+  }
+
+  .date {
+    grid-column: date;
+    text-align: right;
+  }
+}
+
+.page-break {
+  @media all {
+    display: none;
+  }
+
+  @media print {
+    display: block;
+    page-break-before: always;
+  }
+}
