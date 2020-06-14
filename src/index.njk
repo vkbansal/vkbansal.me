@@ -1,0 +1,43 @@
+---
+layout: main
+---
+<section class="container">
+  <figure class="image is-128x128">
+    <img class="is-rounded" src="/img/mypic.png" alt="profile-pic" />
+  </figure>
+  <div class={styles['text']}>
+    <h1>Vivek Kumar Bansal</h1>
+    <h2>
+        UI Engineer. I <span class="red">❤</span> making stuff.
+    </h2>
+  </div>
+  <div class={styles['about']}>
+    <h3>About</h3>
+    <p>
+        Im a Staff Software Enginner (UI) at{' '}
+        <a href="https://harness.io" target="_blank">
+            Harness R&D Labs India Pvt. Ltd., Bengaluru
+        </a>
+        . I enjoy exploring and learning new technologies. I’m an active proponent
+        of Modern JavaScript, CSS3 and HTML5.{' '}
+        <strong>
+            I <span class="red">❤</span> Open Source
+        </strong>{' '}
+        and actively contribute on
+        <a href={data.social.github.link} target="_blank">
+            GitHub
+        </a>
+        .
+    </p>
+  </div>
+</section>
+<section class="container">
+  <h2 class={styles['blog-heading']}>Latest from Blog</h2>
+  {postsToRender.map((post) => (
+      <ArticlePreview
+          post={post}
+          isProduction={props.isProduction}
+          showTags={false}
+      />
+  ))}
+</section>

@@ -1,0 +1,13 @@
+---
+layout: main
+---
+<div class="container blog-post">
+  <h1>{{ title }}</h1>
+  <div class="blog-post-info">
+    <p>Published at {{ date | formatDate('MMMM do yyyy') }}</p>
+    {# <p>Author: {% if author.website %} <a href="{{ author.website }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a> {% else %} {{ author.name }} {% endif %}</p> #}
+  </div>
+  <div class="content">
+  {{ content | safe }}
+  </div>
+</div>

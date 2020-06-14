@@ -1,0 +1,10 @@
+@import 'variables';
+
+.navbar {
+  border-bottom: 1px solid $border; // map-get($my-colors, 'divider');
+  padding: 0.5rem 0;
+
+  .navbar-brand > .navbar-item > img {
+    height: $navbar-item-img-max-height;
+  }
+}

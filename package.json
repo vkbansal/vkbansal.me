@@ -1,19 +1,29 @@
 {
-    "name": "vkbansal.me",
-    "description": "Site for Vivek Kumar Bansal",
-    "version": "2.0.0",
-    "private": true,
-    "scripts": {
-        "build": "rimraf public && cross-env NODE_ENV=production ts-node scripts/build.ts",
-        "start": "eleventy --serve --port=3000",
-        "dryrun": "yarn build --dryrun"
-    },
-    "dependencies": {},
-    "devDependencies": {
-        "@11ty/eleventy": "^0.11.0",
-        "js-yaml": "^3.14.0",
-        "prettier": "^2.0.5",
-        "rimraf": "^3.0.2",
-        "sass": "^1.26.8"
-    }
+  "name": "vkbansal.me",
+  "description": "Site for Vivek Kumar Bansal",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "NODE_ENV=production gulp",
+    "start": "gulp watch",
+    "dryrun": "yarn build --dryrun"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "bulma": "^0.9.0",
+    "date-fns": "^2.14.0",
+    "gulp": "^4.0.2",
+    "http-server": "^0.12.3",
+    "js-yaml": "^3.14.0",
+    "markdown-it": "^11.0.0",
+    "plugin-error": "^1.0.1",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.8",
+    "shiki": "^0.1.7",
+    "through2": "^3.0.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "vinyl": "^2.2.0"
+  }
 }

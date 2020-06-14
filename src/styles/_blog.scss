@@ -1,0 +1,15 @@
+.blog-post {
+  margin: 0 auto;
+  max-width: 70ch;
+  padding-bottom: 3rem;
+
+  & > h1 {
+    @extend .is-size-2;
+    font-weight: bold;
+  }
+
+  &-info {
+    opacity: 0.75;
+    margin-bottom: 1rem;
+  }
+}

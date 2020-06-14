@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.title }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}">
+  </head>
+  <body>
+    <header class='header'>
+      <div class='container'>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a href="/" class="navbar-item" title="Home Page">
+              <img src="{{ '/img/logo.svg' | hash }}" />
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+          <div class="navbar-menu">
+            <div class="navbar-end">
+            {% for link in site.nav %}
+              <a class="navbar-item" href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+                  {{ link.title }}
+              </a>
+            {% endfor %}
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    {{ content | safe }}
+     <footer class="footer">
+      <div class="container content">
+        <div class='social'>
+          {% for link in site.social %}
+            <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
+              {{ link.name }}
+            </a>
+          {% endfor %}
+        </div>
+        <p>
+            &copy; {{ page.date.getFullYear() }} <a href="/">Vivek Kumar Bansal</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
