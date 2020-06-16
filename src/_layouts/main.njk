@@ -38,17 +38,19 @@
     </header>
     {{ content | safe }}
      <footer class="footer">
-      <div class="container content">
+      <div class="container">
+        <p>&copy; {{- page.date.getFullYear() }} <a href="/">Vivek Kumar Bansal</a></p>
         <div class="social">
-          {% for link in site.social %}
-            <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
-              {{ link.name }}
+          {% for _key, link in site.social -%}
+            {% if link.footer %}
+            <a href="{{ link.link }}" data-name="{{_key}}" target="_blank" rel="noopener noreferrer">
+              <img class="image {{ 'is-32x32' if _key === 'npm' else 'is-24x24' }}" src={{ link.img }}/>
+              <span class="is-sr-only">{{- link.name -}}</span>
             </a>
+            {% endif %}
           {% endfor %}
         </div>
-        <p>
-            &copy; {{ page.date.getFullYear() }} <a href="/">Vivek Kumar Bansal</a>
-        </p>
+
       </div>
     </footer>
   </body>

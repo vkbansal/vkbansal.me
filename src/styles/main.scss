@@ -59,7 +59,7 @@
 /* layout */
 // @import "~bulma/sass/layout/hero.sass";
 // @import '~bulma/sass/layout/section.sass';
-@import '~bulma/sass/layout/footer.sass';
+// @import '~bulma/sass/layout/footer.sass';
 
 .pagination-previous[disabled],
 .pagination-next[disabled],
@@ -76,4 +76,4 @@ a.navbar-item.is-active {
 @import './homepage';
 @import './blog';
 @import './code';
-@import './utility';
+@import './footer';
