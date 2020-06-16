@@ -6,12 +6,21 @@ $my-colors: (
   primary: #f44336
 );
 
+$container: 960px;
+
 /**
  * https://bulma.io/documentation/customize/variables/
  */
 $primary: map-get($my-colors, 'primary');
 $link: map-get($my-colors, 'primary');
-$desktop: 960px;
-$fullhd: 960px;
+$desktop: $container;
+$fullhd: $container;
+$widescreen: $container;
 $family-sans-serif: 'Nunito', sans-serif;
 $family-monospace: 'Fira Code', monospace;
+$grey-light: hsl(0, 0, 57%);
+$navbar-item-active-color: $primary;
+$pagination-color: $primary;
+$pagination-border-color: adjust-color($primary, $alpha: -0.7);
+$pagination-hover-color: $primary;
+$pagination-hover-border-color: $primary;

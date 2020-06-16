@@ -18,6 +18,12 @@ function images() {
   return src(IMG_GLOBS).pipe(gulpIf(PROD, hash())).pipe(dest('public'));
 }
 
+function files() {
+  return src(['src/favicon.ico', 'src/feed.xml', 'src/pages.xml', 'src/robots.txt']).pipe(
+    dest('public')
+  );
+}
+
 function compileSass() {
   return src('src/styles/main.scss')
     .pipe(sass())

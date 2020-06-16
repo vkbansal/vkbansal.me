@@ -8,37 +8,91 @@ pagination:
   alias: posts
 ---
 
-<div class="container">
+{% macro link(pageNum) %}
+{% set active = page.url === pagination.hrefs[pageNum - 1]%}
+<li>
+  <a class="pagination-link {{ 'is-current' if active }}" aria-label="Goto page {{ pageNum }}" href="{{ pagination.hrefs[pageNum - 1] }}">
+    {{ pageNum }}
+  </a>
+</li>
+{% endmacro %}
+
+<div class="container blog-list">
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/">🏠</a></li>
+      <li class="is-active"><a href="#" aria-current="page">Blog</a></li>
+    </ul>
+  </nav>
   {% for post in posts %}
-  <div>
-    <a href="{{ post.url }}">{{ post.data.title }}</a>
-  </div>
+    {% include "partials/article-preview.njk" %}
   {% endfor %}
-  <nav class="pagination is-centered is-small" role="navigation" aria-label="pagination">
-    <a
-      class="pagination-previous"
-      href="{{ pagination.href.previous }}"
-      {%
-      if
-      not
-      pagination.href.previous
-      %}disabled{%
-      endif%}
-      >Previous</a
-    >
-    <a class="pagination-next" href="{{ pagination.href.next }}">Next page</a>
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    <a class="pagination-previous"
+      href="{{ pagination.href.previous if pagination.href.previous else '#' }}"
+      {{ 'disabled' if not pagination.href.previous }}> &larr; Prev</a>
+    <a class="pagination-next"
+      href="{{ pagination.href.next if pagination.href.next else '#' }}"
+      {{ 'disabled' if not pagination.href.next }}>Next &rarr;</a>
+
     <ul class="pagination-list">
-      {% for page in pagination.pages %}
-      <li>
-        <a
-          class="pagination-link{% if page.url == pagination.hrefs[loop.index0] %} is-current {% endif %}"
-          aria-label="Goto page {{ loop.index }}"
-          href="{{ pagination.hrefs[loop.index0] }}"
-        >
-          {{ loop.index }}</a
-        >
-      </li>
-      {% endfor %}
+    {% set totalPages = pagination.pages | length %}
+    {% set groupSize = 3 %}
+    {% set offsetGroupSize = 1 %}
+    {% set currentPage = pagination.pageNumber + 1 %}
+    {% if totalPages > 1 %}
+      {% if  totalPages <= groupSize + (2 * offsetGroupSize) %}
+
+        {% for _page in pagination.pages %}
+          {{ link(loop.index, pagination.hrefs[loop.index0], page.url === pagination.hrefs[loop.index0]) }}
+        {% endfor %}
+
+      {% else %}
+
+        {% set moreLeft = currentPage > groupSize %}
+        {% set moreRight = totalPages - currentPage >= groupSize %}
+
+        {% if moreLeft %}
+
+          {% for i in range(0, offsetGroupSize) %}
+            {{ link(i + 1) }}
+          {% endfor %}
+          <span class="pagination-ellipsis">&hellip;</span>
+
+        {% else %}
+
+          {% for i in range(0, offsetGroupSize + groupSize) %}
+            {{ link(i + 1)}}
+          {% endfor %}
+
+        {% endif %}
+
+        {% if moreLeft and moreRight %}
+
+          {% for i in range(0, groupSize) %}
+            {{ link(i + currentPage - ((groupSize / 2) | round(0, 'floor'))) }}
+          {% endfor %}
+
+        {% endif %}
+
+        {% if moreRight %}
+
+          <span class="pagination-ellipsis">&hellip;</span>
+          {% for i in range(0, offsetGroupSize) %}
+            {{ link(i + totalPages) }}
+          {% endfor %}
+
+        {% else %}
+
+          {% for i in range(0, offsetGroupSize + groupSize) %}
+            {{ link(i + totalPages - groupSize) }}
+          {% endfor %}
+
+        {% endif %}
+
+      {% endif %}
+
+    {% endif %}
     </ul>
   </nav>
 </div>

@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}">
   </head>
   <body>
-    <header class='header'>
-      <div class='container'>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+    <header class="header">
+      <div class="container">
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <a href="/" class="navbar-item" title="Home Page">
               <img src="{{ '/img/logo.svg' | hash }}" />
@@ -26,7 +26,8 @@
           <div class="navbar-menu">
             <div class="navbar-end">
             {% for link in site.nav %}
-              <a class="navbar-item" href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+              {% set active = page.url | startsWith(link.to)%}
+              <a class="navbar-item {% if active %}is-active{% endif %}" href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
                   {{ link.title }}
               </a>
             {% endfor %}
@@ -38,7 +39,7 @@
     {{ content | safe }}
      <footer class="footer">
       <div class="container content">
-        <div class='social'>
+        <div class="social">
           {% for link in site.social %}
             <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">
               {{ link.name }}

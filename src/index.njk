@@ -1,43 +1,28 @@
 ---
 layout: main
 ---
-<section class="container">
+<div class="container home-page">
   <figure class="image is-128x128">
-    <img class="is-rounded" src="/img/mypic.png" alt="profile-pic" />
+    <img class="is-rounded" src="{{ '/img/mypic.png' | hash }}" alt="profile-pic" />
   </figure>
-  <div class={styles['text']}>
-    <h1>Vivek Kumar Bansal</h1>
-    <h2>
-        UI Engineer. I <span class="red">❤</span> making stuff.
-    </h2>
-  </div>
-  <div class={styles['about']}>
+  <section class="intro">
+    <h1 class="title is-1 is-spaced">Vivek Kumar Bansal</h1>
+    <h2 class="subtitle is-3">I <span class="has-text-primary">❤</span> building things using web technologies.</h2>
+  </section>
+  <section class="about content">
     <h3>About</h3>
     <p>
-        Im a Staff Software Enginner (UI) at{' '}
-        <a href="https://harness.io" target="_blank">
-            Harness R&D Labs India Pvt. Ltd., Bengaluru
-        </a>
-        . I enjoy exploring and learning new technologies. I’m an active proponent
-        of Modern JavaScript, CSS3 and HTML5.{' '}
-        <strong>
-            I <span class="red">❤</span> Open Source
-        </strong>{' '}
-        and actively contribute on
-        <a href={data.social.github.link} target="_blank">
-            GitHub
-        </a>
-        .
+      I'm working as a Staff Software Enginner (UI) at <a href="https://harness.io" target="_blank">Harness R&D Labs India Pvt. Ltd., Bengaluru</a>.
+      I enjoy exploring and learning new technologies. I’m an active proponent of TypeScript and type-safety.
     </p>
-  </div>
-</section>
-<section class="container">
-  <h2 class={styles['blog-heading']}>Latest from Blog</h2>
-  {postsToRender.map((post) => (
-      <ArticlePreview
-          post={post}
-          isProduction={props.isProduction}
-          showTags={false}
-      />
-  ))}
-</section>
+    <p>
+      <strong>I <span class="has-text-primary">❤</span> Open Source</strong> and actively contribute on <a href="{{ site.social.github.link }}" target="_blank">{{ site.social.github.name }}</a>.
+    </p>
+  </section>
+  <section class="recent-posts content">
+    <h3 class="title blog-heading">Latest from Blog</h3>
+    {% for post in collections.posts | reverse | slice(5) | first %}
+      {% include "partials/article-preview.njk" %}
+    {% endfor %}
+  </section>
+</div>

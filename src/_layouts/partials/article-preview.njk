@@ -1,0 +1,8 @@
+<a href="{{ post.url }}" class="article-preview">
+  <div class="date has-text-grey-light">
+    {{ post.data.date | formatDate('MMMM do yyyy') }}
+  </div>
+  <h3 class="title">{{ post.data.title | safe }}</h3>
+  <p>{{ post.data.description }}</p>
+  <p class="has-text-primary">Read More...</p>
+</a>

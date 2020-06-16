@@ -34,6 +34,14 @@ module.exports = (eleventyConfig) => {
     return dateFns.format(value, format);
   });
 
+  eleventyConfig.addNunjucksFilter('startsWith', function (value, str) {
+    return value.startsWith(str);
+  });
+
+  eleventyConfig.addNunjucksFilter('_slice', function (value, start, end) {
+    return value.slice(start, end);
+  });
+
   eleventyConfig.addCollection('posts', function (collectionApi) {
     return collectionApi.getFilteredByGlob(['src/blog/**/*.md']);
   });
@@ -46,6 +54,7 @@ module.exports = (eleventyConfig) => {
     dir: {
       input: INPUT_DIR,
       output: 'public',
+      includes: '_layouts',
       layouts: '_layouts',
       templateFormats: ['njk', 'md', '11ty.js'],
       markdownTemplateEngine: 'nunjucks'

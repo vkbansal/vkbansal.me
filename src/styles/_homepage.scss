@@ -1,0 +1,30 @@
+@import 'variables.scss';
+
+.home-page {
+  .image {
+    margin: 3rem auto 1rem;
+
+    & img {
+      box-shadow: 0 0 0 6px $primary;
+    }
+  }
+
+  .intro {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .about {
+    padding: 1.5rem 0;
+  }
+
+  .recent-posts {
+    margin-bottom: 3rem;
+  }
+
+  .blog-heading {
+    border-bottom: 1px solid $border;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+  }
+}

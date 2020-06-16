@@ -2,12 +2,19 @@
 layout: main
 ---
 <div class="container blog-post">
-  <h1>{{ title }}</h1>
-  <div class="blog-post-info">
-    <p>Published at {{ date | formatDate('MMMM do yyyy') }}</p>
-    {# <p>Author: {% if author.website %} <a href="{{ author.website }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a> {% else %} {{ author.name }} {% endif %}</p> #}
-  </div>
-  <div class="content">
-  {{ content | safe }}
-  </div>
+ <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="/">🏠</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li class="is-active"><a href="#" aria-current="page">{{ title }}</a></li>
+    </ul>
+  </nav>
+  <section class="content">
+    <h1>{{ title }}</h1>
+    <div class="blog-post-info">
+      <p>Published at {{ date | formatDate('MMMM do yyyy') }}</p>
+      {# <p>Author: {% if author.website %} <a href="{{ author.website }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a> {% else %} {{ author.name }} {% endif %}</p> #}
+    </div>
+    {{ content | safe }}
+  </section>
 </div>

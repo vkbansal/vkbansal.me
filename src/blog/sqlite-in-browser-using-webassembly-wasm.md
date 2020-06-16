@@ -16,7 +16,7 @@ Yes you read it right. I repeat **"YOU CAN NOW RUN AUTOCAD IN YOUR BROWSER!"**
 
 This is the current support for WebAssembly.
 
-<iframe src="https://caniuse.bitsofco.de/embed/index.html?feat=wasm&amp;periods=future_1,current,past_1,past_2&amp;accessible-colours=false" frameborder="0" width="100%" height="420px" kwframeid="9"></iframe>
+<iframe src="https://caniuse.bitsofco.de/embed/index.html?feat=wasm&amp;periods=future_1,current,past_1,past_2&amp;accessible-colours=false" frameborder="0" width="100%" height="380px" kwframeid="9" sandbox="allow-scripts"></iframe>
 
 I wanted to experiment with WebAssembly myself and started to research (read google 😉) about it.
 I was looking to use some native library that I'm already familiar with. This is when, I came across [sql.js](https://github.com/kripken/sql.js/).
