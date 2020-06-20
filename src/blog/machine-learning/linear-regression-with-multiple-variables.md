@@ -1,8 +1,5 @@
 ---
 title: Linear Regression with Multiple Variables
-
-  
-  
 date: 2016-05-04
 description: My notes from Machine Learning Course by Andrew Ng.
 tags:

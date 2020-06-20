@@ -96,7 +96,7 @@ rollup -c
 
 And on my first few attempts I got errors in following pattern:
 
-```
+```bash
 Module ~/react-contextmenu/node_modules/react/react.js does not export Component (imported by ~/react-contextmenu/path/to/somefile.js)
 ```
 

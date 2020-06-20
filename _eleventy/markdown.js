@@ -1,6 +1,6 @@
 const shiki = require('shiki');
 const markdownIt = require('markdown-it');
-
+const markdownItAttrs = require('markdown-it-attrs');
 const resolveHashes = require('./resolve-hashes');
 
 function escapeHtml(html) {
@@ -56,6 +56,8 @@ module.exports = function getRenderer(inputDir, hashes) {
           return code;
         }
       });
+
+      md.use(markdownItAttrs);
 
       const defaultImageRender = md.renderer.rules.image;
 

@@ -14,7 +14,7 @@ There might be situations where one might want to use different SSH keys for dif
 
 I'm assuming that we have already generated different SSH keys for `github.com` and `bitbucket.org` in `~/.ssh/`.
 
-```
+```bash
 $ cd ~/.ssh
 $ ls
 id_rsa  id_rsa.pub  github_rsa  github_rsa.pub bitbucket_rsa  bitbucket_rsa.pub
@@ -24,14 +24,14 @@ id_rsa  id_rsa.pub  github_rsa  github_rsa.pub bitbucket_rsa  bitbucket_rsa.pub
 
 Now create a `config` file in `~/.ssh`.
 
-```
+```bash
 $ cd ~/.ssh
 $ touch config
 ```
 
 And add the following lines to the file using your favorite editor.
 
-```
+```bash
 host github.com
   IdentityFile ~/.ssh/github_rsa
 host bitbucket.org

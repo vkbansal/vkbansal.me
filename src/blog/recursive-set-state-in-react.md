@@ -46,7 +46,7 @@ React.render(<SomeComponent />, document.getElementsByTagName('body')[0]);
 
 When I click `Call Jane`, I expected just the name to be updated. But as you can see below, the email also vanished.
 
-![Non-recursive Merge in ReactJS](./img/react-non-recursive-merge.gif)
+![Non-recursive Merge in ReactJS](/blog/img/react-non-recursive-merge.gif)
 
 Upon inspection, I found out that the `setState` merges states only upto single level. So the following `InitialState`
 
@@ -139,4 +139,4 @@ React.render(<SomeComponent />, document.getElementsByTagName('body')[0]);
 
 See the mixin in action below:
 
-![Recursive Merge in ReactJS](./img/react-recursive-merge.gif)
+![Recursive Merge in ReactJS](/blog/img/react-recursive-merge.gif)

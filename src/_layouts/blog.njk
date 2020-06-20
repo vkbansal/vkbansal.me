@@ -17,4 +17,22 @@ layout: main
     </div>
     {{ content | safe }}
   </section>
+  <nav class="post-pagination" role="navigation" aria-label="pagination">
+  {% set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+  {% set nextPost = collections.posts | getNextCollectionItem(page) %}
+  {% if previousPost %}
+    <a class="prev-post" href="{{ previousPost.url }}">
+      <span class="hint">&larr; Previous Post</span>{{ previousPost.data.title }}
+    </a>
+  {% else %}
+    <span></span>
+  {% endif %}
+  {% if nextPost %}
+    <a class="next-post" href="{{ nextPost.url }}">
+      <span class="hint">Next Post &rarr;</span>{{ nextPost.data.title }}
+    </a>
+  {% else %}
+    <span></span>
+  {% endif %}
+  </nav>
 </div>

@@ -2,16 +2,17 @@
   color: $text;
   display: block;
   padding: 3rem 0;
+
   &:not(:last-of-type) {
     border-bottom: 1px solid $border;
   }
 
-  .date {
+  & .date {
     font-style: italic;
     margin-bottom: 1rem;
   }
 
-  p:not(:last-of-type) {
+  & p:not(:last-of-type) {
     margin-bottom: 1rem;
   }
 }
@@ -19,11 +20,11 @@
 .blog-list {
   padding: 3rem 0;
 
-  .breadcrumb {
+  & .breadcrumb {
     margin: 0;
   }
 
-  .pagination {
+  & .pagination {
     margin: 3rem 0 0;
   }
 }
@@ -31,8 +32,16 @@
 .blog-post {
   padding: 3rem 0;
 
-  .content {
-    // padding: 3rem 0 0;
+  & .content {
+    margin: 0 auto;
+
+    & pre > code {
+      overflow: auto;
+    }
+  }
+
+  img.is-center {
+    display: block;
     margin: 0 auto;
   }
 
@@ -42,7 +51,49 @@
     margin-bottom: 1rem;
   }
 
-  iframe {
+  & iframe {
     margin-bottom: 1rem;
+  }
+
+  & .post-pagination {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & span {
+      display: block;
+      min-height: 1px;
+      min-width: 1px;
+    }
+
+    & a.prev-post,
+    & a.next-post {
+      display: inline-block;
+      // height: 5rem;
+      color: $text;
+      border: 1px solid $border;
+      padding: 0.5rem 1rem;
+      width: 49%;
+      overflow: hidden;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+
+    & .hint {
+      display: block;
+      font-size: 0.75em;
+      color: $grey-light;
+    }
+
+    & .prev-post {
+      text-align: left;
+    }
+
+    & .next-post {
+      text-align: right;
+    }
   }
 }
