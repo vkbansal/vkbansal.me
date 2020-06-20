@@ -52,7 +52,7 @@
 // @import "~bulma/sass/helpers/other.sass";
 // @import "~bulma/sass/helpers/overflow.sass";
 // @import "~bulma/sass/helpers/position.sass";
-// @import "~bulma/sass/helpers/spacing.sass";
+@import '~bulma/sass/helpers/spacing.sass';
 @import '~bulma/sass/helpers/typography.sass';
 @import '~bulma/sass/helpers/visibility.sass';
 
@@ -60,6 +60,16 @@
 // @import "~bulma/sass/layout/hero.sass";
 // @import '~bulma/sass/layout/section.sass';
 // @import '~bulma/sass/layout/footer.sass';
+
+body {
+  min-height: 100vh;
+  // display: flex;
+  // flex-direction: column;
+
+  // & > div:nth-child(2) {
+  //   flex-grow: 1;
+  // }
+}
 
 .pagination-previous[disabled],
 .pagination-next[disabled],
@@ -77,3 +87,4 @@ a.navbar-item.is-active {
 @import './blog';
 @import './code';
 @import './footer';
+@import './resume';

@@ -3,7 +3,6 @@ title: Using Eloquent outside Laravel
 date: 2015-03-05
 description: Here we take a look on using Eloquent ORM from Laravel fame outside it
 tags:
-  - post
   - eloquent
   - php
 ---

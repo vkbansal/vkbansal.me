@@ -34,6 +34,10 @@ module.exports = (eleventyConfig) => {
     return dateFns.format(value, format);
   });
 
+  eleventyConfig.addNunjucksFilter('formatDateDistanceFromNow', function (value) {
+    return dateFns.formatDistance(new Date(), value);
+  });
+
   eleventyConfig.addNunjucksFilter('startsWith', function (value, str) {
     return value.startsWith(str);
   });

@@ -1,12 +1,8 @@
 ---
 title: Trying Eloquent artisan commands outside laravel.
-
-  
-  
 date: 2015-03-19
 description: Here we take a look on using Eloquent artisan commands outside laravel.
 tags:
-  - post
   - eloquent
   - php
 ---

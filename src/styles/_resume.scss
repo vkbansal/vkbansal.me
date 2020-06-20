@@ -1,18 +1,9 @@
 .resume {
+  padding: 3rem 0;
+
   @media print {
     font-size: 12px;
-  }
-
-  .experience {
-    margin-bottom: 30px;
-
-    & h4 {
-      margin-bottom: 8px;
-    }
-
-    & ul {
-      margin-bottom: 0;
-    }
+    padding: 0;
   }
 
   .position {
