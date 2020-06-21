@@ -1,7 +1,9 @@
 .footer {
+  margin-top: var(--size-xl);
+
   .container {
     padding: 3rem 0;
-    border-top: 1px solid $border;
+    border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -15,11 +17,19 @@
       display: inline-flex;
       align-items: center;
 
+      & .image {
+        height: 1.5rem;
+      }
+
       &:not(:last-child) {
         margin-right: 1rem;
       }
 
-      &[data-name='npm'] {
+      html[data-theme='dark'] &[title='GitHub'] {
+        filter: invert(1);
+      }
+
+      &[title='npm'] {
         transform: translateY(4px);
       }
     }

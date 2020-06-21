@@ -20,7 +20,7 @@ layout: main
     </p>
   </section>
   <section class="recent-posts content">
-    <h3 class="title blog-heading">Latest from Blog</h3>
+    <h3 class="blog-heading">Latest from Blog</h3>
     {% for post in collections.posts | _slice(-5) | reverse %}
       {% include "partials/article-preview.njk" %}
     {% endfor %}

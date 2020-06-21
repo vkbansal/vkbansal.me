@@ -1,12 +1,12 @@
-<div class="article-preview">
-  <div class="date has-text-grey-light">
+<div class="article-preview content">
+  <div class="date">
     {{ post.data.date | formatDate('MMMM do yyyy') }}
   </div>
   <p>
   <a class="has-text-black" href="{{ post.url }}">
     <h3 class="title">{{ post.data.title | safe }}</h3>
     <p >{{ post.data.description | safe }}</p>
-    <p class="has-text-primary">Read More...</p>
+    <p class="read-more">Read More...</p>
   </a>
   </p>
   <p>

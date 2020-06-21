@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,28 +10,41 @@
     <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}">
   </head>
   <body>
+   <script>
+    (() => {
+      try {
+        const mql = window.matchMedia('(prefers-color-scheme: dark)');
+        const theme = localStorage.getItem('theme');
+        document.body.parentElement.dataset.theme = theme ? theme : mql.matches ? 'dark' : 'light';
+      } catch(e) {}
+    })()
+    </script>
     <header class="header">
       <div class="container">
-        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <a href="/" class="navbar-item" title="Home Page">
-              <img src="{{ '/img/logo.svg' | hash }}" />
+              {% include 'partials/logo.svg' %}
             </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <a role="button" class="navbar-burger" data-target="nav-menu" aria-label="menu" aria-expanded="false">
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
             </a>
           </div>
-          <div class="navbar-menu">
-            <div class="navbar-end">
-            {% for link in site.nav %}
-              {% set active = page.url | startsWith(link.to)%}
-              <a class="navbar-item {% if active %}is-active{% endif %}" href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
-                  {{ link.title }}
-              </a>
-            {% endfor %}
-            </div>
+          <div class="navbar-menu" id="nav-menu">
+          {% for link in site.nav %}
+            {% set active = page.url | startsWith(link.to)%}
+            <a class="navbar-item {% if active %}is-active{% endif %}" href="{{ link.to }}" title="{{ link.title }}" {% if link.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+                {{ link.title }}
+            </a>
+          {% endfor %}
+          <div class="navbar-item">
+            <label for="toggle-dark-mode" title="theme">
+              <input type="checkbox" id="toggle-dark-mode"/>
+              <span />
+            </label>
+          </div>
           </div>
         </nav>
       </div>
@@ -39,19 +52,43 @@
     {{ content | safe }}
      <footer class="footer">
       <div class="container">
-        <p>&copy; {{- page.date.getFullYear() }} <a href="/">Vivek Kumar Bansal</a></p>
+        <p>&copy; {{- page.date.getFullYear() }} Vivek Kumar Bansal</p>
         <div class="social">
           {% for _key, link in site.social -%}
             {% if link.footer %}
-            <a href="{{ link.link }}" data-name="{{_key}}" target="_blank" rel="noopener noreferrer">
+            <a href="{{ link.link }}" title="{{link.name}}" target="_blank" rel="noopener noreferrer">
               <img class="image {{ 'is-32x32' if _key === 'npm' else 'is-24x24' }}" src={{ link.img }}/>
               <span class="is-sr-only">{{- link.name -}}</span>
             </a>
             {% endif %}
           {% endfor %}
         </div>
-
       </div>
     </footer>
+    <script type="text/javascript">
+    (() => {
+      try {
+        const burgers = Array.from(document.querySelectorAll('.navbar-burger'))
+        burgers.forEach((el) => el.addEventListener('click', (e) => {
+          const target = document.getElementById(el.dataset.target);
+          el.classList.toggle('is-active');
+          target.classList.toggle('is-active');
+        }))
+        const toggleTheme = document.getElementById('toggle-dark-mode');
+        const isDarkTheme = localStorage.getItem('theme') === 'dark';
+
+        if (toggleTheme) {
+          toggleTheme.checked = isDarkTheme;
+          toggleTheme.addEventListener('change', (e) => {
+            const theme = e.target.checked ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+             document.body.parentElement.dataset.theme = theme
+          });
+        }
+        setTimeout(() => toggleTheme.classList.add('animate'), 1000)
+      } catch(e) {}
+
+    })()
+    </script>
   </body>
 </html>

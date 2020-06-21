@@ -1,90 +1,63 @@
+@import '~normalize.css/normalize';
 @import 'variables';
 
-/* utilities */
-@import '~bulma/sass/utilities/initial-variables.sass';
-@import '~bulma/sass/utilities/functions.sass';
-@import '~bulma/sass/utilities/derived-variables.scss';
-// @import "~bulma/sass/utilities/animations.sass";
-@import '~bulma/sass/utilities/mixins.sass';
-@import '~bulma/sass/utilities/controls.sass';
-
-/* base */
-@import '~bulma/sass/base/_all';
-
-/* elements */
-// @import '~bulma/sass/elements/box.sass';
-@import '~bulma/sass/elements/button.sass';
-@import '~bulma/sass/elements/container.sass';
-@import '~bulma/sass/elements/content.sass';
-// @import "~bulma/sass/elements/icon.sass";
-@import '~bulma/sass/elements/image.sass';
-// @import "~bulma/sass/elements/notification.sass";
-// @import "~bulma/sass/elements/progress.sass";
-@import '~bulma/sass/elements/table.sass';
-@import '~bulma/sass/elements/tag.sass';
-@import '~bulma/sass/elements/title.sass';
-@import '~bulma/sass/elements/other.sass';
-
-/* form */
-// @import '~bulma/sass/form/_all';
-
-/* components */
-@import '~bulma/sass/components/breadcrumb.sass';
-// @import '~bulma/sass/components/card.sass';
-// @import "~bulma/sass/components/dropdown.sass";
-// @import "~bulma/sass/components/level.sass";
-// @import '~bulma/sass/components/media.sass';
-// @import "~bulma/sass/components/menu.sass";
-// @import '~bulma/sass/components/message.sass';
-// @import "~bulma/sass/components/modal.sass";
-@import '~bulma/sass/components/navbar.sass';
-@import '~bulma/sass/components/pagination.sass';
-// @import "~bulma/sass/components/panel.sass";
-// @import "~bulma/sass/components/tabs.sass";
-
-/* grid */
-@import '~bulma/sass/grid/columns.sass';
-// @import '~bulma/sass/grid/tiles.sass';
-
-/* helpers */
-@import '~bulma/sass/helpers/color.sass';
-// @import '~bulma/sass/helpers/float.sass';
-// @import "~bulma/sass/helpers/other.sass";
-// @import "~bulma/sass/helpers/overflow.sass";
-// @import "~bulma/sass/helpers/position.sass";
-@import '~bulma/sass/helpers/spacing.sass';
-@import '~bulma/sass/helpers/typography.sass';
-@import '~bulma/sass/helpers/visibility.sass';
-
-/* layout */
-// @import "~bulma/sass/layout/hero.sass";
-// @import '~bulma/sass/layout/section.sass';
-// @import '~bulma/sass/layout/footer.sass';
+* {
+  &,
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+}
 
 body {
-  min-height: 100vh;
-  // display: flex;
-  // flex-direction: column;
-
-  // & > div:nth-child(2) {
-  //   flex-grow: 1;
-  // }
+  font-family: Nunito, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--body-bg);
+  letter-spacing: 0.02em;
 }
 
-.pagination-previous[disabled],
-.pagination-next[disabled],
-.pagination-link[disabled] {
-  pointer-events: none;
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
 }
 
-a.navbar-item.is-active {
-  font-weight: bold;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
 }
 
-/* custom */
-@import './navbar';
-@import './homepage';
-@import './blog';
-@import './code';
-@import './footer';
-@import './resume';
+@import './common';
+@import './components/navbar';
+@import './components/footer';
+@import './components/breadcrumbs';
+@import './components/content';
+@import './components/code';
+@import './components/pagination';
+@import './pages/blog';

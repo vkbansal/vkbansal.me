@@ -1,29 +1,36 @@
-@import 'variables';
+code {
+  font-family: 'Fira Code', 'Ubuntu Mono', monospace;
+}
+
+p > code {
+  color: var(--text-code);
+  font-size: 0.9em;
+  padding: 0 0.2em;
+  background: var(--text-code-bg);
+  border-radius: 0.25em;
+}
 
 .content pre {
   position: relative;
   padding: 0;
-  margin-bottom: 1rem;
-  border-radius: $radius;
+  margin-bottom: var(--size-md);
+  border-radius: var(--size-xs);
 
   & > code {
     overflow: scroll;
+    padding: 1.25em 1.5em;
+    display: block;
   }
 
   &[data-language] {
     padding-top: 1rem;
-
-    & > code {
-      padding: 1.25em 1.5em;
-      display: block;
-    }
 
     &::before,
     &::after {
       content: '';
       display: block;
       position: absolute;
-      background: map-get($my-colors, 'primary');
+      background: var(--primary);
       right: 0;
       top: 0;
     }
@@ -31,6 +38,7 @@
     &::before {
       height: 8px;
       left: 0;
+      border-radius: var(--size-xs) var(--size-xs) 0 0;
     }
 
     &::after {
@@ -40,7 +48,7 @@
       padding: 0.25rem 0.75rem;
       font-size: 0.8rem;
       color: white;
-      border-bottom-left-radius: $radius;
+      border-radius: 0 var(--size-xs) 0 var(--size-xs);
     }
   }
 }

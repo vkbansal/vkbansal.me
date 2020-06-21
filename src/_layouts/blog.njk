@@ -6,12 +6,12 @@ layout: main
     <ul>
       <li><a href="/">🏠</a></li>
       <li><a href="/blog/">Blog</a></li>
-      <li class="is-active"><a href="#" aria-current="page">{{ title }}</a></li>
+      <li class="is-active"><a href="#" aria-current="page">{{ title | safe }}</a></li>
     </ul>
   </nav>
   <section class="content">
-    <h1>{{ title }}</h1>
-    <div class="blog-post-info">
+    <h1>{{ title | safe }}</h1>
+    <div class="date">
       <p>Published at {{ date | formatDate('MMMM do yyyy') }}</p>
       {# <p>Author: {% if author.website %} <a href="{{ author.website }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a> {% else %} {{ author.name }} {% endif %}</p> #}
     </div>
@@ -22,14 +22,14 @@ layout: main
   {% set nextPost = collections.posts | getNextCollectionItem(page) %}
   {% if previousPost %}
     <a class="prev-post" href="{{ previousPost.url }}">
-      <span class="hint">&larr; Previous Post</span>{{ previousPost.data.title }}
+      <span class="hint">&larr; Previous Post</span>{{ previousPost.data.title | safe }}
     </a>
   {% else %}
     <span></span>
   {% endif %}
   {% if nextPost %}
     <a class="next-post" href="{{ nextPost.url }}">
-      <span class="hint">Next Post &rarr;</span>{{ nextPost.data.title }}
+      <span class="hint">Next Post &rarr;</span>{{ nextPost.data.title | safe }}
     </a>
   {% else %}
     <span></span>

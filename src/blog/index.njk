@@ -27,7 +27,7 @@ pagination:
   {% for post in posts %}
     {% include "partials/article-preview.njk" %}
   {% endfor %}
-  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  <nav class="pagination" role="navigation" aria-label="pagination">
     <a class="pagination-previous"
       href="{{ pagination.href.previous if pagination.href.previous else '#' }}"
       {{ 'disabled' if not pagination.href.previous }}> &larr; Prev</a>

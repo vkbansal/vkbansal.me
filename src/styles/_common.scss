@@ -1,0 +1,33 @@
+a {
+  color: var(--text);
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+.container {
+  width: var(--container);
+  margin: 0 auto;
+
+  @media screen and (max-width: 800px) {
+    width: calc(100vw - 2 * var(--gutter));
+  }
+}
+
+.image {
+  display: block;
+}
+
+.is-sr-only {
+  border: none !important;
+  clip: rect(0, 0, 0, 0) !important;
+  height: 0.01em !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 0.01em !important;
+}
