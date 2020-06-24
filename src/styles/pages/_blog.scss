@@ -1,16 +1,8 @@
-@mixin date-styles {
-  font-style: italic;
-  margin-bottom: 1rem;
-  color: var(--grey-3);
-
-  html[data-theme='dark'] & {
-    color: var(--grey-5);
-  }
-}
+@import '../mixins';
 
 .article-preview {
   display: block;
-  padding: 3rem 0;
+  padding: var(--size-xl) 0;
 
   &:not(:last-of-type) {
     border-bottom: 1px solid var(--border);
@@ -20,8 +12,11 @@
     @include date-styles();
   }
 
-  & a {
+  & a.link {
+    display: block;
     color: var(--text);
+    margin-bottom: var(--size-md);
+
     &:hover {
       text-decoration: none;
     }
@@ -31,8 +26,12 @@
     color: var(--primary);
   }
 
-  & p:not(:last-of-type) {
-    margin-bottom: 1rem;
+  & > p:not(:last-of-type) {
+    margin-bottom: var(--size-md);
+  }
+
+  & p:last-of-type {
+    margin-bottom: 0;
   }
 }
 
@@ -67,15 +66,15 @@
   &-info {
     opacity: 0.75;
     font-style: italic;
-    margin-bottom: 1rem;
+    margin-bottom: var(--size-md);
   }
 
   & iframe {
-    margin-bottom: 1rem;
+    margin-bottom: var(--size-md);
   }
 
   & .post-pagination {
-    margin-top: 3rem;
+    margin-top: var(--size-xl);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,23 +90,13 @@
       display: inline-block;
       color: var(--text);
       border: 1px solid var(--border);
-      padding: 0.5rem 1rem;
+      padding: var(--size-sm) var(--size-md);
       width: 49%;
       overflow: hidden;
       border-radius: var(--size-xs);
       text-decoration: none;
 
-      html[data-theme='dark'] & {
-        &:hover {
-          background: var(--border);
-        }
-      }
-
-      html[data-theme='light'] & {
-        &:hover {
-          color: var(--primary);
-        }
-      }
+      @include pagination-styles();
     }
 
     & .hint {

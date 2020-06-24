@@ -1,14 +1,27 @@
+@import '../mixins';
+
 .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: var(--size-xl);
 
-  & > &-previous {
+  & &-previous,
+  & &-next,
+  & &-link {
+    display: inline-flex;
+    align-items: center;
+    height: 2.5em;
+    min-width: 2.5em;
+
+    @include pagination-styles();
+  }
+
+  & &-previous {
     order: 1;
   }
 
-  & > &-next {
+  & &-next {
     order: 3;
   }
 
@@ -17,5 +30,11 @@
     list-style-type: none;
     display: flex;
     align-items: center;
+  }
+
+  & &-link {
+    justify-content: center;
+    margin: var(--size-sm);
+    text-align: center;
   }
 }

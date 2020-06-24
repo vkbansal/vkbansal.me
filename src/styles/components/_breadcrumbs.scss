@@ -10,7 +10,7 @@
 
     & > li {
       &:not(:last-child) > a {
-        color: var(--primary);
+        text-decoration: underline;
       }
 
       &:not(:last-child)::after {
@@ -21,6 +21,9 @@
 
       &.is-active {
         pointer-events: none;
+        // & a {
+        //   color: var(--grey-5);
+        // }
       }
     }
   }

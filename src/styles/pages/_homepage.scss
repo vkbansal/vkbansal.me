@@ -1,29 +1,39 @@
-@import 'variables.scss';
-
 .home-page {
   .image {
-    margin: 3rem auto 1rem;
+    margin: 0 auto var(--size-md);
 
     & img {
-      box-shadow: 0 0 0 6px $primary;
+      display: block;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: 0 0 0 4px var(--primary);
     }
   }
 
   .intro {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: var(--size-xl);
+
+    & .title {
+      font-size: var(--size-xl);
+    }
+
+    & .subtitle {
+      margin: 0;
+    }
   }
 
   .about {
-    padding: 1.5rem 0;
+    margin-bottom: var(--size-xl);
   }
 
-  .recent-posts {
-    // margin-bottom: 3rem;
-  }
+  // .recent-posts {
+  // }
 
   .blog-heading {
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 1rem;
     margin-bottom: 0;
   }

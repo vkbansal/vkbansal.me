@@ -141,13 +141,15 @@
       &::after {
         content: '☀️';
         text-align: right;
+        padding-right: 4px;
+        font-size: 0.8em;
         left: 0;
       }
 
       &::before {
         content: '🌙';
-        font-size: 0.8em;
         padding-left: 4px;
+        font-size: 0.7em;
         right: 0;
       }
     }
