@@ -30,7 +30,7 @@
         "globby": "^10.0.1",
         "illuminate-js": "^1.0.0-alpha.2",
         "jest": "^24.9.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "markdown-it": "^10.0.0",
         "markdown-it-decorate": "^1.2.2",
         "markdown-it-mathjax": "^2.0.0",
