@@ -1,6 +1,7 @@
 [build]
   command = "yarn build"
   publish = "public"
+  ignore = "./bot-test.sh"
 
 [build.environment]
   NODE_VERSION = "v14.2.0"
