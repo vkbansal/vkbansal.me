@@ -39,18 +39,17 @@ function renderToHtml(lines, options = {}) {
 module.exports = function getRenderer(inputDir, hashes) {
   return {
     async render(data, env) {
-      const highlighter = await shiki.getHighlighter({ theme: 'solarized_dark' });
+      const highlighter = await shiki.getHighlighter({ theme: 'solarized-dark' });
       const md = markdownIt({
         html: true,
         linkify: true,
         highlight(code, language) {
-          if (
-            shiki.commonLangAliases.includes(language) ||
-            shiki.commonLangIds.includes(language)
-          ) {
+          try {
             const tokens = highlighter.codeToThemedTokens(code, language);
 
             return renderToHtml(tokens, { langId: language, bg: '#002B36' });
+          } catch (_e) {
+            return code;
           }
 
           return code;
