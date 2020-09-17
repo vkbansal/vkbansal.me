@@ -1,0 +1,40 @@
+html {
+  --primary: hsl(4, 85%, 60%);
+  --black-0: hsl(0, 0%, 4%);
+  --black-1: hsl(0, 0%, 7%);
+  --black-2: hsl(0, 0%, 14%);
+  --grey-0: hsl(0, 0%, 21%);
+  --grey-1: hsl(212, 31%, 18%);
+  --grey-2: hsl(212, 30%, 24%);
+  --grey-3: hsl(212, 16%, 36%);
+  --grey-4: hsl(212, 14%, 58%);
+  --grey-5: hsl(212, 10%, 72%);
+  --grey-6: hsl(212, 10%, 82%);
+  --white-2: hsl(0, 0%, 96%);
+  --white-1: hsl(0, 0%, 98%);
+  --white-0: hsl(0, 0%, 100%);
+  --text: var(--black-2);
+  --text-lighter: var(--grey-3);
+  --text-code: hsl(4, 90%, 40%);
+  --text-code-bg: rgba(0, 0, 0, 0.07);
+  --border: var(--grey-5);
+  --body-bg: var(--white-2);
+  --gutter: 2rem;
+  --container: 80ch;
+  --breakpoint: 768px;
+  --size-xs: 0.2rem;
+  --size-sm: 0.5rem;
+  --size-md: 1rem;
+  --size-lg: 2rem;
+  --size-xl: 3rem;
+
+  &[data-theme='dark'] {
+    --primary: hsl(4, 90%, 69%);
+    --text: var(--white-1);
+    --text-lighter: var(--grey-5);
+    --body-bg: var(--grey-1);
+    --border: var(--grey-3);
+    --text-code: hsl(4, 90%, 76%);
+    --text-code-bg: rgba(255, 255, 255, 0.1);
+  }
+}

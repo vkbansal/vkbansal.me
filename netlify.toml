@@ -1,12 +1,17 @@
 [build]
-    command = "yarn build"
-    publish = "public"
+  command = "yarn build"
+  publish = "public"
 
 [build.environment]
-    NODE_VERSION = "v11.13.0"
+  NODE_VERSION = "v14.2.0"
 
 [[redirects]]
-    from = "/sqlite-wasm-demo/*"
-    to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
-    status = 200
-    force = true
+  from = "/sqlite-wasm-demo/*"
+  to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/react-contextmenu"
+  to = "https://vkbansal.github.io/react-contextmenu/"
+  status = 301

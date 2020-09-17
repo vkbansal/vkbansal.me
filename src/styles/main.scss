@@ -1,0 +1,67 @@
+@import '~normalize.css/normalize';
+@import 'variables';
+
+* {
+  &,
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  font-family: Nunito, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text);
+  background-color: var(--body-bg);
+  letter-spacing: 0.02em;
+}
+
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+@import './common';
+@import './components/navbar';
+@import './components/footer';
+@import './components/breadcrumbs';
+@import './components/content';
+@import './components/code';
+@import './components/pagination';
+@import './components/tags';
+
+@import './pages/blog';
+@import './pages/homepage';
+@import './pages/tags';

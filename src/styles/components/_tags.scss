@@ -1,0 +1,20 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75em;
+  padding: var(--size-sm);
+  height: 1.5rem;
+  text-decoration: none;
+  border-radius: var(--size-xs);
+  color: var(--text);
+  white-space: nowrap;
+  background: var(--grey-6);
+
+  html[data-theme='dark'] & {
+    background: var(--grey-3);
+  }
+
+  & + & {
+    margin-left: var(--size-xs);
+  }
+}

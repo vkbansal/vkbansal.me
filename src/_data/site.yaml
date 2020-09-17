@@ -1,0 +1,61 @@
+title: Vivek Kumar Bansal, UI Engineer, ❤️ JS and React. 🍕, 😴, 💻, ♺
+repository: https://github.com/vkbansal/vkbansal.me/
+url: https://vkbansal.me
+author:
+  name: Vivek Kumar Bansal
+  email: contact@vkbansal.me
+  website: https://vkbansal.me
+nav:
+  - title: Blog
+    to: '/blog/'
+    external: false
+  - title: Contact
+    to: mailto:contact@vkbansal.me
+    external: true
+  - title: RSS
+    to: '/feed.xml'
+    external: true
+social:
+  rss:
+    name: RSS
+    link: http://feeds.feedburner.com/vkbansal
+    follow: true
+    footer: false
+    share: false
+  twitter:
+    name: Twitter
+    link: http://twitter.com/_vkbansal
+    username: _vkbansal
+    img: /img/twitter.svg
+    follow: true
+    footer: true
+    share: true
+  github:
+    name: GitHub
+    link: https://github.com/vkbansal
+    username: vkbansal
+    img: /img/github.svg
+    follow: true
+    footer: true
+    share: false
+  codepen:
+    name: CodePen
+    link: http://codepen.io/vkbansal/
+    img: /img/codepen.svg
+    follow: false
+    footer: false
+    share: false
+  linkedin:
+    name: LinkedIn
+    link: https://in.linkedin.com/in/vkbansal03
+    img: /img/linkedin.svg
+    follow: false
+    share: true
+    footer: true
+  npm:
+    name: npm
+    link: https://www.npmjs.com/~vkbansal
+    img: /img/npm.svg
+    follow: false
+    share: false
+    footer: true

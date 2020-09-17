@@ -1,0 +1,35 @@
+.resume {
+  padding: 3rem 0;
+
+  @media print {
+    font-size: 12px;
+    padding: 0;
+  }
+
+  .position {
+    display: grid;
+    grid-template-columns: [company] 1fr [date] 1fr;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .company {
+    grid-column: company;
+  }
+
+  .date {
+    grid-column: date;
+    text-align: right;
+  }
+}
+
+.page-break {
+  @media all {
+    display: none;
+  }
+
+  @media print {
+    display: block;
+    page-break-before: always;
+  }
+}
