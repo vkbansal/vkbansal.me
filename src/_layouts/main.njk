@@ -50,9 +50,12 @@
       </div>
     </header>
     {{ content | safe }}
-     <footer class="footer">
+    <footer class="footer">
       <div class="container">
         <p>&copy; {{- page.date.getFullYear() }} Vivek Kumar Bansal</p>
+        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg" alt="Deploys by Netlify" />
+        </a>
         <div class="social">
           {% for _key, link in site.social -%}
             {% if link.footer %}

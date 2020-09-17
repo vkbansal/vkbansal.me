@@ -12,7 +12,7 @@ function clean() {
   return cp.spawn('npx', ['rimraf', 'public', '.hashes.json'], { stdio: 'inherit' });
 }
 
-const IMG_GLOBS = ['src/**/*.png', 'src/**/*.jpg', 'src/**/*.svg', 'src/**/*.gif'];
+const IMG_GLOBS = ['src/**/*.png', 'src/**/*.jpg', 'src/**/*.svg', 'src/**/*.gif', '!src/**/_*/**'];
 
 function images() {
   return src(IMG_GLOBS).pipe(gulpIf(PROD, hash())).pipe(dest('public'));
