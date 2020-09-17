@@ -13,3 +13,4 @@ scripts/_*.json
 scripts/_*.js
 temp/
 .netlify
+.hashes.json
