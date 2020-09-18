@@ -7,6 +7,8 @@ tags:
   - javascript
 ---
 
+> **Update (September 2020)**: There is a better way of doing this and I have covered it [here](/blog/format-indian-currency-in-js-part-2).
+
 Formatting a number in JavaScript can be as simple as `toLocaleString()`, but while working on a side project, I came across a scenario where neither `toLocaleString()` nor `toFixed()` was enough.
 
 I wanted the numbers to be in `XX,XX,XXX.XX` format. So, I tried bunch of different methods.

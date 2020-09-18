@@ -2,12 +2,17 @@ code {
   font-family: 'Fira Code', 'Ubuntu Mono', monospace;
 }
 
-p > code {
+p > code,
+a > code {
   color: var(--text-code);
-  font-size: 0.9em;
+  font-size: 0.95em;
   padding: 0 0.2em;
   background: var(--text-code-bg);
   border-radius: 0.25em;
+}
+
+a > code {
+  color: var(--text-link);
 }
 
 .content pre {
