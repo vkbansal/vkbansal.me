@@ -12,6 +12,10 @@
     align-items: center;
     padding: var(--size-md) 0;
 
+    a {
+      color: var(--primary);
+    }
+
     & svg {
       display: inline-block;
       height: var(--size-lg);
