@@ -50,7 +50,7 @@ module.exports = (eleventyConfig) => {
     return collectionApi.getFilteredByGlob(['src/blog/**/*.md']);
   });
 
-  eleventyConfig.addDataExtension('yaml', (contents) => yaml.safeLoad(contents));
+  eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));
 
   eleventyConfig.setBrowserSyncConfig({ notify: !PROD });
 

@@ -9,24 +9,23 @@
     "dryrun": "yarn build --dryrun"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.0",
-    "bulma": "^0.9.0",
+    "@11ty/eleventy": "^0.12.1",
     "chalk": "^4.1.0",
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.19.0",
     "gulp": "^4.0.2",
     "http-server": "^0.12.3",
-    "js-yaml": "^3.14.0",
-    "markdown-it": "^11.0.1",
-    "markdown-it-attrs": "^3.0.3",
+    "js-yaml": "^4.0.0",
+    "markdown-it": "^12.0.4",
+    "markdown-it-attrs": "^4.0.0",
     "normalize.css": "^8.0.1",
     "plugin-error": "^1.0.1",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.26.10",
-    "shiki": "^0.2.4",
+    "sass": "^1.32.8",
+    "shiki": "^0.9.3",
     "through2": "^4.0.2",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2",
-    "vinyl": "^2.2.0"
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3",
+    "vinyl": "^2.2.1"
   }
 }
