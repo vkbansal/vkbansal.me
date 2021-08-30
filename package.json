@@ -13,7 +13,7 @@
     "chalk": "^4.1.2",
     "date-fns": "^2.23.0",
     "gulp": "^4.0.2",
-    "http-server": "^13.0.0",
+    "http-server": "^13.0.1",
     "js-yaml": "^4.1.0",
     "markdown-it": "^12.2.0",
     "markdown-it-attrs": "^4.0.0",
@@ -21,11 +21,11 @@
     "plugin-error": "^1.0.1",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
-    "sass": "^1.37.5",
-    "shiki": "^0.9.6",
+    "sass": "^1.38.2",
+    "shiki": "^0.9.8",
     "through2": "^4.0.2",
-    "ts-node": "^10.2.0",
-    "typescript": "^4.3.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2",
     "vinyl": "^2.2.1"
   }
 }

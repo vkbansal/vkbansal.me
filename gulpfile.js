@@ -32,10 +32,11 @@ function compileSass() {
 }
 
 function eleventy(shouldWatch) {
-  const options = ['eleventy', '--quiet'];
+  const options = ['@11ty/eleventy', '--quiet'];
 
   if (shouldWatch === true) {
-    options.push('--watch');
+    options.push('--serve');
+    options.push('--port=3000');
   }
 
   return cp.spawn('npx', options, { stdio: 'inherit' });

@@ -10,8 +10,11 @@ const INPUT_DIR = 'src';
 const INPUT_DIR_ABS = path.join(process.cwd(), INPUT_DIR);
 const PROD = process.env.NODE_ENV === 'production';
 
+console.log(`Is prodution build?: ${PROD}`);
+
 module.exports = (eleventyConfig) => {
   let hashes = {};
+  const now = new Date();
 
   if (PROD) {
     const hashesFile = path.join(__dirname, '.hashes.json');
@@ -47,7 +50,9 @@ module.exports = (eleventyConfig) => {
   });
 
   eleventyConfig.addCollection('posts', function (collectionApi) {
-    return collectionApi.getFilteredByGlob(['src/blog/**/*.md']);
+    return collectionApi
+      .getFilteredByGlob(['src/blog/**/*.md'])
+      .filter((p) => (PROD ? !dateFns.isAfter(p.date, now) || p.draft : true));
   });
 
   eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));

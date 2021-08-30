@@ -4,7 +4,8 @@
   ignore = "./bot-test.sh"
 
 [build.environment]
-  NODE_VERSION = "v14.16.0"
+  NODE_VERSION = "v16"
+  NODE_ENV = "production"
 
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
