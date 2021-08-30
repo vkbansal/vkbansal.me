@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const dateFns = require('date-fns');
 
+const dateFns = require('date-fns');
 const yaml = require('js-yaml');
+const chalk = require('chalk');
+
 const md = require('./_eleventy/markdown');
 const resolveHashes = require('./_eleventy/resolve-hashes');
 
@@ -10,7 +12,7 @@ const INPUT_DIR = 'src';
 const INPUT_DIR_ABS = path.join(process.cwd(), INPUT_DIR);
 const PROD = process.env.NODE_ENV === 'production';
 
-console.log(`Is prodution build?: ${PROD}`);
+console.log(chalk.bold(`Is prodution build?: ${PROD ? chalk.green('true') : chalk.red('false')}`));
 
 module.exports = (eleventyConfig) => {
   let hashes = {};

@@ -1,5 +1,5 @@
 [build]
-  command = "yarn global add gulp-cli && yarn build"
+  command = "yarn build"
   publish = "public"
   ignore = "./bot-test.sh"
 
