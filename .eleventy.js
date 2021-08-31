@@ -52,9 +52,9 @@ module.exports = (eleventyConfig) => {
   });
 
   eleventyConfig.addCollection('posts', function (collectionApi) {
-    return collectionApi
-      .getFilteredByGlob(['src/blog/**/*.md'])
-      .filter((p) => (PROD ? !dateFns.isAfter(p.date, now) || p.draft : true));
+    return collectionApi.getFilteredByGlob(['src/blog/**/*.md']).filter((p) => {
+      return PROD ? !dateFns.isAfter(p.date, now) || p.draft : true;
+    });
   });
 
   eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));
