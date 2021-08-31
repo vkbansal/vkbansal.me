@@ -13,9 +13,14 @@ function clean() {
 }
 
 const IMG_GLOBS = ['src/**/*.png', 'src/**/*.jpg', 'src/**/*.svg', 'src/**/*.gif', '!src/**/_*/**'];
+const JS_GLOBS = ['src/scripts/*.js'];
 
 function images() {
   return src(IMG_GLOBS).pipe(gulpIf(PROD, hash())).pipe(dest('public'));
+}
+
+function scripts() {
+  return src(JS_GLOBS).pipe(gulpIf(PROD, hash())).pipe(dest('public/scripts'));
 }
 
 function files() {
@@ -46,6 +51,7 @@ exports.watch = function () {
   clean();
   watch('src/styles/**/*.scss', { ignoreInitial: false }, compileSass);
   watch(IMG_GLOBS, { ignoreInitial: false }, images);
+  watch(JS_GLOBS, { ignoreInitial: false }, scripts);
   eleventy(true);
 };
 
