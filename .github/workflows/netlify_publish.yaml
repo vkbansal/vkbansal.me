@@ -3,6 +3,11 @@ on:
   schedule:
     # Run at 03:30 AM UTC (9:00 AN IST) daily
     - cron: '30 3 * * *'
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/**'
 jobs:
   build:
     name: Netlify Webhook
