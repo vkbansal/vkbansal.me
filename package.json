@@ -16,7 +16,7 @@
     "gulp-cli": "^2.3.0",
     "http-server": "^14.0.0",
     "js-yaml": "^4.1.0",
-    "markdown-it": "^12.3.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^4.1.0",
     "normalize.css": "^8.0.1",
     "plugin-error": "^1.0.1",
