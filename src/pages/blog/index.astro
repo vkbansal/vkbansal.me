@@ -1,16 +1,16 @@
 ---
-layout: main
-permalink: '/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}index.html'
-pagination:
-  size: 5
-  data: collections.posts
-  reverse: true
-  alias: posts
+// layout: main
+// permalink: '/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}index.html'
+// pagination:
+//   size: 5
+//   data: collections.posts
+//   reverse: true
+//   alias: posts
 ---
 
-{% macro link(pageNum) %}
-{% set active = page.url === pagination.hrefs[pageNum - 1]%}
-<li>
+<!-- {% macro link(pageNum) %}
+{% set active = page.url === pagination.hrefs[pageNum - 1]%} -->
+<!-- <li>
   <a class="pagination-link {{ 'is-current' if active }}" aria-label="Goto page {{ pageNum }}" href="{{ pagination.hrefs[pageNum - 1] }}">
     {{ pageNum }}
   </a>
@@ -95,4 +95,4 @@ pagination:
     {% endif %}
     </ul>
   </nav>
-</div>
+</div> -->

@@ -1,31 +1,20 @@
 {
-  "name": "vkbansal.me",
-  "description": "Site for Vivek Kumar Bansal",
-  "version": "2.0.0",
-  "private": true,
-  "scripts": {
-    "build": "NODE_ENV=production gulp",
-    "start": "gulp watch",
-    "dryrun": "yarn build --dryrun"
-  },
-  "dependencies": {
-    "@11ty/eleventy": "^1.0.0",
-    "@11ty/eleventy-upgrade-help": "^1.0.1",
-    "chalk": "^4.1.2",
-    "date-fns": "^2.28.0",
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.3.0",
-    "http-server": "^14.1.0",
-    "js-yaml": "^4.1.0",
-    "markdown-it": "^12.3.2",
-    "markdown-it-attrs": "^4.1.3",
-    "normalize.css": "^8.0.1",
-    "plugin-error": "^1.0.1",
-    "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
-    "sass": "^1.49.7",
-    "shiki": "^0.10.0",
-    "through2": "^4.0.2",
-    "vinyl": "^2.2.1"
-  }
+	"name": "vkbansal.me",
+	"description": "Site for Vivek Kumar Bansal",
+	"version": "3.0.0",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"fmtc": "prettier --plugin-search-dir=. --check 'src/**/*.{ts,tsx,astro}'",
+		"prebuild": "rm -rf public",
+		"build": "NODE_ENV=production astro build",
+		"start": "astro dev",
+		"dev": "astro dev"
+	},
+	"devDependencies": {
+		"astro": "1.0.0-rc.1",
+		"normalize.css": "^8.0.1",
+		"prettier-plugin-astro": "^0.1.2",
+		"sass": "^1.49.7"
+	}
 }
