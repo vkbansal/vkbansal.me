@@ -1,0 +1,29 @@
+---
+import type { MyPostInstance } from 'utils/types';
+import { format, parseISO } from 'date-fns';
+
+export interface Props {
+	post: MyPostInstance;
+}
+
+const { post } = Astro.props as Props;
+const formattedDate = format(parseISO(post.frontmatter.date), 'MMMM do yyyy');
+---
+
+<div class="article-preview content">
+	<div class="date">
+		{formattedDate}
+	</div>
+	<a class="link" href={post.url}>
+		<h3 class="title">{post.frontmatter.title}</h3>
+		<p>{post.frontmatter.description}</p>
+		<p class="read-more">Read More...</p>
+	</a>
+	<p>
+		{post.frontmatter.tags.map((tag) => (
+			<a href={`/tags/${tag}`} class="tag">
+				{tag}
+			</a>
+		))}
+	</p>
+</div>

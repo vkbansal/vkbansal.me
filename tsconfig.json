@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"baseUrl": "src",
+		"target": "ES2020",
+		"module": "ESNext",
+		"strict": true,
+		"moduleResolution": "Node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"typeRoots": ["astro/client"]
+	},
+	"include": ["src"]
+}

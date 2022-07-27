@@ -1,0 +1,49 @@
+---
+import site from 'data/site.json';
+import logo from 'img/logo.svg?raw';
+
+const { pathname: currentPath } = Astro.url;
+---
+
+<header class="header">
+	<div class="container">
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a href="/" class="navbar-item" title="Home Page" set:html={logo}></a>
+				<a
+					role="button"
+					class="navbar-burger"
+					data-target="nav-menu"
+					aria-label="menu"
+					aria-expanded="false"
+				>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+			<div class="navbar-menu" id="nav-menu">
+				{site.nav.map((link) => {
+					const active = currentPath.startsWith(link.to);
+					return (
+						<a
+							class:list={['navbar-item', { 'is-active': active }]}
+							href={link.to}
+							title={link.title}
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener noreferrer' : undefined}
+						>
+							{link.title}
+						</a>
+					);
+				})}
+				<div class="navbar-item">
+					<label for="toggle-dark-mode" title="theme">
+						<input type="checkbox" id="toggle-dark-mode" />
+						<span></span>
+					</label>
+				</div>
+			</div>
+		</nav>
+	</div>
+</header>
