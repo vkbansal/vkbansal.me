@@ -1,0 +1,18 @@
+---
+import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from 'astro';
+import { PAGE_SIZE } from 'site-config';
+import BlogList from 'layouts/BlogList.astro';
+import { sortPostsByRecency } from 'utils/posts-helpers';
+import type { MyPostInstance, PostFrontMatter } from 'utils/types';
+
+export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult> {
+	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
+	const sortedPosts = sortPostsByRecency(allPosts);
+
+	return opt.paginate(sortedPosts, { pageSize: PAGE_SIZE });
+}
+
+const { page } = Astro.props as { page: Page<MyPostInstance> };
+---
+
+<BlogList page={page} />

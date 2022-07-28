@@ -2,7 +2,7 @@
 import type { MarkdownContent } from 'astro';
 import { format, parseISO } from 'date-fns';
 
-import type { PostFrontMatter } from 'utils/types';
+import type { MyPostInstance, PostFrontMatter } from 'utils/types';
 import { getPrevAndNextPosts } from 'utils/posts-helpers';
 
 import MainLayout from './MainLayout.astro';
@@ -11,7 +11,7 @@ export interface Props {
 	content: MarkdownContent<PostFrontMatter>;
 }
 
-const allPosts = await Astro.glob<PostFrontMatter>('../pages/blog/**/*.md');
+const allPosts = await Astro.glob<MyPostInstance>('../pages/blog/**/*.mdx');
 
 const {
 	content: { title, date },
@@ -27,11 +27,11 @@ const [previousPost, nextPost] = getPrevAndNextPosts(allPosts, Astro.url.pathnam
 			<ul>
 				<li><a href="/">🏠</a></li>
 				<li><a href="/blog/">Blog</a></li>
-				<li class="is-active"><a href="#" aria-current="page">{title}</a></li>
+				<li class="is-active"><a href="#" aria-current="page" set:html={title}></a></li>
 			</ul>
 		</nav>
 		<section class="content">
-			<h1>{title}</h1>
+			<h1 set:html={title}></h1>
 			<div class="date">
 				<p>Published at {formattedDate}</p>
 				<!-- {# <p>Author: {% if author.website %} <a href="{{ author.website }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a> {% else %} {{ author.name }} {% endif %}</p> #} -->
@@ -42,7 +42,7 @@ const [previousPost, nextPost] = getPrevAndNextPosts(allPosts, Astro.url.pathnam
 			{previousPost ? (
 				<a class="prev-post" href={previousPost.url}>
 					<span class="hint">&larr; Previous Post</span>
-					{previousPost.frontmatter.title}
+					<span set:html={previousPost.frontmatter.title} />
 				</a>
 			) : (
 				<span />
@@ -50,7 +50,7 @@ const [previousPost, nextPost] = getPrevAndNextPosts(allPosts, Astro.url.pathnam
 			{nextPost ? (
 				<a class="next-post" href={nextPost.url}>
 					<span class="hint">Next Post &rarr;</span>
-					{nextPost.frontmatter.title}
+					<span set:html={nextPost.frontmatter.title} />
 				</a>
 			) : (
 				<span />

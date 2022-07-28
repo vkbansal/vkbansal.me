@@ -6,7 +6,7 @@ import { sortPostsByRecency } from 'utils/posts-helpers';
 import { PostFrontMatter } from 'utils/types';
 import ArticlePreview from 'components/ArticlePreview.astro';
 
-const allPosts = await Astro.glob<PostFrontMatter>('./blog/**/*.md');
+const allPosts = await Astro.glob<PostFrontMatter>('../posts/**/*.md');
 const sortedPosts = sortPostsByRecency(allPosts).slice(0, 5);
 ---
 
@@ -43,9 +43,6 @@ const sortedPosts = sortPostsByRecency(allPosts).slice(0, 5);
 			{sortedPosts.map((post) => {
 				return <ArticlePreview post={post} />;
 			})}
-			<!-- {% for post in collections.posts | _slice(-5) | reverse %}
-        {% include "partials/article-preview.njk" %}
-      {% endfor %} -->
 		</section>
 	</div>
 </MainLayout>

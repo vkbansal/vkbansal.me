@@ -15,8 +15,8 @@ const formattedDate = format(parseISO(post.frontmatter.date), 'MMMM do yyyy');
 		{formattedDate}
 	</div>
 	<a class="link" href={post.url}>
-		<h3 class="title">{post.frontmatter.title}</h3>
-		<p>{post.frontmatter.description}</p>
+		<h3 class="title" set:html={post.frontmatter.title}></h3>
+		<p set:html={post.frontmatter.description}></p>
 		<p class="read-more">Read More...</p>
 	</a>
 	<p>
