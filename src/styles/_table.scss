@@ -1,0 +1,29 @@
+.table-responsive {
+	width: 100%;
+	display: block;
+	overflow-x: auto;
+	margin-bottom: 2rem;
+	table {
+		margin-bottom: 0;
+	}
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 100%;
+	overflow: auto;
+	font-size: 1rem;
+}
+table,
+th,
+td {
+	border: 1px solid var(--border);
+}
+th {
+	color: var(--text-main);
+}
+th,
+td {
+	padding: 8px 16px;
+}

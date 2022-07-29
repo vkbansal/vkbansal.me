@@ -1,98 +1,43 @@
 ---
-import site from 'data/site.json';
-import logo16 from 'img/logo-16.png';
-import logo32 from 'img/logo-32.png';
-import logo96 from 'img/logo-96.png';
-import logo512 from 'img/logo-512.png';
+import logo16 from 'images/logo-16.png';
+import logo32 from 'images/logo-32.png';
+import logo96 from 'images/logo-96.png';
+import logo512 from 'images/logo-512.png';
 import Header from 'components/Header.astro';
+import Footer from 'components/Footer.astro';
+import { SOCIAL_LINKS, SITE_TITLE, SITE_URL } from 'site-config';
 import 'styles/main.scss';
 
 const { title, description } = Astro.props;
-const pageTitle = `${title ? `${title} - ` : ''}${site.title}`;
+const pageTitle = `${title ? `${title} - ` : ''}${SITE_TITLE}`;
+const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter')!;
 ---
 
 <html data-theme="light" lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<title>{pageTitle}</title>
-		<meta name="description" content={site.title} />
+		<meta name="description" content={SITE_TITLE} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" href={logo16} sizes="16x16" />
 		<link rel="icon" type="image/png" href={logo32} sizes="32x32" />
 		<link rel="icon" type="image/png" href={logo96} sizes="96x96" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Nunito:wght@400;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Work+Sans:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<!-- <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}"> -->
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:title" content={pageTitle} />
-		<meta name="twitter:site" content={`@${site.social.twitter.username}`} />
+		<meta name="twitter:site" content={`@${twitter.username}`} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={`${site.url}${logo512}`} />
-		<script type="text/javascript">
-			(() => {
-				try {
-					const mql = window.matchMedia('(prefers-color-scheme: dark)');
-					const theme = localStorage.getItem('theme');
-					document.body.parentElement.dataset.theme = theme
-						? theme
-						: mql.matches
-						? 'dark'
-						: 'light';
-				} catch (e) {}
-			})();
-		</script>
+		<meta name="twitter:image" content={`${SITE_URL}${logo512}`} />
 	</head>
 	<body>
 		<Header />
-		<slot />
-		<footer class="footer">
-			<div class="container">
-				<!-- <p>&copy; {{- page.date.getFullYear() }} Vivek Kumar Bansal</p> -->
-				<a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
-					<img
-						src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
-						alt="Deploys by Netlify"
-					/>
-				</a>
-				<div class="social">
-					<!-- {% for _key, link in site.social -%}
-            {% if link.footer %}
-            <a href="{{ link.link }}" title="{{ link.name }}" target="_blank" rel="noopener noreferrer">
-              <img class="image {{ 'is-32x32' if _key === 'npm' else 'is-24x24' }}" alt="{{ _key }}" src="{{ link.img | hash }}" >
-              <span class="is-sr-only">{{- link.name -}}</span>
-            </a>
-            {% endif %}
-          {% endfor %} -->
-				</div>
-			</div>
-		</footer>
-		<script type="text/javascript">
-			(() => {
-				try {
-					const burgers = Array.from(document.querySelectorAll('.navbar-burger'));
-					burgers.forEach((el) =>
-						el.addEventListener('click', (e) => {
-							const target = document.getElementById(el.dataset.target);
-							el.classList.toggle('is-active');
-							target.classList.toggle('is-active');
-						}),
-					);
-					const toggleTheme = document.getElementById('toggle-dark-mode');
-					const isDarkTheme = localStorage.getItem('theme') === 'dark';
-
-					if (toggleTheme) {
-						toggleTheme.checked = isDarkTheme;
-						toggleTheme.addEventListener('change', (e) => {
-							const theme = e.target.checked ? 'dark' : 'light';
-							localStorage.setItem('theme', theme);
-							document.body.parentElement.dataset.theme = theme;
-						});
-					}
-					setTimeout(() => toggleTheme.classList.add('animate'), 1000);
-				} catch (e) {}
-			})();
-		</script>
+		<div class="container">
+			<slot />
+		</div>
+		<Footer />
 	</body>
 </html>

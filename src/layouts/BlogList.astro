@@ -1,7 +1,7 @@
 ---
 import type { Page } from 'astro';
-import { Debug } from 'astro/components';
 import ArticlePreview from 'components/ArticlePreview.astro';
+import Breadcrumbs from 'components/Breadcrumbs.astro';
 import type { MyPostInstance } from 'utils/types';
 import MainLayout from './MainLayout.astro';
 
@@ -13,16 +13,17 @@ const { page } = Astro.props as Props;
 ---
 
 <MainLayout>
-  <Debug page={page} />
-	<div class="container blog-list">
-		<nav class="breadcrumb" aria-label="breadcrumbs">
-			<ul>
-				<li><a href="/">🏠</a></li>
-				<li class="is-active"><a href="#" aria-current="page">Blog</a></li>
-			</ul>
-		</nav>
+	<div class="blog-list">
+		<Breadcrumbs links={[{ label: 'Blog', link: '/blog/' }]} />
 		{page.data.map((post) => {
 			return <ArticlePreview post={post} />;
 		})}
 	</div>
 </MainLayout>
+
+<style lang="scss">
+	.blog-list {
+		max-width: var(--max-post-width);
+		margin: 0 auto;
+	}
+</style>

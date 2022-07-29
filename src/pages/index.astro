@@ -1,48 +1,202 @@
 ---
-import site from 'data/site.json';
+import { SOCIAL_LINKS } from 'site-config';
 import MainLayout from 'layouts/MainLayout.astro';
-import myPic from 'img/mypic.png';
-import { sortPostsByRecency } from 'utils/posts-helpers';
+import myPic from 'images/mypic.png';
+import { processPosts } from 'utils/posts-helpers';
 import { PostFrontMatter } from 'utils/types';
 import ArticlePreview from 'components/ArticlePreview.astro';
 
 const allPosts = await Astro.glob<PostFrontMatter>('../posts/**/*.md');
-const sortedPosts = sortPostsByRecency(allPosts).slice(0, 5);
+const sortedPosts = processPosts(allPosts).slice(0, 5);
+const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 ---
 
 <MainLayout>
-	<div class="container home-page">
-		<figure class="image">
-			<img src={myPic} alt="profile-pic" />
-		</figure>
-		<section class="intro content">
-			<h1 class="title">Vivek Kumar Bansal</h1>
-			<h2 class="subtitle">
-				I <span class="has-text-primary">❤</span> building things using web technologies.
-			</h2>
-		</section>
-		<section class="about content">
-			<h3>About</h3>
-			<p>
-				I'm currently working as a Principal Software Enginner (UI) at <a
-					href="https://harness.io"
-					target="_blank"
-					>Harness R&D Labs India Pvt. Ltd., Bengaluru
-				</a>. I enjoy exploring and learning new tech. I'm a huge car nerd and Formula 1 fan.
-			</p>
-			<p>
-				<strong>I <span class="red">❤</span> Open Source</strong> and actively contribute on <a
-					href={site.social.github.link}
-					target="_blank"
-					>{site.social.github.name}
-				</a>.
-			</p>
-		</section>
-		<section class="recent-posts content">
-			<h3 class="blog-heading">Latest from Blog</h3>
+	<main class="container">
+		<div class="intro-section row">
+			<div class="profile-pic-container col-xl-5">
+				<figure class="profile-pic-figure">
+					<img class="profile-pic" src={myPic} alt="profile-pic" />
+					<div class="planetary-animation" aria-hidden="true">
+						<div class="orbit orbit-1">
+							<div class="dot dot-1"></div>
+							<div class="dot dot-2"></div>
+						</div>
+						<div class="orbit orbit-2">
+							<div class="dot dot-3"></div>
+							<div class="dot dot-4"></div>
+							<div class="dot dot-5"></div>
+						</div>
+					</div>
+				</figure>
+			</div>
+			<section class="intro-container col-xl-7">
+				<h1 class="title">Hello, I am Vivek</h1>
+				<p class="intro-content">
+					I <span class="text-primary">❤</span> building stuff using web technologies. I'm a huge car
+					nerd and Formula 1 fan.
+				</p>
+				<p class="social">
+					<span>Follow:&nbsp;</span>
+					{followLinks.map((social) => {
+						return (
+							<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
+								<img
+									class:list={[
+										'image',
+										{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
+									]}
+									alt={social.name}
+									src={social.img}
+								/>
+							</a>
+						);
+					})}
+				</p>
+			</section>
+		</div>
+		<section class="recent-posts">
+			<h2 class="h4">Latest from Blog</h2>
 			{sortedPosts.map((post) => {
 				return <ArticlePreview post={post} />;
 			})}
 		</section>
-	</div>
+	</main>
 </MainLayout>
+
+<style lang="scss">
+	@use 'sass:math';
+
+	.title {
+		font-size: 4rem;
+	}
+
+	.intro-content {
+		font-size: 1.5rem;
+		margin: 0;
+	}
+
+	.intro-section {
+		padding: 8rem 0;
+		margin-bottom: 2rem;
+	}
+
+	.profile-pic-container {
+		text-align: center;
+	}
+
+	.intro-container {
+		position: relative;
+		z-index: 2;
+	}
+
+	.profile-pic-figure {
+		position: relative;
+		display: inline-block;
+		// width: max-content;
+		margin: 0 auto;
+	}
+
+	.planetary-animation {
+		height: 1px;
+		width: 100%;
+	}
+
+	.profile-pic {
+		display: inline-block;
+		border-radius: 50%;
+		overflow: hidden;
+		position: relative;
+		z-index: 2;
+	}
+
+	.orbit {
+		position: absolute;
+		border: 2px dashed var(--border-light);
+		border-radius: 50%;
+		left: 50%;
+		aspect-ratio: 1;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background: transparent;
+		z-index: 1;
+		animation: spin 400s linear infinite;
+		transform-origin: center center;
+
+		&.orbit-1 {
+			width: 140%;
+		}
+
+		&.orbit-2 {
+			width: 190%;
+			animation-duration: 350s;
+		}
+	}
+
+	.dot {
+		width: 1.5rem;
+		height: 1.5rem;
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(4px);
+		opacity: 0.9;
+	}
+
+	@function dot_top($angle) {
+		@return (1 + math.sin($angle)) * 50%;
+	}
+
+	@function dot_left($angle) {
+		@return (1 - math.cos($angle)) * 50%;
+	}
+
+	.dot-1 {
+		background-color: #ffe268;
+		top: dot_top(0deg);
+		left: dot_left(0deg);
+		transform: translate(-50%, -50%);
+	}
+
+	.dot-2 {
+		background-color: #ff005c;
+		top: dot_top(210deg);
+		left: dot_left(210deg);
+		transform: translate(-50%, -50%) scale(1.5);
+	}
+
+	.dot-3 {
+		background-color: #ffab73;
+		top: dot_top(30deg);
+		left: dot_left(30deg);
+		transform: translate(-50%, -50%) scale(1.2);
+	}
+
+	.dot-4 {
+		background-color: #4a47a3;
+		top: dot_top(120deg);
+		left: dot_left(120deg);
+		transform: translate(-50%, -50%) scale(2);
+	}
+
+	.dot-5 {
+		background-color: #80abff;
+		top: dot_top(270deg);
+		left: dot_left(270deg);
+		transform: translate(-50%, -50%);
+	}
+
+	@keyframes spin {
+		from {
+			transform: translate(-50%, -50%) rotate(0deg);
+		}
+
+		to {
+			transform: translate(-50%, -50%) rotate(360deg);
+		}
+	}
+
+	.recent-posts {
+		max-width: var(--max-post-width);
+		margin: 0 auto;
+	}
+</style>

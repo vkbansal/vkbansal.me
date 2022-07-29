@@ -8,4 +8,7 @@ export interface PostFrontMatter {
 	draft?: boolean;
 }
 
-export type MyPostInstance = MarkdownInstance<PostFrontMatter>;
+export type MyPostInstance = Omit<MarkdownInstance<PostFrontMatter>, 'url'> & {
+	slug: string;
+	url: string;
+};

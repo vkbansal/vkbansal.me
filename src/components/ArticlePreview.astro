@@ -1,29 +1,77 @@
 ---
 import type { MyPostInstance } from 'utils/types';
 import { format, parseISO } from 'date-fns';
+import folder from 'images/folder.svg?raw';
 
 export interface Props {
 	post: MyPostInstance;
 }
 
 const { post } = Astro.props as Props;
-const formattedDate = format(parseISO(post.frontmatter.date), 'MMMM do yyyy');
+const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
 ---
 
-<div class="article-preview content">
-	<div class="date">
-		{formattedDate}
-	</div>
-	<a class="link" href={post.url}>
-		<h3 class="title" set:html={post.frontmatter.title}></h3>
-		<p set:html={post.frontmatter.description}></p>
-		<p class="read-more">Read More...</p>
-	</a>
-	<p>
-		{post.frontmatter.tags.map((tag) => (
-			<a href={`/tags/${tag}`} class="tag">
-				{tag}
-			</a>
-		))}
+<div class="article-preview">
+	<h2 class="h3">
+		<a class="link" href={post.url} set:html={post.frontmatter.title}></a>
+	</h2>
+	<p class="date">{formattedDate}</p>
+	<p class="post-description">
+		<a class="link" href={post.url} set:html={post.frontmatter.description}></a>
+	</p>
+	<p class="tags">
+		<Fragment set:html={folder} />
+		{post.frontmatter.tags.map((tag) => <a href={`/tags/${tag}`} class="tag" set:html={tag} />)}
 	</p>
 </div>
+
+<style lang="scss">
+	.article-preview {
+		border-bottom: 1px solid var(--border);
+		padding: 2rem 0;
+		max-width: var(--max-post-width);
+		margin: 0 auto;
+
+		h2 {
+			margin-top: 1rem;
+		}
+
+		&:last-child {
+			border-bottom: none;
+		}
+
+		.link {
+			text-decoration: none;
+		}
+
+		.date {
+			color: var(--text-light);
+			font-size: 0.85rem;
+		}
+
+		.tags {
+			display: inline-flex;
+			align-items: center;
+			font-size: 0.85rem;
+			color: var(--text-light);
+
+			& > :global(svg) {
+				width: 0.8rem;
+				height: 0.8rem;
+				margin-right: 0.5rem;
+			}
+
+			a {
+				text-decoration: none;
+				color: var(--text-light);
+
+				&:not(:last-child) {
+					margin-right: 0.5em;
+					&::after {
+						content: ',';
+					}
+				}
+			}
+		}
+	}
+</style>

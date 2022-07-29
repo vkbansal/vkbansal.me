@@ -1,0 +1,43 @@
+---
+export interface Link {
+	label: string;
+	link: string;
+}
+
+export interface Props {
+	links: Link[];
+}
+
+const { links = [] } = Astro.props as Props;
+const [lastLink, ...headLinks] = links.slice(0).reverse();
+---
+
+<nav class="breadcrumb" aria-label="breadcrumbs">
+	<a href="/">🏠</a>
+	{headLinks.map(({ label, link }) => <a href={link} set:html={label} />)}
+	<span aria-current="page" set:html={lastLink.label}></span>
+</nav>
+
+<style lang="scss">
+	.breadcrumb {
+		display: flex;
+		align-items: center;
+		font-size: 0.85rem;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			text-decoration: none;
+			color: var(--text-light);
+			&::after {
+				content: '/';
+				display: inline-block;
+				margin: 0 0.25rem;
+			}
+		}
+
+		span:last-child {
+			display: inline-block;
+		}
+	}
+</style>

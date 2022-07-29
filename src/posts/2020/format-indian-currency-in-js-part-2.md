@@ -1,5 +1,4 @@
 ---
-layout: layouts/Blog.astro
 title: Format INR currency using JavaScript (Part 2)
 description: Format INR currency using JavaScript (Part 2)
 date: 2020-09-18

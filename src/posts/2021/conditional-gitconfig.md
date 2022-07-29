@@ -1,5 +1,4 @@
 ---
-layout: layouts/Blog.astro
 title: Conditional git config
 date: 2021-08-31
 description: How to configure git based on folder paths.
@@ -12,7 +11,7 @@ If you are like me and you organize your projects in different folders like `~/P
 
 Add entries in the following format in your `~/.gitconfig`. Customize the paths as per your requirements:
 
-```
+```ini
 # ~/.gitconfig
 [includeIf "gitdir:~/Projects/MyCompany/"]
   path = ~/Projects/MyCompany/.gitconfig
@@ -23,14 +22,14 @@ Add entries in the following format in your `~/.gitconfig`. Customize the paths 
 
 And update the individual configs:
 
-```
+```ini
 # ~/Projects/MyCompany/.gitconfig
 [user]
   name = John Doe
   email = johndoe@mycompany.com
 ```
 
-```
+```ini
 # ~/Projects/Personal/.gitconfig
 [user]
   name = John Doe

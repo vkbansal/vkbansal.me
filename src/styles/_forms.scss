@@ -1,0 +1,144 @@
+input[type="text"],
+input[type="email"],
+input[type="url"],
+textarea {
+	background: var(--body-bg);
+	border: 1px solid var(--border);
+	box-shadow: none;
+	height: 48px;
+	width: 100%;
+	padding: 0px 1rem;
+	margin-bottom: 16px;
+	color: var(--text-main);
+	border-radius: var(--size-1);
+	&:focus {
+		border: 1px solid var(--primary-main);
+		color: var(--text-main);
+		outline: none;
+		box-shadow: none;
+	}
+	&::placeholder {
+		color: var(--text-light);
+	}
+}
+textarea {
+	height: auto;
+	padding: 1rem;
+}
+.input-field {
+	margin-bottom: 16px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+.form-field {
+	width: 100%;
+}
+@media (min-width: 768px) {
+	.field-group-inline {
+		display: flex;
+		flex-wrap: wrap;
+		.form-field {
+			width: auto;
+			margin-bottom: 0;
+			&:not(:last-child) {
+				margin-right: 12px;
+			}
+		}
+		.input-field {
+			flex: 1 0 200px;
+			width: auto;
+		}
+	}
+}
+
+@keyframes loading {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+%loading_spinner {
+	position: relative;
+	pointer-events: none;
+	&:after {
+		content: "";
+		box-sizing: border-box;
+		position: absolute;
+		top: 50%;
+		left: calc(50% - 10px);
+		width: 20px;
+		height: 20px;
+		margin-top: -10px;
+		border-radius: 50%;
+		border: 3px solid var(--white);
+		border-top-color: transparent;
+		animation: loading 0.8s linear infinite;
+	}
+}
+
+.loading {
+	.btn,
+	&.btn,
+	button,
+	&.button,
+	input[type="submit"],
+	&input[type="submit"] {
+		@extend %loading_spinner;
+		span {
+			visibility: hidden;
+		}
+	}
+}
+
+%success_icon {
+	position: relative;
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		display: inline-block;
+		height: 10px;
+		width: 20px;
+		border: 3px solid var(--white);
+		border-top-width: 0;
+		border-right-width: 0;
+		transform: translate(-50%, -75%) rotate(-45deg);
+	}
+}
+
+.success {
+	.btn,
+	&.btn,
+	button,
+	&.button,
+	input[type="submit"],
+	&input[type="submit"] {
+		@extend %success_icon;
+		span {
+			visibility: hidden;
+		}
+	}
+}
+
+.label {
+	display: inline-flex;
+	white-space: nowrap;
+	font-size: 0.875rem;
+	font-weight: 600;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 16px;
+	border-radius: 14px;
+}
+
+.label-success {
+	background: var(--success-light);
+	color: var(--black);
+}
+
+.label-success-solid {
+	background: var(--success-dark);
+	color: var(--white);
+}

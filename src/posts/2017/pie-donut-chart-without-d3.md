@@ -8,11 +8,6 @@ tags:
   - javascript
 ---
 
-<!-- import arcs from './arcs.svg';
-import arcsd from './arcs-direction.svg';
-import drawingArc from './drawing-arc.png';
-import donughtChart from './donught-chart-analysis.png'; -->
-
 As an exercise on learning how SVG works, I decided to create a pie/donut-chart using nothing but vanilla JS (Yes, not even d3!).
 
 ## SVG coordinate system and arcs
@@ -31,11 +26,11 @@ We will focus mainly on `d` attribute. The two parameters after `M` indicate a s
 
 The fourth and fifth parameters after `A` indicate `large-arc-flag` and `sweep-flag` respectively. Given any two points, only two arcs can be drawn through them with give radii and it controlled using `large-arc-flag`. As shown below, the blue arc is the smaller one (denoted by `0`) and the the red arc is the the larger one (denoted by `1`).
 
-<img src={arcs} alt="SVG arcs" />
+<img src="./images/arcs.svg" class="image center" alt="SVG arcs">
 
 The `sweep-flag` controls whether the arc is be to drawn in counter-clockwise direction (denoted by `0` and shown in blue) or clock-wise-direction (denoted by `1` and shown in red).
 
-<img src={arcsd} alt="SVG arcs" />
+<img src="./images/arcs-direction.svg" class="image center" alt="SVG arcs">
 
 For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path-element.html#arcs)
 
@@ -43,47 +38,44 @@ For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path
 
 The following is a diagram of a circle in the SVG coordinate-system. We assume that `r` is the radius of the the circle.
 
-![chart-analysis](./donught-chart-analysis.png)
+<img src="./images/donught-chart-analysis.png" class="image center invert" alt="Chart analysis">
 
-<img src={donughtChart} alt="Chart analysis" />
-
-Now suppose we want the coordinates of a point `A` on the circle which has an angle <code>&theta;</code> from vertical axis, we will make projections of `A` on horizontal and vertical axis as <code><i>X</i></code> and <code><i>Y</i></code> respectively. By using basic trigonometry we get:
+Now suppose we want the coordinates of a point `A` on the circle which has an angle <code>θ</code> from vertical axis, we will make projections of `A` on horizontal and vertical axis as <code><i>X</i></code> and <code><i>Y</i></code> respectively. By using basic trigonometry we get:
 
 ```
-X = r + r * sin&theta; = r (1 + sin&theta;)
-Y = r - r * cos&theta; = r (1 - cos&theta;)
+X = r + r * sinθ = r (1 + sinθ)
+Y = r - r * cosθ = r (1 - cosθ)
 
-Thus A = [r (1+ sin&theta;), r(1 - cos&theta;)]
+Thus A = [r (1+ sinθ), r(1 - cosθ)]
 ```
 
 For a donut chart, we will need to make another smaller circle with radius `r'` where `r' < r`. And similar to above example, we get coordinates of a point on this smaller circle as
 
 ```
-[r' (1+ sin&theta;), r'(1 - cos&theta;)]
+[r' (1+ sinθ), r'(1 - cosθ)]
 ```
 
 To make a donut-chart, we need to make these circles concentric (have same centers), thus, we need to shift the smaller circle by `r - r'` in both directions. Thus the updated coordinates for smaller circle are:
 
 ```
-[(r'(1 + sin&theta;)) + (r - r'), (r'(1 - cos&theta;)) + (r - r')] = [r + r'sin&theta;, r - r'cos&theta;]
+[(r'(1 + sinθ)) + (r - r'), (r'(1 - cosθ)) + (r - r')] = [r + r'sinθ, r - r'cosθ]
 ```
 
 ## Drawing an arc
 
-Now we will learn how to draw an arc <code>PQRS</code> as shown in picture below. We assume that the start angle of the arc is <code>&alpha;</code> and the end angle is <code>&beta;</code>. We also assume that the inner-radius <code><i>OS</i></code> is <code>r<sub>1</sub></code> the outer-radius <code><i>OP</i></code> is <code>r<sub>2</sub></code>.
+Now we will learn how to draw an arc <code>PQRS</code> as shown in picture below. We assume that the start angle of the arc is <code>α</code> and the end angle is <code>β</code>. We also assume that the inner-radius <code><i>OS</i></code> is <code>r<sub>1</sub></code> the outer-radius <code><i>OP</i></code> is <code>r<sub>2</sub></code>.
 
-<img src={drawingArc} alt="Drawing Arc" />
+<img src="./images/drawing-arc.png" class="image center invert" alt="Drawing Arc">
 
 From the above section, we can concluded that
 
 ```
-P = [r<sub>2</sub> + r<sub>2</sub> sin&alpha;, r<sub>2</sub>  - r<sub>2</sub> cos&alpha;]
 
-Q = [r<sub>2</sub> + r<sub>2</sub> sin&beta;, r<sub>2</sub>  - r<sub>2</sub> cos&beta;]
+P = [r2 + r2 sinα, r2  - r2 cosα]
+Q = [r2 + r2 sinβ, r2  - r2 cosβ]
+R =[r2 + r1 sinβ, r2  - r1 cosβ]
+S = [r2 + r1 sinα, r2  - r1 cosα]
 
-R =[r<sub>2</sub> + r<sub>1</sub> sin&beta;, r<sub>2</sub>  - r<sub>1</sub> cos&beta;]
-
-S = [r<sub>2</sub> + r<sub>1</sub> sin&alpha;, r<sub>2</sub>  - r<sub>1</sub> cos&alpha;]
 ```
 
 For drawing the arc, we will start from point `P(x, y)`. Thus, we can write:
@@ -112,7 +104,7 @@ Next we move **counterclock-wise** to point `S(x, y)` with radius <code>r<sub>1<
 
 The final `Z` is to close the path.
 
-There is one last bit remaining. We need to decide whether to use large-arc or small-arc (flip `large-arc-flag`) based on the angle of the arc <code>(&beta; - &alpha;)</code>. If it is greater than <code>&pi;</code>, we must use large-arc else small-arc.
+There is one last bit remaining. We need to decide whether to use large-arc or small-arc (flip `large-arc-flag`) based on the angle of the arc <code>(β - α)</code>. If it is greater than <code>&pi;</code>, we must use large-arc else small-arc.
 
 The final javascript code will look like this:
 

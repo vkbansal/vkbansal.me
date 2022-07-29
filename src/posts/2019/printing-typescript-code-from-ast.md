@@ -57,4 +57,4 @@ yarn start # or npm start
 
 It should look something like this:
 
-![command](/blog/img/print-ts-ast.gif)
+![command](./images/print-ts-ast.gif)
