@@ -4,7 +4,7 @@ date: 2016-06-19
 description: My notes from Machine Learning Course by Andrew Ng.
 tags:
   - notes
-  - 'machine-learning'
+  - machine-learning
 math: true
 ---
 
@@ -34,13 +34,13 @@ $$
 
 To make a support vector machine, we will modify the first term of the cost function $\left(−log(h_\theta(x))=−log\left(\frac{1}{1+e^{−\theta^Tx}}\right)\right)$ so that when $\theta^Tx$ (from now on, we shall refer to this as $z$) is greater than $1$, it outputs $0$. Furthermore, for values of $z$ less than $1$, we shall use a straight decreasing line instead of the sigmoid curve.(In the literature, this is called a [hinge loss](http://en.wikipedia.org/wiki/Hinge_loss) function.)
 
-![Svm hinge loss](./img/hinge_loss.svg)
+![Svm hinge loss](./images/hinge_loss.svg)
 
 <!--{.img-center}-->
 
 Similarly, we modify the second term of the cost function $\left(−log(1−h_\theta(x))=−log\left(1−\frac{1}{1+e^{−\theta^Tx}}\right)\right)$ so that when $z$ is less than $-1$, it outputs $0$. We also modify it so that for values of $z$ greater than $-1$, we use a straight increasing line instead of the sigmoid curve.
 
-![Svm hinge loss](./img/hinge_loss_negative.svg)
+![Svm hinge loss](./images/hinge_loss_negative.svg)
 
 <!--{.img-center}-->
 
