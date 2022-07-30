@@ -1,8 +1,10 @@
 import path from 'node:path';
-
 import type { MarkdownInstance } from 'astro';
 import { isBefore, isAfter, parseISO } from 'date-fns';
+
 import type { MyPostInstance, PostFrontMatter } from './types';
+
+const PROD = process.env.NODE_ENV === 'production';
 
 export function parseDate(date: unknown): Date {
 	if (typeof date === 'string') {
@@ -25,9 +27,12 @@ export function processPosts(posts: MarkdownInstance<PostFrontMatter>[]): MyPost
 	const today = new Date();
 
 	const processed = copy
-		.filter(
-			(post) =>
-				!(post.frontmatter.draft === true || isAfter(parseDate(post.frontmatter.date), new Date())),
+		.filter((post) =>
+			PROD
+				? !(
+						post.frontmatter.draft === true || isAfter(parseDate(post.frontmatter.date), new Date())
+				  )
+				: true,
 		)
 		.sort((a, b) => {
 			const aDate = parseDate(a.frontmatter.date);
