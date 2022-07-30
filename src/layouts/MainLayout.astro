@@ -5,12 +5,12 @@ import logo96 from 'images/logo-96.png';
 import logo512 from 'images/logo-512.png';
 import Header from 'components/Header.astro';
 import Footer from 'components/Footer.astro';
-import { SOCIAL_LINKS, SITE_TITLE, SITE_URL } from 'site-config';
+import { SOCIAL_LINKS, SITE_TITLE, SITE_URL, type SocialLink } from 'site-config';
 import 'styles/main.scss';
 
 const { title, description } = Astro.props;
 const pageTitle = `${title ? `${title} - ` : ''}${SITE_TITLE}`;
-const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter')!;
+const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLink;
 ---
 
 <html data-theme="light" lang="en">

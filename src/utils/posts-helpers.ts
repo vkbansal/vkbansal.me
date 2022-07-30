@@ -29,9 +29,7 @@ export function processPosts(posts: MarkdownInstance<PostFrontMatter>[]): MyPost
 	const processed = copy
 		.filter((post) =>
 			PROD
-				? !(
-						post.frontmatter.draft === true || isAfter(parseDate(post.frontmatter.date), new Date())
-				  )
+				? !(post.frontmatter.draft === true || isAfter(parseDate(post.frontmatter.date), today))
 				: true,
 		)
 		.sort((a, b) => {

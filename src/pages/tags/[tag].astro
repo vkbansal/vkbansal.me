@@ -1,13 +1,15 @@
 ---
-import type { GetStaticPathsOptions, GetStaticPathsItem } from 'astro';
+import type { GetStaticPathsItem } from 'astro';
 import type { PostFrontMatter, MyPostInstance } from 'utils/types';
 import { processPosts } from 'utils/posts-helpers';
 import MainLayout from 'layouts/MainLayout.astro';
 import Breadcrumbs from 'components/Breadcrumbs.astro';
 
-type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & { props: {} };
+type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & {
+	props: { posts: MyPostInstance[] };
+};
 
-export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult[]> {
+export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
 	const sortedPosts = processPosts(allPosts);
 

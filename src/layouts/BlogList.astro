@@ -23,7 +23,7 @@ const { lastPage: totalPages, currentPage } = page;
 		<Pagination
 			totalPages={totalPages}
 			currentPage={currentPage}
-			getLink={(n: number) => (n >= 2 ? `/blog/page/${n}/` : `/blog/`)}
+			getLink={(n: number): string => (n >= 2 ? `/blog/page/${n}/` : `/blog/`)}
 		/>
 	</div>
 </MainLayout>

@@ -1,6 +1,6 @@
 ---
 import path from 'node:path';
-import type { GetStaticPathsOptions, GetStaticPathsItem } from 'astro';
+import type { GetStaticPathsItem } from 'astro';
 import { format, parseISO } from 'date-fns';
 
 import { AUTHOR, CODE_REPOSITORY } from 'site-config';
@@ -18,7 +18,7 @@ export interface BlogProps {
 
 type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & { props: BlogProps };
 
-export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult[]> {
+export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
 	const sortedPosts = processPosts(allPosts);
 
