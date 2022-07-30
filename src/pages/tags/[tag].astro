@@ -1,0 +1,66 @@
+---
+import type { GetStaticPathsOptions, GetStaticPathsItem } from 'astro';
+import type { PostFrontMatter, MyPostInstance } from 'utils/types';
+import { processPosts } from 'utils/posts-helpers';
+import MainLayout from 'layouts/MainLayout.astro';
+import Breadcrumbs from 'components/Breadcrumbs.astro';
+
+type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & { props: {} };
+
+export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult[]> {
+	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
+	const sortedPosts = processPosts(allPosts);
+
+	const groupedPosts = sortedPosts.reduce<Record<string, MyPostInstance[]>>((grouped, post) => {
+		const tags = post.frontmatter.tags;
+
+		tags.forEach((tag) => {
+			if (!Array.isArray(grouped[tag])) {
+				grouped[tag] = [];
+			}
+
+			grouped[tag].push(post);
+		});
+
+		return grouped;
+	}, {});
+
+	return Object.entries(groupedPosts).map(([tag, posts]) => {
+		return {
+			params: { tag },
+			props: { posts },
+		};
+	});
+}
+
+const { tag } = Astro.params as { tag: string };
+const { posts } = Astro.props as { posts: MyPostInstance[] };
+---
+
+<MainLayout>
+	<div class="posts-list">
+		<Breadcrumbs
+			links={[
+				{ label: 'tags', link: '/tags/' },
+				{ label: tag, link: '' },
+			]}
+		/>
+		<h1 set:html={`All posts tagged with "${tag}"`}></h1>
+		<ul>
+			{posts.map((post) => (
+				<li>
+					<a href={post.url} set:html={post.frontmatter.title} />
+				</li>
+			))}
+		</ul>
+	</div>
+</MainLayout>
+<style lang="scss">
+	.posts-list {
+		a {
+			display: block;
+			margin-bottom: 1rem;
+			text-decoration: none;
+		}
+	}
+</style>

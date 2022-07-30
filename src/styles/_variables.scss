@@ -1,42 +1,64 @@
-html {
-  --primary: hsl(4, 85%, 60%);
-  --black-0: hsl(0, 0%, 4%);
-  --black-1: hsl(0, 0%, 7%);
-  --black-2: hsl(0, 0%, 14%);
-  --grey-0: hsl(0, 0%, 21%);
-  --grey-1: hsl(212, 31%, 18%);
-  --grey-2: hsl(212, 30%, 24%);
-  --grey-3: hsl(212, 16%, 36%);
-  --grey-4: hsl(212, 14%, 58%);
-  --grey-5: hsl(212, 10%, 72%);
-  --grey-6: hsl(212, 10%, 82%);
-  --white-2: hsl(0, 0%, 96%);
-  --white-1: hsl(0, 0%, 98%);
-  --white-0: hsl(0, 0%, 100%);
-  --text: var(--black-2);
-  --text-lighter: var(--grey-3);
-  --link: hsl(4, 90%, 40%);
-  --text-code: var(--text);
-  --text-code-bg: rgba(0, 0, 0, 0.07);
-  --border: var(--grey-5);
-  --body-bg: var(--white-2);
-  --gutter: 2rem;
-  --container: 80ch;
-  --breakpoint: 768px;
-  --size-xs: 0.2rem;
-  --size-sm: 0.5rem;
-  --size-md: 1rem;
-  --size-lg: 2rem;
-  --size-xl: 3rem;
+:root {
+	--font-family: 'Work Sans', sans-serif;
+}
 
-  &[data-theme='dark'] {
-    --primary: hsl(4, 90%, 69%);
-    --text: var(--white-1);
-    --text-lighter: var(--grey-5);
-    --body-bg: var(--grey-1);
-    --border: var(--grey-3);
-    --link: hsl(4, 90%, 76%);
-    --text-code: var(--text);
-    --text-code-bg: rgba(255, 255, 255, 0.1);
-  }
+@mixin common-vars {
+	--white: #ffffff;
+	--black: #000000;
+	--primary-light: #ec8f97;
+	--primary-main: #db2635;
+	--primary-dark: #ac1d28;
+	--success-light: #96ea8c;
+	--success-main: #6cd66a;
+	--success-dark: #2da140;
+	--error-light: #ff9b84;
+	--error-main: #ff7467;
+	--error-dark: #db2635;
+	--star: #ffd700;
+	--size-1: 4px;
+	--size-2: 8px;
+	--size-3: 16px;
+	--dot-anim-duration: 400s;
+	--gradient-primary: linear-gradient(to bottom right, var(--primary-main), var(--primary-dark));
+	--max-post-width: 700px;
+}
+
+/*=====================================================
+	light theme colors
+=====================================================*/
+@mixin theme-light {
+	--body-bg: #ffffff;
+	--text-main: #161f38;
+	--text-light: #575861;
+	--gray-light: #efefef;
+	--gray-lighter: #f9f9f9;
+	--border: #dadce5;
+	--border-light: var(--gray-light);
+	--shadow-opacity: 0.2;
+	--shadow: 0 10px 10px rgba(0, 0, 0, var(--shadow-opacity));
+}
+
+/*=====================================================
+	dark theme colors
+=====================================================*/
+@mixin theme-dark {
+	--body-bg: #272935;
+	--text-main: #f9f9fa;
+	--text-light: #b2b2b3;
+	--gray-light: #454854;
+	--gray-lighter: #303340;
+	--border: #35394b;
+	--border-light: var(--gray-light);
+	--shadow-opacity: 0.2;
+	--shadow: 0 10px 10px rgba(0, 0, 0, var(--shadow-opacity));
+}
+
+:root {
+	@include common-vars;
+	@include theme-light;
+}
+
+[data-theme='dark'] {
+	@include common-vars;
+	@include theme-dark;
 }

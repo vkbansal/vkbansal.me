@@ -1,5 +1,5 @@
 [build]
-  command = "yarn build"
+  command = "npm build"
   publish = "public"
   ignore = "./bot-test.sh"
 
@@ -10,6 +10,12 @@
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
   to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/machine-learning/*"
+  to = "https://vkbansal.github.io/blog/ml-:splat"
   status = 200
   force = true
 

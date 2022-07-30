@@ -1,0 +1,46 @@
+---
+import { SOCIAL_LINKS } from 'site-config';
+const currentYear = new Date().getFullYear();
+const footerLinks = SOCIAL_LINKS.filter((l) => l.footer);
+---
+
+<footer class="footer">
+	<div class="container">
+		<p>&copy; {currentYear} Vivek Kumar Bansal</p>
+		<a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
+			<img
+				src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
+				alt="Deploys by Netlify"
+			/>
+		</a>
+		<div class="social">
+			{footerLinks.map((social) => {
+				return (
+					<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
+						<img
+							class:list={[
+								'image',
+								{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
+							]}
+							alt={social.name}
+							src={social.img}
+						/>
+					</a>
+				);
+			})}
+		</div>
+	</div>
+</footer>
+<style lang="scss">
+	.footer {
+		margin-top: 2rem;
+
+		:global(.container) {
+			padding: 1rem 0;
+			border-top: 1px solid var(--border);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+	}
+</style>

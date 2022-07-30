@@ -1,0 +1,27 @@
+---
+import { PAGE_SIZE } from 'site-config';
+import BlogList, { type Props as BlogListProps } from 'layouts/BlogList.astro';
+import { processPosts } from 'utils/posts-helpers';
+import type { PostFrontMatter } from 'utils/types';
+
+const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
+const sortedPosts = processPosts(allPosts).slice(0, PAGE_SIZE);
+const lastPage = Math.ceil(allPosts.length / PAGE_SIZE);
+
+const page: BlogListProps['page'] = {
+	data: sortedPosts,
+	start: 0,
+	end: PAGE_SIZE - 1,
+	currentPage: 1,
+	total: allPosts.length,
+	size: PAGE_SIZE,
+	lastPage,
+	url: {
+		current: '/blog/',
+		prev: '',
+		next: '/blog/page/2',
+	},
+};
+---
+
+<BlogList page={page} />

@@ -1,0 +1,36 @@
+---
+import type { Page } from 'astro';
+import ArticlePreview from 'components/ArticlePreview.astro';
+import Breadcrumbs from 'components/Breadcrumbs.astro';
+import Pagination from 'components/Pagination.astro';
+import type { MyPostInstance } from 'utils/types';
+import MainLayout from './MainLayout.astro';
+
+export interface Props {
+	page: Page<MyPostInstance>;
+}
+
+const { page } = Astro.props as Props;
+const { lastPage: totalPages, currentPage } = page;
+---
+
+<MainLayout>
+	<div class="blog-list">
+		<Breadcrumbs links={[{ label: 'Blog', link: '/blog/' }]} />
+		{page.data.map((post) => {
+			return <ArticlePreview post={post} />;
+		})}
+		<Pagination
+			totalPages={totalPages}
+			currentPage={currentPage}
+			getLink={(n: number) => (n >= 2 ? `/blog/page/${n}/` : `/blog/`)}
+		/>
+	</div>
+</MainLayout>
+
+<style lang="scss">
+	.blog-list {
+		max-width: var(--max-post-width);
+		margin: 0 auto;
+	}
+</style>

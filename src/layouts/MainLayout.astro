@@ -1,0 +1,43 @@
+---
+import logo16 from 'images/logo-16.png';
+import logo32 from 'images/logo-32.png';
+import logo96 from 'images/logo-96.png';
+import logo512 from 'images/logo-512.png';
+import Header from 'components/Header.astro';
+import Footer from 'components/Footer.astro';
+import { SOCIAL_LINKS, SITE_TITLE, SITE_URL } from 'site-config';
+import 'styles/main.scss';
+
+const { title, description } = Astro.props;
+const pageTitle = `${title ? `${title} - ` : ''}${SITE_TITLE}`;
+const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter')!;
+---
+
+<html data-theme="light" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>{pageTitle}</title>
+		<meta name="description" content={SITE_TITLE} />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/png" href={logo16} sizes="16x16" />
+		<link rel="icon" type="image/png" href={logo32} sizes="32x32" />
+		<link rel="icon" type="image/png" href={logo96} sizes="96x96" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Work+Sans:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}"> -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:site" content={`@${twitter.username}`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={`${SITE_URL}${logo512}`} />
+	</head>
+	<body>
+		<Header />
+		<div class="container">
+			<slot />
+		</div>
+		<Footer />
+	</body>
+</html>

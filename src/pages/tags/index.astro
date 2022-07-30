@@ -1,0 +1,32 @@
+---
+import Breadcrumbs from 'components/Breadcrumbs.astro';
+import MainLayout from 'layouts/MainLayout.astro';
+import type { PostFrontMatter } from 'utils/types';
+
+const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
+
+const allTags = [...new Set(allPosts.flatMap((post) => post.frontmatter.tags))].sort();
+---
+
+<MainLayout>
+	<div class="tags-list">
+		<Breadcrumbs links={[{ label: 'tags', link: '/tags/' }]} />
+		<h1>All tags</h1>
+		<ul>
+			{allTags.map((tag) => (
+				<li>
+					<a href={`/tags/${tag}/`} set:html={tag} />
+				</li>
+			))}
+		</ul>
+	</div>
+</MainLayout>
+<style lang="scss">
+	.tags-list {
+		a {
+			display: block;
+			margin-bottom: 1rem;
+			text-decoration: none;
+		}
+	}
+</style>

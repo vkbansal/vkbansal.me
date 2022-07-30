@@ -1,0 +1,281 @@
+---
+import { NAV_LINKS } from 'site-config';
+import logo from 'images/logo.svg?raw';
+
+const { pathname: currentPath } = Astro.url;
+---
+
+<header class="header">
+	<div class="container">
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a href="/" class="brand-logo" title="Home Page" set:html={logo}></a>
+				<a
+					role="button"
+					class="navbar-burger"
+					aria-label="menu"
+					aria-expanded="false"
+					id="navbar-burger"
+				>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+					<span aria-hidden="true"></span>
+				</a>
+			</div>
+			<div class="navbar-menu" id="nav-menu">
+				{NAV_LINKS.map((link) => {
+					const active = currentPath.startsWith(link.to);
+					return (
+						<a
+							class:list={['nav-link', { 'nav-active': active }]}
+							href={link.to}
+							title={link.title}
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener noreferrer' : undefined}
+						>
+							{link.title}
+						</a>
+					);
+				})}
+				<label for="toggle-dark-mode" title="theme">
+					<input type="checkbox" id="toggle-dark-mode" />
+					<span></span>
+				</label>
+			</div>
+		</nav>
+	</div>
+</header>
+<script>
+	(() => {
+		const burger = document.getElementById('navbar-burger');
+		const menu = document.getElementById('nav-menu');
+		if (burger && menu) {
+			burger.addEventListener('click', (e) => {
+				burger.classList.toggle('is-active');
+				menu.classList.toggle('is-active');
+				// TODO: handle aria changes
+			});
+		}
+
+		try {
+			const toggleTheme = document.getElementById('toggle-dark-mode') as HTMLInputElement;
+			const isDarkTheme = localStorage.getItem('theme') === 'dark';
+
+			function setTheme(dark?: boolean, updateLocalStorage?: boolean) {
+				const theme = dark ? 'dark' : 'light';
+				if (toggleTheme) {
+					toggleTheme.checked = !!dark;
+				}
+
+				document.documentElement.dataset.theme = theme;
+
+				if (updateLocalStorage) {
+					localStorage.setItem('theme', theme);
+				}
+			}
+
+			setTheme(isDarkTheme);
+
+			if (toggleTheme) {
+				toggleTheme.addEventListener('change', (e) => {
+					if (e.target) {
+						const checked = (e.target as HTMLInputElement).checked;
+						setTheme(checked, true);
+					}
+				});
+			}
+			setTimeout(() => toggleTheme.classList.add('animate'), 1000);
+		} catch (e) {}
+	})();
+</script>
+<style lang="scss">
+	@use 'sass:math';
+
+	.navbar {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		justify-content: space-between;
+		border-bottom: 1px solid var(--border);
+		margin-bottom: 2rem;
+
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		@media screen and (max-width: 767px) {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		& .navbar-brand {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin: 1rem 0;
+
+			& a.brand-logo {
+				display: inline-block;
+				color: var(--primary-main);
+
+				& :global(svg) {
+					display: inline-block;
+					height: 2.5rem;
+				}
+			}
+		}
+
+		& .navbar-menu {
+			display: flex;
+			flex-direction: row;
+			gap: 1rem;
+			padding: 1rem 0;
+
+			@media screen and (max-width: 767px) {
+				flex-direction: column;
+				align-items: stretch;
+				border-top: 1px solid var(--border);
+				display: none;
+			}
+
+			&.is-active {
+				@media screen and (max-width: 767px) {
+					display: flex;
+				}
+			}
+		}
+
+		& .navbar-burger {
+			$bar-height: 0.25rem;
+			$burger-size: 2rem;
+			$delta: ($burger-size * math.div(math.sqrt(2) - 1, 2));
+			display: none;
+			width: $burger-size;
+			height: $burger-size;
+			padding: 0;
+			cursor: pointer;
+			position: relative;
+			margin-right: 0.5rem;
+			transition: transform 0.3s ease-out;
+
+			@media screen and (max-width: 767px) {
+				display: block;
+			}
+
+			& > span {
+				display: block;
+				height: $bar-height;
+				border-radius: $bar-height;
+				width: $burger-size;
+				background: var(--text-light);
+				position: absolute;
+				left: 0;
+				opacity: 1;
+				transform-origin: left center;
+				transition: transform 0.3s ease-out;
+				margin: 0;
+
+				&:nth-child(1) {
+					top: 0;
+				}
+
+				&:nth-child(2) {
+					top: 50%;
+					transform: translateY(-50%);
+				}
+
+				&:nth-child(3) {
+					bottom: 0;
+				}
+			}
+
+			&.is-active {
+				transform: rotate(180deg);
+
+				& > span {
+					&:nth-child(1) {
+						transform: translateY(-1 * math.div($bar-height, 2)) rotate(45deg) translateX($delta);
+					}
+
+					&:nth-child(2) {
+						opacity: 0;
+					}
+
+					&:nth-child(3) {
+						transform: translateY(math.div($bar-height, 2)) rotate(-45deg) translateX($delta);
+					}
+				}
+			}
+		}
+
+		label[for='toggle-dark-mode'] {
+			$switch-width: 2.75rem;
+			$switch-height: 1.25rem;
+			$toggle-size: $switch-height * 0.8;
+			$delta: math.div($switch-height - $toggle-size, 2);
+			display: inline-flex;
+			height: $switch-height;
+			width: $switch-width;
+			border-radius: $switch-height;
+			background: var(--text-light);
+			position: relative;
+			overflow: hidden;
+
+			& > input {
+				opacity: 0;
+				clip-path: circle(0, 0);
+
+				&:checked + span {
+					transform: translateX(calc($switch-width - $toggle-size - (2 * $delta)));
+				}
+
+				&.animate + span {
+					transition: transform 0.3s ease-in-out;
+				}
+			}
+
+			& > span {
+				position: absolute;
+				display: inline-block;
+				height: $toggle-size;
+				width: $toggle-size;
+				background: var(--white);
+				border-radius: 50%;
+				left: $delta;
+				top: $delta;
+				transform: translateX(0);
+
+				&::before,
+				&::after {
+					content: '';
+					display: inline-block;
+					position: absolute;
+					height: $toggle-size;
+					width: $switch-width;
+					border-radius: $toggle-size;
+					line-height: $toggle-size;
+					top: 0;
+				}
+
+				&::after {
+					content: '☀️';
+					text-align: right;
+					padding-right: $delta * 3;
+					font-size: 0.8em;
+					left: 0;
+				}
+
+				&::before {
+					content: '🌙';
+					padding-left: $delta * 3;
+					font-size: 0.7em;
+					right: 0;
+				}
+			}
+		}
+	}
+</style>
