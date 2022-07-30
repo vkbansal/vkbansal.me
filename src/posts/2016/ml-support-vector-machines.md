@@ -1,5 +1,4 @@
 ---
-layout: 'layouts/Blog.astro'
 title: 'Support Vector Machines (SVMs)'
 date: 2016-06-19
 description: My notes from Machine Learning Course by Andrew Ng.
@@ -8,10 +7,6 @@ tags:
   - 'machine-learning'
 math: true
 ---
-
-import Blog from 'layouts/Blog.astro';
-
-<Blog content={frontmatter}>
 
 ## Optimization Objective
 
@@ -318,5 +313,3 @@ You can use the *one-vs-all* method just like we did for logistic regression, 
 In the first case, we don't have enough examples to need a complicated polynomial hypothesis. In the second example, we have enough examples that we may need a complex non-linear hypothesis. In the last case, we want to increase our features so that logistic regression becomes applicable.
 
 **Note**: a neural network is likely to work well for any of these situations, but may be slower to train.
-
-</Blog>

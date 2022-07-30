@@ -27,7 +27,7 @@ const { pathname: currentPath } = Astro.url;
 					const active = currentPath.startsWith(link.to);
 					return (
 						<a
-							class:list={['navbar-item', { 'is-active': active }]}
+							class:list={['nav-link', { 'nav-active': active }]}
 							href={link.to}
 							title={link.title}
 							target={link.external ? '_blank' : undefined}
@@ -149,40 +149,6 @@ const { pathname: currentPath } = Astro.url;
 			}
 		}
 
-		& .navbar-item {
-			font-weight: 500;
-			display: inline-flex;
-			align-items: center;
-			color: var(--text-main);
-			position: relative;
-			line-height: 1.2;
-
-			&::after {
-				content: '';
-				display: block;
-				position: absolute;
-				top: 100%;
-				left: 0;
-				background: var(--primary-main);
-				height: 0.2em;
-				border-radius: 0.125em;
-				width: 100%;
-				transform-origin: left center;
-				transform: scaleX(0);
-				transition: transform 0.2s ease-in-out;
-			}
-
-			&:hover::after {
-				transform: scaleX(1);
-			}
-
-			&.is-active {
-				&::after {
-					transform: scaleX(1);
-				}
-			}
-		}
-
 		& .navbar-burger {
 			$bar-height: 0.25rem;
 			$burger-size: 2rem;
@@ -249,12 +215,13 @@ const { pathname: currentPath } = Astro.url;
 		label[for='toggle-dark-mode'] {
 			$switch-width: 2.75rem;
 			$switch-height: 1.25rem;
-			$toggle-size: $switch-height;
+			$toggle-size: $switch-height * 0.8;
+			$delta: math.div($switch-height - $toggle-size, 2);
 			display: inline-flex;
 			height: $switch-height;
 			width: $switch-width;
 			border-radius: $switch-height;
-			background: var(--black);
+			background: var(--text-light);
 			position: relative;
 			overflow: hidden;
 
@@ -263,7 +230,7 @@ const { pathname: currentPath } = Astro.url;
 				clip-path: circle(0, 0);
 
 				&:checked + span {
-					transform: translateX(calc($switch-width - $toggle-size - 3px));
+					transform: translateX(calc($switch-width - $toggle-size - (2 * $delta)));
 				}
 
 				&.animate + span {
@@ -276,10 +243,10 @@ const { pathname: currentPath } = Astro.url;
 				display: inline-block;
 				height: $toggle-size;
 				width: $toggle-size;
-				background: var(--white-0);
+				background: var(--white);
 				border-radius: 50%;
-				left: 1px;
-				top: 1px;
+				left: $delta;
+				top: $delta;
 				transform: translateX(0);
 
 				&::before,
@@ -291,20 +258,20 @@ const { pathname: currentPath } = Astro.url;
 					width: $switch-width;
 					border-radius: $toggle-size;
 					line-height: $toggle-size;
-					top: 1px;
+					top: 0;
 				}
 
 				&::after {
 					content: '☀️';
 					text-align: right;
-					padding-right: 4px;
+					padding-right: $delta * 3;
 					font-size: 0.8em;
 					left: 0;
 				}
 
 				&::before {
 					content: '🌙';
-					padding-left: 4px;
+					padding-left: $delta * 3;
 					font-size: 0.7em;
 					right: 0;
 				}

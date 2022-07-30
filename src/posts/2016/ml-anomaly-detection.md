@@ -1,17 +1,11 @@
 ---
-layout: 'layouts/Blog.astro'
 title: 'Anomaly Detection'
 date: 2016-07-02
 description: My notes from Machine Learning Course by Andrew Ng.
 tags:
   - notes
-  - 'machine-learning'
-math: true
+  - machine-learning
 ---
-
-import Blog from 'layouts/Blog.astro';
-
-<Blog content={frontmatter}>
 
 ## Problem Motivation
 
@@ -134,7 +128,7 @@ $$
 \end{align*}
 $$
 
-Possible evaluation metrics (see [Machine Learning System Design](../machine-learning-system-design/)):
+Possible evaluation metrics (see [Machine Learning System Design](./ml-machine-learning-system-design/)):
 
 - True positive, false positive, false negative, true negative.
 - Precision/recall
@@ -189,5 +183,3 @@ The original model for $p(x)$ corresponds to a multivariate Gaussian where the c
 The multivariate Gaussian model can automatically capture correlations between different features of $x$.
 
 However, the original model maintains some advantages: it is computationally cheaper (no matrix to invert, which is costly for large number of features) and it performs well even with small training set size (in multivariate Gaussian model, it should be greater than the number of features for $\Sigma$ to be invertible).
-
-</Blog>

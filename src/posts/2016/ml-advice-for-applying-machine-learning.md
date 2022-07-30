@@ -1,12 +1,10 @@
 ---
-layout: 'layouts/Blog.astro'
 title: 'Advice for Applying Machine Learning'
 date: 2016-05-30
 description: My notes from Machine Learning Course by Andrew Ng.
 tags:
   - notes
-  - 'machine-learning'
-math: true
+  - machine-learning
 ---
 
 import Blog from 'layouts/Blog.astro';
@@ -108,7 +106,7 @@ At the same time, the cross validation error will tend to **decrease** as we inc
 
 The is represented in the figure below:
 
-![Features-and-polynom-degree](./img/features-and-polynomial-degree.png)
+![Features-and-polynom-degree](./images/features-and-polynomial-degree.png)
 
 <!--{.img-center}-->
 
@@ -120,7 +118,7 @@ A large lambda heavily penalizes all the $\Theta$ parameters, which greatly simp
 
 The figure below illustrates the relationship between lambda and the cost:
 
-![Features-and-lambda](./img/features-and-lambda.png)
+![Features-and-lambda](./images/features-and-lambda.png)
 
 <!--{.img-center}-->
 

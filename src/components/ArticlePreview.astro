@@ -20,8 +20,10 @@ const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
 		<a class="link" href={post.url} set:html={post.frontmatter.description}></a>
 	</p>
 	<p class="tags">
-		<Fragment set:html={folder} />
-		{post.frontmatter.tags.map((tag) => <a href={`/tags/${tag}`} class="tag" set:html={tag} />)}
+		<a href="/tags/" title="tags" class="folder" set:html={folder}></a>
+		{post.frontmatter.tags.map((tag) => (
+			<a href={`/tags/${tag}`} title={`tag: ${tag}`} class="tag" set:html={tag} />
+		))}
 	</p>
 </div>
 
@@ -55,17 +57,19 @@ const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
 			font-size: 0.85rem;
 			color: var(--text-light);
 
-			& > :global(svg) {
+			& .folder > :global(svg) {
 				width: 0.8rem;
 				height: 0.8rem;
 				margin-right: 0.5rem;
 			}
 
 			a {
+				display: inline-flex;
+				align-items: center;
 				text-decoration: none;
 				color: var(--text-light);
 
-				&:not(:last-child) {
+				&.tag:not(:last-child) {
 					margin-right: 0.5em;
 					&::after {
 						content: ',';

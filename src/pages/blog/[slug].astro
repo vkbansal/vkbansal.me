@@ -5,7 +5,8 @@ import { processPosts } from 'utils/posts-helpers';
 import MainLayout from 'layouts/MainLayout.astro';
 import Breadcrumbs from 'components/Breadcrumbs.astro';
 import { format, parseISO } from 'date-fns';
-import { AUTHOR } from 'site-config';
+import { AUTHOR, CODE_REPOSITORY } from 'site-config';
+import path from 'path';
 
 export interface BlogProps {
 	post: MyPostInstance;
@@ -30,6 +31,8 @@ export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetSta
 const { post, prevPost, nextPost } = Astro.props as BlogProps;
 const formattedDate = format(parseISO(post.frontmatter.date), 'do MMMM yyyy');
 const content = await post.compiledContent();
+const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(), post.file);
+console.log('githubLink', githubLink);
 ---
 
 <MainLayout>
@@ -47,6 +50,9 @@ const content = await post.compiledContent();
 				<p>{formattedDate}</p>
 			</div>
 			<div set:html={content}></div>
+		</section>
+		<section class="other-links">
+			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
 		</section>
 		<nav class="post-pagination" role="navigation" aria-label="pagination">
 			{prevPost ? (
@@ -104,11 +110,16 @@ const content = await post.compiledContent();
 			}
 		}
 
+		.other-links {
+			margin: 2rem 0;
+		}
+
 		.post-pagination {
 			display: flex;
-			align-items: center;
+			align-items: stretch;
 			justify-content: space-between;
-			margin: 2rem 0;
+			gap: 1rem;
+			margin: 4rem 0;
 
 			& a {
 				text-decoration: none;
@@ -118,6 +129,7 @@ const content = await post.compiledContent();
 				border: 1px solid var(--border);
 				border-radius: 0.5rem;
 				color: var(--text-light);
+				max-width: 50%;
 
 				&:hover {
 					background-color: var(--border-light);

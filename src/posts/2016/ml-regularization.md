@@ -1,17 +1,12 @@
 ---
-layout: 'layouts/Blog.astro'
 title: Regularization
 date: 2016-05-09
 description: My notes from Machine Learning Course by Andrew Ng.
 tags:
   - notes
-  - 'machine-learning'
+  - machine-learning
 math: true
 ---
-
-import Blog from 'layouts/Blog.astro';
-
-<Blog content={frontmatter}>
 
 ## The Problem of Overfitting
 
@@ -148,5 +143,3 @@ $$
 $$
 
 This is identical to the gradient descent function presented for linear regression.
-
-</Blog>

@@ -1,5 +1,4 @@
 ---
-layout: 'layouts/Blog.astro'
 title: Introduction to Machine Learning
 date: 2016-04-29
 description: My notes from Machine Learning Course by Andrew Ng.
@@ -7,10 +6,6 @@ tags:
   - notes
   - machine-learning
 ---
-
-import Blog from 'layouts/Blog.astro';
-
-<Blog content={frontmatter}>
 
 ## What is Machine Learning?
 
@@ -53,5 +48,3 @@ With unsupervised learning there is no feedback based on the prediction results,
 _Clustering:_ Take a collection of 1000 essays written on the US Economy, and find a way to automatically group these essays into a small number that are somehow similar or related by different variables, such as word frequency, sentence length, page count, and so on.
 
 Another, non-Clustering example, is the "Cocktail Party Algorithm" which can find structure in messy data- like identifying individual voices and music from a mesh of sounds at a [cocktail party](https://en.wikipedia.org/wiki/Cocktail_party_effect).
-
-</Blog>

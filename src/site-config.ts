@@ -27,11 +27,10 @@ export const NAV_LINKS = [
 		to: 'mailto:contact@vkbansal.me',
 		external: true,
 	},
-	{
-		title: 'RSS',
-		to: '/feed.xml',
-		external: true,
-	},
+	// {
+	// 	title: 'Showcase',
+	// 	external: true,
+	// },
 ];
 
 export interface SocialLink {
