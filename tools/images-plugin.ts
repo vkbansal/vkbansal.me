@@ -2,7 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { camelCase } from 'change-case';
 import type { PluginOption } from 'vite';
-import { parse, visit, print } from 'recast';
+import { parse, visit, prettyPrint, type Options } from 'recast';
+
+const printOptions: Options = {
+	lineTerminator: '\n',
+	useTabs: false,
+	tabWidth: 2,
+	arrowParensAlways: true,
+	arrayBracketSpacing: true,
+};
 
 const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*?>/g;
 
@@ -17,7 +25,7 @@ function processHTMLContent(content: string, imgImports: string[]) {
 		return updatedImg;
 	});
 
-	return parse(newContent);
+	return newContent;
 }
 
 export function imagesPlugin(): PluginOption {
@@ -32,11 +40,13 @@ export function imagesPlugin(): PluginOption {
 				visit(ast, {
 					visitFunctionDeclaration(path) {
 						if (path.node.id?.name === 'compiledContent') {
-							const firstStatement = path.node.body.body[0];
+							const returnStatement = path.node.body.body[0];
 
-							if (firstStatement.type === 'ReturnStatement' && firstStatement.argument) {
-								const node = firstStatement.argument;
-								firstStatement.argument = processHTMLContent(print(node).code, imgImports);
+							if (returnStatement.type === 'ReturnStatement' && returnStatement.argument) {
+								const { code } = prettyPrint(returnStatement.argument, printOptions);
+								const processedHTML = processHTMLContent(code, imgImports);
+
+								returnStatement.argument = parse(processedHTML).program.body[0];
 							}
 						}
 
@@ -44,11 +54,7 @@ export function imagesPlugin(): PluginOption {
 					},
 				});
 
-				const finalCode = `${imgImports.join('\n')}\n${print(ast).code}`;
-
-				if (id.endsWith('ml-advice-for-applying-machine-learning.md')) {
-					fs.writeFileSync('temp.js', finalCode, 'utf8');
-				}
+				const finalCode = `${imgImports.join('\n')}\n${prettyPrint(ast, printOptions).code}`;
 
 				return {
 					code: finalCode,

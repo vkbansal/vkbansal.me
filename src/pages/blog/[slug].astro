@@ -1,12 +1,14 @@
 ---
+import path from 'node:path';
 import type { GetStaticPathsOptions, GetStaticPathsItem } from 'astro';
-import type { PostFrontMatter, MyPostInstance } from 'utils/types';
-import { processPosts } from 'utils/posts-helpers';
+import { format, parseISO } from 'date-fns';
+
+import { AUTHOR, CODE_REPOSITORY } from 'site-config';
 import MainLayout from 'layouts/MainLayout.astro';
 import Breadcrumbs from 'components/Breadcrumbs.astro';
-import { format, parseISO } from 'date-fns';
-import { AUTHOR, CODE_REPOSITORY } from 'site-config';
-import path from 'path';
+import type { PostFrontMatter, MyPostInstance } from 'utils/types';
+import { processPosts } from 'utils/posts-helpers';
+import Tags from 'components/Tags.astro';
 
 export interface BlogProps {
 	post: MyPostInstance;
@@ -42,17 +44,16 @@ const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(),
 				{ label: post.frontmatter.title, link: post.url },
 			]}
 		/>
-		<section class="content">
-			<h1 set:html={post.frontmatter.title}></h1>
-			<div class="metadata">
-				<p class="author">{AUTHOR.name}</p>
-				<p>{formattedDate}</p>
-			</div>
-			<div set:html={content}></div>
-		</section>
-		<section class="other-links">
+		<h1 set:html={post.frontmatter.title}></h1>
+		<div class="metadata">
+			<p class="author">{AUTHOR.name}</p>
+			<p>{formattedDate}</p>
+		</div>
+		<div set:html={content}></div>
+		<Tags tags={post.frontmatter.tags} />
+		<p class="other-links">
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
-		</section>
+		</p>
 		<nav class="post-pagination" role="navigation" aria-label="pagination">
 			{prevPost ? (
 				<a class="prev-post" href={prevPost.url}>
@@ -77,7 +78,7 @@ const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(),
 <style lang="scss">
 	.blog-post {
 		max-width: var(--max-post-width);
-		margin: 0 auto;
+		margin: 0 auto 4rem auto;
 
 		h1 {
 			margin-top: 1rem;
@@ -110,7 +111,7 @@ const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(),
 		}
 
 		.other-links {
-			margin: 2rem 0;
+			margin: 1rem 0;
 		}
 
 		.post-pagination {
@@ -118,7 +119,7 @@ const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(),
 			align-items: stretch;
 			justify-content: space-between;
 			gap: 1rem;
-			margin: 4rem 0;
+			margin: 2rem 0 0 0;
 
 			& a {
 				text-decoration: none;

@@ -10,7 +10,7 @@ module.exports = {
 	arrowParens: 'always',
 	overrides: [
 		{
-			files: ['*.yml', '*.yaml'],
+			files: ['*.yml', '*.yaml', '*.md'],
 			options: {
 				tabWidth: 2,
 				useTabs: false,

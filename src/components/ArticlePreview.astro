@@ -1,7 +1,7 @@
 ---
 import type { MyPostInstance } from 'utils/types';
 import { format, parseISO } from 'date-fns';
-import folder from 'images/folder.svg?raw';
+import Tags from './Tags.astro';
 
 export interface Props {
 	post: MyPostInstance;
@@ -19,12 +19,7 @@ const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
 	<p class="post-description">
 		<a class="link" href={post.url} set:html={post.frontmatter.description}></a>
 	</p>
-	<p class="tags">
-		<a href="/tags/" title="tags" class="folder" set:html={folder}></a>
-		{post.frontmatter.tags.map((tag) => (
-			<a href={`/tags/${tag}`} title={`tag: ${tag}`} class="tag" set:html={tag} />
-		))}
-	</p>
+	<Tags tags={post.frontmatter.tags} />
 </div>
 
 <style lang="scss">
@@ -51,31 +46,9 @@ const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
 			font-size: 0.85rem;
 		}
 
-		.tags {
-			display: inline-flex;
-			align-items: center;
-			font-size: 0.85rem;
-			color: var(--text-light);
-
-			& .folder > :global(svg) {
-				width: 0.8rem;
-				height: 0.8rem;
-				margin-right: 0.5rem;
-			}
-
-			a {
-				display: inline-flex;
-				align-items: center;
-				text-decoration: none;
-				color: var(--text-light);
-
-				&.tag:not(:last-child) {
-					margin-right: 0.5em;
-					&::after {
-						content: ',';
-					}
-				}
-			}
+		& :global(.tags) {
+			transform: scale(0.85);
+			transform-origin: left center;
 		}
 	}
 </style>

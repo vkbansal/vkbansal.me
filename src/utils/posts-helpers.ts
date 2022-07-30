@@ -20,31 +20,38 @@ export function parseDate(date: unknown): Date {
 	throw new Error(`Encountered unspported type for date: ${typeof date}`);
 }
 
-export function processPosts(posts:MarkdownInstance<PostFrontMatter>[]): MyPostInstance[] {
+export function processPosts(posts: MarkdownInstance<PostFrontMatter>[]): MyPostInstance[] {
 	const copy = posts.slice(0);
+	const today = new Date();
 
-	const processed = copy.sort((a, b) => {
-		const aDate = parseDate(a.frontmatter.date);
-		const bDate = parseDate(b.frontmatter.date);
+	const processed = copy
+		.filter(
+			(post) =>
+				!(post.frontmatter.draft === true || isAfter(parseDate(post.frontmatter.date), new Date())),
+		)
+		.sort((a, b) => {
+			const aDate = parseDate(a.frontmatter.date);
+			const bDate = parseDate(b.frontmatter.date);
 
-		if (isBefore(aDate, bDate)) {
-			return 1;
-		}
+			if (isBefore(aDate, bDate)) {
+				return 1;
+			}
 
-		if (isAfter(aDate, bDate)) {
-			return -1;
-		}
+			if (isAfter(aDate, bDate)) {
+				return -1;
+			}
 
-		return 0;
-	}).map(post => {
-		const slug = path.basename(post.file, '.md');
+			return 0;
+		})
+		.map((post) => {
+			const slug = path.basename(post.file, '.md');
 
-		return {
-			...post,
-			url: `/blog/${slug}/`,
-			slug
-		};
-	});
+			return {
+				...post,
+				url: `/blog/${slug}/`,
+				slug,
+			};
+		});
 
 	return processed;
 }

@@ -1,0 +1,43 @@
+---
+import folder from 'images/folder.svg?raw';
+
+export interface Props {
+	tags: string[];
+}
+
+const { tags } = Astro.props as Props;
+---
+
+<p class="tags">
+	<a href="/tags/" title="tags" class="folder" set:html={folder}></a>
+	{tags.map((tag) => <a href={`/tags/${tag}`} title={`tag: ${tag}`} class="tag" set:html={tag} />)}
+</p>
+<style lang="scss">
+	.tags {
+		display: inline-flex;
+		align-items: center;
+		color: var(--text-light);
+		font-size: 0.85rem;
+
+		& .folder > :global(svg) {
+			width: 1em;
+			height: 1em;
+			margin-right: 0.5em;
+		}
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			text-decoration: none;
+			color: var(--text-light);
+			text-transform: uppercase;
+
+			&.tag:not(:last-child) {
+				margin-right: 0.5em;
+				&::after {
+					content: ',';
+				}
+			}
+		}
+	}
+</style>
