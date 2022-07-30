@@ -14,6 +14,12 @@
   force = true
 
 [[redirects]]
+  from = "/blog/machine-learning/*"
+  to = "https://vkbansal.github.io/blog/ml-:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/react-contextmenu"
   to = "https://vkbansal.github.io/react-contextmenu/"
   status = 301
