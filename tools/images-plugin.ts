@@ -1,9 +1,10 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { camelCase } from 'change-case';
 import type { PluginOption } from 'vite';
 import { parse, visit, print } from 'recast';
 
-const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*>/g;
+const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*?>/g;
 
 function processHTMLContent(content: string, imgImports: string[]) {
 	const newContent = content.replace(IMG_REGEX, (imgTag, fullSrc, _0, src) => {
@@ -11,7 +12,9 @@ function processHTMLContent(content: string, imgImports: string[]) {
 
 		imgImports.push(`import ${variableName} from "${src}";`);
 
-		return imgTag.replace(fullSrc, 'src=${' + variableName + '}');
+		const updatedImg = imgTag.replace(fullSrc, 'src="${' + variableName + '}"');
+
+		return updatedImg;
 	});
 
 	return parse(newContent);
@@ -41,8 +44,14 @@ export function imagesPlugin(): PluginOption {
 					},
 				});
 
+				const finalCode = `${imgImports.join('\n')}\n${print(ast).code}`;
+
+				if (id.endsWith('ml-advice-for-applying-machine-learning.md')) {
+					fs.writeFileSync('temp.js', finalCode, 'utf8');
+				}
+
 				return {
-					code: `${imgImports.join('\n')}\n${print(ast).code}`,
+					code: finalCode,
 				};
 			}
 		},
