@@ -6,6 +6,7 @@
 [build.environment]
   NODE_VERSION = "v16"
   NODE_ENV = "production"
+	TZ = "Asia/Kolkata"
 
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
