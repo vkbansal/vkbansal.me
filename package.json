@@ -13,21 +13,21 @@
 		"dev": "astro dev"
 	},
 	"dependencies": {
-		"@types/node": "^18.6.2",
-		"astro": "1.0.0-rc.3",
+		"@types/node": "^18.6.3",
+		"astro": "1.0.0-rc.4",
 		"change-case": "^4.1.2",
 		"date-fns": "^2.29.1",
 		"github-slugger": "^1.4.0",
 		"normalize.css": "^8.0.1",
 		"reading-time": "^1.5.0",
 		"recast": "^0.21.1",
-		"sass": "^1.54.0",
+		"sass": "^1.54.1",
 		"typescript": "^4.7.4"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.31.0",
-		"@typescript-eslint/parser": "^5.31.0",
-		"eslint": "^8.20.0",
+		"@typescript-eslint/eslint-plugin": "^5.32.0",
+		"@typescript-eslint/parser": "^5.32.0",
+		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-astro": "^0.16.0",
 		"prettier": "^2.7.1",
