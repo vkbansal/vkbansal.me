@@ -1,22 +1,9 @@
 [build]
-  command = "npm run build"
   publish = "public"
-  ignore = "./bot-test.sh"
-
-[build.environment]
-  NODE_VERSION = "v16"
-  NODE_ENV = "production"
-	TZ = "Asia/Kolkata"
 
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
   to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/blog/machine-learning/*"
-  to = "https://vkbansal.me/blog/ml-:splat"
   status = 200
   force = true
 
