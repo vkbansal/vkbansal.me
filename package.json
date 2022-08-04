@@ -1,16 +1,21 @@
 {
 	"name": "vkbansal.me",
-	"description": "Site for Vivek Kumar Bansal",
 	"version": "3.0.0",
+	"description": "Site for Vivek Kumar Bansal",
 	"type": "module",
 	"private": true,
+	"author": "Vivek Kumar Bansal <contact@vkbansal.me>",
+	"license": "MIT",
 	"scripts": {
+		"prepare": "husky install",
 		"lint": "eslint 'src/**/*.{ts,tsx,astro}'",
+		"fmt": "prettier --plugin-search-dir=. --write 'src/**/*.{ts,tsx,astro}'",
 		"fmtc": "prettier --plugin-search-dir=. --check 'src/**/*.{ts,tsx,astro}'",
-		"prebuild": "rm -rf public",
-		"build": "NODE_ENV=production astro build",
+		"typecheck": "astro check && tsc --noEmit",
+		"dev": "astro dev",
 		"start": "astro dev",
-		"dev": "astro dev"
+		"prebuild": "rm -rf public",
+		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
 		"@types/node": "^18.6.3",
@@ -31,6 +36,7 @@
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-astro": "^0.16.0",
+		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
 		"prettier-plugin-astro": "^0.2.0"
 	}

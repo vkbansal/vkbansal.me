@@ -5,10 +5,12 @@
 		"module": "ESNext",
 		"strict": true,
 		"isolatedModules": true,
+		"esModuleInterop": true,
 		"moduleResolution": "Node",
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
-		"typeRoots": ["astro/client"]
+		"skipLibCheck": true,
+		"types": ["astro/client"]
 	},
 	"include": ["src"]
 }
