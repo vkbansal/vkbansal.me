@@ -14,7 +14,7 @@ const { page } = Astro.props as Props;
 const { lastPage: totalPages, currentPage } = page;
 ---
 
-<MainLayout>
+<MainLayout title="Blog" description="Blog Posts">
 	<div class="blog-list">
 		<Breadcrumbs links={[{ label: 'Blog', link: '/blog/' }]} />
 		{page.data.map((post) => {

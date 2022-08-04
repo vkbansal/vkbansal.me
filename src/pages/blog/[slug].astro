@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { GetStaticPathsItem } from 'astro';
 import { format, parseISO } from 'date-fns';
 import readingTime from 'reading-time';
+import { decode } from 'html-entities';
 
 import { AUTHOR, CODE_REPOSITORY } from 'site-config';
 import MainLayout from 'layouts/MainLayout.astro';
@@ -36,9 +37,10 @@ const formattedDate = format(parseISO(post.frontmatter.date), 'do MMMM yyyy');
 const content = await post.compiledContent();
 const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(), post.file);
 const readingStats = readingTime(post.rawContent());
+const decodedTitle = decode(post.frontmatter.title);
 ---
 
-<MainLayout>
+<MainLayout title={decodedTitle} description={post.frontmatter.description}>
 	<div class="blog-post">
 		<Breadcrumbs
 			links={[

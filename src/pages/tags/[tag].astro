@@ -39,7 +39,7 @@ const { tag } = Astro.params as { tag: string };
 const { posts } = Astro.props as { posts: MyPostInstance[] };
 ---
 
-<MainLayout>
+<MainLayout title={`Tag: ${tag}`} description={`List of all posts tagged with ${tag}`}>
 	<div class="posts-list">
 		<Breadcrumbs
 			links={[

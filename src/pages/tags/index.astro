@@ -8,7 +8,7 @@ const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
 const allTags = [...new Set(allPosts.flatMap((post) => post.frontmatter.tags))].sort();
 ---
 
-<MainLayout>
+<MainLayout title="Tags" description="List of all the tags">
 	<div class="tags-list">
 		<Breadcrumbs links={[{ label: 'tags', link: '/tags/' }]} />
 		<h1>All tags</h1>
