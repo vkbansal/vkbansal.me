@@ -12,5 +12,5 @@
 		"skipLibCheck": true,
 		"types": ["astro/client"]
 	},
-	"include": ["src"]
+	"include": ["src", "tools", "astro.config.ts"]
 }
