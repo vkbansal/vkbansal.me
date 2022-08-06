@@ -8,6 +8,12 @@
   force = true
 
 [[redirects]]
+  from = "/data.js"
+  to = "https://d.vkbansal.xyz/js/plausible.js"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/react-contextmenu"
   to = "https://vkbansal.github.io/react-contextmenu/"
   status = 301
