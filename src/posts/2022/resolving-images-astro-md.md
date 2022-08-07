@@ -7,6 +7,8 @@ tags:
   - vite
 ---
 
+> **Update (7th August 2022)**: The RC7 release of Astro, broke the implementation shown below. But the overall idea still remains the same. You can still read the post below to get a basic idea and then read the [follow up article](/blog/resolving-images-astro-md-2) which shows an updated implementation.
+
 While migrating my blog to [Astro](https://astro.build/), I came across a problem related to images
 with markdown content. Astro does not resolve images within the markdown content. One can use MDX
 flavored markdown to get around this, but that would require migration of existing content, which
@@ -171,7 +173,7 @@ transform(code, id) {
 
     return {
       code: finalCode,
-    };a
+    };
   }
 }
 ```
