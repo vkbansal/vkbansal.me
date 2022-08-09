@@ -18,8 +18,8 @@
 		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
-		"@types/node": "^18.6.4",
-		"astro": "1.0.0-rc.7",
+		"@types/node": "^18.6.5",
+		"astro": "1.0.0",
 		"change-case": "^4.1.2",
 		"date-fns": "^2.29.1",
 		"github-slugger": "^1.4.0",
@@ -30,16 +30,16 @@
 		"rollup": "^2.77.2",
 		"sass": "^1.54.3",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.4"
+		"vite": "^3.0.5"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.32.0",
-		"@typescript-eslint/parser": "^5.32.0",
+		"@typescript-eslint/eslint-plugin": "^5.33.0",
+		"@typescript-eslint/parser": "^5.33.0",
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-astro": "^0.16.0",
 		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
-		"prettier-plugin-astro": "^0.3.0"
+		"prettier-plugin-astro": "^0.4.1"
 	}
 }
