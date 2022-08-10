@@ -1,9 +1,9 @@
-import { Handler } from '@netlify/functions';
+import type { Handler } from '@netlify/functions';
 import { MongoClient } from 'mongodb';
 
 const { DB_URL } = process.env;
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
 	if (event.httpMethod !== 'POST') {
 		return { statusCode: 504, body: 'Method Not Allowed' };
 	}

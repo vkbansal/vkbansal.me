@@ -44,5 +44,20 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 			<slot />
 		</div>
 		<Footer />
+		<script>
+			try {
+				const time = new Date();
+				fetch('/.netlify/functions/user', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						page: window.location.pathname,
+						time: { time: time.toISOString(), tz: time.getTimezoneOffset() },
+					}),
+				});
+			} catch (_) {
+				//
+			}
+		</script>
 	</body>
 </html>

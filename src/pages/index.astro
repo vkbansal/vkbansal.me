@@ -38,47 +38,35 @@ const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 				</p>
 				<p class="social">
 					<span>Follow:&nbsp;</span>
-					{followLinks.map((social) => {
-						return (
-							<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
-								<img
-									class:list={[
-										'image',
-										{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
-									]}
-									alt={social.name}
-									src={social.img}
-								/>
-							</a>
-						);
-					})}
+					{
+						followLinks.map((social) => {
+							return (
+								<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
+									<img
+										class:list={[
+											'image',
+											{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
+										]}
+										alt={social.name}
+										src={social.img}
+									/>
+								</a>
+							);
+						})
+					}
 				</p>
 			</section>
 		</div>
 		<section class="recent-posts">
 			<h2 class="h4">Latest from Blog</h2>
-			{sortedPosts.map((post) => {
-				return <ArticlePreview post={post} />;
-			})}
+			{
+				sortedPosts.map((post) => {
+					return <ArticlePreview post={post} />;
+				})
+			}
 		</section>
 	</main>
 </MainLayout>
-
-<script>
-	try {
-		const time = new Date();
-		fetch('/.netlify/functions/user', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				page: window.location.pathname,
-				time: { time: time.toISOString(), tz: time.getTimezoneOffset() },
-			}),
-		});
-	} catch (_) {
-		//
-	}
-</script>
 
 <style lang="scss">
 	@use 'sass:math';
