@@ -1,13 +1,11 @@
 [build]
   publish = "public"
 	command = "npm install -g pnpm && pnpm install --store=node_modules/.pnpm-store --frozen-lockfile && pnpm run build"
+	functions = "src/.netlify/functions"
 
 [build.environment]
   NPM_FLAGS="--version"
 	NODE_VERSION="16"
-
-[functions]
-  directory = "src/.netlify/functions"
 
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
