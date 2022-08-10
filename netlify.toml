@@ -1,5 +1,9 @@
 [build]
   publish = "public"
+	command = "npm install -g pnpm && pnpm install && pnpm run build"
+
+[build.environment]
+  NPM_FLAGS="--prefix=/dev/null"
 
 [functions]
   directory = "src/.netlify/functions"
