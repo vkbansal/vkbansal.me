@@ -18,17 +18,19 @@
 		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
+		"@netlify/functions": "^1.0.0",
 		"@types/node": "^18.6.5",
-		"astro": "1.0.0",
+		"astro": "1.0.1",
 		"change-case": "^4.1.2",
 		"date-fns": "^2.29.1",
 		"github-slugger": "^1.4.0",
 		"html-entities": "^2.3.3",
+		"mongodb": "^4.8.1",
 		"normalize.css": "^8.0.1",
 		"reading-time": "^1.5.0",
 		"recast": "^0.21.2",
 		"rollup": "^2.77.2",
-		"sass": "^1.54.3",
+		"sass": "^1.54.4",
 		"typescript": "^4.7.4",
 		"vite": "^3.0.5"
 	},
@@ -37,9 +39,14 @@
 		"@typescript-eslint/parser": "^5.33.0",
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-astro": "^0.16.0",
+		"eslint-plugin-astro": "^0.17.1",
 		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
-		"prettier-plugin-astro": "^0.4.1"
+		"prettier-plugin-astro": "^0.5.0"
+	},
+	"pnpm": {
+		"overrides": {
+			"vite": "^3.0.5"
+		}
 	}
 }

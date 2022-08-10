@@ -50,7 +50,7 @@ const { pathname: currentPath } = Astro.url;
 		const burger = document.getElementById('navbar-burger');
 		const menu = document.getElementById('nav-menu');
 		if (burger && menu) {
-			burger.addEventListener('click', (e) => {
+			burger.addEventListener('click', () => {
 				burger.classList.toggle('is-active');
 				menu.classList.toggle('is-active');
 				// TODO: handle aria changes

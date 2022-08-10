@@ -1,6 +1,9 @@
 [build]
   publish = "public"
 
+[functions]
+  directory = "src/.netlify/functions"
+
 [[redirects]]
   from = "/sqlite-wasm-demo/*"
   to = "https://vkbansal.github.io/sqlite-wasm-demo/:splat"
