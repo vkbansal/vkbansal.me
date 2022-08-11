@@ -28,7 +28,7 @@ const handler: Handler = async (event, _context) => {
 		const body = JSON.parse(event.body);
 
 		await collection.insertOne({
-			site: 'vkbansal.me',
+			site: body.host,
 			page: body.page || 'unknown',
 			time: body.time,
 		});

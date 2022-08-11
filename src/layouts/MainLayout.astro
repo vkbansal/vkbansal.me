@@ -51,8 +51,13 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
+						host: window.location.host,
 						page: window.location.pathname,
-						time: { time: time.toISOString(), tz: time.getTimezoneOffset() },
+						time: {
+							time: time.toISOString(),
+							tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+							offset: time.getTimezoneOffset(),
+						},
 					}),
 				});
 			} catch (_) {
