@@ -27,10 +27,11 @@ export const NAV_LINKS = [
 		to: 'mailto:contact@vkbansal.me',
 		external: true,
 	},
-	// {
-	// 	title: 'Showcase',
-	// 	external: true,
-	// },
+	{
+		title: 'F1 Stats',
+		to: 'https://f1.vkbansal.me',
+		external: true,
+	},
 ];
 
 export interface SocialLink {
