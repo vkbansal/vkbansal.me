@@ -31,7 +31,6 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 			href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Work+Sans:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
-		<!-- <link rel="stylesheet" href="{{ '/styles/main.css' | hash }}"> -->
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:site" content={`@${twitter.username}`} />
@@ -46,20 +45,23 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 		<Footer />
 		<script>
 			try {
-				const time = new Date();
-				fetch('/.netlify/functions/user', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						host: window.location.host,
-						page: window.location.pathname,
-						time: {
-							time: time.toISOString(),
-							tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
-							offset: time.getTimezoneOffset(),
-						},
-					}),
-				});
+				if (window.location.hostname !== 'localhost') {
+					const time = new Date();
+					fetch('/.netlify/functions/user', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							host: window.location.host,
+							page: window.location.pathname,
+							ua: navigator.userAgent,
+							time: {
+								time: time.toISOString(),
+								tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+								offset: time.getTimezoneOffset(),
+							},
+						}),
+					});
+				}
 			} catch (_) {
 				//
 			}

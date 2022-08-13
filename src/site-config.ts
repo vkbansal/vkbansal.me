@@ -23,11 +23,6 @@ export const NAV_LINKS = [
 		external: false,
 	},
 	{
-		title: 'Contact',
-		to: 'mailto:contact@vkbansal.me',
-		external: true,
-	},
-	{
 		title: 'F1 Stats',
 		to: 'https://f1.vkbansal.me',
 		external: true,
