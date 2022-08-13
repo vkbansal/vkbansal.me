@@ -54,6 +54,7 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 							host: window.location.host,
 							page: window.location.pathname,
 							ua: navigator.userAgent,
+							r: document.referrer,
 							time: {
 								time: time.toISOString(),
 								tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
