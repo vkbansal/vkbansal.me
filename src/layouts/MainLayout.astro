@@ -58,6 +58,8 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 							d: time.toISOString(),
 							t: Intl.DateTimeFormat().resolvedOptions().timeZone,
 							o: time.getTimezoneOffset(),
+							vw: window.innerWidth,
+							vh: window.innerHeight,
 						}),
 					});
 				}

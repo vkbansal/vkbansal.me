@@ -35,6 +35,10 @@ const handler: Handler = async (event, _context) => {
 			referrer: body.r || null,
 			timezone: body.t,
 			timeOffset: body.o,
+			viewport: {
+				width: body.vw,
+				height: body.vh,
+			},
 		});
 
 		return { statusCode: 200, body: JSON.stringify({ message: 'OK' }) };
