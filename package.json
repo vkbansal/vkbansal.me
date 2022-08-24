@@ -18,36 +18,36 @@
 		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
-		"@netlify/functions": "^1.1.0",
-		"@types/node": "^18.7.2",
-		"astro": "1.0.4",
+		"@netlify/functions": "^1.2.0",
+		"@types/node": "^18.7.12",
+		"astro": "1.0.8",
 		"change-case": "^4.1.2",
-		"date-fns": "^2.29.1",
+		"date-fns": "^2.29.2",
 		"github-slugger": "^1.4.0",
 		"html-entities": "^2.3.3",
-		"mongodb": "^4.8.1",
+		"mongodb": "^4.9.0",
 		"normalize.css": "^8.0.1",
 		"reading-time": "^1.5.0",
 		"recast": "^0.21.2",
-		"rollup": "^2.77.3",
-		"sass": "^1.54.4",
+		"rollup": "^2.78.1",
+		"sass": "^1.54.5",
 		"typescript": "^4.7.4",
-		"vite": "^3.0.7"
+		"vite": "^3.0.9"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.33.0",
-		"@typescript-eslint/parser": "^5.33.0",
-		"eslint": "^8.21.0",
+		"@typescript-eslint/eslint-plugin": "^5.34.0",
+		"@typescript-eslint/parser": "^5.34.0",
+		"eslint": "^8.22.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-astro": "^0.17.1",
 		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
-		"prettier-plugin-astro": "^0.5.0"
+		"prettier-plugin-astro": "^0.5.3"
 	},
 	"pnpm": {
 		"overrides": {
-			"rollup": "^2.77.3",
-			"vite": "^3.0.7"
+			"rollup": "^2.78.1",
+			"vite": "^3.0.9"
 		}
 	}
 }
