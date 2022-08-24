@@ -6,7 +6,7 @@ overrides:
 
 specifiers:
   '@netlify/functions': ^1.2.0
-  '@types/node': ^18.7.12
+  '@types/node': ^18.7.13
   '@typescript-eslint/eslint-plugin': ^5.34.0
   '@typescript-eslint/parser': ^5.34.0
   astro: 1.0.8
@@ -31,7 +31,7 @@ specifiers:
 
 dependencies:
   '@netlify/functions': 1.2.0
-  '@types/node': 18.7.12
+  '@types/node': 18.7.13
   astro: 1.0.8_sass@1.54.5
   change-case: 4.1.2
   date-fns: 2.29.2
@@ -611,8 +611,8 @@ packages:
       '@types/unist': 2.0.6
     dev: false
 
-  /@types/node/18.7.12:
-    resolution: {integrity: sha512-caqFX7GwvZ4KLnhpI9CfiMkgHKp6kvFAIgpkha0cjO7bAQvB6dWe+q3fTHmm7fQvv59pd4tPj77nriq2M6U2dw==}
+  /@types/node/18.7.13:
+    resolution: {integrity: sha512-46yIhxSe5xEaJZXWdIBP7GU4HDTG8/eo0qd9atdiL+lFpA03y8KS+lkTN834TWJj5767GbWv4n/P6efyTFt1Dw==}
     dev: false
 
   /@types/parse5/6.0.3:
@@ -634,7 +634,7 @@ packages:
   /@types/whatwg-url/8.2.2:
     resolution: {integrity: sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA==}
     dependencies:
-      '@types/node': 18.7.12
+      '@types/node': 18.7.13
       '@types/webidl-conversions': 6.1.1
     dev: false
 
