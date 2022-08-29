@@ -15,7 +15,12 @@ module.exports = {
 		es6: true,
 		browser: true,
 	},
-	extends: ['eslint:recommended', 'prettier', 'plugin:@typescript-eslint/recommended'],
+	extends: [
+		'eslint:recommended',
+		'prettier',
+		'plugin:@typescript-eslint/recommended',
+		'plugin:astro/recommended',
+	],
 	rules: {
 		'no-new-object': 2,
 		'no-lonely-if': 2,
@@ -54,6 +59,7 @@ module.exports = {
 				prefer: 'type-imports',
 			},
 		],
+		'@typescript-eslint/prefer-nullish-coalescing': 0,
 	},
 	overrides: [
 		{
@@ -66,8 +72,11 @@ module.exports = {
 			parserOptions: {
 				parser: '@typescript-eslint/parser',
 				extraFileExtensions: ['.astro'],
+				project: null,
 			},
-			rules: {},
+			rules: {
+				'prettier/prettier': 0,
+			},
 		},
 	],
 };

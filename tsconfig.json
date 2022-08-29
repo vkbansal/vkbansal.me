@@ -10,7 +10,7 @@
 		"allowSyntheticDefaultImports": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"types": ["astro/client"]
+		"types": ["astro/client", "@types/node"]
 	},
 	"include": ["src", "tools", "astro.config.ts"]
 }
