@@ -49,11 +49,13 @@ const { posts } = Astro.props as { posts: MyPostInstance[] };
 		/>
 		<h1 set:html={`All posts tagged with "${tag}"`}></h1>
 		<ul>
-			{posts.map((post) => (
-				<li>
-					<a href={post.url} set:html={post.frontmatter.title} />
-				</li>
-			))}
+			{
+				posts.map((post) => (
+					<li>
+						<a href={post.url} set:html={post.frontmatter.title} />
+					</li>
+				))
+			}
 		</ul>
 	</div>
 </MainLayout>

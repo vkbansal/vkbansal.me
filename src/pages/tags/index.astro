@@ -13,11 +13,13 @@ const allTags = [...new Set(allPosts.flatMap((post) => post.frontmatter.tags))].
 		<Breadcrumbs links={[{ label: 'tags', link: '/tags/' }]} />
 		<h1>All tags</h1>
 		<ul>
-			{allTags.map((tag) => (
-				<li>
-					<a href={`/tags/${tag}/`} set:html={tag} />
-				</li>
-			))}
+			{
+				allTags.map((tag) => (
+					<li>
+						<a href={`/tags/${tag}/`} set:html={tag} />
+					</li>
+				))
+			}
 		</ul>
 	</div>
 </MainLayout>

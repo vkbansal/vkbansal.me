@@ -60,22 +60,26 @@ const decodedTitle = decode(post.frontmatter.title);
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
 		</p>
 		<nav class="post-pagination" role="navigation" aria-label="pagination">
-			{prevPost ? (
-				<a class="prev-post" href={prevPost.url}>
-					<span class="hint">&larr; Previous Post</span>
-					<span class="title" set:html={prevPost.frontmatter.title} />
-				</a>
-			) : (
-				<span />
-			)}
-			{nextPost ? (
-				<a class="next-post" href={nextPost.url}>
-					<span class="hint">Next Post &rarr;</span>
-					<span class="title" set:html={nextPost.frontmatter.title} />
-				</a>
-			) : (
-				<span />
-			)}
+			{
+				prevPost ? (
+					<a class="prev-post" href={prevPost.url}>
+						<span class="hint">&larr; Previous Post</span>
+						<span class="title" set:html={prevPost.frontmatter.title} />
+					</a>
+				) : (
+					<span />
+				)
+			}
+			{
+				nextPost ? (
+					<a class="next-post" href={nextPost.url}>
+						<span class="hint">Next Post &rarr;</span>
+						<span class="title" set:html={nextPost.frontmatter.title} />
+					</a>
+				) : (
+					<span />
+				)
+			}
 		</nav>
 	</div>
 </MainLayout>

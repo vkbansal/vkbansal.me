@@ -14,20 +14,22 @@ const footerLinks = SOCIAL_LINKS.filter((l) => l.footer);
 			/>
 		</a>
 		<div class="social">
-			{footerLinks.map((social) => {
-				return (
-					<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
-						<img
-							class:list={[
-								'image',
-								{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
-							]}
-							alt={social.name}
-							src={social.img}
-						/>
-					</a>
-				);
-			})}
+			{
+				footerLinks.map((social) => {
+					return (
+						<a href={social.link} title={social.name} target="_blank" rel="noopener noreferrer">
+							<img
+								class:list={[
+									'image',
+									{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
+								]}
+								alt={social.name}
+								src={social.img}
+							/>
+						</a>
+					);
+				})
+			}
 		</div>
 	</div>
 </footer>

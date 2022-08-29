@@ -23,20 +23,22 @@ const { pathname: currentPath } = Astro.url;
 				</a>
 			</div>
 			<div class="navbar-menu" id="nav-menu">
-				{NAV_LINKS.map((link) => {
-					const active = currentPath.startsWith(link.to);
-					return (
-						<a
-							class:list={['nav-link', { 'nav-active': active }]}
-							href={link.to}
-							title={link.title}
-							target={link.external ? '_blank' : undefined}
-							rel={link.external ? 'noopener noreferrer' : undefined}
-						>
-							{link.title}
-						</a>
-					);
-				})}
+				{
+					NAV_LINKS.map((link) => {
+						const active = currentPath.startsWith(link.to);
+						return (
+							<a
+								class:list={['nav-link', { 'nav-active': active }]}
+								href={link.to}
+								title={link.title}
+								target={link.external ? '_blank' : undefined}
+								rel={link.external ? 'noopener noreferrer' : undefined}
+							>
+								{link.title}
+							</a>
+						);
+					})
+				}
 				<label for="toggle-dark-mode" title="theme">
 					<input type="checkbox" id="toggle-dark-mode" />
 					<span></span>

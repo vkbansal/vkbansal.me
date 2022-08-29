@@ -28,103 +28,105 @@ const moreRight = totalPages - currentPage >= groupSize;
 		>&larr; Prev
 	</a>
 	<div class="pagination">
-		{totalPages > 1 ? (
-			<Fragment>
-				{totalPages <= groupSize + 2 * offsetGroupSize ? (
-					<Fragment>
-						{times(totalPages, (i) => {
-							const page = i + 1;
-							return (
-								<a
-									class:list={['nav-link', { 'nav-active': page === currentPage }]}
-									href={getLink(page)}
-								>
-									{page}
-								</a>
-							);
-						})}
-					</Fragment>
-				) : (
-					<Fragment>
-						{moreLeft ? (
-							<Fragment>
-								{times(offsetGroupSize, (i) => {
-									const page = i + 1;
-									return (
-										<a
-											class:list={['nav-link', { 'nav-active': page === currentPage }]}
-											href={getLink(page)}
-										>
-											{page}
-										</a>
-									);
-								})}
-								<span class="pagination-ellipsis">&hellip;</span>
-							</Fragment>
-						) : (
-							<Fragment>
-								{times(offsetGroupSize + groupSize, (i) => {
-									const page = i + 1;
-									return (
-										<a
-											class:list={['nav-link', { 'nav-active': page === currentPage }]}
-											href={getLink(page)}
-										>
-											{page}
-										</a>
-									);
-								})}
-							</Fragment>
-						)}
-						{moreLeft && moreRight ? (
-							<Fragment>
-								{times(groupSize, (i) => {
-									const page = i + currentPage - Math.floor(groupSize / 2);
-									return (
-										<a
-											class:list={['nav-link', { 'nav-active': page === currentPage }]}
-											href={getLink(page)}
-										>
-											{page}
-										</a>
-									);
-								})}
-							</Fragment>
-						) : null}
-						{moreRight ? (
-							<Fragment>
-								<span class="pagination-ellipsis">&hellip;</span>
-								{times(offsetGroupSize, (i) => {
-									const page = i + totalPages;
-									return (
-										<a
-											class:list={['nav-link', { 'nav-active': page === currentPage }]}
-											href={getLink(page)}
-										>
-											{page}
-										</a>
-									);
-								})}
-							</Fragment>
-						) : (
-							<Fragment>
-								{times(offsetGroupSize + groupSize, (i) => {
-									const page = i + totalPages - groupSize;
-									return (
-										<a
-											class:list={['nav-link', { 'nav-active': page === currentPage }]}
-											href={getLink(page)}
-										>
-											{page}
-										</a>
-									);
-								})}
-							</Fragment>
-						)}
-					</Fragment>
-				)}
-			</Fragment>
-		) : null}
+		{
+			totalPages > 1 ? (
+				<Fragment>
+					{totalPages <= groupSize + 2 * offsetGroupSize ? (
+						<Fragment>
+							{times(totalPages, (i) => {
+								const page = i + 1;
+								return (
+									<a
+										class:list={['nav-link', { 'nav-active': page === currentPage }]}
+										href={getLink(page)}
+									>
+										{page}
+									</a>
+								);
+							})}
+						</Fragment>
+					) : (
+						<Fragment>
+							{moreLeft ? (
+								<Fragment>
+									{times(offsetGroupSize, (i) => {
+										const page = i + 1;
+										return (
+											<a
+												class:list={['nav-link', { 'nav-active': page === currentPage }]}
+												href={getLink(page)}
+											>
+												{page}
+											</a>
+										);
+									})}
+									<span class="pagination-ellipsis">&hellip;</span>
+								</Fragment>
+							) : (
+								<Fragment>
+									{times(offsetGroupSize + groupSize, (i) => {
+										const page = i + 1;
+										return (
+											<a
+												class:list={['nav-link', { 'nav-active': page === currentPage }]}
+												href={getLink(page)}
+											>
+												{page}
+											</a>
+										);
+									})}
+								</Fragment>
+							)}
+							{moreLeft && moreRight ? (
+								<Fragment>
+									{times(groupSize, (i) => {
+										const page = i + currentPage - Math.floor(groupSize / 2);
+										return (
+											<a
+												class:list={['nav-link', { 'nav-active': page === currentPage }]}
+												href={getLink(page)}
+											>
+												{page}
+											</a>
+										);
+									})}
+								</Fragment>
+							) : null}
+							{moreRight ? (
+								<Fragment>
+									<span class="pagination-ellipsis">&hellip;</span>
+									{times(offsetGroupSize, (i) => {
+										const page = i + totalPages;
+										return (
+											<a
+												class:list={['nav-link', { 'nav-active': page === currentPage }]}
+												href={getLink(page)}
+											>
+												{page}
+											</a>
+										);
+									})}
+								</Fragment>
+							) : (
+								<Fragment>
+									{times(offsetGroupSize + groupSize, (i) => {
+										const page = i + totalPages - groupSize;
+										return (
+											<a
+												class:list={['nav-link', { 'nav-active': page === currentPage }]}
+												href={getLink(page)}
+											>
+												{page}
+											</a>
+										);
+									})}
+								</Fragment>
+							)}
+						</Fragment>
+					)}
+				</Fragment>
+			) : null
+		}
 	</div>
 	<a
 		class="nav-link"
