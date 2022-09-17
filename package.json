@@ -19,10 +19,10 @@
 	},
 	"dependencies": {
 		"@netlify/functions": "^1.2.0",
-		"@types/node": "^18.7.15",
-		"astro": "1.1.6",
+		"@types/node": "^18.7.18",
+		"astro": "1.2.6",
 		"change-case": "^4.1.2",
-		"date-fns": "^2.29.2",
+		"date-fns": "^2.29.3",
 		"github-slugger": "^1.4.0",
 		"html-entities": "^2.3.3",
 		"mongodb": "^4.9.1",
@@ -30,16 +30,16 @@
 		"reading-time": "^1.5.0",
 		"recast": "^0.21.2",
 		"rollup": "^2.79.0",
-		"sass": "^1.54.8",
-		"typescript": "^4.8.2",
-		"vite": "^3.1.0"
+		"sass": "^1.54.9",
+		"typescript": "^4.8.3",
+		"vite": "^3.1.1"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.36.2",
-		"@typescript-eslint/parser": "^5.36.2",
-		"eslint": "^8.23.0",
+		"@typescript-eslint/eslint-plugin": "^5.37.0",
+		"@typescript-eslint/parser": "^5.37.0",
+		"eslint": "^8.23.1",
 		"eslint-config-prettier": "^8.5.0",
-		"eslint-plugin-astro": "^0.18.0",
+		"eslint-plugin-astro": "^0.19.0",
 		"husky": "^8.0.1",
 		"prettier": "^2.7.1",
 		"prettier-plugin-astro": "^0.5.4"
