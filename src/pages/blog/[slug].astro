@@ -34,7 +34,7 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 
 const { post, prevPost, nextPost } = Astro.props as BlogProps;
 const formattedDate = format(parseISO(post.frontmatter.date), 'do MMMM yyyy');
-const content = await post.compiledContent();
+const content = post.compiledContent();
 const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(), post.file);
 const readingStats = readingTime(post.rawContent());
 const decodedTitle = decode(post.frontmatter.title);

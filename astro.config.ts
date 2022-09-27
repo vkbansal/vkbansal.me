@@ -9,7 +9,7 @@ export default defineConfig({
 	markdown: {
 		syntaxHighlight: 'shiki',
 		shikiConfig: {
-			theme: shikiTheme,
+			theme: shikiTheme as any,
 		},
 	},
 	vite: {
