@@ -1,7 +1,15 @@
 import path from 'node:path';
 import { camelCase } from 'change-case';
-import type { PluginOption } from 'vite';
-import type { TransformResult } from 'rollup';
+
+export interface PluginOption {
+	name: string;
+	enforce?: string;
+	transform(code: string, id: string): TransformResult | undefined;
+}
+
+export interface TransformResult {
+	code: string;
+}
 
 const HTML_REGEX = /const\s+html\s+=\s+(".*");/;
 const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*?>/g;
@@ -24,7 +32,7 @@ export function imagesPlugin(): PluginOption {
 	return {
 		name: 'images-plugin',
 		enforce: 'pre',
-		transform(code: string, id: string): TransformResult {
+		transform(code: string, id: string): TransformResult | undefined {
 			if (id.endsWith('md')) {
 				const imgImports: string[] = [];
 				const result = code.replace(HTML_REGEX, (_0, html) => {

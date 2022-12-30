@@ -6,8 +6,8 @@
   NPM_FLAGS="--version"
   NODE_VERSION="16"
 
-[functions]
-  directory = "src/_netlify/functions"
+# [functions]
+  # directory = "src/_netlify/functions"
   # external_node_modules = ["mongodb"]
 
 [[redirects]]
