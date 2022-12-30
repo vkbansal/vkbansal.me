@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "npm install -g pnpm && pnpm install --store=node_modules/.pnpm-store --frozen-lockfile && pnpm run build"
+  command = "pnpm run build"
 
 [build.environment]
   NPM_FLAGS="--version"

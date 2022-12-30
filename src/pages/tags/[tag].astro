@@ -47,7 +47,7 @@ const { posts } = Astro.props as { posts: MyPostInstance[] };
 				{ label: tag, link: '' },
 			]}
 		/>
-		<h1 set:html={`All posts tagged with "${tag}"`}></h1>
+		<h1 set:html={`All posts tagged with "${tag}"`} />
 		<ul>
 			{
 				posts.map((post) => (

@@ -9,7 +9,7 @@ const { tags } = Astro.props as Props;
 ---
 
 <p class="tags">
-	<a href="/tags/" title="tags" class="folder" set:html={folder}></a>
+	<a href="/tags/" title="tags" class="folder" set:html={folder} />
 	{tags.map((tag) => <a href={`/tags/${tag}`} title={`tag: ${tag}`} class="tag" set:html={tag} />)}
 </p>
 <style lang="scss">

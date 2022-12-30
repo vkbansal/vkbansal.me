@@ -48,13 +48,13 @@ const decodedTitle = decode(post.frontmatter.title);
 				{ label: post.frontmatter.title, link: post.url },
 			]}
 		/>
-		<h1 set:html={post.frontmatter.title}></h1>
+		<h1 set:html={post.frontmatter.title} />
 		<div class="metadata">
 			<p class="author">{AUTHOR.name}</p>
 			<p>{formattedDate}</p>
 			<p>{readingStats.text}</p>
 		</div>
-		<div set:html={content}></div>
+		<div set:html={content} />
 		<Tags tags={post.frontmatter.tags} />
 		<p class="other-links">
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>

@@ -17,14 +17,14 @@ const readingStats = readingTime(post.rawContent());
 
 <div class="article-preview">
 	<h2 class="h3">
-		<a class="link" href={post.url} set:html={post.frontmatter.title}></a>
+		<a class="link" href={post.url} set:html={post.frontmatter.title} />
 	</h2>
 	<div class="metadata">
 		<p>{formattedDate}</p>
 		<p>{readingStats.text}</p>
 	</div>
 	<p class="post-description">
-		<a class="link" href={post.url} set:html={post.frontmatter.description}></a>
+		<a class="link" href={post.url} set:html={post.frontmatter.description} />
 	</p>
 	<Tags tags={post.frontmatter.tags} />
 </div>

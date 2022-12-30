@@ -3,7 +3,7 @@ import { camelCase } from 'change-case';
 
 export interface PluginOption {
 	name: string;
-	enforce?: string;
+	enforce?: 'pre' | 'post';
 	transform(code: string, id: string): TransformResult | undefined;
 }
 
