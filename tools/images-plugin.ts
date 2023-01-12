@@ -16,6 +16,10 @@ const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*?>/g;
 
 function processHTMLContent(content: string, imgImports: string[]): string {
 	const newContent = content.replace(IMG_REGEX, (imgTag, fullSrc, _0, src) => {
+		if (src.startsWith('//') || src.startsWith('http')) {
+			return imgTag;
+		}
+
 		const variableName = camelCase(path.basename(src));
 
 		imgImports.push(`import ${variableName} from "${src}";`);
