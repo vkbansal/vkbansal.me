@@ -6,10 +6,10 @@ tags:
   - books
 ---
 
-I am not an avid book reader but, at the start of 2022, I decided to start reading some books.
-2022 was also the year when I started to get into the world of personal finance and investing.
-Hence you'll see that the majority of the books that I have listed below are around the topic of
-personal finance and investing.
+I am not an avid book reader but, at the start of 2022, I decided to start reading some books as a
+New year's resolution. 2022 was also the year when I started to get into the world of personal
+finance and investing. Hence you'll see that the majority of the books that I have listed below are
+around the same topic.
 
 #### How to Avoid a Climate Disaster: The Solutions We Have and the Breakthroughs We Need
 
@@ -18,7 +18,8 @@ personal finance and investing.
 <!--rehype:class=float-right-->
 
 This book is by Bill Gates, the co-founder of Microsoft and a Billionaire Philanthropist. This book
-is a call to action addressing the most pressing issue of our time, climate change.
+is a call to action addressing the most pressing issue of our time, climate change. This book is written
+in such a simple manner, that it's really easy for a layman to grasp the thoughts of the author.
 
 In the book, Gates talks about greenhouse gases and their adverse effects on the environment.
 He also talks about the technology and innovations that will be needed to reduce greenhouse gas
@@ -106,13 +107,10 @@ remarkable success in a rapidly changing industry.
 
 This book is a collection of essays by Morgan Housel. It explores, how people think about and relate
 to money. The author draws on a wide range of examples and research to illustrate how emotions, biases,
-and experiences shape our financial decisions and behaviors. It also examines the psychological and
-emotional dimensions of money, including the impact of wealth on our relationships, well-being, and
-even our sense of identity. The author covers different topics such as the role of luck, the power of
-compounding, and the role of perspective in decision-making. He also provides insights on how to think
-about financial risks and how to develop a long-term perspective on investing. He also provides insight
-on how to avoid common mistakes that people make when it comes to money, such as letting emotions drive
-decision-making and the impact of social comparison.
+and experiences shape our financial decisions and behaviors. The author covers different topics such as
+the role of luck, the power of compounding, and the role of perspective in decision-making. He also
+provides insight on how to avoid common mistakes that people make when it comes to money, such as
+letting emotions drive decision-making and the impact of social comparison.
 
 This is a great book for anyone who wants to understand how their emotions and behaviors influence
 their relationship with money, and how to make smarter financial decisions.
@@ -127,7 +125,16 @@ their relationship with money, and how to make smarter financial decisions.
 
 <!--rehype:class=float-right-->
 
-This book is by Nick Maggiulli
+This is a book on personal finance by Nick Maggiulli. It delves into saving and investing and
+advocates the practice of "Just Keep Buying" (Investing) irrespective of the market conditions.
+The Author presents hard evidence in form of historical data from the US markets. This book is filled
+with charts and graphs, for the data geeks to nerd out. It also explains, why you need to save less
+than you think and layouts some strategies, which you can use to act smarter and live richer every day.
+
+This is a great book for anyone who wants to get a general understanding of markets and investing work.
+Although this book is written in the context of the US market, I believe that the learnings from this book can
+be extended to Indian markets as both these markets, have similar underpinnings. If I had to choose one
+book from this list, this would be the one.
 
 [Buy on Amazon][just-keep-buying]<!--rehype:class=btn-->
 
@@ -139,7 +146,14 @@ This book is by Nick Maggiulli
 
 <!--rehype:class=float-right-->
 
-This book is by Monika Halan
+This book is also on personal finance by Monika Halan and is written from the Indian household perspective.
+The Author draws on her personal experiences and those of her friends and gives us anecdotes to add a human
+touch to the subject. This is not a get-rich-quick guide, but rather provides with a systematic way of
+managing one's finances. She discusses Insurance, Equity and Mutual funds and the need for each of them and
+explains it in a very simple manner.
+
+This is a great book for anyone who is looking to get started in the personal finance journey, especially in the
+Indian context.
 
 [Buy on Amazon][lets-talk-money]<!--rehype:class=btn-->
 
@@ -151,7 +165,14 @@ This book is by Monika Halan
 
 <!--rehype:class=float-right-->
 
-This book is by Saurabh Mukherjea
+This book is a collection of case studies by Saurabh Mukherjea. The case studies are about Asian Paints, Berger Paints,
+Marico Ltd, Page Industries, Axis Bank, HDFC Bank & Astral Poly Technik. In the book, the Author, starts with origins of
+each company and then goes on to explain, how did they reach to the point that they are at today. Each case study also
+explains the secret of success of each company using John Kay's IBAS framework. The book also touches on the topic of
+coffee-can investing and these companies being the top candidates for the portfolio.
+
+This is a great book for anyone who wants to know, what makes this basket of companies so successful, and wants to build
+their own coffee-can portfolio.
 
 [Buy on Amazon][unusual-billionaires]<!--rehype:class=btn-->
 
