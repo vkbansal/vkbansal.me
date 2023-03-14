@@ -27,6 +27,8 @@ And update the individual configs:
 [user]
   name = John Doe
   email = johndoe@mycompany.com
+[core]
+  sshCommand = "ssh -i ~/.ssh/id_rsa_my_company"
 ```
 
 ```ini
@@ -34,6 +36,8 @@ And update the individual configs:
 [user]
   name = John Doe
   email = johndoe@myblog.com
+[core]
+  sshCommand = "ssh -i ~/.ssh/id_rsa_personal"
 ```
 
 Now if you go into respective folders and run `git config user.email`, you must see
