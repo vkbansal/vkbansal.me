@@ -76,6 +76,13 @@ module.exports = {
 			},
 			rules: {
 				'prettier/prettier': 0,
+				'@typescript-eslint/no-non-null-assertion': 0,
+			},
+		},
+		{
+			files: ['*.d.ts'],
+			rules: {
+				'@typescript-eslint/triple-slash-reference': 0,
 			},
 		},
 	],

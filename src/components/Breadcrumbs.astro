@@ -15,7 +15,7 @@ const [lastLink, ...headLinks] = links.slice(0).reverse();
 <nav class="breadcrumb" aria-label="breadcrumbs">
 	<a href="/">🏠</a>
 	{headLinks.map(({ label, link }) => <a href={link} set:html={label} />)}
-	<span aria-current="page" set:html={lastLink.label} />
+	<span aria-current="page" set:html={lastLink!.label} />
 </nav>
 
 <style lang="scss">
