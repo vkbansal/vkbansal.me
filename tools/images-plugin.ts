@@ -53,6 +53,8 @@ export function imagesPlugin(): PluginOption {
 					code: finalCode,
 				};
 			}
+
+			return;
 		},
 	};
 }
