@@ -18,25 +18,26 @@
 		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
-		"@types/node": "^18.11.18",
-		"astro": "^1.9.2",
+		"@types/node": "^18.15.10",
+		"astro": "^2.1.7",
 		"change-case": "^4.1.2",
 		"date-fns": "^2.29.3",
+		"dayjs": "^1.11.7",
 		"html-entities": "^2.3.3",
 		"normalize.css": "^8.0.1",
 		"reading-time": "^1.5.0",
-		"sass": "^1.57.1",
-		"typescript": "^4.9.4"
+		"sass": "^1.60.0",
+		"typescript": "^5.0.2"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.48.1",
-		"@typescript-eslint/parser": "^5.48.1",
-		"eslint": "^8.31.0",
-		"eslint-config-prettier": "^8.6.0",
-		"eslint-plugin-astro": "^0.21.1",
+		"@typescript-eslint/eslint-plugin": "^5.56.0",
+		"@typescript-eslint/parser": "^5.56.0",
+		"eslint": "^8.36.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-astro": "^0.26.1",
 		"husky": "^8.0.3",
-		"prettier": "^2.8.2",
-		"prettier-plugin-astro": "^0.7.2",
+		"prettier": "^2.8.7",
+		"prettier-plugin-astro": "^0.8.0",
 		"rehype-attr": "^2.1.4",
 		"rehype-external-links": "^2.0.1"
 	}

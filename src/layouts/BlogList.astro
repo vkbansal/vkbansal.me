@@ -1,13 +1,14 @@
 ---
 import type { Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
 import ArticlePreview from 'components/ArticlePreview.astro';
 import Breadcrumbs from 'components/Breadcrumbs.astro';
 import Pagination from 'components/Pagination.astro';
-import type { MyPostInstance } from 'utils/types';
 import MainLayout from './MainLayout.astro';
 
 export interface Props {
-	page: Page<MyPostInstance>;
+	page: Page<CollectionEntry<'posts'>>;
 }
 
 const { page } = Astro.props as Props;

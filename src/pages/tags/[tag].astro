@@ -1,31 +1,35 @@
 ---
 import type { GetStaticPathsItem } from 'astro';
-import type { PostFrontMatter, MyPostInstance } from 'utils/types';
-import { processPosts } from 'utils/posts-helpers';
-import MainLayout from 'layouts/MainLayout.astro';
-import Breadcrumbs from 'components/Breadcrumbs.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+import MainLayout from '$/layouts/MainLayout.astro';
+import Breadcrumbs from '$/components/Breadcrumbs.astro';
+import { filterPostsCollection, postSlugToURL, sortPostsCollection } from '$/utils/helpers';
 
 type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & {
-	props: { posts: MyPostInstance[] };
+	props: { posts: CollectionEntry<'posts'>[] };
 };
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
-	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
-	const sortedPosts = processPosts(allPosts);
+	const blogEntries = await getCollection('posts', filterPostsCollection);
+	sortPostsCollection(blogEntries);
 
-	const groupedPosts = sortedPosts.reduce<Record<string, MyPostInstance[]>>((grouped, post) => {
-		const tags = post.frontmatter.tags;
+	const groupedPosts = blogEntries.reduce<Record<string, CollectionEntry<'posts'>[]>>(
+		(grouped, post) => {
+			const tags = post.data.tags;
 
-		tags.forEach((tag) => {
-			if (!Array.isArray(grouped[tag])) {
-				grouped[tag] = [];
-			}
+			tags.forEach((tag) => {
+				if (!Array.isArray(grouped[tag])) {
+					grouped[tag] = [];
+				}
 
-			grouped[tag].push(post);
-		});
+				grouped[tag]!.push(post);
+			});
 
-		return grouped;
-	}, {});
+			return grouped;
+		},
+		{},
+	);
 
 	return Object.entries(groupedPosts).map(([tag, posts]) => {
 		return {
@@ -36,7 +40,7 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 }
 
 const { tag } = Astro.params as { tag: string };
-const { posts } = Astro.props as { posts: MyPostInstance[] };
+const { posts } = Astro.props as { posts: CollectionEntry<'posts'>[] };
 ---
 
 <MainLayout title={`Tag: ${tag}`} description={`List of all posts tagged with ${tag}`}>
@@ -52,7 +56,7 @@ const { posts } = Astro.props as { posts: MyPostInstance[] };
 			{
 				posts.map((post) => (
 					<li>
-						<a href={post.url} set:html={post.frontmatter.title} />
+						<a href={postSlugToURL(post.slug)} set:html={post.data.title} />
 					</li>
 				))
 			}

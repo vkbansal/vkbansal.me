@@ -1,70 +1,73 @@
 ---
-import path from 'node:path';
 import type { GetStaticPathsItem } from 'astro';
-import { format, parseISO } from 'date-fns';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import dayjs from 'dayjs';
 import readingTime from 'reading-time';
 import { decode } from 'html-entities';
 
-import { AUTHOR, CODE_REPOSITORY } from 'site-config';
-import MainLayout from 'layouts/MainLayout.astro';
-import Breadcrumbs from 'components/Breadcrumbs.astro';
-import type { PostFrontMatter, MyPostInstance } from 'utils/types';
-import { processPosts } from 'utils/posts-helpers';
-import Tags from 'components/Tags.astro';
+import { AUTHOR, CODE_REPOSITORY } from '$/site-config';
+import MainLayout from '$/layouts/MainLayout.astro';
+import Breadcrumbs from '$/components/Breadcrumbs.astro';
+import Tags from '$/components/Tags.astro';
+import { filterPostsCollection, sortPostsCollection, postSlugToURL } from '$/utils/helpers';
 
 export interface BlogProps {
-	post: MyPostInstance;
-	prevPost?: MyPostInstance;
-	nextPost?: MyPostInstance;
+	post: CollectionEntry<'posts'>;
+	prevPost: CollectionEntry<'posts'> | undefined;
+	nextPost: CollectionEntry<'posts'> | undefined;
 }
 
 type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & { props: BlogProps };
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
-	const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
-	const sortedPosts = processPosts(allPosts);
+	const blogEntries = await getCollection('posts', filterPostsCollection);
+	sortPostsCollection(blogEntries);
 
-	return sortedPosts.map((post, i) => {
+	return blogEntries.map((post, i) => {
+		const prevPost = blogEntries[i + 1];
+		const nextPost = blogEntries[i - 1];
+
 		return {
-			params: { slug: post.slug },
-			props: { post, prevPost: sortedPosts[i + 1], nextPost: sortedPosts[i - 1] },
+			params: { slug: post.slug.split('/').slice(1).join('/') },
+			props: { post, prevPost, nextPost },
 		};
 	});
 }
 
 const { post, prevPost, nextPost } = Astro.props as BlogProps;
-const formattedDate = format(parseISO(post.frontmatter.date), 'do MMMM yyyy');
-const content = post.compiledContent();
-const githubLink = CODE_REPOSITORY + 'tree/main/' + path.relative(process.cwd(), post.file);
-const readingStats = readingTime(post.rawContent());
-const decodedTitle = decode(post.frontmatter.title);
+const formattedDate = dayjs(post.data.date).format('MMMM DD, YYYY');
+const { Content } = await post.render();
+const githubLink = `${CODE_REPOSITORY}tree/main/src/content/posts/${post.id}`;
+const readingStats = readingTime(post.body);
+const decodedTitle = decode(post.data.title);
 ---
 
-<MainLayout title={decodedTitle} description={post.frontmatter.description}>
+<MainLayout title={decodedTitle} description={post.data.description}>
 	<div class="blog-post">
 		<Breadcrumbs
 			links={[
 				{ label: 'Blog', link: '/blog/' },
-				{ label: post.frontmatter.title, link: post.url },
+				{ label: post.data.title, link: postSlugToURL(post.slug) },
 			]}
 		/>
-		<h1 set:html={post.frontmatter.title} />
+		<h1 set:html={post.data.title} />
 		<div class="metadata">
 			<p class="author">{AUTHOR.name}</p>
 			<p>{formattedDate}</p>
 			<p>{readingStats.text}</p>
 		</div>
-		<div set:html={content} />
-		<Tags tags={post.frontmatter.tags} />
+		<Content />
+		<Tags tags={post.data.tags} />
 		<p class="other-links">
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
 		</p>
 		<nav class="post-pagination" role="navigation" aria-label="pagination">
 			{
 				prevPost ? (
-					<a class="prev-post" href={prevPost.url}>
+					<a class="prev-post" href={postSlugToURL(prevPost.slug)}>
 						<span class="hint">&larr; Previous Post</span>
-						<span class="title" set:html={prevPost.frontmatter.title} />
+						<span class="title" set:html={prevPost.data.title} />
 					</a>
 				) : (
 					<span />
@@ -72,9 +75,9 @@ const decodedTitle = decode(post.frontmatter.title);
 			}
 			{
 				nextPost ? (
-					<a class="next-post" href={nextPost.url}>
+					<a class="next-post" href={postSlugToURL(nextPost.slug)}>
 						<span class="hint">Next Post &rarr;</span>
-						<span class="title" set:html={nextPost.frontmatter.title} />
+						<span class="title" set:html={nextPost.data.title} />
 					</a>
 				) : (
 					<span />

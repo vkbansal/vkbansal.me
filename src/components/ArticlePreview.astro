@@ -1,32 +1,33 @@
 ---
-import { format, parseISO } from 'date-fns';
+import dayjs from 'dayjs';
 import readingTime from 'reading-time';
 
-import type { MyPostInstance } from 'utils/types';
+import type { CollectionEntry } from 'astro:content';
 
 import Tags from './Tags.astro';
+import { postSlugToURL } from '$/utils/helpers';
 
 export interface Props {
-	post: MyPostInstance;
+	post: CollectionEntry<'posts'>;
 }
 
 const { post } = Astro.props as Props;
-const formattedDate = format(parseISO(post.frontmatter.date), ' do MMMM yyyy');
-const readingStats = readingTime(post.rawContent());
+const formattedDate = dayjs(post.data.date).format('MMMM DD, YYYY');
+const readingStats = readingTime(post.body);
 ---
 
 <div class="article-preview">
 	<h2 class="h3">
-		<a class="link" href={post.url} set:html={post.frontmatter.title} />
+		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.title} />
 	</h2>
 	<div class="metadata">
 		<p>{formattedDate}</p>
 		<p>{readingStats.text}</p>
 	</div>
 	<p class="post-description">
-		<a class="link" href={post.url} set:html={post.frontmatter.description} />
+		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.description} />
 	</p>
-	<Tags tags={post.frontmatter.tags} />
+	<Tags tags={post.data.tags} />
 </div>
 
 <style lang="scss">

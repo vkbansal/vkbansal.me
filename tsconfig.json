@@ -1,16 +1,10 @@
 {
+	"extends": "astro/tsconfigs/strictest",
 	"compilerOptions": {
-		"baseUrl": "src",
-		"target": "ESNext",
-		"module": "ESNext",
-		"strict": true,
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"moduleResolution": "Node",
-		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"types": ["astro/client", "@types/node"]
+		"baseUrl": "./src",
+		"paths": {
+			"$/*": ["./*"]
+		}
 	},
 	"include": ["src", "tools", "astro.config.ts"]
 }

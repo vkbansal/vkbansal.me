@@ -1,13 +1,16 @@
 ---
-import { SOCIAL_LINKS } from 'site-config';
-import MainLayout from 'layouts/MainLayout.astro';
-import myPic from 'images/profile_pic.jpg';
-import { processPosts } from 'utils/posts-helpers';
-import type { PostFrontMatter } from 'utils/types';
-import ArticlePreview from 'components/ArticlePreview.astro';
+import { getCollection } from 'astro:content';
 
-const allPosts = await Astro.glob<PostFrontMatter>('../posts/**/*.md');
-const sortedPosts = processPosts(allPosts).slice(0, 5);
+import { SOCIAL_LINKS } from '$/site-config';
+import MainLayout from '$/layouts/MainLayout.astro';
+import myPic from '$/images/profile_pic.jpg';
+import ArticlePreview from '$/components/ArticlePreview.astro';
+import { filterPostsCollection, sortPostsCollection } from '$/utils/helpers';
+
+const allPosts = await getCollection('posts', filterPostsCollection);
+sortPostsCollection(allPosts);
+
+const sortedPosts = allPosts.slice(0, 5);
 const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 ---
 

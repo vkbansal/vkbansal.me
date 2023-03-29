@@ -1,5 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 import { defineConfig } from 'astro/config';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -8,6 +9,7 @@ import rehypeAttrs from 'rehype-attr';
 import { imagesPlugin } from './tools/images-plugin';
 import shikiTheme from './tools/vscode-themes/noctis/minimus.json';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CERTS_DIR = path.resolve(__dirname, './.certificates');
 const CERTS_DIR_EXISTS = fs.existsSync(CERTS_DIR);
 const SSL_KEY = CERTS_DIR_EXISTS

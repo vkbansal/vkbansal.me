@@ -1,11 +1,13 @@
 ---
-import Breadcrumbs from 'components/Breadcrumbs.astro';
-import MainLayout from 'layouts/MainLayout.astro';
-import type { PostFrontMatter } from 'utils/types';
+import { getCollection } from 'astro:content';
 
-const allPosts = await Astro.glob<PostFrontMatter>('../../posts/**/*.md');
+import Breadcrumbs from '$/components/Breadcrumbs.astro';
+import MainLayout from '$/layouts/MainLayout.astro';
+import { filterPostsCollection } from '$/utils/helpers';
 
-const allTags = [...new Set(allPosts.flatMap((post) => post.frontmatter.tags))].sort();
+const blogEntries = await getCollection('posts', filterPostsCollection);
+
+const allTags = [...new Set(blogEntries.flatMap((post) => post.data.tags))].sort();
 ---
 
 <MainLayout title="Tags" description="List of all the tags">
