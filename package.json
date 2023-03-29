@@ -21,7 +21,6 @@
 		"@types/node": "^18.15.10",
 		"astro": "^2.1.7",
 		"change-case": "^4.1.2",
-		"date-fns": "^2.29.3",
 		"dayjs": "^1.11.7",
 		"html-entities": "^2.3.3",
 		"normalize.css": "^8.0.1",
