@@ -21,7 +21,7 @@ const SSL_CERT = CERTS_DIR_EXISTS
 
 // https://astro.build/config
 export default defineConfig({
-	outDir: 'public',
+	outDir: 'dist',
 	markdown: {
 		syntaxHighlight: 'shiki',
 		shikiConfig: {

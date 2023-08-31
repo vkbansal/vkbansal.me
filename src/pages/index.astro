@@ -19,7 +19,7 @@ const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 		<div class="intro-section row">
 			<div class="profile-pic-container col-xl-5">
 				<figure class="profile-pic-figure">
-					<img class="profile-pic" src={myPic} alt="profile-pic" />
+					<img class="profile-pic" src={myPic.src} alt="profile-pic" />
 					<div class="planetary-animation" aria-hidden="true">
 						<div class="orbit orbit-1">
 							<div class="dot dot-1"></div>
@@ -36,8 +36,8 @@ const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 			<section class="intro-container col-xl-7">
 				<h1 class="title">Hello, I am Vivek</h1>
 				<p class="intro-content">
-					I <span class="text-primary">❤</span> building stuff using web technologies. I'm a huge car
-					nerd and Formula 1 fan.
+					I <span class="text-primary">❤</span> building stuff using web technologies. I'm a huge
+					car nerd and Formula 1 fan.
 				</p>
 				<p class="social">
 					<span>Follow:&nbsp;</span>
@@ -51,7 +51,7 @@ const followLinks = SOCIAL_LINKS.filter((l) => l.follow);
 											{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
 										]}
 										alt={social.name}
-										src={social.img}
+										src={social.img?.src}
 									/>
 								</a>
 							);

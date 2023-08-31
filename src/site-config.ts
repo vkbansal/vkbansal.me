@@ -33,7 +33,7 @@ export interface SocialLink {
 	name: string;
 	link: string;
 	username?: string;
-	img?: string;
+	img?: ImageMetadata;
 	follow: boolean;
 	footer: boolean;
 	share: boolean;

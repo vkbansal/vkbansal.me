@@ -11,7 +11,7 @@ export interface TransformResult {
 	code: string;
 }
 
-const HTML_REGEX = /const\s+html\s+=\s+(".*");/;
+const HTML_REGEX = /const\s+html\s+=\s+updateImageReferences\((".*")\);/;
 const IMG_REGEX = /<img\s.*?(src=('|")(.*?)(\2)).*?>/g;
 
 function processHTMLContent(content: string, imgImports: string[]): string {
@@ -24,7 +24,7 @@ function processHTMLContent(content: string, imgImports: string[]): string {
 
 		imgImports.push(`import ${variableName} from "${src}";`);
 
-		const updatedImg = imgTag.replace(fullSrc, 'src="${' + variableName + '}"');
+		const updatedImg = imgTag.replace(fullSrc, 'src="${' + variableName + '.src}"');
 
 		return updatedImg;
 	});

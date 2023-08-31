@@ -1,14 +1,9 @@
 [build]
-  publish = "public"
+  publish = "dist"
   command = "pnpm run build"
 
 [build.environment]
-  NPM_FLAGS="--version"
-  NODE_VERSION="16"
-
-# [functions]
-  # directory = "src/_netlify/functions"
-  # external_node_modules = ["mongodb"]
+  NODE_VERSION="20"
 
 [[redirects]]
   from = "/sqlite-wasm-demo/*"

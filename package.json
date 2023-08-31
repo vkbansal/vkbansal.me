@@ -18,25 +18,26 @@
 		"build": "NODE_ENV=production astro build"
 	},
 	"dependencies": {
-		"@types/node": "^20.2.3",
-		"astro": "^2.5.5",
+		"@types/node": "^20.5.7",
+		"astro": "^3.0.3",
 		"change-case": "^4.1.2",
-		"dayjs": "^1.11.7",
-		"html-entities": "^2.3.3",
+		"dayjs": "^1.11.9",
+		"html-entities": "^2.4.0",
 		"normalize.css": "^8.0.1",
 		"reading-time": "^1.5.0",
-		"sass": "^1.62.1",
-		"typescript": "^5.0.4"
+		"sass": "^1.66.1",
+		"typescript": "^5.2.2"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^5.59.7",
-		"@typescript-eslint/parser": "^5.59.7",
-		"eslint": "^8.41.0",
-		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-astro": "^0.27.0",
+		"@astrojs/check": "^0.2.0",
+		"@typescript-eslint/eslint-plugin": "^6.5.0",
+		"@typescript-eslint/parser": "^6.5.0",
+		"eslint": "^8.48.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-astro": "^0.29.0",
 		"husky": "^8.0.3",
-		"prettier": "^2.8.8",
-		"prettier-plugin-astro": "^0.9.0",
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
 		"rehype-attr": "^2.1.4",
 		"rehype-external-links": "^2.1.0"
 	}

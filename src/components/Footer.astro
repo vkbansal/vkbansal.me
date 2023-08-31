@@ -24,7 +24,7 @@ const footerLinks = SOCIAL_LINKS.filter((l) => l.footer);
 									{ 'is-32x32': social.name === 'npm', 'is-24x24': social.name !== 'npm' },
 								]}
 								alt={social.name}
-								src={social.img}
+								src={social.img?.src}
 							/>
 						</a>
 					);
