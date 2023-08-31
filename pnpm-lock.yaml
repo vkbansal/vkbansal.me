@@ -29,6 +29,9 @@ dependencies:
   sass:
     specifier: ^1.66.1
     version: 1.66.1
+  sharp:
+    specifier: ^0.32.5
+    version: 0.32.5
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
