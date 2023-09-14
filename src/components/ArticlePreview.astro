@@ -6,6 +6,7 @@ import type { CollectionEntry } from 'astro:content';
 
 import Tags from './Tags.astro';
 import { postSlugToURL } from '$/utils/helpers';
+import { AUTHOR } from '$/site-config';
 
 export interface Props {
 	post: CollectionEntry<'posts'>;
@@ -17,17 +18,18 @@ const readingStats = readingTime(post.body);
 ---
 
 <div class="article-preview">
-	<h2 class="h3">
+	<h2 class="h3" transition:name={`post:${post.slug}`}>
 		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.title} />
 	</h2>
-	<div class="metadata">
+	<div class="metadata" transition:name={`metadata:${post.slug}`}>
+		<p class="author">{AUTHOR.name}</p>
 		<p>{formattedDate}</p>
 		<p>{readingStats.text}</p>
 	</div>
 	<p class="post-description">
 		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.description} />
 	</p>
-	<Tags tags={post.data.tags} />
+	<Tags transition:name={`tags:${post.slug}`} tags={post.data.tags} />
 </div>
 
 <style lang="scss">

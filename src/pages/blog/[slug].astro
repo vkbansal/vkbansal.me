@@ -51,14 +51,14 @@ const decodedTitle = decode(post.data.title);
 				{ label: post.data.title, link: postSlugToURL(post.slug) },
 			]}
 		/>
-		<h1 set:html={post.data.title} />
-		<div class="metadata">
+		<h1 transition:name={`post:${post.slug}`} set:html={post.data.title} />
+		<div transition:name={`metadata:${post.slug}`} class="metadata">
 			<p class="author">{AUTHOR.name}</p>
 			<p>{formattedDate}</p>
 			<p>{readingStats.text}</p>
 		</div>
 		<Content />
-		<Tags tags={post.data.tags} />
+		<Tags transition:name={`tags:${post.slug}`} tags={post.data.tags} />
 		<p class="other-links">
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
 		</p>
