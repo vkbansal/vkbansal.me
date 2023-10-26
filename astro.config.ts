@@ -1,6 +1,8 @@
 import path from 'node:path';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { type RehypePlugin } from '@astrojs/markdown-remark';
+import type { ThemeRegistration } from 'shikiji';
 
 import { defineConfig } from 'astro/config';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -25,13 +27,13 @@ export default defineConfig({
 	markdown: {
 		syntaxHighlight: 'shiki',
 		shikiConfig: {
-			theme: shikiTheme as any,
+			theme: shikiTheme as unknown as ThemeRegistration,
 		},
 		remarkRehype: {
 			allowDangerousHtml: true,
-		} as any,
+		},
 		rehypePlugins: [
-			[rehypeAttrs, { properties: 'attr' }],
+			[rehypeAttrs as unknown as RehypePlugin, { properties: 'attr' }],
 			[rehypeExternalLinks, { target: '_blank', rel: 'noopener noreferrer' }],
 		],
 	},
