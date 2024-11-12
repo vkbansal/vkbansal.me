@@ -38,4 +38,4 @@ jobs:
       - name: Setup
         uses: vkbansal/pnpm-setup-action@main
       - name: Prettier
-        run: pnpm run fmtc
+        run: pnpm run fmt:c
