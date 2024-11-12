@@ -1,12 +1,13 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+
 import dayjs from 'dayjs';
 import readingTime from 'reading-time';
 
-import type { CollectionEntry } from 'astro:content';
+import { AUTHOR } from '$/site-config';
+import { postSlugToURL } from '$/utils/helpers';
 
 import Tags from './Tags.astro';
-import { postSlugToURL } from '$/utils/helpers';
-import { AUTHOR } from '$/site-config';
 
 export interface Props {
 	post: CollectionEntry<'posts'>;

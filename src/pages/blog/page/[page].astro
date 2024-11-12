@@ -1,8 +1,10 @@
 ---
-import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from 'astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
-import { PAGE_SIZE } from '$/site-config';
+
+import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from 'astro';
+
 import BlogList from '$/layouts/BlogList.astro';
+import { PAGE_SIZE } from '$/site-config';
 import { filterPostsCollection, sortPostsCollection } from '$/utils/helpers';
 
 export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult> {

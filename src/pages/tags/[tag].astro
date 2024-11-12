@@ -1,9 +1,10 @@
 ---
-import type { GetStaticPathsItem } from 'astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
 
-import MainLayout from '$/layouts/MainLayout.astro';
+import type { GetStaticPathsItem } from 'astro';
+
 import Breadcrumbs from '$/components/Breadcrumbs.astro';
+import MainLayout from '$/layouts/MainLayout.astro';
 import { filterPostsCollection, postSlugToURL, sortPostsCollection } from '$/utils/helpers';
 
 type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & {

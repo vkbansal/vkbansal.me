@@ -1,16 +1,17 @@
 ---
-import type { GetStaticPathsItem } from 'astro';
-import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import dayjs from 'dayjs';
-import readingTime from 'reading-time';
-import { decode } from 'html-entities';
+import { getCollection } from 'astro:content';
 
-import { AUTHOR, CODE_REPOSITORY } from '$/site-config';
-import MainLayout from '$/layouts/MainLayout.astro';
+import type { GetStaticPathsItem } from 'astro';
+import dayjs from 'dayjs';
+import { decode } from 'html-entities';
+import readingTime from 'reading-time';
+
 import Breadcrumbs from '$/components/Breadcrumbs.astro';
 import Tags from '$/components/Tags.astro';
-import { filterPostsCollection, sortPostsCollection, postSlugToURL } from '$/utils/helpers';
+import MainLayout from '$/layouts/MainLayout.astro';
+import { AUTHOR, CODE_REPOSITORY } from '$/site-config';
+import { filterPostsCollection, postSlugToURL, sortPostsCollection } from '$/utils/helpers';
 
 export interface BlogProps {
 	post: CollectionEntry<'posts'>;

@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 
-import { SOCIAL_LINKS } from '$/site-config';
-import MainLayout from '$/layouts/MainLayout.astro';
-import myPic from '$/images/profile_pic.jpg';
 import ArticlePreview from '$/components/ArticlePreview.astro';
+import myPic from '$/images/profile_pic.jpg';
+import MainLayout from '$/layouts/MainLayout.astro';
+import { SOCIAL_LINKS } from '$/site-config';
 import { filterPostsCollection, sortPostsCollection } from '$/utils/helpers';
 
 const allPosts = await getCollection('posts', filterPostsCollection);

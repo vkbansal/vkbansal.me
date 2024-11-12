@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 
-import { PAGE_SIZE } from '$/site-config';
 import BlogList, { type Props as BlogListProps } from '$/layouts/BlogList.astro';
+import { PAGE_SIZE } from '$/site-config';
 import { filterPostsCollection, sortPostsCollection } from '$/utils/helpers';
 
 const blogEntries = await getCollection('posts', filterPostsCollection);
