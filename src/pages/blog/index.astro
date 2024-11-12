@@ -20,9 +20,11 @@ const page: BlogListProps['page'] = {
 	size: PAGE_SIZE,
 	lastPage,
 	url: {
+		first: '/blog/',
 		current: '/blog/',
 		prev: '',
 		next: '/blog/page/2',
+		last: `/blog/page/${lastPage}`,
 	},
 };
 ---
