@@ -1,10 +1,10 @@
 import { type RehypePlugin } from '@astrojs/markdown-remark';
-import type { ThemeRegistration } from 'shiki';
-import { transformerTwoslash } from '@shikijs/twoslash';
 import { transformerNotationDiff, transformerNotationHighlight } from '@shikijs/transformers';
+import { transformerTwoslash } from '@shikijs/twoslash';
 import { defineConfig } from 'astro/config';
-import rehypeExternalLinks from 'rehype-external-links';
 import rehypeAttrs from 'rehype-attr';
+import rehypeExternalLinks from 'rehype-external-links';
+import type { ThemeRegistration } from 'shiki';
 
 import { imagesPlugin } from './tools/images-plugin';
 import shikiTheme from './tools/vscode-themes/noctis/minimus.json';

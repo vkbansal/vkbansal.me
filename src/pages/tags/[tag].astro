@@ -40,8 +40,12 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 	});
 }
 
+export interface Props {
+	posts: CollectionEntry<'posts'>[];
+}
+
 const { tag } = Astro.params as { tag: string };
-const { posts } = Astro.props as { posts: CollectionEntry<'posts'>[] };
+const { posts } = Astro.props;
 ---
 
 <MainLayout title={`Tag: ${tag}`} description={`List of all posts tagged with ${tag}`}>
@@ -57,7 +61,7 @@ const { posts } = Astro.props as { posts: CollectionEntry<'posts'>[] };
 			{
 				posts.map((post) => (
 					<li>
-						<a href={postSlugToURL(post.slug)} set:html={post.data.title} />
+						<a href={postSlugToURL(post.id)} set:html={post.data.title} />
 					</li>
 				))
 			}

@@ -24,7 +24,7 @@ if (configFile) {
 
 ## Example
 
-I have created [an example on StackBlitz](https://stackblitz.com/edit/node-quzx2e?file=index.js). It has the follwing directory structure:
+I have created [an example on StackBlitz](https://stackblitz.com/edit/node-quzx2e?file=index.js). It has the following directory structure:
 
 ```
 |- test/

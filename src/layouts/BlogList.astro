@@ -13,7 +13,7 @@ export interface Props {
 	page: Page<CollectionEntry<'posts'>>;
 }
 
-const { page } = Astro.props as Props;
+const { page } = Astro.props;
 const { lastPage: totalPages, currentPage } = page;
 ---
 

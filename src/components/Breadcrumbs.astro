@@ -8,7 +8,7 @@ export interface Props {
 	links: Link[];
 }
 
-const { links = [] } = Astro.props as Props;
+const { links = [] } = Astro.props;
 const [lastLink, ...headLinks] = links.slice(0).reverse();
 ---
 

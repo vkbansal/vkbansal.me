@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 import { SITE_TITLE, SITE_URL, SOCIAL_LINKS, type SocialLink } from 'site-config';
 
@@ -17,7 +17,7 @@ export interface Props {
 	description: string;
 }
 
-const { title, description } = Astro.props as Props;
+const { title, description } = Astro.props;
 const pageTitle = `${title ? `${title} - ` : ''}${SITE_TITLE}`;
 const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLink;
 ---
@@ -40,7 +40,7 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 		<meta name="twitter:site" content={`@${twitter.username}`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={`${SITE_URL}${logo512.src}`} />
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />
