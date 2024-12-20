@@ -15,14 +15,14 @@ Today we will be taking a look at [`Intl.NumberFormat()`](https://developer.mozi
 
 ```js
 const numberFormatter = new Intl.NumberFormat('en-IN', {
-	style: 'currency',
-	currency: 'INR',
-	minimumIntegerDigits: 2,
-	currencyDisplay: 'symbol',
+  style: 'currency',
+  currency: 'INR',
+  minimumIntegerDigits: 2,
+  currencyDisplay: 'symbol',
 });
 
 function formatNumberToINR(num) {
-	return numberFormatter.format(num);
+  return numberFormatter.format(num);
 }
 
 const formattedString = formatNumberToINR(1234567.89);
@@ -30,4 +30,4 @@ const formattedString = formatNumberToINR(1234567.89);
 console.log(formattedString); // ₹12,34,567.89;
 ```
 
-The above example shows how to format numbers to INR currency but you can customise it your needs by passing appropriate options.
+The above example shows how to format numbers to INR currency but you can customize it your needs by passing appropriate options.

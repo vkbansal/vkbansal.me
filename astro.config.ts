@@ -1,3 +1,4 @@
+/* eslint-disable @cspell/spellchecker */
 import { type RehypePlugin } from '@astrojs/markdown-remark';
 import { transformerNotationDiff, transformerNotationHighlight } from '@shikijs/transformers';
 import { transformerTwoslash } from '@shikijs/twoslash';

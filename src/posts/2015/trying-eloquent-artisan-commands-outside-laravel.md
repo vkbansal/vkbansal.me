@@ -11,7 +11,7 @@ In my last blog post, we had a look at [using Eloquent outside laravel](/blog/us
 
 ## Setup
 
-Eloquent suggests installing `illuminate\console` and `illuminate\filesystem` to run the migration commands. So I update my `composer.json` accordingly and installed the requierd packages.
+Eloquent suggests installing `illuminate\console` and `illuminate\filesystem` to run the migration commands. So I update my `composer.json` accordingly and installed the required packages.
 
 I made a file called `artsy` and put the following content in it:
 
@@ -27,7 +27,7 @@ $app->run();
 
 ## Including commands
 
-My first aim was to add `migrate:install` and `make:migrate` commands which would insert required migration tables to the database and run migrations respectively. After going through the database component's code, I realized that the components have a crazy dependency on each other and required a lot of boostrapping (which is obviously handled by Laravel internally). To ease this task a bit, I decided to use `Pimple`.
+My first aim was to add `migrate:install` and `make:migrate` commands which would insert required migration tables to the database and run migrations respectively. After going through the database component's code, I realized that the components have a crazy dependency on each other and required a lot of bootstrapping (which is obviously handled by Laravel internally). To ease this task a bit, I decided to use `Pimple`.
 
 After a bit struggle, I finally figured out the dependencies and also that I'll need to mock `Illuminate\Foundation\Composer` for `make:migrate` command. So I also included `Mockery`. And after all this my `artsy` file looked like this:
 
@@ -54,7 +54,7 @@ $container['db-config'] = [
     'schema'   => 'public'
 ];
 
-$container['filesytem'] = function ($c) {
+$container['filesystem'] = function ($c) {
     return new \Illuminate\Filesystem\Filesystem;
 };
 
@@ -83,11 +83,11 @@ $container['migration-repo'] = function ($c) {
 };
 
 $container['migration-creator'] = function ($c) {
-    return new \Illuminate\Database\Migrations\MigrationCreator($c['filesytem']);
+    return new \Illuminate\Database\Migrations\MigrationCreator($c['filesystem']);
 };
 
 $container['migrator'] = function ($c) {
-    return new Illuminate\Database\Migrations\Migrator($c['migration-repo'], $c['resolver'], $c['filesytem']);
+    return new Illuminate\Database\Migrations\Migrator($c['migration-repo'], $c['resolver'], $c['filesystem']);
 };
 
 $container['install-command'] = function ($c) {
@@ -146,7 +146,7 @@ PHP 6. Symfony\Component\Console\Command\Command->run() E:\demo\vendor\illuminat
 PHP 7. Illuminate\Console\Command->execute() E:\demo\vendor\symfony\console\Symfony\Component\Console\Command\Command.php:253
 ```
 
-Upon inspecting `Command.php` in `illuminate\console` package, I found that the follwing line (L115) was the culprit.
+Upon inspecting `Command.php` in `illuminate\console` package, I found that the following line (L115) was the culprit.
 
 ```php
 return $this->laravel->call([$this, $method]);

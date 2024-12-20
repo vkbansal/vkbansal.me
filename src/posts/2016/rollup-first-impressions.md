@@ -29,29 +29,29 @@ I tested the examples bundle from my [react-contextmenu](https://github.com/vkba
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './examples/index.js',
-	output: {
-		filename: './bundle.js',
-		sourceMapFileName: './bundle.js.map',
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				loaders: ['babel'],
-				exclude: /node_modules/,
-			},
-		],
-	},
-	devtool: 'source-map',
-	plugins: [
-		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({
-			compressor: {
-				warnings: false,
-			},
-		}),
-	],
+  entry: './examples/index.js',
+  output: {
+    filename: './bundle.js',
+    sourceMapFileName: './bundle.js.map',
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  devtool: 'source-map',
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+    }),
+  ],
 };
 ```
 
@@ -62,31 +62,31 @@ After digging through [Rollup's wiki](https://github.com/rollup/rollup/wiki), I 
 'use strict';
 
 let babel = require('rollup-plugin-babel'),
-	commonjs = require('rollup-plugin-commonjs'),
-	npm = require('rollup-plugin-npm'),
-	uglify = require('rollup-plugin-uglify');
+  commonjs = require('rollup-plugin-commonjs'),
+  npm = require('rollup-plugin-npm'),
+  uglify = require('rollup-plugin-uglify');
 
 module.exports = {
-	entry: './examples/index.js',
-	format: 'umd',
-	dest: 'bundle.js',
-	plugins: [
-		babel({
-			exclude: 'node_modules/**',
-		}),
-		npm({
-			jsnext: true,
-			main: true,
-		}),
-		commonjs({
-			include: 'node_modules/**',
-		}),
-		uglify(),
-	],
+  entry: './examples/index.js',
+  format: 'umd',
+  dest: 'bundle.js',
+  plugins: [
+    babel({
+      exclude: 'node_modules/**',
+    }),
+    npm({
+      jsnext: true,
+      main: true,
+    }),
+    commonjs({
+      include: 'node_modules/**',
+    }),
+    uglify(),
+  ],
 };
 ```
 
-**Important Note**: Rollup suggets using `es2015-rollup` preset instead of `es2015` while using Babel 6.
+**Important Note**: Rollup suggests using `es2015-rollup` preset instead of `es2015` while using Babel 6.
 
 Next, all I needed to do was run the following command:
 

@@ -58,21 +58,21 @@ For ease of switching between the debug build and the production build, we can s
 using webpack aliases.
 
 ```js
-// webpack.confis.js
+// webpack.config.js
 const path = require('path');
 const PROD = process.env.NODE_ENV === 'production';
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-	// rest of the config...
-	resolve: {
-		alias: {
-			'sql.js': PROD
-				? path.resolve(process.cwd(), './node_modules/sql.js/dist/sql-wasm.js')
-				: path.resolve(process.cwd(), './node_modules/sql.js/dist/sql-wasm-debug.js'),
-		},
-	},
-	// rest of the config...
+  // rest of the config...
+  resolve: {
+    alias: {
+      'sql.js': PROD
+        ? path.resolve(process.cwd(), './node_modules/sql.js/dist/sql-wasm.js')
+        : path.resolve(process.cwd(), './node_modules/sql.js/dist/sql-wasm-debug.js'),
+    },
+  },
+  // rest of the config...
 };
 ```
 
@@ -83,23 +83,23 @@ yarn add copy-webpack-plugin
 ```
 
 ```js
-// webpack.confis.js
+// webpack.config.js
 const path = require('path');
 const PROD = process.env.NODE_ENV === 'production';
 
 module.exports = {
-	// rest of the config...
-	plugins: [
-		new CopyWebpackPlugin([
-			{
-				from: PROD
-					? './node_modules/sql.js/dist/sql-wasm.wasm'
-					: './node_modules/sql.js/dist/sql-wasm-debug.wasm',
-				to: './',
-			},
-		]),
-	],
-	// rest of the config...
+  // rest of the config...
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: PROD
+          ? './node_modules/sql.js/dist/sql-wasm.wasm'
+          : './node_modules/sql.js/dist/sql-wasm-debug.wasm',
+        to: './',
+      },
+    ]),
+  ],
+  // rest of the config...
 };
 ```
 
@@ -110,11 +110,11 @@ Now you can invoke, `sql.js` from your code.
 import initSqlJs from 'sql.js';
 
 async function initApp(params) {
-	const SQL = await initSqlJs();
-	const db = new SQL.DATABASE();
+  const SQL = await initSqlJs();
+  const db = new SQL.DATABASE();
 
-	// no you can use sqlite!
-	db.exec('SELECT 1;');
+  // no you can use sqlite!
+  db.exec('SELECT 1;');
 }
 
 initApp();
