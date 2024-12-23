@@ -1,9 +1,15 @@
 ---
-import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from 'astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
-import { PAGE_SIZE } from '$/site-config';
+
+import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from 'astro';
+
 import BlogList from '$/layouts/BlogList.astro';
+import { PAGE_SIZE } from '$/site-config';
 import { filterPostsCollection, sortPostsCollection } from '$/utils/helpers';
+
+export interface Props {
+	page: Page<CollectionEntry<'posts'>>;
+}
 
 export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetStaticPathsResult> {
 	const blogEntries = await getCollection('posts', filterPostsCollection);
@@ -12,7 +18,7 @@ export async function getStaticPaths(opt: GetStaticPathsOptions): Promise<GetSta
 	return opt.paginate(blogEntries, { pageSize: PAGE_SIZE });
 }
 
-const { page } = Astro.props as { page: Page<CollectionEntry<'posts'>> };
+const { page } = Astro.props;
 ---
 
 <BlogList page={page} />

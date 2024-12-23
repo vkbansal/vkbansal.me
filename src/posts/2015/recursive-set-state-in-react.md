@@ -17,28 +17,28 @@ The line `Merges nextState with the current state` lead me in thinking that it w
 
 ```jsx
 var SomeComponent = React.createClass({
-	getInitialState: function () {
-		return {
-			user: {
-				name: 'John Doe',
-				email: 'johndoe@example.com',
-			},
-			foo: 'bar',
-		};
-	},
-	callJane: function () {
-		this.setState({ user: { name: 'Jane Doe' } });
-	},
-	render: function () {
-		return (
-			<div>
-				<p>{this.state.user.name}</p>
-				<p>{this.state.user.email}</p>
-				<p>foo is {this.state.foo}</p>
-				<button onClick={this.callJane}>Call Jane</button>
-			</div>
-		);
-	},
+  getInitialState: function () {
+    return {
+      user: {
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+      },
+      foo: 'bar',
+    };
+  },
+  callJane: function () {
+    this.setState({ user: { name: 'Jane Doe' } });
+  },
+  render: function () {
+    return (
+      <div>
+        <p>{this.state.user.name}</p>
+        <p>{this.state.user.email}</p>
+        <p>foo is {this.state.foo}</p>
+        <button onClick={this.callJane}>Call Jane</button>
+      </div>
+    );
+  },
 });
 
 React.render(<SomeComponent />, document.getElementsByTagName('body')[0]);
@@ -48,7 +48,7 @@ When I click `Call Jane`, I expected just the name to be updated. But as you can
 
 ![Non-recursive Merge in ReactJS](./images/react-non-recursive-merge.gif)
 
-Upon inspection, I found out that the `setState` merges states only upto single level. So the following `InitialState`
+Upon inspection, I found out that the `setState` merges states only up to single level. So the following `InitialState`
 
 ```js
 {
@@ -90,18 +90,18 @@ I looked into utility libraries like underscore, lodash, etc.. Lodash has a `mer
 ```js
 //Using jQuery.extend
 var setStateRecursiveMixin = {
-	setStateRecursive: function (nextState) {
-		var prevState = this.state;
-		this.setState($.extend(true, {}, prevState, nextState));
-	},
+  setStateRecursive: function (nextState) {
+    var prevState = this.state;
+    this.setState($.extend(true, {}, prevState, nextState));
+  },
 };
 
 //Using Lodash.merge
 var setStateRecursiveMixin = {
-	setStateRecursive: function (nextState) {
-		var prevState = this.state;
-		this.setState(_.merge(prevState, nextState));
-	},
+  setStateRecursive: function (nextState) {
+    var prevState = this.state;
+    this.setState(_.merge(prevState, nextState));
+  },
 };
 ```
 
@@ -109,29 +109,29 @@ It can be used as follows
 
 ```jsx
 var SomeComponent = React.createClass({
-	mixins: [setStateRecursiveMixin],
-	getInitialState: function () {
-		return {
-			user: {
-				name: 'John Doe',
-				email: 'johndoe@example.com',
-			},
-			foo: 'bar',
-		};
-	},
-	callJane: function () {
-		this.setStateRecursive({ user: { name: 'Jane Doe' } });
-	},
-	render: function () {
-		return (
-			<div>
-				<p>{this.state.user.name}</p>
-				<p>{this.state.user.email}</p>
-				<p>foo is {this.state.foo}</p>
-				<button onClick={this.callJane}>Call Jane</button>
-			</div>
-		);
-	},
+  mixins: [setStateRecursiveMixin],
+  getInitialState: function () {
+    return {
+      user: {
+        name: 'John Doe',
+        email: 'johndoe@example.com',
+      },
+      foo: 'bar',
+    };
+  },
+  callJane: function () {
+    this.setStateRecursive({ user: { name: 'Jane Doe' } });
+  },
+  render: function () {
+    return (
+      <div>
+        <p>{this.state.user.name}</p>
+        <p>{this.state.user.email}</p>
+        <p>foo is {this.state.foo}</p>
+        <button onClick={this.callJane}>Call Jane</button>
+      </div>
+    );
+  },
 });
 
 React.render(<SomeComponent />, document.getElementsByTagName('body')[0]);

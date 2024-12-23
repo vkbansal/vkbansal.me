@@ -1,12 +1,15 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
+
+import { SITE_TITLE, SITE_URL, SOCIAL_LINKS, type SocialLink } from 'site-config';
+
+import Footer from 'components/Footer.astro';
+import Header from 'components/Header.astro';
 import logo16 from 'images/logo-16.png';
 import logo32 from 'images/logo-32.png';
 import logo96 from 'images/logo-96.png';
 import logo512 from 'images/logo-512.png';
-import Header from 'components/Header.astro';
-import Footer from 'components/Footer.astro';
-import { SOCIAL_LINKS, SITE_TITLE, SITE_URL, type SocialLink } from 'site-config';
+
 import 'styles/main.scss';
 
 export interface Props {
@@ -14,7 +17,7 @@ export interface Props {
 	description: string;
 }
 
-const { title, description } = Astro.props as Props;
+const { title, description } = Astro.props;
 const pageTitle = `${title ? `${title} - ` : ''}${SITE_TITLE}`;
 const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLink;
 ---
@@ -37,7 +40,7 @@ const twitter = SOCIAL_LINKS.find((link) => link.name === 'Twitter') as SocialLi
 		<meta name="twitter:site" content={`@${twitter.username}`} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={`${SITE_URL}${logo512.src}`} />
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body>
 		<Header />

@@ -9,13 +9,7 @@ export interface Props {
 	getLink: (n: number) => string;
 }
 
-const {
-	totalPages,
-	currentPage,
-	getLink,
-	groupSize = 3,
-	offsetGroupSize = 1,
-} = Astro.props as Props;
+const { totalPages, currentPage, getLink, groupSize = 3, offsetGroupSize = 1 } = Astro.props;
 const moreLeft = currentPage > groupSize;
 const moreRight = totalPages - currentPage >= groupSize;
 ---

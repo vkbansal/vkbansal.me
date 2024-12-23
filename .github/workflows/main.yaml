@@ -22,7 +22,15 @@ jobs:
       - name: Setup
         uses: vkbansal/pnpm-setup-action@main
       - name: Type Check
-        run: pnpm run typecheck
+        run: pnpm run check
+  spellcheck:
+    name: SpellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: vkbansal/pnpm-setup-action@main
+      - name: Spell Check
+        run: pnpm run spell
   prettier:
     name: Prettier
     runs-on: ubuntu-latest

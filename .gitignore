@@ -16,3 +16,4 @@ temp/
 .hashes.json
 .certificates
 .astro
+.vercel

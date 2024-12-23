@@ -14,7 +14,7 @@ As an exercise on learning how SVG works, I decided to create a pie/donut-chart 
 
 For creating any charts, we need to understand few things about SVG first.
 
-Unlike, normal graph coordinate system, the SVG coordinate has its Y-axis reversed. As you increase y-coordinates, the point moves down instead of up and vice-cersa. (You can read more about it [here](http://tutorials.jenkov.com/svg/svg-coordinate-system.html)).
+Unlike, normal graph coordinate system, the SVG coordinate has its Y-axis reversed. As you increase y-coordinates, the point moves down instead of up and vice-versa. (You can read more about it [here](http://tutorials.jenkov.com/svg/svg-coordinate-system.html)).
 
 Next, to draw an arc, we will be using `path` element of SVG, and we need a starting-point, radius and an end-point for it. A typical arc path looks something like this:
 
@@ -38,7 +38,7 @@ For more detailed info, you can [read this](http://tutorials.jenkov.com/svg/path
 
 The following is a diagram of a circle in the SVG coordinate-system. We assume that `r` is the radius of the the circle.
 
-<img src="./images/donught-chart-analysis.png" class="image center invert" alt="Chart analysis">
+<img src="./images/donut-chart-analysis.png" class="image center invert" alt="Chart analysis">
 
 Now suppose we want the coordinates of a point `A` on the circle which has an angle <code>θ</code> from vertical axis, we will make projections of `A` on horizontal and vertical axis as <code><i>X</i></code> and <code><i>Y</i></code> respectively. By using basic trigonometry we get:
 
@@ -96,7 +96,7 @@ Next we move to point `R(x, y)`. Thus we can write:
 <path d="M P.x,P.y A r2,r2 0 0,1 Q.x,Q.y L R.x,R.y" />
 ```
 
-Next we move **counterclock-wise** to point `S(x, y)` with radius <code>r<sub>1</sub></code>. Thus, we can write:
+Next we move **counter clock-wise** to point `S(x, y)` with radius <code>r<sub>1</sub></code>. Thus, we can write:
 
 ```html
 <path d="M P.x,P.y A r2,r2 0 0,1 Q.x,Q.y L R.x,R.y A r1,r1 0 0,0 S.x,S.y Z" />
@@ -110,36 +110,36 @@ The final javascript code will look like this:
 
 ```js
 function arc(startAngle, endAngle, outerRadius, innerRadius = 0) {
-	const sinAlpha = Math.sin(startAngle);
-	const cosAlpha = Math.cos(startAngle);
-	const sinBeta = Math.sin(endAngle);
-	const cosBeta = Math.cos(endAngle);
+  const sinAlpha = Math.sin(startAngle);
+  const cosAlpha = Math.cos(startAngle);
+  const sinBeta = Math.sin(endAngle);
+  const cosBeta = Math.cos(endAngle);
 
-	const largeArc = endAngle - startAngle > Math.PI;
+  const largeArc = endAngle - startAngle > Math.PI;
 
-	const P = {
-		x: outerRadius + outerRadius * sinAlpha,
-		y: outerRadius - outerRadius * cosAlpha,
-	};
+  const P = {
+    x: outerRadius + outerRadius * sinAlpha,
+    y: outerRadius - outerRadius * cosAlpha,
+  };
 
-	const Q = {
-		x: outerRadius + outerRadius * sinBeta,
-		y: outerRadius - outerRadius * cosBeta,
-	};
+  const Q = {
+    x: outerRadius + outerRadius * sinBeta,
+    y: outerRadius - outerRadius * cosBeta,
+  };
 
-	const R = {
-		x: outerRadius + innerRadius * sinBeta,
-		y: outerRadius - innerRadius * cosBeta,
-	};
+  const R = {
+    x: outerRadius + innerRadius * sinBeta,
+    y: outerRadius - innerRadius * cosBeta,
+  };
 
-	const S = {
-		x: outerRadius + innerRadius * sinAlpha,
-		y: outerRadius - innerRadius * cosAlpha,
-	};
+  const S = {
+    x: outerRadius + innerRadius * sinAlpha,
+    y: outerRadius - innerRadius * cosAlpha,
+  };
 
-	return `M${P.x},${P.y} A${outerRadius},${outerRadius} 0 ${largeArc ? '1,1' : '0,1'} ${Q.x},${
-		Q.y
-	} L${R.x},${R.y} A${innerRadius},${innerRadius} 0 ${largeArc ? '1,0' : '0,0'} ${S.x},${S.y} Z`;
+  return `M${P.x},${P.y} A${outerRadius},${outerRadius} 0 ${largeArc ? '1,1' : '0,1'} ${Q.x},${
+    Q.y
+  } L${R.x},${R.y} A${innerRadius},${innerRadius} 0 ${largeArc ? '1,0' : '0,0'} ${S.x},${S.y} Z`;
 }
 ```
 
@@ -150,16 +150,16 @@ Suppose you have data in the the following format:
 ```js
 // random data from https://www.mockaroo.com/
 const data = [
-	{
-		label: 'web-enabled',
-		value: 717,
-		color: '#460898',
-	},
-	/* ... */
+  {
+    label: 'web-enabled',
+    value: 717,
+    color: '#460898',
+  },
+  /* ... */
 ];
 ```
 
-Total can be easily calculated using `Array.proptotype.reduce`:
+Total can be easily calculated using `Array.prototype.reduce`:
 
 ```js
 const total = data.reduce((p, c) => p + c.value, 0);
@@ -169,11 +169,11 @@ Now that we have raw data and total, we have to scale the data linearly between 
 
 ```js
 function scale(value) {
-	return (value * Math.PI * 2) / total;
+  return (value * Math.PI * 2) / total;
 }
 ```
 
-Now we can loop over the data and plot the chart. You can use any of your favourite frameworks like React, Vue, etc., or not and simply use vanilla JS as follows:
+Now we can loop over the data and plot the chart. You can use any of your favorite frameworks like React, Vue, etc., or not and simply use vanilla JS as follows:
 
 ```js
 const fragment = document.createDocumentFragment();
@@ -184,25 +184,25 @@ const innerRadius = 150;
 let startAngle = 0;
 
 data.forEach((slice) => {
-	const { value, color, label } = slice;
-	const sectorAngle = scale(value);
-	const d = arc(startAngle, startAngle + sectorAngle, outerRadius, innerRadius);
+  const { value, color, label } = slice;
+  const sectorAngle = scale(value);
+  const d = arc(startAngle, startAngle + sectorAngle, outerRadius, innerRadius);
 
-	startAngle += sectorAngle;
+  startAngle += sectorAngle;
 
-	const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-	const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-	title.innerHTML = label;
-	path.setAttribute('d', d);
-	path.setAttribute('fill', color);
-	path.appendChild(title);
-	fragment.appendChild(path);
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+  title.innerHTML = label;
+  path.setAttribute('d', d);
+  path.setAttribute('fill', color);
+  path.appendChild(title);
+  fragment.appendChild(path);
 });
 
 document.getElementById('pie').appendChild(fragment); // assuming there is an svg with #pie available
 ```
 
-And we are done. Now you'll a functional pie/donught chart without the need of d3!
+And we are done. Now you'll a functional pie/donut chart without the need of d3!
 
 ## Final Result
 

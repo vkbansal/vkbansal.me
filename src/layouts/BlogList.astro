@@ -1,17 +1,19 @@
 ---
-import type { Page } from 'astro';
 import type { CollectionEntry } from 'astro:content';
+
+import type { Page } from 'astro';
 
 import ArticlePreview from 'components/ArticlePreview.astro';
 import Breadcrumbs from 'components/Breadcrumbs.astro';
 import Pagination from 'components/Pagination.astro';
+
 import MainLayout from './MainLayout.astro';
 
 export interface Props {
 	page: Page<CollectionEntry<'posts'>>;
 }
 
-const { page } = Astro.props as Props;
+const { page } = Astro.props;
 const { lastPage: totalPages, currentPage } = page;
 ---
 

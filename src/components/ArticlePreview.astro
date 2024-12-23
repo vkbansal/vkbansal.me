@@ -1,35 +1,36 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+
 import dayjs from 'dayjs';
 import readingTime from 'reading-time';
 
-import type { CollectionEntry } from 'astro:content';
+import { AUTHOR } from '$/site-config';
+import { postSlugToURL } from '$/utils/helpers';
 
 import Tags from './Tags.astro';
-import { postSlugToURL } from '$/utils/helpers';
-import { AUTHOR } from '$/site-config';
 
 export interface Props {
 	post: CollectionEntry<'posts'>;
 }
 
-const { post } = Astro.props as Props;
+const { post } = Astro.props;
 const formattedDate = dayjs(post.data.date).format('MMMM DD, YYYY');
-const readingStats = readingTime(post.body);
+const readingStats = readingTime(post.body ?? '');
 ---
 
 <div class="article-preview">
-	<h2 class="h3" transition:name={`post:${post.slug}`}>
-		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.title} />
+	<h2 class="h3" transition:name={`post:${post.id}`}>
+		<a class="link" href={postSlugToURL(post.id)} set:html={post.data.title} />
 	</h2>
-	<div class="metadata" transition:name={`metadata:${post.slug}`}>
+	<div class="metadata" transition:name={`metadata:${post.id}`}>
 		<p class="author">{AUTHOR.name}</p>
 		<p>{formattedDate}</p>
 		<p>{readingStats.text}</p>
 	</div>
 	<p class="post-description">
-		<a class="link" href={postSlugToURL(post.slug)} set:html={post.data.description} />
+		<a class="link" href={postSlugToURL(post.id)} set:html={post.data.description} />
 	</p>
-	<Tags transition:name={`tags:${post.slug}`} tags={post.data.tags} />
+	<Tags transition:name={`tags:${post.id}`} tags={post.data.tags} />
 </div>
 
 <style lang="scss">

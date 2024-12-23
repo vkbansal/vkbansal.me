@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content';
+
 import dayjs from 'dayjs';
 
 export function times<T = unknown>(n: number, callback: (n: number) => T): T[] {

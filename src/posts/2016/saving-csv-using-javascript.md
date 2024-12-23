@@ -23,7 +23,7 @@ There are certain guidelines that a CSV file needs to follow as specified in [RF
     ```
     1,Timothy,Hamilton,Male,146.205.212.14
     ```
-2.  The fileds can contain any letters and numbers but no quotes and commas.
+2.  The fields can contain any letters and numbers but no quotes and commas.
     ```
     3,Terry,Vasquez,Male,119.83.126.89 // Correct
     3,Terry,"Vas'qu,ez",Male,119.83.126.89 // This is also correct CSV,
@@ -45,23 +45,23 @@ Keeping this basic rules in mind, lets begin:
 
 ```js
 const data = [
-	[1, 'Timothy', 'Hamilton', 'Male', '146.205.212.14'],
-	[2, 'Jose', 'Parker', 'Male', '93.159.55.174'],
-	[3, 'Terry', 'Vasquez', 'Male', '119.83.126.89'],
-	[4, 'Ruby', 'Rose', 'Female', '124.60.220.96'],
-	[5, 'Lawrence', 'Henderson', 'Male', '208.165.238.89'],
-	[6, 'Jeffrey', 'Campbell', 'Male', '235.159.156.1'],
-	[7, 'Jack', 'Torres', 'Male', '220.147.205.219'],
-	[8, 'Rachel', 'Stanley', 'Female', '186.17.24.36'],
-	[9, 'Gregory', 'Pierce', 'Male', '241.176.82.141'],
-	[10, 'Ronald', 'Hanson', 'Male', '70.93.233.186'],
+  [1, 'Timothy', 'Hamilton', 'Male', '146.205.212.14'],
+  [2, 'Jose', 'Parker', 'Male', '93.159.55.174'],
+  [3, 'Terry', 'Vasquez', 'Male', '119.83.126.89'],
+  [4, 'Ruby', 'Rose', 'Female', '124.60.220.96'],
+  [5, 'Lawrence', 'Henderson', 'Male', '208.165.238.89'],
+  [6, 'Jeffrey', 'Campbell', 'Male', '235.159.156.1'],
+  [7, 'Jack', 'Torres', 'Male', '220.147.205.219'],
+  [8, 'Rachel', 'Stanley', 'Female', '186.17.24.36'],
+  [9, 'Gregory', 'Pierce', 'Male', '241.176.82.141'],
+  [10, 'Ronald', 'Hanson', 'Male', '70.93.233.186'],
 ];
 
 let csvData = '';
 
 data.forEach((row) => {
-	csvData += '\n';
-	csvData += row.reduce((prev, col) => `${prev},${col}`, '').slice(1);
+  csvData += '\n';
+  csvData += row.reduce((prev, col) => `${prev},${col}`, '').slice(1);
 });
 ```
 

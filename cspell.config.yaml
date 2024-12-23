@@ -1,0 +1,18 @@
+dictionaries:
+  - node
+  - typescript
+  - html
+  - css
+  - latex
+  - bash
+  - npm
+  - person-names
+  - code
+dictionaryDefinitions:
+  - name: person-names
+    path: './.cspell/names.txt'
+  - name: code
+    path: './.cspell/code.txt'
+ignoreRegExpList:
+  - >-
+    src=".*"

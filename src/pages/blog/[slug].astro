@@ -1,24 +1,25 @@
 ---
-import type { GetStaticPathsItem } from 'astro';
-import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import dayjs from 'dayjs';
-import readingTime from 'reading-time';
-import { decode } from 'html-entities';
+import { getCollection, render } from 'astro:content';
 
-import { AUTHOR, CODE_REPOSITORY } from '$/site-config';
-import MainLayout from '$/layouts/MainLayout.astro';
+import type { GetStaticPathsItem } from 'astro';
+import dayjs from 'dayjs';
+import { decode } from 'html-entities';
+import readingTime from 'reading-time';
+
 import Breadcrumbs from '$/components/Breadcrumbs.astro';
 import Tags from '$/components/Tags.astro';
-import { filterPostsCollection, sortPostsCollection, postSlugToURL } from '$/utils/helpers';
+import MainLayout from '$/layouts/MainLayout.astro';
+import { AUTHOR, CODE_REPOSITORY } from '$/site-config';
+import { filterPostsCollection, postSlugToURL, sortPostsCollection } from '$/utils/helpers';
 
-export interface BlogProps {
+export interface Props {
 	post: CollectionEntry<'posts'>;
 	prevPost: CollectionEntry<'posts'> | undefined;
 	nextPost: CollectionEntry<'posts'> | undefined;
 }
 
-type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'> & { props: BlogProps };
+type GetStaticPathsResult = Omit<GetStaticPathsItem, 'props'>;
 
 export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 	const blogEntries = await getCollection('posts', filterPostsCollection);
@@ -29,17 +30,17 @@ export async function getStaticPaths(): Promise<GetStaticPathsResult[]> {
 		const nextPost = blogEntries[i - 1];
 
 		return {
-			params: { slug: post.slug.split('/').slice(1).join('/') },
+			params: { slug: post.id.split('/').slice(1).join('/') },
 			props: { post, prevPost, nextPost },
 		};
 	});
 }
 
-const { post, prevPost, nextPost } = Astro.props as BlogProps;
+const { post, prevPost, nextPost } = Astro.props;
 const formattedDate = dayjs(post.data.date).format('MMMM DD, YYYY');
-const { Content } = await post.render();
+const { Content } = await render(post);
 const githubLink = `${CODE_REPOSITORY}tree/main/src/content/posts/${post.id}`;
-const readingStats = readingTime(post.body);
+const readingStats = readingTime(post.body ?? '');
 const decodedTitle = decode(post.data.title);
 ---
 
@@ -48,24 +49,24 @@ const decodedTitle = decode(post.data.title);
 		<Breadcrumbs
 			links={[
 				{ label: 'Blog', link: '/blog/' },
-				{ label: post.data.title, link: postSlugToURL(post.slug) },
+				{ label: post.data.title, link: postSlugToURL(post.id) },
 			]}
 		/>
-		<h1 transition:name={`post:${post.slug}`} set:html={post.data.title} />
-		<div transition:name={`metadata:${post.slug}`} class="metadata">
+		<h1 transition:name={`post:${post.id}`} set:html={post.data.title} />
+		<div transition:name={`metadata:${post.id}`} class="metadata">
 			<p class="author">{AUTHOR.name}</p>
 			<p>{formattedDate}</p>
 			<p>{readingStats.text}</p>
 		</div>
 		<Content />
-		<Tags transition:name={`tags:${post.slug}`} tags={post.data.tags} />
+		<Tags transition:name={`tags:${post.id}`} tags={post.data.tags} />
 		<p class="other-links">
 			<a href={githubLink} target="_blank" rel="noopener noreferrer">Edit on GitHub</a>
 		</p>
 		<nav class="post-pagination" role="navigation" aria-label="pagination">
 			{
 				prevPost ? (
-					<a class="prev-post" href={postSlugToURL(prevPost.slug)}>
+					<a class="prev-post" href={postSlugToURL(prevPost.id)}>
 						<span class="hint">&larr; Previous Post</span>
 						<span class="title" set:html={prevPost.data.title} />
 					</a>
@@ -75,7 +76,7 @@ const decodedTitle = decode(post.data.title);
 			}
 			{
 				nextPost ? (
-					<a class="next-post" href={postSlugToURL(nextPost.slug)}>
+					<a class="next-post" href={postSlugToURL(nextPost.id)}>
 						<span class="hint">Next Post &rarr;</span>
 						<span class="title" set:html={nextPost.data.title} />
 					</a>

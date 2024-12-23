@@ -10,7 +10,7 @@ tags:
 I was looking for an ORM to use in a project and that lead to a lot of research. I finalized my list to `Doctrine`, `Propel` and `Eloquent`. I did not like `Doctrine`'s way of using annotations. I tried `Propel` (specifically the upcoming version 2) and really liked it but it wasn't stable enough to be used in production. Then I looked into `Eloquent` of the
 [Laravel](http://laravel.com) fame and it instantly blew my mind.
 
-Initially Eloquent was tightly coupled into the framework but as the public demand grew, a package called `Capsule` was created by the (in)famous [Phil Sturgeon](https://twitter.com/philsturgeon). Later it was merged into the offical repository. Today we will be learning how to use it outside Laravel.
+Initially Eloquent was tightly coupled into the framework but as the public demand grew, a package called `Capsule` was created by the (in)famous [Phil Sturgeon](https://twitter.com/philsturgeon). Later it was merged into the official repository. Today we will be learning how to use it outside Laravel.
 
 ## Installation
 
@@ -71,7 +71,7 @@ Capsule::schema()->create('users', function (Blueprint $table) {
     $table->timestamps();
 });
 
-//Droping Schema
+//Dropping Schema
 Capsule::schema()->dropIfExists('users');
 ```
 

@@ -1,5 +1,6 @@
 ---
 import { NAV_LINKS } from 'site-config';
+
 import logo from 'images/logo.svg?raw';
 
 const { pathname: currentPath } = Astro.url;
@@ -63,7 +64,7 @@ const { pathname: currentPath } = Astro.url;
 			const toggleTheme = document.getElementById('toggle-dark-mode') as HTMLInputElement;
 			const isDarkTheme = localStorage.getItem('theme') === 'dark';
 
-			function setTheme(dark?: boolean, updateLocalStorage?: boolean) {
+			function setTheme(dark?: boolean, updateLocalStorage?: boolean): void {
 				const theme = dark ? 'dark' : 'light';
 				if (toggleTheme) {
 					toggleTheme.checked = !!dark;
@@ -87,7 +88,9 @@ const { pathname: currentPath } = Astro.url;
 				});
 			}
 			setTimeout(() => toggleTheme.classList.add('animate'), 1000);
-		} catch (e) {}
+		} catch {
+			// do nothing
+		}
 	})();
 </script>
 <style lang="scss">
