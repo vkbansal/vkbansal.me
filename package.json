@@ -22,7 +22,7 @@
 		"@astrojs/markdown-remark": "^6.3.5",
 		"@shikijs/transformers": "^3.9.2",
 		"@shikijs/twoslash": "^3.9.2",
-		"astro": "^5.12.9",
+		"astro": "^5.13.1",
 		"change-case": "^5.4.4",
 		"dayjs": "^1.11.13",
 		"html-entities": "^2.6.0",
